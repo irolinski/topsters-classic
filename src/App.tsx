@@ -1,23 +1,29 @@
 import "./App.scss";
 import { useEffect, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
+import Collage from "./Components/Charts/Collage";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
-function App() {
-  // table modes
+// type declarations
+export type lastFmAlbumImages = {
+  text: string;
+  size: string;
+};
 
-  //collage 4x4 format takes 4x4
+export type lastFmAlbum = {
+  name: string;
+  artist: string;
+  image: lastFmAlbumImages[];
+  // ?streamable: number
+  url: string;
+};
+
+function App() {
+  // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("collage");
 
-  //top 40 format takes 4/2x8/3x10
-
-  //top100 format takes 2x5/3x10/4x10
-
-  //maybe I should do also collage 8x8??
-
   // last.fm api search feature
-
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
 
@@ -357,7 +363,11 @@ function App() {
   // insert image onto canvas
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  console.log("selected index:" + selectedIndex);
+
+  const changeIndex: any = (i: number) => {
+    setSelectedIndex(i);
+  };
+  // console.log("selected index:" + selectedIndex);
 
   const [refresh, setRefresh] = useState(false);
 
@@ -376,75 +386,27 @@ function App() {
 
   return (
     <main className="flex flex-wrap">
-      <div className="chart-wrapper w-4/5">
-        <div
-          className="html2canvas-container w-full p-[2px] content-center"
-          ref={exportRef}
-        >
-          <div className="w-3/5">
-            {/* <h2 className="font-bold underline -translate-y-4">Chart</h2> */}
-            <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
-              {tableMode === "collage" &&
-                collage.map((a, i) => {
-                  return (
-                    <div
-                      className={`${
-                        i === selectedIndex && "selected-index"
-                      } collage w-[125px] h-[125px] m-[2px]`}
-                      key={i}
-                      onClick={() => {
-                        setSelectedIndex(i);
-                      }}
-                    >
-                      {
-                        /*@ts-ignore */
-                        a.image[1]["#text"] ? (
-                          <img
-                            className="w-full "
-                            /*@ts-ignore */
-                            src={`${a.image[2]["#text"]}`}
-                          />
-                        ) : (
-                          <img
-                            className="w-full "
-                            src={`${a.image[2]["text"]}`}
-                          />
-                        )
-                      }
-
-                      {/* remmber to change it to "#text" later */}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-
-          <div className="w-2/5 max-h-full">
-            <div className="collage leading-none -translate-x-[40px]">
-              {tableMode === "collage" &&
-                collage.map((a, i) => {
-                  return (
-                    <>
-                      <span className="m-[2px] text-left">
-                        {a.artist} - {a.name}{" "}
-                      </span>
-                      {(i + 1) % 4 === 0 && (
-                        <div>
-                          {" "}
-                          <br />{" "}
-                        </div>
-                      )}
-                    </>
-                  );
-                })}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* //better make it into a sidebar */}
-      <div className="menu-wrapper w-1/5">
+      <section className="chart-wrapper w-4/5">
+        {/* collage */}
+        {tableMode === "collage" && (
+          <Collage
+            exportRef={exportRef}
+            collageData={collage}
+            selectedIndex={selectedIndex}
+            changeIndex={changeIndex}
+          />
+        )}
+      </section>
+      {/* // MENU */}
+      <section className="menu-wrapper w-1/5">
+        <h2>Choose your chart:</h2>
+        <select onChange={(evt) => setTableMode(evt.target.value)}>
+          <option value="collage">Collage</option>
+          <option value="top40">Top 40</option>
+          <option value="top100">Top 100</option>
+        </select>
         <h2>Search for your albums:</h2>
-        <div className="search-input-div bg-gray">
+        <div className="search-input">
           <input
             type="text"
             onKeyUp={async (evt) =>
@@ -490,7 +452,7 @@ function App() {
               );
             })}
         </div>
-      </div>
+      </section>
     </main>
   );
 }
