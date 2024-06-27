@@ -377,52 +377,64 @@ function App() {
   return (
     <main className="flex flex-wrap">
       <div className="chart-wrapper w-4/5">
-        <div className="html2canvas-container w-full" ref={exportRef}>
+        <div
+          className="html2canvas-container w-full p-[2px] content-center"
+          ref={exportRef}
+        >
           <div className="w-3/5">
-          <h2 className="font-bold underline -translate-y-4">Chart</h2>
-          <div className="image-div flex max-h-full max-w-2/3 flex-wrap m-auto">
-            {tableMode === "collage" &&
-              collage.map((a, i) => {
-                return (
-                  <div
-                    className={`${
-                      i === selectedIndex && "selected-index"
-                    } collage w-[64px] h-[64px] m-[3px]`}
-                    key={i}
-                    onClick={() => {
-                      setSelectedIndex(i);
-                    }}
-                  >
-                    {/*@ts-ignore */}
-                    {a.image[1]["#text"] ? (
-                      <img src={`${a.image[1]["#text"]}`} />
-                    ) : (
-                      <img src={`${a.image[1]["text"]}`} />
-                    )}
+            {/* <h2 className="font-bold underline -translate-y-4">Chart</h2> */}
+            <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
+              {tableMode === "collage" &&
+                collage.map((a, i) => {
+                  return (
+                    <div
+                      className={`${
+                        i === selectedIndex && "selected-index"
+                      } collage w-[125px] h-[125px] m-[2px]`}
+                      key={i}
+                      onClick={() => {
+                        setSelectedIndex(i);
+                      }}
+                    >
+                      {
+                        /*@ts-ignore */
+                        a.image[1]["#text"] ? (
+                          <img
+                            className="w-full "
+                            /*@ts-ignore */
+                            src={`${a.image[2]["#text"]}`}
+                          />
+                        ) : (
+                          <img
+                            className="w-full "
+                            src={`${a.image[2]["text"]}`}
+                          />
+                        )
+                      }
 
-                    {/* remmber to change it to "#text" later */}
-                  </div>
-                );
-              })}
+                      {/* remmber to change it to "#text" later */}
+                    </div>
+                  );
+                })}
             </div>
-            </div>
+          </div>
 
           <div className="w-2/5 max-h-full">
-            <div className="collage leading-none " >
+            <div className="collage leading-none -translate-x-[40px]">
               {tableMode === "collage" &&
                 collage.map((a, i) => {
                   return (
                     <>
-                      <span className="text-xs inline-block m-2">
+                      <span className="m-[2px] text-left">
                         {a.artist} - {a.name}{" "}
                       </span>
-                      {i > 0 && i % 4 === 0 && (
+                      {(i + 1) % 4 === 0 && (
                         <div>
                           {" "}
                           <br />{" "}
                         </div>
                       )}
-                  </>
+                    </>
                   );
                 })}
             </div>

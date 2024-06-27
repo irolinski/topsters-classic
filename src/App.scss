@@ -2,37 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-img{
-  max-width: 100px;
-  max-height: 100px;
-} 
-
-.html2canvas-container{
-  width: 600px;
-  height: 600px;
+.html2canvas-container {
+  width: 1024px;
+  height: 576px;
   display: flex;
-  justify-content: space-between;
-  padding: 48px;
+  // justify-content: space-between;
+  // padding: 48px;
   position: relative;
   flex-wrap: wrap;
-  background-color: blue;
+  background-color: black;
 }
 
-.selected-index{
-  border: 3px solid red;
+.selected-index {
+  opacity: 0.5;
 }
 
-.collage{
-  span{
-  font-size: 8px;
-  font-weight: 600;
-  line-height: 10%;
-  color: black;
+.collage {
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    // line-height: 0.8;
+    line-height: 12px;
+    color: white;
   }
 }
