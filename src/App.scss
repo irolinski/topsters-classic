@@ -14,13 +14,25 @@ img{
 } 
 
 .html2canvas-container{
-  width: 480px;
-  max-height: 50vh;
+  width: 600px;
+  height: 600px;
   display: flex;
   justify-content: space-between;
   padding: 48px;
   position: relative;
   flex-wrap: wrap;
+  background-color: blue;
 }
 
+.selected-index{
+  border: 3px solid red;
+}
 
+.collage{
+  span{
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 10%;
+  color: black;
+  }
+}
