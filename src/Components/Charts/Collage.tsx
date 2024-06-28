@@ -5,6 +5,7 @@ type CollageProps = {
   collageData: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: any;
+  chartDirty: boolean;
 };
 
 const Collage = ({
@@ -12,6 +13,7 @@ const Collage = ({
   collageData,
   selectedIndex,
   changeIndex,
+  chartDirty
 }: CollageProps) => {
   return (
     <>
@@ -57,21 +59,22 @@ const Collage = ({
 
         <div className="w-2/5 max-h-full">
           <div className="collage leading-none -translate-x-[40px]">
+            {!chartDirty && <p className="text-xl">Start adding albums by selecting a field and then selecting the album from the database!</p>}
             {collageData.map((a, i) => {
-              return a.artist ? (
-                <>
-                  <span className="m-[2px] text-left">
-                    {a.artist} - {a.name}{" "}
-                  </span>
-                  {(i + 1) % 4 === 0 && (
-                    <div>
-                      {" "}
-                      <br />{" "}
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="w-full h-full bg-gray"></div>
+              return (
+                a.artist && (
+                  <>
+                    <span className="m-[2px] text-left">
+                      {a.artist} - {a.name}{" "}
+                    </span>
+                    {(i + 1) % 4 === 0 && (
+                      <div>
+                        {" "}
+                        <br />{" "}
+                      </div>
+                    )}
+                  </>
+                )
               );
             })}
           </div>

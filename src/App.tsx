@@ -28,7 +28,9 @@ function App() {
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  const [collageData, setCollageData] = useState<lastFmAlbum[] | Record<string, never>[]>(collageEmpty);
+  const [collageData, setCollageData] = useState<
+    lastFmAlbum[] | Record<string, never>[]
+  >(collageEmpty);
 
   const searchAlbums = async (albumTitle: string) => {
     let albumData: any = await fetch(
@@ -43,12 +45,10 @@ function App() {
   // insert image onto canvas
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-
   const changeIndex: any = (i: number) => {
     setSelectedIndex(i);
   };
-  // console.log("selected index:" + selectedIndex);
-
+  const [chartDirty, setChartDirty] = useState<boolean>(false);
   const [refresh, setRefresh] = useState(false);
 
   const drawAlbumToCanvas = (index: number, album: any) => {
@@ -59,6 +59,7 @@ function App() {
     // this forces rerender in a gentle way I don't really know why but it works
     setRefresh(true);
     setRefresh(!refresh);
+    setChartDirty(true);
   };
 
   //export image
@@ -74,6 +75,7 @@ function App() {
             collageData={collageData}
             selectedIndex={selectedIndex}
             changeIndex={changeIndex}
+            chartDirty={chartDirty}
           />
         )}
       </section>
