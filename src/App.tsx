@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
 import { collageEmpty } from "./assets/emptyCharts";
@@ -13,7 +13,7 @@ export type lastFmAlbumImages = {
 };
 
 export type lastFmAlbum = {
-  name: string;
+  name?: string;
   artist: string;
   image: lastFmAlbumImages[];
   // ?streamable: number
@@ -28,7 +28,7 @@ function App() {
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  const [collage, setCollage] = useState(collageEmpty);
+  const [collageData, setCollageData] = useState<lastFmAlbum[] | Record<string, never>[]>(collageEmpty);
 
   const searchAlbums = async (albumTitle: string) => {
     let albumData: any = await fetch(
@@ -52,9 +52,9 @@ function App() {
   const [refresh, setRefresh] = useState(false);
 
   const drawAlbumToCanvas = (index: number, album: any) => {
-    let updatedArr = collage; // or other table type - do it later
+    let updatedArr = collageData; // or other table type - do it later
     updatedArr[index] = album;
-    setCollage(updatedArr); //or other table type
+    setCollageData(updatedArr); //or other table type
 
     // this forces rerender in a gentle way I don't really know why but it works
     setRefresh(true);
@@ -71,7 +71,7 @@ function App() {
         {tableMode === "collage" && (
           <Collage
             exportRef={exportRef}
-            collageData={collage}
+            collageData={collageData}
             selectedIndex={selectedIndex}
             changeIndex={changeIndex}
           />

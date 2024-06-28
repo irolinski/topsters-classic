@@ -2,7 +2,7 @@ import { lastFmAlbum } from "../../App";
 
 type CollageProps = {
   exportRef: any;
-  collageData: lastFmAlbum[];
+  collageData: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: any;
 };
