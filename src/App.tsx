@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
 import { collageEmpty } from "./assets/emptyCharts";
+import { HexColorPicker } from "react-colorful";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -24,6 +25,14 @@ function App() {
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("collage");
 
+  // set table background color
+  const [backgroundColor, setBackgroundColor] = useState<string>("blue");
+
+  // set table background image
+  const [backgroundImgInputValue, setBackgroundImgInputValue] =
+    useState<string>("");
+  const [backgroundImg, setBackgroundImg] = useState<string>("");
+
   // last.fm api search feature
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
@@ -43,9 +52,8 @@ function App() {
   };
 
   // insert image onto canvas
-
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const changeIndex: any = (i: number) => {
+  const changeIndex = (i: number) => {
     setSelectedIndex(i);
   };
   const [chartDirty, setChartDirty] = useState<boolean>(false);
@@ -60,6 +68,11 @@ function App() {
     setRefresh(true);
     setRefresh(!refresh);
     setChartDirty(true);
+
+    console.log("this is" + selectedIndex + "this is" + collageEmpty.length);
+    selectedIndex < collageEmpty.length - 1
+      ? setSelectedIndex(selectedIndex + 1)
+      : setSelectedIndex(0);
   };
 
   //export image
@@ -76,6 +89,8 @@ function App() {
             selectedIndex={selectedIndex}
             changeIndex={changeIndex}
             chartDirty={chartDirty}
+            backgroundColor={backgroundColor}
+            backgroundImg={backgroundImg}
           />
         )}
       </section>
@@ -87,6 +102,28 @@ function App() {
           <option value="top40">Top 40</option>
           <option value="top100">Top 100</option>
         </select>
+        <h2>Choose your background:</h2>
+        <div>
+          <h3>Color:</h3>
+          <HexColorPicker
+            color={backgroundColor}
+            onChange={setBackgroundColor}
+          />
+        </div>
+        <div>
+          <h3>Image:</h3>
+          <input
+            type="text"
+            onKeyUp={async (evt) =>
+              evt.key === "Enter"
+                ? setBackgroundImg(backgroundImgInputValue)
+                : setBackgroundImgInputValue(evt.currentTarget.value)
+            }
+          />
+          <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
+            Change
+          </button>
+        </div>
         <h2>Search for your albums:</h2>
         <div className="search-input">
           <input

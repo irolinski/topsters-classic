@@ -6,6 +6,8 @@ type CollageProps = {
   selectedIndex: number;
   changeIndex: any;
   chartDirty: boolean;
+  backgroundColor: string;
+  backgroundImg: string;
 };
 
 const Collage = ({
@@ -13,7 +15,9 @@ const Collage = ({
   collageData,
   selectedIndex,
   changeIndex,
-  chartDirty
+  chartDirty,
+  backgroundColor,
+  backgroundImg
 }: CollageProps) => {
   return (
     <>
@@ -21,6 +25,7 @@ const Collage = ({
       <div
         className="collage-container w-full p-[2px] content-center"
         ref={exportRef}
+        style={{backgroundColor: `${backgroundColor}`, backgroundImage: `url('${backgroundImg}')`}}
       >
         <div className="w-3/5">
           <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
@@ -85,6 +90,8 @@ const Collage = ({
       <div
         className="collage-container html2canvas-container w-full p-[2px] content-center"
         ref={exportRef}
+        style={{backgroundColor: `${backgroundColor}`, backgroundImage: `url('${backgroundImg}')`}}
+
       >
         <div className="w-3/5">
           <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
