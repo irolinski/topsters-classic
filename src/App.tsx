@@ -79,100 +79,102 @@ function App() {
   const exportRef: any = useRef();
 
   return (
-    <main className="flex flex-wrap">
-      <section className="chart-wrapper w-4/5">
-        {/* collage */}
-        {tableMode === "collage" && (
-          <Collage
-            exportRef={exportRef}
-            collageData={collageData}
-            selectedIndex={selectedIndex}
-            changeIndex={changeIndex}
-            chartDirty={chartDirty}
-            backgroundColor={backgroundColor}
-            backgroundImg={backgroundImg}
-          />
-        )}
-      </section>
-      {/* // MENU */}
-      <section className="menu-wrapper w-1/5">
-        <h2>Choose your chart:</h2>
-        <select onChange={(evt) => setTableMode(evt.target.value)}>
-          <option value="collage">Collage</option>
-          <option value="top40">Top 40</option>
-          <option value="top100">Top 100</option>
-        </select>
-        <h2>Choose your background:</h2>
-        <div>
-          <h3>Color:</h3>
-          <HexColorPicker
-            color={backgroundColor}
-            onChange={setBackgroundColor}
-          />
-        </div>
-        <div>
-          <h3>Image:</h3>
-          <input
-            type="text"
-            onKeyUp={async (evt) =>
-              evt.key === "Enter"
-                ? setBackgroundImg(backgroundImgInputValue)
-                : setBackgroundImgInputValue(evt.currentTarget.value)
-            }
-          />
-          <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
-            Change
-          </button>
-        </div>
-        <h2>Search for your albums:</h2>
-        <div className="search-input">
-          <input
-            type="text"
-            onKeyUp={async (evt) =>
-              evt.key === "Enter"
-                ? searchAlbums(searchInputValue)
-                : setSearchInputValue(evt.currentTarget.value)
-            }
-          />
-          <button
-            onClick={() => {
-              searchAlbums(searchInputValue);
-            }}
-          >
-            Search
-          </button>
-          <button
-            onClick={() => {
-              exportAsImage(exportRef.current, "title");
-            }}
-          >
-            Export
-          </button>
-        </div>
-        <div id="search-results-div">
-          {searchResults &&
-            searchResults.map((a: any) => {
-              return (
-                <div
-                  className="album-card inline-flex m-4 w-full"
-                  onClick={() => {
-                    console.log(a);
-                    drawAlbumToCanvas(selectedIndex, a);
-                  }}
-                >
-                  <div className="justify-start">
-                    <img className="w-16" src={`${a.image[1]["#text"]}`} />
+    <div className="w-full h-full flex justify-center">
+      <main className="flex flex-wrap">
+        <section className="chart-wrapper">
+          {/* collage */}
+          {tableMode === "collage" && (
+            <Collage
+              exportRef={exportRef}
+              collageData={collageData}
+              selectedIndex={selectedIndex}
+              changeIndex={changeIndex}
+              chartDirty={chartDirty}
+              backgroundColor={backgroundColor}
+              backgroundImg={backgroundImg}
+            />
+          )}
+        </section>
+        {/* // MENU */}
+        <section className="menu-wrapper">
+          <h2>Choose your chart:</h2>
+          <select onChange={(evt) => setTableMode(evt.target.value)}>
+            <option value="collage">Collage</option>
+            <option value="top40">Top 40</option>
+            <option value="top100">Top 100</option>
+          </select>
+          <h2>Choose your background:</h2>
+          <div>
+            <h3>Color:</h3>
+            <HexColorPicker
+              color={backgroundColor}
+              onChange={setBackgroundColor}
+            />
+          </div>
+          <div>
+            <h3>Image:</h3>
+            <input
+              type="text"
+              onKeyUp={async (evt) =>
+                evt.key === "Enter"
+                  ? setBackgroundImg(backgroundImgInputValue)
+                  : setBackgroundImgInputValue(evt.currentTarget.value)
+              }
+            />
+            <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
+              Change
+            </button>
+          </div>
+          <h2>Search for your albums:</h2>
+          <div className="search-input">
+            <input
+              type="text"
+              onKeyUp={async (evt) =>
+                evt.key === "Enter"
+                  ? searchAlbums(searchInputValue)
+                  : setSearchInputValue(evt.currentTarget.value)
+              }
+            />
+            <button
+              onClick={() => {
+                searchAlbums(searchInputValue);
+              }}
+            >
+              Search
+            </button>
+            <button
+              onClick={() => {
+                exportAsImage(exportRef.current, "title");
+              }}
+            >
+              Export
+            </button>
+          </div>
+          <div id="search-results-div">
+            {searchResults &&
+              searchResults.map((a: any) => {
+                return (
+                  <div
+                    className="album-card inline-flex m-4 w-full"
+                    onClick={() => {
+                      console.log(a);
+                      drawAlbumToCanvas(selectedIndex, a);
+                    }}
+                  >
+                    <div className="justify-start">
+                      <img className="w-16" src={`${a.image[1]["#text"]}`} />
+                    </div>
+                    <div className="m-4">
+                      <span className="font-bold"> {a.name} </span>by
+                      <span className="font-bold"> {a.artist}</span>
+                    </div>
                   </div>
-                  <div className="m-4">
-                    <span className="font-bold"> {a.name} </span>by
-                    <span className="font-bold"> {a.artist}</span>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
-      </section>
-    </main>
+                );
+              })}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 

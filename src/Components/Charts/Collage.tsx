@@ -23,18 +23,18 @@ const Collage = ({
     <>
       {/* canvas UI */}
       <div
-        className="collage-container w-full p-[2px] content-center"
+        className="collage-ui w-full p-[2px] content-center"
         ref={exportRef}
         style={{backgroundColor: `${backgroundColor}`, backgroundImage: `url('${backgroundImg}')`}}
       >
-        <div className="w-3/5">
+        <div className="collage-images-ui w-3/5">
           <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
             {collageData.map((a, i) => {
               return (
                 <div
                   className={`${
                     i === selectedIndex && "selected-index"
-                  } collage w-[125px] h-[125px] m-[2px]`}
+                  } collage-img-ui `}
                   key={i}
                   onClick={() => {
                     changeIndex(i);
@@ -62,9 +62,9 @@ const Collage = ({
           </div>
         </div>
 
-        <div className="w-2/5 max-h-full">
+        <div className="collage-titles-ui w-2/5 max-h-full">
           <div className="collage leading-none -translate-x-[40px]">
-            {!chartDirty && <p className="text-xl">Start adding albums by selecting a field and then selecting the album from the database!</p>}
+            {!chartDirty && <p className="text-md lg:text-xl">Start adding albums by selecting a field and then selecting the album from the database!</p>}
             {collageData.map((a, i) => {
               return (
                 a.artist && (
