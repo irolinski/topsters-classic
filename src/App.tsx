@@ -113,17 +113,21 @@ function App() {
           </div>
           <div>
             <h3>Image:</h3>
-            <input
+            {/* <input
               type="text"
               onKeyUp={async (evt) =>
                 evt.key === "Enter"
                   ? setBackgroundImg(backgroundImgInputValue)
                   : setBackgroundImgInputValue(evt.currentTarget.value)
               }
-            />
-            <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
+            /> */}
+
+            {/* @ts-ignore */}
+            <input type="file" onChange={(evt) => setBackgroundImg(URL.createObjectURL(evt.target.files && evt.target.files[0]))} />
+            <button onClick={() => setBackgroundImg("")}>Clear</button>
+            {/* <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
               Change
-            </button>
+            </button> */}
           </div>
           <h2>Search for your albums:</h2>
           <div className="search-input">
