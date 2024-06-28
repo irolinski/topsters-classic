@@ -2,7 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 .html2canvas-container {
+  transform: translateX(3000px);
+  // width: 1024px;
+  // height: 576px;
+  // display: flex;
+  // // justify-content: space-between;
+  // // padding: 48px;
+  // position: relative;
+  // flex-wrap: wrap;
+  // background-color: black;
+}
+
+.collage-container{
   width: 1024px;
   height: 576px;
   display: flex;
@@ -11,13 +25,7 @@
   position: relative;
   flex-wrap: wrap;
   background-color: black;
-}
 
-.selected-index {
-  opacity: 0.5;
-}
-
-.collage {
   span {
     font-family: "Space Mono", monospace;
     display: block;
@@ -28,3 +36,9 @@
     color: white;
   }
 }
+
+
+.selected-index {
+  opacity: 0.5;
+}
+
