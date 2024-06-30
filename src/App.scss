@@ -11,7 +11,7 @@
   }
 }
 
-// 4x4 collage UI, incl. album titles
+// 4x4 collage UI
 .collage-ui {
   top: 16.5%;
   margin: auto;
@@ -87,6 +87,11 @@
   }
 }
 
+.chart-title{
+  font-size: 2vw;
+}
+
+
 // 4x4 collage UI, no album titles
 .collage-ui.hide-album-titles {
   --size: 57vw;
@@ -123,6 +128,21 @@
   }
 }
 
+//4x4 collage UI show chart title
+
+.collage-ui.show-chart-title {
+  height: (var(--title-size));
+  padding-bottom: 5vw;
+
+  @media (min-width: 1024px) {
+
+    --title-size: 1.25;
+    --height: 576px;
+    max-height: calc(var(--height) * var(--title-size));
+    
+  }
+}
+
 // 4x4 collage CANVAS
 
 .html2canvas-container {
@@ -137,7 +157,7 @@
   // background-color: black;
 }
 
-.image-div{
+.image-div {
   display: flex;
   justify-content: center;
   top: 50%;
@@ -191,16 +211,22 @@
     color: white;
   }
 
-  .image-div{
+  .image-div {
     transform: none;
   }
-  
 
   // * {transform: none;}
 }
 
-
 // selected index marking
 .selected-index {
   opacity: 0.5;
+}
+
+
+.collage-container.show-chart-title {
+  --title-size: 1.12;
+  --height: 576px;
+  height: calc(var(--height) * var(--title-size));
+  padding-bottom: 40px;
 }

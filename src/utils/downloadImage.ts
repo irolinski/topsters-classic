@@ -23,7 +23,7 @@ export const downloadImage = (blob: any, fileName: string) => {
         useCORS: true,
         logging: true,
         width: el.width,
-        height: 576,
+        height: el.height,
         windowWidth: 1024,
       }).then(function (canvas: any) {
         var img = canvas.toDataURL();

@@ -22,21 +22,29 @@ const Collage = ({
 }: CollageProps) => {
   // test show titles
 
-  const [hideAlbumTitles, setHideAlbumTitles] = useState(true);
+  const [showChartTitle, setShowChartTitle] = useState(true);
+  const [hideAlbumTitles, setHideAlbumTitles] = useState(false);
 
   return (
     <>
       {/* canvas UI */}
       <div
-        className={`collage-ui w-full p-[2px] content-center ${
-          hideAlbumTitles && "hide-album-titles"
-        }`}
+        className={`collage-ui w-full p-[2px] content-center 
+          ${hideAlbumTitles && "hide-album-titles"}          
+          ${showChartTitle && "show-chart-title"}
+`}
+        
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
         }}
       >
+         {showChartTitle && (
+          <div className="chart-title w-full text-center p-8 bold">
+            ChartName
+          </div>
+        )}
         {/* images container */}
         <div
           className={`collage-images-ui
@@ -110,8 +118,9 @@ const Collage = ({
 
       {/* actual canvas */}
       <div
-        className={`collage-container html2canvas-container w-full p-[2px] content-center ${
-          hideAlbumTitles && "hide-album-titles"
+        className={`collage-container html2canvas-container w-full p-[2px] content-center 
+          ${hideAlbumTitles && "hide-album-titles"}
+          ${showChartTitle && "show-chart-title"}
         }`}
         ref={exportRef}
         style={{
@@ -119,6 +128,11 @@ const Collage = ({
           backgroundImage: `url('${backgroundImg}')`,
         }}
       >
+        {showChartTitle && (
+          <div className="w-full text-center p-8 text-3xl bold">
+            ChartName
+          </div>
+        )}
         {/* images container */}
         <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
           <div className="image-div">
@@ -146,7 +160,6 @@ const Collage = ({
           </div>
         </div>
         {/* images container */}
-
         {!hideAlbumTitles && (
           <div className="w-2/5 max-h-full">
             <div className="collage leading-none -translate-x-[40px]">
