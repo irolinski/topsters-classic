@@ -85,6 +85,7 @@ function App() {
   return (
     <div className="w-full h-full flex justify-center">
       <main className="flex flex-wrap">
+        <h1 className="absolute left-1/2 -translate-x-1/2 top-8">Topsters</h1>
         <section className="chart-wrapper">
           {/* collage */}
           {tableMode === "collage" && (
@@ -102,7 +103,7 @@ function App() {
           )}
         </section>
         {/* // MENU */}
-        <section className="menu-wrapper">
+        {/* <section className="menu-wrapper">
           <h2>Choose your chart:</h2>
           <select onChange={(evt) => setTableMode(evt.target.value)}>
             <option value="collage">Collage</option>
@@ -124,7 +125,7 @@ function App() {
           </div>
           <div>
             <h3>Image:</h3>
-            {/* @ts-ignore */}
+            {/* @ts-ignore /}
             <input
               type="file"
               onChange={(evt) =>
@@ -184,7 +185,7 @@ function App() {
                 );
               })}
           </div>
-        </section>
+        </section> */}
       </main>
     </div>
   );

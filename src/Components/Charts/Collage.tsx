@@ -8,10 +8,14 @@ type CollageProps = {
   changeIndex: any;
   chartDirty: boolean;
   chartTitle: string;
-  showChartTitle: boolean;
   hideAlbumTitles: boolean;
   backgroundColor: string;
   backgroundImg: string;
+};
+
+type windowValueTypes = {
+  width: number | undefined;
+  height: number | undefined;
 };
 
 const Collage = ({
@@ -21,37 +25,38 @@ const Collage = ({
   changeIndex,
   chartDirty,
   chartTitle,
-  showChartTitle,
   hideAlbumTitles,
   backgroundColor,
   backgroundImg,
 }: CollageProps) => {
   //auto scale
-  type windowValueTypes = {
-    width: number | undefined;
-    height: number | undefined;
-  };
+
+  const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1050);
+  const [windowSize, setWindowSize] = useState<windowValueTypes>({
+    width: window.innerHeight,
+    height: window.innerWidth,
+  });
   function useWindowSize() {
-    const [windowSize, setWindowSize] = useState<windowValueTypes>({
-      width: undefined,
-      height: undefined,
-    });
     useEffect(() => {
       function handleResize() {
+        if (window.visualViewport) { 
         setWindowSize({
-          width: window.visualViewport.width,
-          height: window.visualViewport.width,
+          width: window.visualViewport.width ?? window.innerWidth,
+          height: window.visualViewport.width ?? window.innerHeight,
         });
-      }
+        if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050)
+          else setCanvasScaleDivisior(1400);
+      }}
       window.addEventListener("resize", handleResize);
       handleResize();
       return () => window.removeEventListener("resize", handleResize);
     }, []); // Empty array ensures that effect is only run on mount
     return windowSize;
-  }
+  } 
 
-  const size = useWindowSize();
-  const scaleValue = size.width / 1400; //original width + sth for there to be a margin
+  const size: windowValueTypes = useWindowSize();
+  const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
+
 
   return (
     <>
@@ -65,7 +70,7 @@ const Collage = ({
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
-          transform: `scale(${scaleValue})`,
+          transform: `scale(${canvasScaleValue})`,
         }}
       >
         {chartTitle && (
@@ -145,7 +150,7 @@ const Collage = ({
       <div
         className={`collage-container html2canvas-container w-full p-[2px] content-center 
           ${hideAlbumTitles && "hide-album-titles"}
-          ${showChartTitle && "show-chart-title"}
+          ${chartTitle && "show-chart-title"}
         }`}
         ref={exportRef}
         style={{
@@ -153,7 +158,7 @@ const Collage = ({
           backgroundImage: `url('${backgroundImg}')`,
         }}
       >
-        {showChartTitle && (
+        {chartTitle && (
           <div className="w-full text-center p-8 text-3xl bold">ChartName</div>
         )}
         {/* images container */}
