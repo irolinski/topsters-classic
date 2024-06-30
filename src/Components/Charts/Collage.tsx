@@ -22,14 +22,14 @@ const Collage = ({
 }: CollageProps) => {
   // test show titles
 
-  const [showAlbumTitles, setshowAlbumTitles] = useState(false);
+  const [hideAlbumTitles, setHideAlbumTitles] = useState(true);
 
   return (
     <>
       {/* canvas UI */}
       <div
         className={`collage-ui w-full p-[2px] content-center ${
-          !showAlbumTitles && "no-titles"
+          hideAlbumTitles && "hide-album-titles"
         }`}
         ref={exportRef}
         style={{
@@ -40,7 +40,7 @@ const Collage = ({
         {/* images container */}
         <div
           className={`collage-images-ui
-          ${showAlbumTitles ? "w-3/5" : "w-full"}`}
+          ${hideAlbumTitles ? "w-full" : "w-3/5"}`}
         >
           <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
             {collageData.map((a, i) => {
@@ -77,7 +77,7 @@ const Collage = ({
         </div>
 
         {/* titles container */}
-        {showAlbumTitles && (
+        {!hideAlbumTitles && (
           <div className="collage-titles-ui w-2/5 max-h-full">
             <div className="collage leading-none -translate-x-[40px]">
               {!chartDirty && (
@@ -111,7 +111,7 @@ const Collage = ({
       {/* actual canvas */}
       <div
         className={`collage-container html2canvas-container w-full p-[2px] content-center ${
-          !showAlbumTitles && "no-titles"
+          hideAlbumTitles && "hide-album-titles"
         }`}
         ref={exportRef}
         style={{
@@ -120,7 +120,7 @@ const Collage = ({
         }}
       >
         {/* images container */}
-        <div className={`${showAlbumTitles ? 'w-3/5' : 'w-full'}`}>
+        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
           <div className="image-div">
             {collageData.map((a, i) => {
               return (
@@ -147,7 +147,7 @@ const Collage = ({
         </div>
         {/* images container */}
 
-        {showAlbumTitles && (
+        {!hideAlbumTitles && (
           <div className="w-2/5 max-h-full">
             <div className="collage leading-none -translate-x-[40px]">
               {collageData.map((a, i) => {

@@ -88,7 +88,7 @@
 }
 
 // 4x4 collage UI, no album titles
-.collage-ui.no-titles {
+.collage-ui.hide-album-titles {
   --size: 57vw;
   --aspect-ratio: 1;
   width: var(--size);
@@ -170,7 +170,7 @@
 
 // 4x4 collage CANVAS, no album titles
 
-.collage-container.no-titles {
+.collage-container.hide-album-titles {
   width: 576px;
   height: 576px;
   display: flex;
