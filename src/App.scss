@@ -12,151 +12,25 @@
 }
 
 .collage-ui{
-  // --size: 95vw;
-  // --aspect-ratio: 0.5626;
-  // width: var(--size);
-  // height: calc(var(--size) * var(--aspect-ratio));
+
   max-width: 1024px;
-  // max-height: 576px;
   margin: auto;
   position: relative;
-  top: 25%;
-  --scale-val: calc(100vw - 770px)
-  transform: scale(var(--scale-val));
+  top: 12.5% !important; 
+
+
+
+  @media (min-width: 1024px) {
+    transform: scale(0.6) !important;
+    top: 12.5%;
+    
+  }
 }
-
-// 4x4 collage UI
-// .collage-ui {
-//   top: 16.5%;
-//   margin: auto;
-//   --size: 95vw;
-//   --aspect-ratio: 0.5626;
-//   width: var(--size);
-//   height: calc(var(--size) * var(--aspect-ratio));
-//   max-width: 1024px;
-//   max-height: 576px;
-//   display: flex;
-//   // justify-content: space-between;
-//   // padding: 48px;
-//   position: relative;
-//   flex-wrap: wrap;
-//   background-color: black;
-//   background-size: cover;
-
-//   .collage-images-ui {
-//     transform: translateX(10px);
-//     .collage-img-ui {
-//       --size: 11.6vw;
-//       margin: 1px;
-//       width: var(--size);
-//       height: var(--size);
-//     }
-
-//     .image-div {
-//       display: flex;
-//       justify-content: center;
-//       top: 50%;
-//       max-height: 100%;
-//       // max-width: 66.6%;
-//       flex-wrap: wrap;
-//       margin: auto;
-//       transform: translateX(-20px);
-//     }
-//   }
-
-//   .collage-titles-ui {
-//     transform: translateX(25px);
-//     p {
-//       font-size: 1.9vw;
-//       line-height: 2.5vw;
-//     }
-//     span {
-//       font-family: "Space Mono", monospace;
-//       display: block;
-//       font-size: 1.1vw !important;
-//       font-weight: 400;
-//       line-height: 1.2vw;
-//       color: white;
-//     }
-//   }
-
-//   @media (min-width: 1024px) {
-//     width: 1024px;
-//     height: 576px;
-
-//     .collage-images-ui {
-//       transform: none;
-//       .collage-img-ui {
-//         width: 125px;
-//         height: 125px;
-//       }
-//     }
-//     .collage-titles-ui {
-//       transform: none;
-//       span {
-//         font-size: 11px !important;
-//         line-height: 12px !important;
-//       }
-//     }
-//   }
-// }
 
 .chart-title{
   font-size: 2vw;
   font-weight: 600;
 }
-
-
-// 4x4 collage UI, no album titles
-// .collage-ui.hide-album-titles {
-//   --size: 57vw;
-//   --aspect-ratio: 1;
-//   width: var(--size);
-//   height: var(--size);
-//   max-width: 576px !important;
-//   max-height: 576px;
-
-//   .collage-images-ui {
-//     transform: none !important;
-//     .collage-img-ui {
-//       --size: 11.6vw;
-//       margin: 1px;
-//       width: var(--size);
-//       height: var(--size);
-//     }
-//     .image-div {
-//       transform: none;
-//     }
-//   }
-
-//   @media (min-width: 1024px) {
-//     width: 576px;
-//     height: 576px;
-
-//     .collage-images-ui {
-//       transform: none;
-//       .collage-img-ui {
-//         width: 125px !important;
-//         height: 125px !important;
-//       }
-//     }
-//   }
-// }
-
-//4x4 collage UI show chart title
-
-// .collage-ui.show-chart-title {
-//   height: (var(--title-size));
-//   padding-bottom: 5vw;
-
-//   @media (min-width: 1024px) {
-
-//     --title-size: 1.25;
-//     --height: 576px;
-//     max-height: calc(var(--height) * var(--title-size));
-    
-//   }
-// }
 
 // 4x4 collage CANVAS
 
@@ -177,8 +51,6 @@
   width: 1024px;
   height: 576px;
   display: flex;
-  // justify-content: space-between;
-  // padding: 48px;
   position: relative;
   flex-wrap: wrap;
   background-color: black;
@@ -189,7 +61,6 @@
     display: block;
     font-size: 11px;
     font-weight: 500;
-    // line-height: 0.8;
     line-height: 12px;
     color: white;
   }
@@ -201,8 +72,6 @@
   width: 576px;
   height: 576px;
   display: flex;
-  // justify-content: space-between;
-  // padding: 48px;
   position: relative;
   flex-wrap: wrap;
   background-color: black;

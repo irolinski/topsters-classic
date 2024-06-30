@@ -25,12 +25,16 @@ function App() {
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("collage");
 
+  //set chart title
+  const [chartTitle, setChartTitle] = useState<string>("");
+
+  //customize chart
+  const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
+
   // set table background color
   const [backgroundColor, setBackgroundColor] = useState<string>("blue");
 
   // set table background image
-  const [backgroundImgInputValue, setBackgroundImgInputValue] =
-    useState<string>("");
   const [backgroundImg, setBackgroundImg] = useState<string>("");
 
   // last.fm api search feature
@@ -90,6 +94,8 @@ function App() {
               selectedIndex={selectedIndex}
               changeIndex={changeIndex}
               chartDirty={chartDirty}
+              chartTitle={chartTitle}
+              hideAlbumTitles={hideAlbumTitles}
               backgroundColor={backgroundColor}
               backgroundImg={backgroundImg}
             />
@@ -103,6 +109,11 @@ function App() {
             <option value="top40">Top 40</option>
             <option value="top100">Top 100</option>
           </select>
+          <h3>Table title:</h3>
+          <input
+            type="text"
+            onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
+          />
           <h2>Choose your background:</h2>
           <div>
             <h3>Color:</h3>
@@ -113,22 +124,19 @@ function App() {
           </div>
           <div>
             <h3>Image:</h3>
-            {/* <input
-              type="text"
-              onKeyUp={async (evt) =>
-                evt.key === "Enter"
-                  ? setBackgroundImg(backgroundImgInputValue)
-                  : setBackgroundImgInputValue(evt.currentTarget.value)
-              }
-            /> */}
-
             {/* @ts-ignore */}
-            <input type="file" onChange={(evt) => setBackgroundImg(URL.createObjectURL(evt.target.files && evt.target.files[0]))} />
+            <input
+              type="file"
+              onChange={(evt) =>
+                setBackgroundImg(
+                  URL.createObjectURL(evt.target.files && evt.target.files[0])
+                )
+              }
+            />
             <button onClick={() => setBackgroundImg("")}>Clear</button>
-            {/* <button onClick={() => setBackgroundImg(backgroundImgInputValue)}>
-              Change
-            </button> */}
           </div>
+          <h3>Hide album titles:</h3>
+          <input type="checkbox" defaultChecked={hideAlbumTitles} onChange={() => setHideAlbumTitles(!hideAlbumTitles)} />
           <h2>Search for your albums:</h2>
           <div className="search-input">
             <input
