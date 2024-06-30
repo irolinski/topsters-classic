@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { lastFmAlbum } from "../../App";
 
 type CollageProps = {
@@ -17,17 +18,30 @@ const Collage = ({
   changeIndex,
   chartDirty,
   backgroundColor,
-  backgroundImg
+  backgroundImg,
 }: CollageProps) => {
+  // test show titles
+
+  const [showAlbumTitles, setshowAlbumTitles] = useState(false);
+
   return (
     <>
       {/* canvas UI */}
       <div
-        className="collage-ui w-full p-[2px] content-center"
+        className={`collage-ui w-full p-[2px] content-center ${
+          !showAlbumTitles && "no-titles"
+        }`}
         ref={exportRef}
-        style={{backgroundColor: `${backgroundColor}`, backgroundImage: `url('${backgroundImg}')`}}
+        style={{
+          backgroundColor: `${backgroundColor}`,
+          backgroundImage: `url('${backgroundImg}')`,
+        }}
       >
-        <div className="collage-images-ui w-3/5">
+        {/* images container */}
+        <div
+          className={`collage-images-ui
+          ${showAlbumTitles ? "w-3/5" : "w-full"}`}
+        >
           <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
             {collageData.map((a, i) => {
               return (
@@ -62,39 +76,52 @@ const Collage = ({
           </div>
         </div>
 
-        <div className="collage-titles-ui w-2/5 max-h-full">
-          <div className="collage leading-none -translate-x-[40px]">
-            {!chartDirty && <p className="text-md lg:text-xl">Start adding albums by selecting a field and then selecting the album from the database!</p>}
-            {collageData.map((a, i) => {
-              return (
-                a.artist && (
-                  <>
-                    <span className="m-[2px] text-left">
-                      {a.artist} - {a.name}{" "}
-                    </span>
-                    {(i + 1) % 4 === 0 && (
-                      <div>
-                        {" "}
-                        <br />{" "}
-                      </div>
-                    )}
-                  </>
-                )
-              );
-            })}
+        {/* titles container */}
+        {showAlbumTitles && (
+          <div className="collage-titles-ui w-2/5 max-h-full">
+            <div className="collage leading-none -translate-x-[40px]">
+              {!chartDirty && (
+                <p className="text-md lg:text-xl">
+                  Start adding albums by selecting a field and then selecting
+                  the album from the database!
+                </p>
+              )}
+              {collageData.map((a, i) => {
+                return (
+                  a.artist && (
+                    <>
+                      <span className="m-[2px] text-left">
+                        {a.artist} - {a.name}{" "}
+                      </span>
+                      {(i + 1) % 4 === 0 && (
+                        <div>
+                          {" "}
+                          <br />{" "}
+                        </div>
+                      )}
+                    </>
+                  )
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* actual canvas */}
       <div
-        className="collage-container html2canvas-container w-full p-[2px] content-center"
+        className={`collage-container html2canvas-container w-full p-[2px] content-center ${
+          !showAlbumTitles && "no-titles"
+        }`}
         ref={exportRef}
-        style={{backgroundColor: `${backgroundColor}`, backgroundImage: `url('${backgroundImg}')`}}
-
+        style={{
+          backgroundColor: `${backgroundColor}`,
+          backgroundImage: `url('${backgroundImg}')`,
+        }}
       >
-        <div className="w-3/5">
-          <div className="image-div flex justify-center top-1/2 max-h-full max-w-2/3 flex-wrap m-auto -translate-x-[20px]">
+        {/* images container */}
+        <div className={`${showAlbumTitles ? 'w-3/5' : 'w-full'}`}>
+          <div className="image-div">
             {collageData.map((a, i) => {
               return (
                 <div className="collage w-[125px] h-[125px] m-[2px]" key={i}>
@@ -118,28 +145,31 @@ const Collage = ({
             })}
           </div>
         </div>
+        {/* images container */}
 
-        <div className="w-2/5 max-h-full">
-          <div className="collage leading-none -translate-x-[40px]">
-            {collageData.map((a, i) => {
-              return (
-                a.artist && (
-                  <>
-                    <span className="m-[2px] text-left">
-                      {a.artist} - {a.name}{" "}
-                    </span>
-                    {(i + 1) % 4 === 0 && (
-                      <div>
-                        {" "}
-                        <br />{" "}
-                      </div>
-                    )}
-                  </>
-                )
-              );
-            })}
+        {showAlbumTitles && (
+          <div className="w-2/5 max-h-full">
+            <div className="collage leading-none -translate-x-[40px]">
+              {collageData.map((a, i) => {
+                return (
+                  a.artist && (
+                    <>
+                      <span className="m-[2px] text-left">
+                        {a.artist} - {a.name}{" "}
+                      </span>
+                      {(i + 1) % 4 === 0 && (
+                        <div>
+                          {" "}
+                          <br />{" "}
+                        </div>
+                      )}
+                    </>
+                  )
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

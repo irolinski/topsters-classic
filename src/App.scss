@@ -6,11 +6,12 @@
   position: absolute;
 
   // hide 'no file selected'
-  input[type='file'] {
-    color: rgba(0, 0, 0, 0)
+  input[type="file"] {
+    color: rgba(0, 0, 0, 0);
   }
 }
 
+// 4x4 collage UI, incl. album titles
 .collage-ui {
   top: 16.5%;
   margin: auto;
@@ -36,11 +37,25 @@
       width: var(--size);
       height: var(--size);
     }
+
+    .image-div {
+      display: flex;
+      justify-content: center;
+      top: 50%;
+      max-height: 100%;
+      // max-width: 66.6%;
+      flex-wrap: wrap;
+      margin: auto;
+      transform: translateX(-20px);
+    }
   }
 
   .collage-titles-ui {
     transform: translateX(25px);
-    p{font-size: 1.9vw; line-height: 2.5vw}
+    p {
+      font-size: 1.9vw;
+      line-height: 2.5vw;
+    }
     span {
       font-family: "Space Mono", monospace;
       display: block;
@@ -67,11 +82,48 @@
       span {
         font-size: 11px !important;
         line-height: 12px !important;
-
       }
     }
   }
 }
+
+// 4x4 collage UI, no album titles
+.collage-ui.no-titles {
+  --size: 57vw;
+  --aspect-ratio: 1;
+  width: var(--size);
+  height: var(--size);
+  max-width: 576px !important;
+  max-height: 576px;
+
+  .collage-images-ui {
+    transform: none !important;
+    .collage-img-ui {
+      --size: 11.6vw;
+      margin: 1px;
+      width: var(--size);
+      height: var(--size);
+    }
+    .image-div {
+      transform: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    width: 576px;
+    height: 576px;
+
+    .collage-images-ui {
+      transform: none;
+      .collage-img-ui {
+        width: 125px !important;
+        height: 125px !important;
+      }
+    }
+  }
+}
+
+// 4x4 collage CANVAS
 
 .html2canvas-container {
   transform: translateX(3000px);
@@ -83,6 +135,15 @@
   // position: relative;
   // flex-wrap: wrap;
   // background-color: black;
+}
+
+.image-div{
+  display: flex;
+  justify-content: center;
+  top: 50%;
+  max-height: 100%;
+  flex-wrap: wrap;
+  transform: translateX(-20px);
 }
 
 .collage-container {
@@ -107,6 +168,39 @@
   }
 }
 
+// 4x4 collage CANVAS, no album titles
+
+.collage-container.no-titles {
+  width: 576px;
+  height: 576px;
+  display: flex;
+  // justify-content: space-between;
+  // padding: 48px;
+  position: relative;
+  flex-wrap: wrap;
+  background-color: black;
+  background-size: cover;
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    // line-height: 0.8;
+    line-height: 12px;
+    color: white;
+  }
+
+  .image-div{
+    transform: none;
+  }
+  
+
+  // * {transform: none;}
+}
+
+
+// selected index marking
 .selected-index {
   opacity: 0.5;
 }
