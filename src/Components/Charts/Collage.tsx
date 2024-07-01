@@ -31,7 +31,7 @@ const Collage = ({
 }: CollageProps) => {
   //auto scale
 
-  const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1050);
+  const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
   const [windowSize, setWindowSize] = useState<windowValueTypes>({
     width: window.innerHeight,
     height: window.innerWidth,
@@ -44,7 +44,9 @@ const Collage = ({
           width: window.visualViewport.width ?? window.innerWidth,
           height: window.visualViewport.width ?? window.innerHeight,
         });
-        if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050)
+          if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050);
+          if (window.visualViewport!.width >= 1048) setCanvasScaleDivisior(2300);
+
           else setCanvasScaleDivisior(1400);
       }}
       window.addEventListener("resize", handleResize);
@@ -56,7 +58,7 @@ const Collage = ({
 
   const size: windowValueTypes = useWindowSize();
   const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
-const q = canvasScaleValue - 1
+  const marginValue = canvasScaleValue - 1
   return (
     <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
       {/* canvas UI */}
@@ -70,8 +72,8 @@ const q = canvasScaleValue - 1
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           transform: `scale(${canvasScaleValue})`,
-          marginBottom: `${q}`,
-          marginTop: `${q}`
+          marginBottom: `${marginValue}`,
+          marginTop: `${marginValue}`
         }}
       >
         {chartTitle && (
