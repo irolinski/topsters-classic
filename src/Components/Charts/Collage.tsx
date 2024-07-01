@@ -56,10 +56,9 @@ const Collage = ({
 
   const size: windowValueTypes = useWindowSize();
   const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
-
-
+const q = canvasScaleValue - 1
   return (
-    <>
+    <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
       {/* canvas UI */}
       <div
         className={`collage-container object-scale-down collage-ui w-full p-[2px] content-center 
@@ -71,6 +70,8 @@ const Collage = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           transform: `scale(${canvasScaleValue})`,
+          marginBottom: `${q}`,
+          marginTop: `${q}`
         }}
       >
         {chartTitle && (
@@ -159,7 +160,7 @@ const Collage = ({
         }}
       >
         {chartTitle && (
-          <div className="w-full text-center p-8 text-3xl bold">ChartName</div>
+          <div className="w-full text-center p-8 text-3xl bold">{chartTitle}</div>
         )}
         {/* images container */}
         <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
@@ -212,7 +213,7 @@ const Collage = ({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
