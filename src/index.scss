@@ -20,7 +20,8 @@ $background-color: #242424;
   
 }
 
-input[type="text"], textarea {
+input[type="text"], textarea,
+select {
 
   background-color: $background-color; 
 
