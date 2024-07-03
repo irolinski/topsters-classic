@@ -69,9 +69,9 @@ const Collage = ({
   const marginValue = canvasScaleValue - 1;
   return (
     <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
-      {/* canvas UI */}
+      {/* UI canvas */}
       <div
-        className={`collage-container collage-ui w-full content-center object-scale-down p-[2px] ${hideAlbumTitles && "hide-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`collage-container collage-ui w-full content-center object-scale-down p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -82,12 +82,21 @@ const Collage = ({
         }}
       >
         {chartTitle && (
-          <div className="bold w-full p-8 text-center text-3xl">
-            {chartTitle}
-          </div>
+          <div
+          className={`bold w-full py-12 text-center text-3xl
+            ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"}
+           ${(collageRowNum === 5 && collageColNum === 4) && "lower-header-if-titles"}
+            ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")}
+            ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 || collageColNum === 6) || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"}
+           ${(collageRowNum === 4 && collageColNum === 6) && "double-lift-if-no-titles"}`}
+        >
+          {chartTitle}
+        </div>
         )}
         {/* images container */}
-        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}>
+        <div
+          className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}
+        >
           <div
             className={`image-div ${((collageRowNum === 5 && collageColNum === 4) || (collageRowNum === 5 && collageColNum === 5) || (collageRowNum === 6 && collageColNum === 5)) && "px-[50px]"} ${collageRowNum === 6 && collageColNum === 6 && "px-[70px]"} ${collageRowNum === 6 && collageColNum === 4 && "px-[100px]"}`}
           >
@@ -102,17 +111,14 @@ const Collage = ({
                     changeIndex(i);
                   }}
                 >
-                  {/* remmber to delete "#text" later */}
                   {a.hasOwnProperty("image") ? (
                     /*@ts-ignore */
-                    a.image[1]["#text"] ? (
+                    a.image[1]["#text"] && (
                       <img
                         className="w-full"
                         /*@ts-ignore */
                         src={`${a.image[2]["#text"]}`}
                       />
-                    ) : (
-                      <img className="w-full" src={`${a.image[2]["text"]}`} />
                     )
                   ) : (
                     <div className="h-full w-full bg-gray"> </div>
@@ -122,11 +128,13 @@ const Collage = ({
             })}
           </div>
         </div>
-        {/* images container */}
+        {/* title container */}
         {!hideAlbumTitles && (
           <div className="max-h-full w-2/5">
-            <div className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}>
-            {!chartDirty && (
+            <div
+              className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}
+            >
+              {!chartDirty && (
                 <p className="text-xl">
                   Start adding albums by selecting a field and then selecting
                   the album from the database!
@@ -137,12 +145,17 @@ const Collage = ({
                 return (
                   <>
                     {a.artist ? (
-                      <span className={`${collageProd < 30 && "m-[2px]"} text-left album-title-span`}>
-                        {a.artist} - {a.name.length > 100 ? `${a.name?.match(/^.{93}\w*/)} (...)` : a.name}{" "}
+                      <span
+                        className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
+                      >
+                        {a.artist} -{" "}
+                        {a.name.length > 100
+                          ? `${a.name?.match(/^.{93}\w*/)} (...)`
+                          : a.name}{" "}
                       </span>
                     ) : (
-                        // <br />
-                        <span></span>
+                      // <br />
+                      <span></span>
                     )}
 
                     {(i + 1) % collageColNum === 0 && (
@@ -159,9 +172,9 @@ const Collage = ({
         )}
       </div>
 
-      {/* actual canvas */}
+      {/* SOURCE canvas */}
       <div
-        className={`collage-container html2canvas-container w-full content-center p-[2px] ${hideAlbumTitles && "hide-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`collage-container html2canvas-container w-full content-center p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -169,27 +182,38 @@ const Collage = ({
         }}
       >
         {chartTitle && (
-          <div className="bold w-full p-8 text-center text-3xl">
-            {chartTitle}
-          </div>
+         <div
+         className={`bold w-full py-12 text-center text-3xl
+           ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"}
+          ${(collageRowNum === 5 && collageColNum === 4) && "lower-header-if-titles"}
+           ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")}
+           ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 || collageColNum === 6) || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"}
+          ${(collageRowNum === 4 && collageColNum === 6) && "double-lift-if-no-titles"}`}
+       >
+          {chartTitle}
+        </div>
         )}
         {/* images container */}
-        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}>
-          <div className="image-div">
-            {collageData.map((a, i) => {
+        <div
+          className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}
+        >
+          <div
+            className={`image-div ${((collageRowNum === 5 && collageColNum === 4) || (collageRowNum === 5 && collageColNum === 5) || (collageRowNum === 6 && collageColNum === 5)) && "px-[50px]"} ${collageRowNum === 6 && collageColNum === 6 && "px-[70px]"} ${collageRowNum === 6 && collageColNum === 4 && "px-[100px]"}`}
+          >
+            {collageData.slice(0, collageProd).map((a, i) => {
               return (
-                <div className="collage m-[2px] h-[125px] w-[125px]" key={i}>
-                  {/* remmber to delete "#text" later */}
+                <div
+                  className={`collage ${collageRowNum === 4 && collageColNum === 4 && "h-[125px] w-[125px]"} ${collageProd === 20 && "h-[100px] w-[100px]"} ${collageProd === 24 && "h-[85px] w-[85px]"} ${collageProd === 25 && "h-[82px] w-[82px]"} ${collageProd === 30 && "h-[85px] w-[85px]"} ${collageProd === 36 && "h-[65px] w-[65px]"} m-[2px]`}
+                  key={i}
+                >
                   {a.hasOwnProperty("image") ? (
                     /*@ts-ignore */
-                    a.image[1]["#text"] ? (
+                    a.image[1]["#text"] && (
                       <img
                         className="w-full"
                         /*@ts-ignore */
                         src={`${a.image[2]["#text"]}`}
                       />
-                    ) : (
-                      <img className="w-full" src={`${a.image[2]["text"]}`} />
                     )
                   ) : (
                     <div className="h-full w-full bg-gray"> </div>
@@ -199,25 +223,36 @@ const Collage = ({
             })}
           </div>
         </div>
-        {/* images container */}
+        {/* title container */}
         {!hideAlbumTitles && (
           <div className="max-h-full w-2/5">
-            <div className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}>
-              {collageData.map((a, i) => {
+            <div
+              className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}
+            >
+              {collageData.slice(0, collageProd).map((a, i) => {
                 return (
-                  a.artist && (
-                    <>
-                      <span className="m-[2px] text-left album-title-span">
-                        {a.artist} - {a.name}{" "}
+                  <>
+                    {a.artist ? (
+                      <span
+                        className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
+                      >
+                        {a.artist} -{" "}
+                        {a.name.length > 100
+                          ? `${a.name?.match(/^.{93}\w*/)} (...)`
+                          : a.name}{" "}
                       </span>
-                      {(i + 1) % 4 === 0 && (
-                        <div>
-                          {" "}
-                          <br />{" "}
-                        </div>
-                      )}
-                    </>
-                  )
+                    ) : (
+                      // <br />
+                      <span></span>
+                    )}
+
+                    {(i + 1) % collageColNum === 0 && (
+                      <div>
+                        {" "}
+                        <br />{" "}
+                      </div>
+                    )}
+                  </>
                 );
               })}
             </div>

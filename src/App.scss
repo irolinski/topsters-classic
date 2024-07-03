@@ -3,41 +3,35 @@
 @tailwind utilities;
 
 .menu-wrapper {
-
   // hide 'no file selected'
   input[type="file"] {
     color: rgba(0, 0, 0, 0);
   }
-  &.desktop{
+  &.desktop {
     height: 100vh;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.055);
   }
 }
 
-.collage-ui{
-
+.collage-ui {
   max-width: 1024px;
   margin: auto;
   position: relative;
-  top: 2% !important; 
-
-
+  top: 2% !important;
 
   @media (min-width: 1024px) {
     transform: scale(0.6) !important;
     // transform: none !important;
     top: 12.5%;
-    
   }
 
   @media (min-width: 1600) {
     transform: scale(0.8) !important;
-
   }
 }
 
-.chart-title{
+.chart-title {
   font-size: 2vw;
   font-weight: 600;
 }
@@ -68,7 +62,6 @@
 
   @media (min-width: 1024) {
     width: auto;
-    
   }
 
   span {
@@ -119,16 +112,36 @@
 //   -webkit-box-orient: vertical;
 // }
 
-
 // selected index marking
 .selected-index {
   opacity: 0.5;
 }
 
-
 .collage-container.show-chart-title {
-  --title-size: 1.12;
+  --title-size: 1.15;
   --height: 576px;
   height: calc(var(--height) * var(--title-size));
   padding-bottom: 40px;
+}
+
+
+.hide-album-titles {
+  .lift-header-if-no-titles {
+    transform: translateY(-25px);
+  }
+  .double-lift-if-no-titles{
+    transform: translateY(-40px);
+  }
+  .lower-header-if-no-titles{
+    transform: translateY(12.5px);
+  }
+}
+
+.show-album-titles{
+  .lift-header-if-titles{
+    transform: translateY(-20px)
+  }
+  .lower-header-if-titles{
+    transform: translateY(8px)
+  }
 }

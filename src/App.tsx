@@ -251,7 +251,7 @@ function App() {
                   Search
                 </button>
               </div>
-              <div id="search-results-div">
+              <div className="max-h-[300px] overflow-scroll" id="search-results-div" >
                 {searchResults &&
                   searchResults.map((a: any) => {
                     return (
