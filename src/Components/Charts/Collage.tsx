@@ -83,15 +83,10 @@ const Collage = ({
       >
         {chartTitle && (
           <div
-          className={`bold w-full py-12 text-center text-3xl
-            ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"}
-           ${(collageRowNum === 5 && collageColNum === 4) && "lower-header-if-titles"}
-            ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")}
-            ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 || collageColNum === 6) || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"}
-           ${(collageRowNum === 4 && collageColNum === 6) && "double-lift-if-no-titles"}`}
-        >
-          {chartTitle}
-        </div>
+            className={`bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || collageRowNum === 5 || collageColNum === 6 || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
+          >
+            {chartTitle}
+          </div>
         )}
         {/* images container */}
         <div
@@ -182,16 +177,11 @@ const Collage = ({
         }}
       >
         {chartTitle && (
-         <div
-         className={`bold w-full py-12 text-center text-3xl
-           ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"}
-          ${(collageRowNum === 5 && collageColNum === 4) && "lower-header-if-titles"}
-           ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")}
-           ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 || collageColNum === 6) || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"}
-          ${(collageRowNum === 4 && collageColNum === 6) && "double-lift-if-no-titles"}`}
-       >
-          {chartTitle}
-        </div>
+          <div
+            className={`bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
+          >
+            {chartTitle}
+          </div>
         )}
         {/* images container */}
         <div
