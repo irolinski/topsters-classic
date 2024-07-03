@@ -26,6 +26,19 @@ function App() {
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("collage");
 
+  // collage options
+  const [collageRowNum, setCollageRowNum] = useState<number>(6);
+  const [collageColNum, setCollageColNum] = useState<number>(4);
+  // const collageNumAll = collageRowNum * collageColNum
+  // console.log(collageNumAll);
+
+  // let collageTemplate = collageEmpty.slice(0, collageNumAll);
+    
+  const [collageData, setCollageData] = useState<
+    lastFmAlbum[] | Record<string, never>[]
+  >(collageEmpty);
+
+
   //set chart title
   const [chartTitle, setChartTitle] = useState<string>("");
 
@@ -42,9 +55,6 @@ function App() {
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-  const [collageData, setCollageData] = useState<
-    lastFmAlbum[] | Record<string, never>[]
-  >(collageEmpty);
 
   const searchAlbums = async (albumTitle: string) => {
     let albumData: any = await fetch(
@@ -101,6 +111,19 @@ function App() {
               <option value="top40">Top 40</option>
               <option value="top100">Top 100</option>
             </select>
+            <h3>Collage settings:</h3>
+            <h4>Rows:</h4>
+            <select value={collageRowNum} onChange={(evt) => setCollageRowNum(Number(evt.target.value))}>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+            </select>
+            <h4>Columns:</h4>
+            <select value={collageColNum} onChange={(evt) => setCollageColNum(Number(evt.target.value))}>
+              <option value={4}>4</option>
+              <option value={5}>5</option>Number(
+              <option value={6}>6</option>
+            </select>
             <h3>Table title:</h3>
             <input
               className="border"
@@ -117,7 +140,6 @@ function App() {
             </div>
             <div>
               <h3>Image:</h3>
-              {/* @ts-ignore */}
               <input
                 type="file"
                 onChange={(evt) =>
@@ -197,6 +219,19 @@ function App() {
                 <option value="top40">Top 40</option>
                 <option value="top100">Top 100</option>
               </select>
+              <h3>Collage settings:</h3>
+            <h4>Rows:</h4>
+            <select value={collageRowNum} onChange={(evt) => setCollageRowNum(Number(evt.target.value))}>
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+            </select>
+            <h4>Columns:</h4>
+            <select value={collageColNum} onChange={(evt) => setCollageColNum(Number(evt.target.value))}>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+            </select>
               <h2>Search for your albums:</h2>
               <div className="search-input">
                 <input
@@ -295,6 +330,8 @@ function App() {
               <Collage
                 exportRef={exportRef}
                 collageData={collageData}
+                collageRowNum={collageRowNum}
+                collageColNum={collageColNum}
                 selectedIndex={selectedIndex}
                 changeIndex={changeIndex}
                 chartDirty={chartDirty}

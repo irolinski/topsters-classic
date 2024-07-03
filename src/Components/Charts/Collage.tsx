@@ -4,6 +4,8 @@ import { lastFmAlbum } from "../../App";
 type CollageProps = {
   exportRef: any;
   collageData: lastFmAlbum[] | Record<string, never>[];
+  collageRowNum: number;
+  collageColNum: number;
   selectedIndex: number;
   changeIndex: any;
   chartDirty: boolean;
@@ -21,6 +23,8 @@ type windowValueTypes = {
 const Collage = ({
   exportRef,
   collageData,
+  collageRowNum,
+  collageColNum,
   selectedIndex,
   changeIndex,
   chartDirty,
@@ -29,8 +33,13 @@ const Collage = ({
   backgroundColor,
   backgroundImg,
 }: CollageProps) => {
-  //auto scale
 
+  // collage options
+  const collageProd = collageRowNum * collageColNum;
+  console.log(`${collageRowNum} and ${collageColNum}`)
+
+
+  //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
   const [windowSize, setWindowSize] = useState<windowValueTypes>({
     width: window.innerHeight,
@@ -83,17 +92,28 @@ const Collage = ({
         )}
         {/* images container */}
         <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
-          <div className="image-div">
-            {collageData.map((a, i) => {
+          <div className={`image-div
+
+            ${(collageRowNum >= 5 && collageColNum <= 5) && "px-[50px]"}
+            ${(collageRowNum === 6 && collageColNum === 6) && "px-[70px]"}
+            ${(collageRowNum === 6 && collageColNum === 4) && "px-[100px]"}`}>
+            {collageData.slice(0, collageProd).map((a, i) => {
               return (
                 <div
                   className={`${
                     i === selectedIndex && "selected-index"
-                  } collage w-[125px] h-[125px] m-[2px]`}
+                    } collage 
+                ${((collageRowNum === 4 && collageColNum === 4)) && "w-[125px] h-[125px]"}
+                  ${collageProd === 20 && "w-[100px] h-[100px]"}
+                    ${collageProd === 24 && "w-[85px] h-[85px]"}
+                    ${collageProd === 25 && "w-[82px] h-[82px]"}
+                     ${collageProd === 30 && "w-[85px] h-[85px]"}
+                    ${collageProd === 36 && "w-[65px] h-[65px]"}
+                   m-[2px]
+                  `}
                   key={i}
                   onClick={() => {
                     changeIndex(i);
-                    //   setSelectedIndex(i);
                   }}
                 >
                   {/* remmber to delete "#text" later */}
