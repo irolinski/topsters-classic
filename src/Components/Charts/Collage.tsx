@@ -138,7 +138,7 @@ const Collage = ({
                   <>
                     {a.artist ? (
                       <span className={`${collageProd < 30 && "m-[2px]"} text-left album-title-span`}>
-                        {a.artist} - {a.name.length > 100 ? `${a.name?.slice(0, 94)} (...)` : a.name}{" "}
+                        {a.artist} - {a.name.length > 100 ? `${a.name?.match(/^.{93}\w*/)} (...)` : a.name}{" "}
                       </span>
                     ) : (
                         // <br />

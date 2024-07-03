@@ -324,7 +324,7 @@ function App() {
           </div>
 
           {/* CANVAS SECTION */}
-          <div className="lg:w-[75vw]">
+          <div className="lg:w-[75vw] flex justify-center">
             {/* collage */}
             {tableMode === "collage" && (
               <Collage
