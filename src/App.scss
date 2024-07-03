@@ -109,6 +109,17 @@
   // * {transform: none;}
 }
 
+// album title clamp
+// .album-title-span {
+//   overflow: hidden;
+//   text-wrap: nowrap;
+//   text-overflow: ellipsis;
+//   -webkit-line-clamp: 2;
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+// }
+
+
 // selected index marking
 .selected-index {
   opacity: 0.5;

@@ -87,7 +87,7 @@ const Collage = ({
           </div>
         )}
         {/* images container */}
-        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
+        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}>
           <div
             className={`image-div ${((collageRowNum === 5 && collageColNum === 4) || (collageRowNum === 5 && collageColNum === 5) || (collageRowNum === 6 && collageColNum === 5)) && "px-[50px]"} ${collageRowNum === 6 && collageColNum === 6 && "px-[70px]"} ${collageRowNum === 6 && collageColNum === 4 && "px-[100px]"}`}
           >
@@ -125,8 +125,8 @@ const Collage = ({
         {/* images container */}
         {!hideAlbumTitles && (
           <div className="max-h-full w-2/5">
-            <div className="collage -translate-x-[40px] leading-none">
-              {!chartDirty && (
+            <div className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}>
+            {!chartDirty && (
                 <p className="text-xl">
                   Start adding albums by selecting a field and then selecting
                   the album from the database!
@@ -137,11 +137,12 @@ const Collage = ({
                 return (
                   <>
                     {a.artist ? (
-                      <span className="m-[2px] text-left">
-                        {a.artist} - {a.name}{" "}
+                      <span className={`${collageProd < 30 && "m-[2px]"} text-left album-title-span`}>
+                        {a.artist} - {a.name.length > 100 ? `${a.name?.slice(0, 94)} (...)` : a.name}{" "}
                       </span>
                     ) : (
-                      <br />
+                        // <br />
+                        <span></span>
                     )}
 
                     {(i + 1) % collageColNum === 0 && (
@@ -173,7 +174,7 @@ const Collage = ({
           </div>
         )}
         {/* images container */}
-        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
+        <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"} flex flex-col justify-center`}>
           <div className="image-div">
             {collageData.map((a, i) => {
               return (
@@ -201,12 +202,12 @@ const Collage = ({
         {/* images container */}
         {!hideAlbumTitles && (
           <div className="max-h-full w-2/5">
-            <div className="collage -translate-x-[40px] leading-none">
+            <div className={`collage -translate-x-[40px] ${collageProd >= 30 ? "leading-[0.5]" : "leading-none"}`}>
               {collageData.map((a, i) => {
                 return (
                   a.artist && (
                     <>
-                      <span className="m-[2px] text-left">
+                      <span className="m-[2px] text-left album-title-span">
                         {a.artist} - {a.name}{" "}
                       </span>
                       {(i + 1) % 4 === 0 && (
