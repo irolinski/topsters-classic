@@ -83,7 +83,7 @@ function App() {
     setRefresh(true);
     setRefresh(!refresh);
     setChartDirty(true);
-    selectedIndex < collageEmpty.length - 1
+    selectedIndex < (collageColNum * collageRowNum - 1)
       ? setSelectedIndex(selectedIndex + 1)
       : setSelectedIndex(0);
   };
