@@ -93,8 +93,7 @@ const Collage = ({
         {/* images container */}
         <div className={`${hideAlbumTitles ? "w-full" : "w-3/5"}`}>
           <div className={`image-div
-
-            ${(collageRowNum >= 5 && collageColNum <= 5) && "px-[50px]"}
+            ${((collageRowNum === 5 && collageColNum === 4) || (collageRowNum === 5 && collageColNum === 5) || (collageRowNum === 6 && collageColNum === 5)) && "px-[50px]"}
             ${(collageRowNum === 6 && collageColNum === 6) && "px-[70px]"}
             ${(collageRowNum === 6 && collageColNum === 4) && "px-[100px]"}`}>
             {collageData.slice(0, collageProd).map((a, i) => {
