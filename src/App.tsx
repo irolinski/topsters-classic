@@ -2,8 +2,9 @@ import "./App.scss";
 import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
-import { collageEmpty } from "./assets/emptyCharts";
+import { collageEmpty, top50Empty } from "./assets/emptyCharts";
 import { HexColorPicker } from "react-colorful";
+import ClassicTop50 from "./Components/Charts/ClassicTop50";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -24,20 +25,19 @@ export type lastFmAlbum = {
 function App() {
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   // set table mode - (collage || top40 || top100)
-  const [tableMode, setTableMode] = useState("collage");
+  const [tableMode, setTableMode] = useState("top50");
 
   // collage options
-  const [collageRowNum, setCollageRowNum] = useState<number>(6);
+  const [collageRowNum, setCollageRowNum] = useState<number>(4);
   const [collageColNum, setCollageColNum] = useState<number>(4);
-  // const collageNumAll = collageRowNum * collageColNum
-  // console.log(collageNumAll);
 
-  // let collageTemplate = collageEmpty.slice(0, collageNumAll);
-    
+  // chart states
   const [collageData, setCollageData] = useState<
     lastFmAlbum[] | Record<string, never>[]
   >(collageEmpty);
-
+  const [top50Data, setTop50Data] = useState<
+    lastFmAlbum[] | Record<string, never>[]
+  >(top50Empty);
 
   //set chart title
   const [chartTitle, setChartTitle] = useState<string>("");
@@ -55,7 +55,6 @@ function App() {
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
   const [searchResults, setSearchResults] = useState<any>(null);
 
-
   const searchAlbums = async (albumTitle: string) => {
     let albumData: any = await fetch(
       `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
@@ -71,21 +70,31 @@ function App() {
   const changeIndex = (i: number) => {
     setSelectedIndex(i);
   };
-  const [chartDirty, setChartDirty] = useState<boolean>(false);
+  const [chartDirty, setChartDirty] = useState<boolean>(true);
   const [refresh, setRefresh] = useState(false);
 
-  const drawAlbumToCanvas = (index: number, album: any) => {
-    let updatedArr = collageData; // or other table type - do it later
-    updatedArr[index] = album;
-    setCollageData(updatedArr); //or other table type
+  const drawAlbumToCanvas = (index: number, album: lastFmAlbum) => {
+    if (tableMode === "collage") {
+      let updatedArr = collageData; 
+      updatedArr[index] = album;
+      setCollageData(updatedArr); //or other table type
+      selectedIndex < collageColNum * collageRowNum - 1
+      ? setSelectedIndex(selectedIndex + 1)
+      : setSelectedIndex(0);
+    }
 
+    if (tableMode === "top50") {
+      let updatedArr = top50Data;
+      updatedArr[index] = album;
+      setTop50Data(updatedArr);
+      selectedIndex < 50 - 1
+      ? setSelectedIndex(selectedIndex + 1)
+      : setSelectedIndex(0);
+    }
     // this forces rerender in a gentle way I don't really know why but it works
     setRefresh(true);
     setRefresh(!refresh);
     setChartDirty(true);
-    selectedIndex < (collageColNum * collageRowNum - 1)
-      ? setSelectedIndex(selectedIndex + 1)
-      : setSelectedIndex(0);
   };
 
   //export image
@@ -106,22 +115,31 @@ function App() {
           </button>
           <section className="menu-wrapper mobile absolute flex flex-col justify-center p-12">
             <h2>Choose your chart:</h2>
-            <select onChange={(evt) => setTableMode(evt.target.value)}>
+            <select
+              value={tableMode}
+              onChange={(evt) => setTableMode(evt.target.value)}
+            >
               <option value="collage">Collage</option>
               <option value="top40">Top 40</option>
               <option value="top100">Top 100</option>
             </select>
             <h3>Collage settings:</h3>
             <h4>Rows:</h4>
-            <select value={collageRowNum} onChange={(evt) => setCollageRowNum(Number(evt.target.value))}>
+            <select
+              value={collageRowNum}
+              onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
+            >
               <option value={4}>4</option>
               <option value={5}>5</option>
               <option value={6}>6</option>
             </select>
             <h4>Columns:</h4>
-            <select value={collageColNum} onChange={(evt) => setCollageColNum(Number(evt.target.value))}>
+            <select
+              value={collageColNum}
+              onChange={(evt) => setCollageColNum(Number(evt.target.value))}
+            >
               <option value={4}>4</option>
-              <option value={5}>5</option>Number(
+              <option value={5}>5</option>Number
               <option value={6}>6</option>
             </select>
             <h3>Table title:</h3>
@@ -165,10 +183,10 @@ function App() {
           <h1 className="lg:hidden">Topsters</h1>
         </div>
         {/* SEARCH SECTION */}
-        <div className="mobile-menu flex w-[75vw] max-w-[75vw] md:w-1/2 flex-col justify-center pt-24 lg:hidden">
+        <div className="mobile-menu flex w-[75vw] max-w-[75vw] flex-col justify-center pt-24 md:w-1/2 lg:hidden">
           <div className="search-input w-full border">
             <input
-              className="w-[75%] "
+              className="w-[75%]"
               type="text"
               onKeyUp={async (evt) =>
                 evt.key === "Enter"
@@ -191,7 +209,7 @@ function App() {
             searchResults.map((a: any) => {
               return (
                 <div
-                  className="p-2 w-[125px] hover:opacity-50"
+                  className="w-[125px] p-2 hover:opacity-50"
                   onClick={() => {
                     drawAlbumToCanvas(selectedIndex, a);
                   }}
@@ -214,24 +232,34 @@ function App() {
           <div className="relative left-0 lg:w-[25vw]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:block">
               <h2>Choose your chart:</h2>
-              <select onChange={(evt) => setTableMode(evt.target.value)}>
+              <select
+                value={tableMode}
+                onChange={(evt) => setTableMode(evt.target.value)}
+              >
                 <option value="collage">Collage</option>
                 <option value="top40">Top 40</option>
+                <option value="top50">Top 50</option>
                 <option value="top100">Top 100</option>
               </select>
               <h3>Collage settings:</h3>
-            <h4>Rows:</h4>
-            <select value={collageRowNum} onChange={(evt) => setCollageRowNum(Number(evt.target.value))}>
+              <h4>Rows:</h4>
+              <select
+                value={collageRowNum}
+                onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
+              >
                 <option value={4}>4</option>
                 <option value={5}>5</option>
                 <option value={6}>6</option>
-            </select>
-            <h4>Columns:</h4>
-            <select value={collageColNum} onChange={(evt) => setCollageColNum(Number(evt.target.value))}>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-            </select>
+              </select>
+              <h4>Columns:</h4>
+              <select
+                value={collageColNum}
+                onChange={(evt) => setCollageColNum(Number(evt.target.value))}
+              >
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+              </select>
               <h2>Search for your albums:</h2>
               <div className="search-input">
                 <input
@@ -251,7 +279,10 @@ function App() {
                   Search
                 </button>
               </div>
-              <div className="max-h-[300px] overflow-scroll" id="search-results-div" >
+              <div
+                className="max-h-[300px] overflow-scroll"
+                id="search-results-div"
+              >
                 {searchResults &&
                   searchResults.map((a: any) => {
                     return (
@@ -324,7 +355,7 @@ function App() {
           </div>
 
           {/* CANVAS SECTION */}
-          <div className="lg:w-[75vw] flex justify-center">
+          <div className="flex justify-center lg:w-[75vw]">
             {/* collage */}
             {tableMode === "collage" && (
               <Collage
@@ -332,6 +363,19 @@ function App() {
                 collageData={collageData}
                 collageRowNum={collageRowNum}
                 collageColNum={collageColNum}
+                selectedIndex={selectedIndex}
+                changeIndex={changeIndex}
+                chartDirty={chartDirty}
+                chartTitle={chartTitle}
+                hideAlbumTitles={hideAlbumTitles}
+                backgroundColor={backgroundColor}
+                backgroundImg={backgroundImg}
+              />
+            )}
+            {tableMode === "top50" && (
+              <ClassicTop50
+                exportRef={exportRef}
+                top50Data={top50Data}
                 selectedIndex={selectedIndex}
                 changeIndex={changeIndex}
                 chartDirty={chartDirty}

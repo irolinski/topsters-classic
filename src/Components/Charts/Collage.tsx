@@ -144,7 +144,7 @@ const Collage = ({
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
                       >
                         {a.artist} -{" "}
-                        {a.name.length > 100
+                        {a.name!.length > 100
                           ? `${a.name?.match(/^.{93}\w*/)} (...)`
                           : a.name}{" "}
                       </span>
@@ -227,7 +227,7 @@ const Collage = ({
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
                       >
                         {a.artist} -{" "}
-                        {a.name.length > 100
+                        {a.name!.length > 100
                           ? `${a.name?.match(/^.{93}\w*/)} (...)`
                           : a.name}{" "}
                       </span>
