@@ -85,7 +85,7 @@ const ClassicTop50 = ({
         >
           <div className={`image-div flex flex-col`}>
             <div className="top-4 my-[12px]">
-              <h2 className="mx-[16px] mb-[16px] text-2xl font-bold">Top 4</h2>
+              <h2 className="top50-section-header">Top 4</h2>
               <div className="flex">
                 {top50Data.slice(0, 4).map((a, i) => {
                   return (
@@ -114,7 +114,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="second-tier-classics my-[12px] w-4/5">
-              <h2 className="m-[16px] text-2xl font-bold">
+              <h2 className="top50-section-header">
                 Second-tier classics
               </h2>
               <div className="flex flex-wrap">
@@ -145,7 +145,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="other-favorites my-[12px] w-full">
-              <h2 className="m-[16px] text-2xl font-bold">Other favorites</h2>
+              <h2 className="top50-section-header">Other favorites</h2>
               <div className="flex flex-wrap">
                 {top50Data.slice(20).map((a, i) => {
                   return (
@@ -196,7 +196,7 @@ const ClassicTop50 = ({
                         >
                           {a.artist} -{" "}
                           {a.name!.length + a.artist!.length > 50
-                            ? `${a.name?.match(/^.{20}\w*/)} (...)`
+                            ? `${a.name?.match(/^.{19}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
                         {(i === 4 || i === 19) && (
@@ -237,7 +237,7 @@ const ClassicTop50 = ({
         >
           <div className={`image-div flex flex-col`}>
             <div className="top-4 my-[12px]">
-              <h2 className="mx-[16px] mb-[16px] text-2xl font-bold">Top 4</h2>
+              <h2 className="top50-section-header">Top 4</h2>
               <div className="flex">
                 {top50Data.slice(0, 4).map((a, i) => {
                   return (
@@ -260,7 +260,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="second-tier-classics my-[12px] w-4/5">
-              <h2 className="m-[16px] text-2xl font-bold">
+              <h2 className="top50-section-header">
                 Second-tier classics
               </h2>
               <div className="flex flex-wrap">
@@ -285,7 +285,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="other-favorites my-[12px] w-full">
-              <h2 className="m-[16px] text-2xl font-bold">Other favorites</h2>
+              <h2 className="top50-section-header">Other favorites</h2>
               <div className="flex flex-wrap">
                 {top50Data.slice(20).map((a, i) => {
                   return (
@@ -330,7 +330,7 @@ const ClassicTop50 = ({
                         >
                           {a.artist} -{" "}
                           {a.name!.length + a.artist!.length > 50
-                            ? `${a.name?.match(/^.{20}\w*/)} (...)`
+                            ? `${a.name?.match(/^.{19}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
                         {(i === 4 || i === 19) && (
