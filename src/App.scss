@@ -43,16 +43,18 @@
 
 .html2canvas-container {
   transform: translateX(3000px);
+
+  .image-div {
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    max-height: 100%;
+    flex-wrap: wrap;
+    transform: translateX(-20px);
+  }
 }
 
-.image-div {
-  display: flex;
-  justify-content: center;
-  top: 50%;
-  max-height: 100%;
-  flex-wrap: wrap;
-  transform: translateX(-20px);
-}
+
 
 .collage-container {
   width: 1024px;
@@ -135,6 +137,15 @@
 .top50-container {
   width: 1080px;
   height: 720px;
+
+  .image-div{
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    max-height: 100%;
+    flex-wrap: wrap;
+    transform: translate(-20px, -7.5px);
+  }
 
   span {
     font-family: "Space Mono", monospace;

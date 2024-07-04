@@ -90,7 +90,7 @@ const ClassicTop50 = ({
                 {top50Data.slice(0, 4).map((a, i) => {
                   return (
                     <div
-                      className={`h-[125px] w-[125px] ${i === selectedIndex && "selected-index"} mr-[16px]`}
+                      className={`h-[135px] w-[135px] ${i === selectedIndex && "selected-index"} mr-[16px]`}
                       key={i}
                       onClick={() => {
                         changeIndex(i);
@@ -121,7 +121,7 @@ const ClassicTop50 = ({
                 {top50Data.slice(4, 20).map((a, i) => {
                   return (
                     <div
-                      className={`h-[65px] w-[65px] ${i + 4 === selectedIndex && "selected-index"}`}
+                      className={`h-[65px] w-[65px] p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
                       key={i + 4}
                       onClick={() => {
                         changeIndex(i + 4);
@@ -150,7 +150,7 @@ const ClassicTop50 = ({
                 {top50Data.slice(20).map((a, i) => {
                   return (
                     <div
-                      className={`h-[65px] w-[65px] ${i + 20 === selectedIndex && "selected-index"}`}
+                      className={`h-[65px] w-[65px] p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
                       key={i + 20}
                       onClick={() => {
                         changeIndex(i + 20);
@@ -195,11 +195,11 @@ const ClassicTop50 = ({
                           className={`album-title-span m-[2px] block w-full text-left`}
                         >
                           {a.artist} -{" "}
-                          {a.name!.length + a.artist!.length > 60
-                            ? `${a.name?.match(/^.{30}\w*/)} (...)`
+                          {a.name!.length + a.artist!.length > 50
+                            ? `${a.name?.match(/^.{20}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
-                        {((i === 4) || (i === 19)) && (
+                        {(i === 4 || i === 19) && (
                           <div>
                             {" "}
                             <br />{" "}
@@ -219,7 +219,7 @@ const ClassicTop50 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top50-container html2canvas-container w-full content-center p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top50-container html2canvas-container flex w-full content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -236,53 +236,113 @@ const ClassicTop50 = ({
           className={`${hideAlbumTitles ? "w-full" : "w-2/3"} flex flex-col justify-center`}
         >
           <div className={`image-div flex flex-col`}>
-            {top50Data.map((a, i) => {
-              return (
-                <div className={`m-[2px]`} key={i}>
-                  {a.hasOwnProperty("image") ? (
-                    /*@ts-ignore */
-                    a.image[1]["#text"] && (
-                      <img
-                        className="w-full"
+            <div className="top-4 my-[12px]">
+              <h2 className="mx-[16px] mb-[16px] text-2xl font-bold">Top 4</h2>
+              <div className="flex">
+                {top50Data.slice(0, 4).map((a, i) => {
+                  return (
+                    <div className={`mr-[16px] h-[135px] w-[135px]`} key={i}>
+                      {a.hasOwnProperty("image") ? (
                         /*@ts-ignore */
-                        src={`${a.image[2]["#text"]}`}
-                      />
-                    )
-                  ) : (
-                    <div className="h-full w-full bg-gray"> </div>
-                  )}
-                </div>
-              );
-            })}
+                        a.image[1]["#text"] && (
+                          <img
+                            className="w-full"
+                            /*@ts-ignore */
+                            src={`${a.image[2]["#text"]}`}
+                          />
+                        )
+                      ) : (
+                        <div className="h-full w-full bg-gray"> </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="second-tier-classics my-[12px] w-4/5">
+              <h2 className="m-[16px] text-2xl font-bold">
+                Second-tier classics
+              </h2>
+              <div className="flex flex-wrap">
+                {top50Data.slice(4, 20).map((a, i) => {
+                  return (
+                    <div className={`h-[65px] w-[65px] p-[2px]`} key={i + 4}>
+                      {a.hasOwnProperty("image") ? (
+                        /*@ts-ignore */
+                        a.image[1]["#text"] && (
+                          <img
+                            className="w-full"
+                            /*@ts-ignore */
+                            src={`${a.image[2]["#text"]}`}
+                          />
+                        )
+                      ) : (
+                        <div className="h-full w-full bg-gray"> </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="other-favorites my-[12px] w-full">
+              <h2 className="m-[16px] text-2xl font-bold">Other favorites</h2>
+              <div className="flex flex-wrap">
+                {top50Data.slice(20).map((a, i) => {
+                  return (
+                    <div className={`h-[65px] w-[65px] p-[1px]`} key={i + 20}>
+                      {a.hasOwnProperty("image") ? (
+                        /*@ts-ignore */
+                        a.image[1]["#text"] && (
+                          <img
+                            className="w-full"
+                            /*@ts-ignore */
+                            src={`${a.image[2]["#text"]}`}
+                          />
+                        )
+                      ) : (
+                        <div className="h-full w-full bg-gray"> </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
         {/* title container */}
         {!hideAlbumTitles && (
-          <div className="max-h-full w-2/3">
+          <div className="my-[12px] flex max-h-full w-1/3 flex-col justify-center text-[10px] leading-[1.1]">
             <div className="">
+              {!chartDirty && (
+                <p className="text-xl">
+                  Start adding albums by selecting a field and then selecting
+                  the album from the database!
+                </p>
+              )}
+
               {top50Data.map((a, i) => {
                 return (
                   <>
                     {a.artist ? (
-                      <span
-                        className={`album-title-span m-[2px] block w-full text-left`}
-                      >
-                        {a.artist} -{" "}
-                        {a.name!.length > 100
-                          ? `${a.name?.match(/^.{93}\w*/)} (...)`
-                          : a.name}{" "}
-                      </span>
+                      <>
+                        <span
+                          className={`album-title-span m-[2px] block w-full text-left`}
+                        >
+                          {a.artist} -{" "}
+                          {a.name!.length + a.artist!.length > 50
+                            ? `${a.name?.match(/^.{20}\w*/)} (...)`
+                            : a.name}{" "}
+                        </span>
+                        {(i === 4 || i === 19) && (
+                          <div>
+                            {" "}
+                            <br />{" "}
+                          </div>
+                        )}
+                      </>
                     ) : (
-                      // <br />
                       <span></span>
                     )}
-                    {/* insert double spacing but no this wah */}
-                    {/* {(i + 1) % collageColNum === 0 && (
-                      <div>
-                        {" "}
-                        <br />{" "}
-                      </div>
-                    )} */}
                   </>
                 );
               })}
