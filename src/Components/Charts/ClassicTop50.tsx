@@ -64,7 +64,7 @@ const ClassicTop50 = ({
     <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
       {/* UI canvas */}
       <div
-        className={`top50-container top50-ui flex w-full content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top50-container top50-ui flex flex-col w-full content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -74,15 +74,17 @@ const ClassicTop50 = ({
           marginTop: `${marginValue}`,
         }}
       >
-        {chartTitle && (
-          <div className={`bold w-full py-12 text-center text-3xl`}>
-            {chartTitle}
+               {chartTitle && (
+          <div className={`chart-title bold w-full py-12 text-center text-3xl`}>
+            <span>{chartTitle}</span>
           </div>
         )}
         {/* images container */}
+        <div className="flex">
         <div
-          className={`${hideAlbumTitles ? "w-full" : "w-2/3"} flex flex-col justify-center`}
+          className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}
         >
+
           <div className={`image-div flex flex-col`}>
             <div className="top-4 my-[12px]">
               <h2 className="top50-section-header">Top 4</h2>
@@ -114,9 +116,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="second-tier-classics my-[12px] w-4/5">
-              <h2 className="top50-section-header">
-                Second-tier classics
-              </h2>
+              <h2 className="top50-section-header">Second-tier classics</h2>
               <div className="flex flex-wrap">
                 {top50Data.slice(4, 20).map((a, i) => {
                   return (
@@ -215,6 +215,7 @@ const ClassicTop50 = ({
             </div>
           </div>
         )}
+        </div>
       </div>
 
       {/* SOURCE canvas */}
@@ -260,9 +261,7 @@ const ClassicTop50 = ({
               </div>
             </div>
             <div className="second-tier-classics my-[12px] w-4/5">
-              <h2 className="top50-section-header">
-                Second-tier classics
-              </h2>
+              <h2 className="top50-section-header">Second-tier classics</h2>
               <div className="flex flex-wrap">
                 {top50Data.slice(4, 20).map((a, i) => {
                   return (

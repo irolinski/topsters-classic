@@ -180,6 +180,20 @@
   }
 }
 
+.top50-container.show-chart-title {
+  --title-size: 1.15;
+  --height: 720px;
+  height: calc(var(--height) * var(--title-size));
+  // padding-bottom: 40px;
+  // margin-top: -20px;
+  .chart-title{
+    // margin-top: -0px;
+    span{
+      font-size: 28px;
+      font-weight: 700;
+    }
+  }
+}
 //all
 .selected-index {
   opacity: 0.5;
