@@ -194,6 +194,33 @@
     }
   }
 }
+
+.top50-container.hide-album-titles {
+  width: 730px; //FOR CLASSIC BOXY LOOK
+
+  // .second-tier-classics > flex {
+  //   width: 580px; // FOR THE WIDE LOOK
+  // } 
+
+  display: flex;
+  background-color: black;
+  background-size: cover;
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    // line-height: 0.8;
+    line-height: 12px;
+    color: white;
+  }
+
+  .image-div {
+    transform: none;
+  }
+}
+
 //all
 .selected-index {
   opacity: 0.5;
