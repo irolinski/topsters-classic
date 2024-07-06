@@ -255,14 +255,10 @@
 
 .top100-ui {
   max-width: 1080px;
-  margin: auto;
   position: relative;
-  top: 2% !important;
 
   @media (min-width: 1024px) {
     transform: scale(0.6) !important;
-    // transform: none !important;
-    top: 12.5%;
   }
 
   @media (min-width: 1600) {
@@ -303,6 +299,7 @@
     transform: none;
   }
 }
+
 //all
 .selected-index {
   opacity: 0.5;
