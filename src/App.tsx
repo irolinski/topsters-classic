@@ -2,9 +2,10 @@ import "./App.scss";
 import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
-import { collageEmpty, top50Empty } from "./assets/emptyCharts";
+import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
 import { HexColorPicker } from "react-colorful";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
+import Top100 from "./Components/Charts/Top100";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -25,7 +26,7 @@ export type lastFmAlbum = {
 function App() {
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   // set table mode - (collage || top40 || top100)
-  const [tableMode, setTableMode] = useState("top50");
+  const [tableMode, setTableMode] = useState("top100");
 
   // collage options
   const [collageRowNum, setCollageRowNum] = useState<number>(4);
@@ -37,7 +38,10 @@ function App() {
   >(collageEmpty);
   const [top50Data, setTop50Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(top50Empty);
+    >(top50Empty);
+    const [top100Data, setTop100Data] = useState<
+    lastFmAlbum[] | Record<string, never>[]
+  >(top100Empty);
 
   //set chart title
   const [chartTitle, setChartTitle] = useState<string>("");
@@ -75,12 +79,12 @@ function App() {
 
   const drawAlbumToCanvas = (index: number, album: lastFmAlbum) => {
     if (tableMode === "collage") {
-      let updatedArr = collageData; 
+      let updatedArr = collageData;
       updatedArr[index] = album;
       setCollageData(updatedArr); //or other table type
       selectedIndex < collageColNum * collageRowNum - 1
-      ? setSelectedIndex(selectedIndex + 1)
-      : setSelectedIndex(0);
+        ? setSelectedIndex(selectedIndex + 1)
+        : setSelectedIndex(0);
     }
 
     if (tableMode === "top50") {
@@ -88,8 +92,17 @@ function App() {
       updatedArr[index] = album;
       setTop50Data(updatedArr);
       selectedIndex < 50 - 1
-      ? setSelectedIndex(selectedIndex + 1)
-      : setSelectedIndex(0);
+        ? setSelectedIndex(selectedIndex + 1)
+        : setSelectedIndex(0);
+    }
+
+    if (tableMode === "top100") {
+      let updatedArr = top100Data;
+      updatedArr[index] = album;
+      setTop100Data(updatedArr);
+      selectedIndex < 100 - 1
+        ? setSelectedIndex(selectedIndex + 1)
+        : setSelectedIndex(0);
     }
     // this forces rerender in a gentle way I don't really know why but it works
     setRefresh(true);
@@ -376,6 +389,20 @@ function App() {
               <ClassicTop50
                 exportRef={exportRef}
                 top50Data={top50Data}
+                selectedIndex={selectedIndex}
+                changeIndex={changeIndex}
+                chartDirty={chartDirty}
+                chartTitle={chartTitle}
+                hideAlbumTitles={hideAlbumTitles}
+                backgroundColor={backgroundColor}
+                backgroundImg={backgroundImg}
+              />
+            )}
+
+{tableMode === "top100" && (
+              <Top100
+                exportRef={exportRef}
+                top100Data={top100Data}
                 selectedIndex={selectedIndex}
                 changeIndex={changeIndex}
                 chartDirty={chartDirty}

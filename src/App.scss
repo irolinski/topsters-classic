@@ -54,8 +54,6 @@
   }
 }
 
-
-
 .collage-container {
   width: 1024px;
   height: 576px;
@@ -138,7 +136,7 @@
   width: 1080px;
   height: 720px;
 
-  .image-div{
+  .image-div {
     display: flex;
     justify-content: center;
     top: 50%;
@@ -155,7 +153,7 @@
     line-height: 9.9px;
     color: white;
   }
-  .top50-section-header{
+  .top50-section-header {
     margin: 0 16px 28px 16px;
     font-size: 24px;
     line-height: 32px;
@@ -184,11 +182,9 @@
   --title-size: 1.15;
   --height: 720px;
   height: calc(var(--height) * var(--title-size));
-  // padding-bottom: 40px;
-  // margin-top: -20px;
-  .chart-title{
-    // margin-top: -0px;
-    span{
+
+  .chart-title {
+    span {
       font-size: 28px;
       font-weight: 700;
     }
@@ -200,7 +196,7 @@
 
   // .second-tier-classics > flex {
   //   width: 580px; // FOR THE WIDE LOOK
-  // } 
+  // }
 
   display: flex;
   background-color: black;
@@ -221,6 +217,87 @@
   }
 }
 
+// top100
+
+.top100-container {
+  width: 1080px;
+  height: 1080px;
+
+  .image-div {
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    max-height: 100%;
+    flex-wrap: wrap;
+    transform: translate(-20px, -7.5px);
+  }
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 7.8px;
+    color: white;
+  }
+  .top100-section-header {
+    margin: 0 16px 28px 16px;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+  }
+}
+
+.top100-ui {
+  max-width: 1080px;
+  margin: auto;
+  position: relative;
+  top: 2% !important;
+
+  @media (min-width: 1024px) {
+    transform: scale(0.6) !important;
+    // transform: none !important;
+    top: 12.5%;
+  }
+
+  @media (min-width: 1600) {
+    transform: scale(0.8) !important;
+  }
+}
+
+.top100-container.show-chart-title {
+  --title-size: 1.1;
+  --height: 1080px;
+  height: calc(var(--height) * var(--title-size));
+
+  .chart-title {
+    span {
+      font-size: 28px;
+      font-weight: 700;
+    }
+  }
+}
+
+.top100-container.hide-album-titles {
+  width: 700px;
+  display: flex;
+  background-color: black;
+  background-size: cover;
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    // line-height: 0.8;
+    line-height: 12px;
+    color: white;
+  }
+
+  .image-div {
+    transform: none;
+  }
+}
 //all
 .selected-index {
   opacity: 0.5;
