@@ -38,8 +38,8 @@ function App() {
   >(collageEmpty);
   const [top50Data, setTop50Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-    >(top50Empty);
-    const [top100Data, setTop100Data] = useState<
+  >(top50Empty);
+  const [top100Data, setTop100Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
   >(top100Empty);
 
@@ -130,7 +130,10 @@ function App() {
             <h2>Choose your chart:</h2>
             <select
               value={tableMode}
-              onChange={(evt) => setTableMode(evt.target.value)}
+              onChange={(evt) => {
+                setTableMode(evt.target.value);
+                setSelectedIndex(0);
+              }}
             >
               <option value="collage">Collage</option>
               <option value="top40">Top 40</option>
@@ -247,7 +250,10 @@ function App() {
               <h2>Choose your chart:</h2>
               <select
                 value={tableMode}
-                onChange={(evt) => setTableMode(evt.target.value)}
+                onChange={(evt) => {
+                  setTableMode(evt.target.value);
+                  setSelectedIndex(0);
+                }}
               >
                 <option value="collage">Collage</option>
                 <option value="top40">Top 40</option>
@@ -399,7 +405,7 @@ function App() {
               />
             )}
 
-{tableMode === "top100" && (
+            {tableMode === "top100" && (
               <Top100
                 exportRef={exportRef}
                 top100Data={top100Data}
