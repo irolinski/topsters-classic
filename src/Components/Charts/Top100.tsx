@@ -121,10 +121,10 @@ const Top100 = ({
                 {top100Data.slice(10, 40).map((a, i) => {
                   return (
                     <div
-                      className={`h-[62px] w-[62px] p-[1px] ${i + 4 === selectedIndex && "selected-index"}`}
+                      className={`h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
                       key={i + 4}
                       onClick={() => {
-                        changeIndex(i + 4);
+                        changeIndex(i + 10);
                       }}
                     >
                       {a.hasOwnProperty("image") ? (
@@ -150,10 +150,10 @@ const Top100 = ({
                 {top100Data.slice(40).map((a, i) => {
                   return (
                     <div
-                      className={`h-[62px] w-[62px] p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
+                      className={`h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
                       key={i + 20}
                       onClick={() => {
-                        changeIndex(i + 20);
+                        changeIndex(i + 40);
                       }}
                     >
                       {a.hasOwnProperty("image") ? (
@@ -220,29 +220,38 @@ const Top100 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top100-container html2canvas-container flex w-full content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top100-container html2canvas-container flex flex-col w-full content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
+          transform: `scale(${canvasScaleValue})`,
+          marginBottom: `${marginValue}`,
+          marginTop: `${marginValue}`,
         }}
       >
-        {chartTitle && (
-          <div className={`bold w-full py-12 text-center text-3xl`}>
-            {chartTitle}
+               {chartTitle && (
+          <div className={`chart-title bold w-full py-12 text-center text-3xl`}>
+            <span>{chartTitle}</span>
           </div>
         )}
         {/* images container */}
+        <div className="flex">
         <div
-          className={`${hideAlbumTitles ? "w-full" : "w-2/3"} flex flex-col justify-center`}
+          className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}
         >
+
           <div className={`image-div flex flex-col`}>
-            <div className="top-[16px] my-[12px]">
+            <div className="top-4 my-[12px]">
               <h2 className="top100-section-header">Top 10</h2>
               <div className="flex flex-wrap">
-                {top100Data.slice(0, 4).map((a, i) => {
+                {top100Data.slice(0, 10).map((a, i) => {
                   return (
-                    <div className={`mr-[16px] h-[135px] w-[135px]`} key={i}>
+                    <div
+                      className={`h-[120px] w-[120px] m-[2px]`}
+                      key={i}
+
+                    >
                       {a.hasOwnProperty("image") ? (
                         /*@ts-ignore */
                         a.image[1]["#text"] && (
@@ -260,12 +269,15 @@ const Top100 = ({
                 })}
               </div>
             </div>
-            <div className="second-tier-classics my-[12px] w-4/5">
+            <div className="second-tier-classics my-[12px] w-full">
               <h2 className="top100-section-header">Second-tier classics</h2>
               <div className="flex flex-wrap">
-                {top100Data.slice(4, 20).map((a, i) => {
+                {top100Data.slice(10, 40).map((a, i) => {
                   return (
-                    <div className={`h-[65px] w-[65px] p-[2px]`} key={i + 4}>
+                    <div
+                      className={`h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
+                      key={i + 10}
+                    >
                       {a.hasOwnProperty("image") ? (
                         /*@ts-ignore */
                         a.image[1]["#text"] && (
@@ -286,9 +298,12 @@ const Top100 = ({
             <div className="other-favorites my-[12px] w-full">
               <h2 className="top100-section-header">Other favorites</h2>
               <div className="flex flex-wrap">
-                {top100Data.slice(20).map((a, i) => {
+                {top100Data.slice(40).map((a, i) => {
                   return (
-                    <div className={`h-[65px] w-[65px] p-[1px]`} key={i + 20}>
+                    <div
+                      className={`h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
+                      key={i + 40}
+                    >
                       {a.hasOwnProperty("image") ? (
                         /*@ts-ignore */
                         a.image[1]["#text"] && (
@@ -325,17 +340,17 @@ const Top100 = ({
                     {a.artist ? (
                       <>
                         <span
-                          className={`album-title-span m-[2px] block w-full text-left`}
+                          className={`album-title-span m-[2px] block w-full text-left translate-y-[10px] -translate-x-[30px] ${(((i === 5) || (i === 20) || (i === 30) || (i === 50) || (i === 60) || (i === 70) || (i === 80) || (i === 90))) && "pb-[3px]"}`}
                         >
                           {a.artist} -{" "}
                           {a.name!.length + a.artist!.length > 50
                             ? `${a.name?.match(/^.{19}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
-                        {(i === 4 || i === 19) && (
+                        {(i === 10 || i === 40) && (
                           <div>
                             {" "}
-                            <br />{" "}
+                            <span className="pb-[5px]"></span>{" "}
                           </div>
                         )}
                       </>
@@ -348,6 +363,7 @@ const Top100 = ({
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
