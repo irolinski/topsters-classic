@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu-wrapper {
+
+  // hide 'no file selected'
+  input[type="file"] {
+    color: rgba(0, 0, 0, 0);
+  }
+  &.desktop{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.055);
+  }
+}
+
+.collage-ui{
+
+  max-width: 1024px;
+  margin: auto;
+  position: relative;
+  top: 2% !important; 
+
+
+
+  @media (min-width: 1024px) {
+    transform: scale(0.6) !important;
+    // transform: none !important;
+    top: 12.5%;
+    
+  }
+
+  @media (min-width: 1600) {
+    transform: scale(0.8) !important;
+
+  }
+}
+
+.chart-title{
+  font-size: 2vw;
+  font-weight: 600;
+}
+
+// 4x4 collage CANVAS
+
+.html2canvas-container {
+  transform: translateX(3000px);
+}
+
+.image-div {
+  display: flex;
+  justify-content: center;
+  top: 50%;
+  max-height: 100%;
+  flex-wrap: wrap;
+  transform: translateX(-20px);
+}
+
+.collage-container {
+  width: 1024px;
+  height: 576px;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  background-color: black;
+  background-size: cover;
+
+  @media (min-width: 1024) {
+    width: auto;
+    
+  }
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 12px;
+    color: white;
+  }
+}
+
+// 4x4 collage CANVAS, no album titles
+
+.collage-container.hide-album-titles {
+  width: 576px;
+  height: 576px;
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  background-color: black;
+  background-size: cover;
+
+  span {
+    font-family: "Space Mono", monospace;
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    // line-height: 0.8;
+    line-height: 12px;
+    color: white;
+  }
+
+  .image-div {
+    transform: none;
+  }
+
+  // * {transform: none;}
+}
+
+// selected index marking
+.selected-index {
+  opacity: 0.5;
+}
+
+
+.collage-container.show-chart-title {
+  --title-size: 1.12;
+  --height: 576px;
+  height: calc(var(--height) * var(--title-size));
+  padding-bottom: 40px;
+}

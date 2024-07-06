@@ -44,6 +44,9 @@
 .html2canvas-container {
   transform: translateX(3000px);
 
+
+}
+.collage-container{
   .image-div {
     display: flex;
     justify-content: center;
@@ -75,6 +78,8 @@
     line-height: 12px;
     color: white;
   }
+
+
 }
 
 // 4x4 collage CANVAS, no album titles
