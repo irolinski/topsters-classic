@@ -192,14 +192,14 @@ const ClassicTop50 = ({
                     {a.artist ? (
                       <>
                         <span
-                          className={`album-title-span m-[2px] block w-full text-left`}
+                          className={`album-title-span m-[2px] block w-full text-left  ${(i === 29 || i === 39 ) && "pb-[3px]"}`}
                         >
                           {a.artist} -{" "}
                           {a.name!.length + a.artist!.length > 50
                             ? `${a.name?.match(/^.{19}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
-                        {(i === 4 || i === 19) && (
+                        {(i === 3 || i === 19) && (
                           <div>
                             {" "}
                             <br />{" "}
@@ -325,14 +325,14 @@ const ClassicTop50 = ({
                     {a.artist ? (
                       <>
                         <span
-                          className={`album-title-span m-[2px] block w-full text-left`}
+                          className={`album-title-span m-[2px] block w-full text-left  ${(i === 29 || i === 39 ) && "pb-[3px]"}`}
                         >
                           {a.artist} -{" "}
                           {a.name!.length + a.artist!.length > 50
                             ? `${a.name?.match(/^.{19}\w*/)} (...)`
                             : a.name}{" "}
                         </span>
-                        {(i === 4 || i === 19) && (
+                        {(i === 3 || i === 19) && (
                           <div>
                             {" "}
                             <br />{" "}

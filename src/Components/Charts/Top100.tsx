@@ -324,14 +324,14 @@ const Top100 = ({
                       {a.artist ? (
                         <>
                           <span
-                            className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 5 || i === 20 || i === 30 || i === 50 || i === 60 || i === 70 || i === 80 || i === 90) && "pb-[3px]"}`}
+                            className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 4 || i === 19 || i === 29 || i === 49 || i === 59 || i === 69 || i === 79 || i === 89) && "pb-[3px]"}`}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
                               ? `${a.name?.match(/^.{19}\w*/)} (...)`
                               : a.name}{" "}
                           </span>
-                          {(i === 10 || i === 40) && (
+                          {(i === 9 || i === 39) && (
                             <div>
                               {" "}
                               <span className="pb-[5px]"></span>{" "}
