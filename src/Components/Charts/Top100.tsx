@@ -408,13 +408,6 @@ const Top100 = ({
           {!hideAlbumTitles && (
             <div className="my-[4px] flex max-h-full w-1/3 flex-col justify-center text-[10px] leading-[1.1]">
               <div className="">
-                {!chartDirty && (
-                  <p className="text-xl">
-                    Start adding albums by selecting a field and then selecting
-                    the album from the database!
-                  </p>
-                )}
-
                 {top100Data.map((a, i) => {
                   return (
                     <>

@@ -269,11 +269,14 @@ const ClassicTop50 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top50-container html2canvas-container flex w-full content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top50-container html2canvas-container flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
+          transform: `scale(${canvasScaleValue})`,
+          marginBottom: `${marginValue}`,
+          marginTop: `${marginValue}`,
         }}
       >
         {chartTitle && (
@@ -293,151 +296,160 @@ const ClassicTop50 = ({
           </div>
         )}
         {/* images container */}
-        <div
-          className={`${hideAlbumTitles ? "w-full" : "w-2/3"} flex flex-col justify-center`}
-        >
-          <div className={`image-div flex flex-col`}>
-            <div className="top-4 my-[12px]">
-              <h2
-                className="top50-section-header"
-                style={
-                  fontColorHeader !== ""
-                    ? { color: `${fontColorHeader}` }
-                    : {
-                        color: `${backgroundColor}`,
-                        filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
-                      }
-                }
-              >
-                Top 4
-              </h2>
-              <div className="flex">
-                {top50Data.slice(0, 4).map((a, i) => {
-                  return (
-                    <div className={`mr-[16px] h-[135px] w-[135px]`} key={i}>
-                      {a.hasOwnProperty("image") ? (
-                        /*@ts-ignore */
-                        a.image[1]["#text"] && (
-                          <img
-                            className="w-full"
-                            /*@ts-ignore */
-                            src={`${a.image[2]["#text"]}`}
-                          />
-                        )
-                      ) : (
-                        <div className="h-full w-full bg-gray"> </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="second-tier-classics my-[12px] w-4/5">
-              <h2
-                className="top50-section-header"
-                style={
-                  fontColorHeader !== ""
-                    ? { color: `${fontColorHeader}` }
-                    : {
-                        color: `${backgroundColor}`,
-                        filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
-                      }
-                }
-              >
-                Second-tier classics
-              </h2>
-              <div className="flex flex-wrap">
-                {top50Data.slice(4, 20).map((a, i) => {
-                  return (
-                    <div className={`h-[65px] w-[65px] p-[2px]`} key={i + 4}>
-                      {a.hasOwnProperty("image") ? (
-                        /*@ts-ignore */
-                        a.image[1]["#text"] && (
-                          <img
-                            className="w-full"
-                            /*@ts-ignore */
-                            src={`${a.image[2]["#text"]}`}
-                          />
-                        )
-                      ) : (
-                        <div className="h-full w-full bg-gray"> </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="other-favorites my-[12px] w-full">
-              <h2
-                className="top50-section-header"
-                style={{ color: `${fontColorHeader}` }}
-              >
-                Other favorites
-              </h2>
-              <div className="flex flex-wrap">
-                {top50Data.slice(20).map((a, i) => {
-                  return (
-                    <div className={`h-[65px] w-[65px] p-[1px]`} key={i + 20}>
-                      {a.hasOwnProperty("image") ? (
-                        /*@ts-ignore */
-                        a.image[1]["#text"] && (
-                          <img
-                            className="w-full"
-                            /*@ts-ignore */
-                            src={`${a.image[2]["#text"]}`}
-                          />
-                        )
-                      ) : (
-                        <div className="h-full w-full bg-gray"> </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* title container */}
-        {!hideAlbumTitles && (
-          <div className="my-[12px] flex max-h-full w-1/3 flex-col justify-center text-[10px] leading-[1.1]">
-            <div className="">
-              {!chartDirty && (
-                <p className="text-xl">
-                  Start adding albums by selecting a field and then selecting
-                  the album from the database!
-                </p>
-              )}
-
-              {top50Data.map((a, i) => {
-                return (
-                  <>
-                    {a.artist ? (
-                      <>
-                        <span
-                          className={`album-title-span m-[2px] block w-full text-left ${(i === 29 || i === 39) && "pb-[3px]"}`}
-                          style={{ color: `${fontColorBody}` }}
-                        >
-                          {a.artist} -{" "}
-                          {a.name!.length + a.artist!.length > 50
-                            ? `${a.name?.match(/^.{19}\w*/)} (...)`
-                            : a.name}{" "}
-                        </span>
-                        {(i === 3 || i === 19) && (
-                          <div>
-                            {" "}
-                            <br />{" "}
-                          </div>
+        <div className="flex">
+          <div className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}>
+            <div className={`image-div flex flex-col`}>
+              <div className="top-4 my-[12px]">
+                <h2
+                  className="top50-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Top 4
+                </h2>
+                <div className="flex">
+                  {top50Data.slice(0, 4).map((a, i) => {
+                    return (
+                      <div
+                        className={`h-[135px] w-[135px] mr-[16px]`}
+                        key={i}
+                      >
+                        {a.hasOwnProperty("image") ? (
+                          /*@ts-ignore */
+                          a.image[1]["#text"] && (
+                            <img
+                              className="w-full"
+                              /*@ts-ignore */
+                              src={`${a.image[2]["#text"]}`}
+                            />
+                          )
+                        ) : (
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
-                      </>
-                    ) : (
-                      <span></span>
-                    )}
-                  </>
-                );
-              })}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="second-tier-classics my-[12px] w-4/5">
+                <h2
+                  className="top50-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Second-tier classics
+                </h2>
+                <div className="flex flex-wrap">
+                  {top50Data.slice(4, 20).map((a, i) => {
+                    return (
+                      <div
+                        className={`h-[65px] w-[65px] p-[2px]`}
+                        key={i + 4}
+                      >
+                        {a.hasOwnProperty("image") ? (
+                          /*@ts-ignore */
+                          a.image[1]["#text"] && (
+                            <img
+                              className="w-full"
+                              /*@ts-ignore */
+                              src={`${a.image[2]["#text"]}`}
+                            />
+                          )
+                        ) : (
+                          <div className="h-full w-full bg-gray"> </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="other-favorites my-[12px] w-full">
+                <h2
+                  className="top50-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Other favorites
+                </h2>
+                <div className="flex flex-wrap">
+                  {top50Data.slice(20).map((a, i) => {
+                    return (
+                      <div
+                        className={`h-[65px] w-[65px] p-[1px]}`}
+                        key={i + 20}
+                      >
+                        {a.hasOwnProperty("image") ? (
+                          /*@ts-ignore */
+                          a.image[1]["#text"] && (
+                            <img
+                              className="w-full"
+                              /*@ts-ignore */
+                              src={`${a.image[2]["#text"]}`}
+                            />
+                          )
+                        ) : (
+                          <div className="h-full w-full bg-gray"> </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
-        )}
+          {/* title container */}
+          {!hideAlbumTitles && (
+            <div className="my-[12px] flex max-h-full w-1/3 flex-col justify-center text-[10px] leading-[1.1]">
+              <div className="">
+                {top50Data.map((a, i) => {
+                  return (
+                    <>
+                      {a.artist ? (
+                        <>
+                          <span
+                            className={`album-title-span m-[2px] block w-full text-left ${(i === 29 || i === 39) && "pb-[3px]"}`}
+                            style={{ color: `${fontColorBody}` }}
+                          >
+                            {a.artist} -{" "}
+                            {a.name!.length + a.artist!.length > 50
+                              ? `${a.name?.match(/^.{19}\w*/)} (...)`
+                              : a.name}{" "}
+                          </span>
+                          {(i === 3 || i === 19) && (
+                            <div>
+                              {" "}
+                              <br />{" "}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <span></span>
+                      )}
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
