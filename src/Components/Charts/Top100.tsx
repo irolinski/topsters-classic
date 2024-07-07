@@ -11,6 +11,8 @@ type Top100Props = {
   hideAlbumTitles: boolean;
   backgroundColor: string;
   backgroundImg: string;
+  fontColorHeader: string;
+  fontColorBody: string;
 };
 
 type windowValueTypes = {
@@ -28,6 +30,8 @@ const Top100 = ({
   hideAlbumTitles,
   backgroundColor,
   backgroundImg,
+  fontColorHeader,
+  fontColorBody,
 }: Top100Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(2000);
@@ -60,10 +64,10 @@ const Top100 = ({
   const size: windowValueTypes = useWindowSize();
   const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   return (
-      <div className={`max-h-0`}>
+    <div className={`max-h-0`}>
       {/* UI canvas */}
       <div
-        className={`top100-container mt-[-320px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] lg: top100-ui  flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top100-container lg: top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -72,8 +76,17 @@ const Top100 = ({
         }}
       >
         {chartTitle && (
-          <div className={`chart-title bold w-full py-12 text-center text-3xl`}>
-            <span>{chartTitle}</span>
+          <div className={`chart-title bold w-full py-12 text-center text-3xl`}
+          >
+            <span
+             style={
+              fontColorHeader !== ""
+                ? { color: `${fontColorHeader}` }
+                : {
+                    color: `${backgroundColor}`,
+                    filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                  }
+            }>{chartTitle}</span>
           </div>
         )}
         {/* images container */}
@@ -81,7 +94,19 @@ const Top100 = ({
           <div className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}>
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">
-                <h2 className="top100-section-header">Top 10</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Top 10
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
@@ -110,7 +135,19 @@ const Top100 = ({
                 </div>
               </div>
               <div className="second-tier-classics my-[12px] w-full">
-                <h2 className="top100-section-header">Second-tier classics</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Second-tier classics
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
@@ -139,7 +176,19 @@ const Top100 = ({
                 </div>
               </div>
               <div className="other-favorites my-[12px] w-full">
-                <h2 className="top100-section-header">Other favorites</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Other favorites
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(40).map((a, i) => {
                     return (
@@ -187,6 +236,7 @@ const Top100 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 4 || i === 19 || i === 29 || i === 49 || i === 59 || i === 69 || i === 79 || i === 89) && "pb-[3px]"}`}
+                            style={{ color: `${fontColorBody}` }}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -223,7 +273,18 @@ const Top100 = ({
       >
         {chartTitle && (
           <div className={`chart-title bold w-full py-12 text-center text-3xl`}>
-            <span>{chartTitle}</span>
+            <span
+              style={
+                fontColorHeader !== ""
+                  ? { color: `${fontColorHeader}` }
+                  : {
+                      color: `${backgroundColor}`,
+                      filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                    }
+              }
+            >
+              {chartTitle}
+            </span>
           </div>
         )}
         {/* images container */}
@@ -231,7 +292,19 @@ const Top100 = ({
           <div className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}>
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">
-                <h2 className="top100-section-header">Top 10</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Top 10
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
@@ -254,7 +327,19 @@ const Top100 = ({
                 </div>
               </div>
               <div className="second-tier-classics my-[12px] w-full">
-                <h2 className="top100-section-header">Second-tier classics</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Second-tier classics
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
@@ -280,7 +365,19 @@ const Top100 = ({
                 </div>
               </div>
               <div className="other-favorites my-[12px] w-full">
-                <h2 className="top100-section-header">Other favorites</h2>
+                <h2
+                  className="top100-section-header"
+                  style={
+                    fontColorHeader !== ""
+                      ? { color: `${fontColorHeader}` }
+                      : {
+                          color: `${backgroundColor}`,
+                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                        }
+                  }
+                >
+                  Other favorites
+                </h2>
                 <div className="flex flex-wrap">
                   {top100Data.slice(40).map((a, i) => {
                     return (
@@ -325,6 +422,7 @@ const Top100 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 4 || i === 19 || i === 29 || i === 49 || i === 59 || i === 69 || i === 79 || i === 89) && "pb-[3px]"}`}
+                            style={{ color: `${fontColorBody}` }}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50

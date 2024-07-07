@@ -49,6 +49,16 @@ function App() {
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
 
+  //set font colors
+  // const [fontColor, setFontColor] = useState<string>("red");
+  function invertHex(hex: string) {
+    return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
+  }
+  invertHex('00FF00'); 
+  const [fontColorBody, setfontColorBody] = useState<string>("white");
+  const [fontColorHeader, setfontColorHeader] = useState<string>("");
+
+
   // set table background color
   const [backgroundColor, setBackgroundColor] = useState<string>("black");
 
@@ -164,28 +174,38 @@ function App() {
               type="text"
               onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
             />
-            <h2>Choose your background:</h2>
-            <div>
-              <h3>Color:</h3>
-              <HexColorPicker
-                color={backgroundColor}
-                onChange={setBackgroundColor}
-              />
-            </div>
-            <div>
-              <h3>Image:</h3>
-              <input
-                type="file"
-                onChange={(evt) =>
-                  setBackgroundImg(
-                    URL.createObjectURL(
-                      evt.target.files && evt.target.files[0],
-                    ),
-                  )
-                }
-              />
-              <button onClick={() => setBackgroundImg("")}>Clear</button>
-            </div>
+                          <h2>Styling:</h2>
+              <div>
+                <h3>Background Color:</h3>
+                <HexColorPicker
+                  color={backgroundColor}
+                  onChange={setBackgroundColor}
+                />
+              </div>
+              <div>
+                <h3>Background Image:</h3>
+                {/* @ts-ignore */}
+                <input
+                  type="file"
+                  onChange={(evt) =>
+                    setBackgroundImg(
+                      URL.createObjectURL(
+                        evt.target.files && evt.target.files[0],
+                      ),
+                    )
+                  }
+                />
+                <button onClick={() => setBackgroundImg("")}>Clear</button>
+              </div>
+              <div>
+                <h3>Font:</h3>
+                <h3> Font Color: </h3>
+                <HexColorPicker
+                  color={fontColorBody}
+                  onChange={setfontColorBody}
+                />
+              </div>
+
             <h3>Hide album titles:</h3>
             <input
               type="checkbox"
@@ -332,16 +352,16 @@ function App() {
                 type="text"
                 onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
               />
-              <h2>Choose your background:</h2>
+              <h2>Styling:</h2>
               <div>
-                <h3>Color:</h3>
+                <h3>Background Color:</h3>
                 <HexColorPicker
                   color={backgroundColor}
                   onChange={setBackgroundColor}
                 />
               </div>
               <div>
-                <h3>Image:</h3>
+                <h3>Background Image:</h3>
                 {/* @ts-ignore */}
                 <input
                   type="file"
@@ -355,6 +375,15 @@ function App() {
                 />
                 <button onClick={() => setBackgroundImg("")}>Clear</button>
               </div>
+              <div>
+                <h3>Font:</h3>
+                <h3> Font Color: </h3>
+                <HexColorPicker
+                  color={fontColorBody}
+                  onChange={setfontColorBody}
+                />
+              </div>
+
               <h3>Hide album titles:</h3>
               <input
                 className="w-full"
@@ -389,6 +418,8 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                fontColorHeader={fontColorHeader}
+                fontColorBody={fontColorBody}
               />
             )}
             {tableMode === "top50" && (
@@ -402,6 +433,8 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                fontColorHeader={fontColorHeader}
+                fontColorBody={fontColorBody}
               />
             )}
 
@@ -416,6 +449,8 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                fontColorHeader={fontColorHeader}
+                fontColorBody={fontColorBody}
               />
             )}
           </div>
