@@ -14,16 +14,36 @@
     background-color: rgba(255, 255, 255, 0.055);
   }
 
-  .menu-block{
-    margin: 24px 0px
+  .menu-block {
+    margin: 24px 0px;
   }
 
-  .color-box{
-    border: 3px solid white
+  .color-box {
+    border: 3px solid white;
+    width: 50px;
+    height: 25px;
+    min-width: 50px;
+    &:hover{
+      cursor: pointer;
+    }
   }
 
-
-
+  .color-picker-div {
+    border-radius: 40px;
+    background-color: rgba(0, 0, 0, 0.43);
+    position: absolute;
+    transform: translate(150px, -120px) scale(0.6);
+  }
+  .color-picker-div::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 100%;
+    margin-left: -5px;
+    border-width: 25px;
+    border-style: solid;
+    border-color: transparent rgba(0, 0, 0, 0.43) transparent transparent;
+  }
 }
 
 //collage
@@ -46,8 +66,8 @@
 }
 
 .collage-header {
-font-size: 36px;
-font-weight: 800;
+  font-size: 36px;
+  font-weight: 800;
 }
 
 // 4x4 collage CANVAS

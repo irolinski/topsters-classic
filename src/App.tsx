@@ -1,12 +1,12 @@
 import "./App.scss";
-import { MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, RefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
 import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
 import { HexColorPicker } from "react-colorful";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
-import invert, { RGB, RgbArray, HexColor, BlackWhite } from "invert-color";
+import invert from "invert-color";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -50,23 +50,12 @@ function App() {
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
 
-  //set font colors
-  // const [fontColor, setFontColor] = useState<string>("red");
-  function invertHex(hex: string) {
-    return (Number(`0x1${hex}`) ^ 0xffffff)
-      .toString(16)
-      .substr(1)
-      .toUpperCase();
-  }
-  invertHex("00FF00");
+  //set colors
   const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
-
-  // set table background color
   const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
-
-  // set table background image
   const [backgroundImg, setBackgroundImg] = useState<string>("");
+  const [openColorPicker, setOpenColorPicker] = useState<string>("");
 
   // last.fm api search feature
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
@@ -121,6 +110,9 @@ function App() {
     setRefresh(!refresh);
     setChartDirty(true);
   };
+
+  //file input ref
+  const inputRef: MutableRefObject<HTMLInputElement | undefined> = useRef();
 
   //export image
   const exportRef: MutableRefObject<undefined> = useRef();
@@ -178,7 +170,7 @@ function App() {
             <input
               className="border"
               type="text"
-              onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
+              onChange={async (evt) => setChartTitle(evt.currentTarget.value)}
             />
             <h2>Styling:</h2>
             <div>
@@ -380,7 +372,8 @@ function App() {
                     <input
                       className="w-3/4"
                       type="text"
-                      onKeyUp={async (evt) =>
+                      value={chartTitle}
+                      onChange={async (evt) =>
                         setChartTitle(evt.currentTarget.value)
                       }
                     />
@@ -391,28 +384,62 @@ function App() {
                 </div>
                 <div className="menu-block">
                   <h2>Background:</h2>
+
                   <div className="inline-flex p-4">
                     <h3 className="px-4">Color:</h3>
                     <div
-                      className="color-box h-[40px] w-[60px]"
+                      className={`${openColorPicker !== "background" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
+                    >
+                      <button
+                        className="absolute right-0"
+                        onClick={() => {
+                          setOpenColorPicker("");
+                        }}
+                      >
+                        X
+                      </button>
+                      <HexColorPicker
+                        className="m-16"
+                        color={backgroundColor}
+                        onChange={setBackgroundColor}
+                      />
+                    </div>
+                    <div
+                      className="color-box hover:cursor-pointer"
                       style={{ backgroundColor: `${backgroundColor}` }}
+                      onClick={() => {
+                        openColorPicker !== "background"
+                          ? setOpenColorPicker("background")
+                          : setOpenColorPicker("");
+                      }}
                     ></div>
                   </div>
                   <div className="flex p-4">
                     <h3 className="px-4">Image:</h3>
-                    <input
-                      hidden
-                      type="file"
-                      id="file-input-desktop"
-                      onChange={(evt) =>
-                        setBackgroundImg(
-                          URL.createObjectURL(
-                            evt.target.files && evt.target.files[0],
-                          ),
-                        )
-                      }
-                    />
-                    <label className="w-8 h-4 mr-8" htmlFor="file-input-desktop"><button>💾</button></label>
+                    <label
+                      className="mr-8 h-4 w-8"
+                      htmlFor="file-input-desktop"
+                    >
+                      <input
+                        className="absolute my-[-20px] h-0 w-0 opacity-0"
+                        type="file"
+                        ref={inputRef}
+                        id="file-input-desktop"
+                        onChange={(evt) =>
+                          setBackgroundImg(
+                            URL.createObjectURL(
+                              evt.target.files && evt.target.files[0],
+                            ),
+                          )
+                        }
+                      />
+                      <button
+                        className=""
+                        onClick={() => inputRef.current?.click()}
+                      >
+                        💾
+                      </button>
+                    </label>
                     <button onClick={() => setBackgroundImg("")}>❌</button>
                   </div>
                 </div>
@@ -422,35 +449,74 @@ function App() {
                     <div className="inline-flex p-4">
                       <h3 className="px-4"> Body Text Color: </h3>
                       <div
-                        className="color-box h-[40px] w-[60px]"
-                        style={ fontColorBody !== "" ? { backgroundColor: `${fontColorBody}`} : { backgroundColor: `${invert(backgroundColor)}` }}
-                        ></div>
-                      {/* <HexColorPicker
-                      color={fontColorBody}
-                      onChange={setfontColorBody}
-                    /> */}
+                        className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
+                      >
+                        <button
+                          className="absolute right-0"
+                          onClick={() => {
+                            setOpenColorPicker("");
+                          }}
+                        >
+                          X
+                        </button>
+                        <HexColorPicker
+                          className="m-16"
+                          color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
+                          onChange={setfontColorBody}
+                        />
+                      </div>
+                      <div
+                        className="color-box"
+                        style={
+                          fontColorBody !== ""
+                            ? { backgroundColor: `${fontColorBody}` }
+                            : { backgroundColor: `${invert(backgroundColor)}` }
+                        }
+                        onClick={() => setOpenColorPicker("font-body")}
+                      ></div>
                     </div>
                   </div>
                   <div className="inline-flex p-4">
                     <h3 className="px-4"> Header Font Color: </h3>
                     <div
-                      className="color-box h-[40px] w-[60px]"
-                      style={ fontColorHeader !== "" ? { backgroundColor: `${fontColorHeader}`} : { backgroundColor: `${invert(backgroundColor)}` }}
+                      className={`${openColorPicker !== "font-header" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
+                    >
+                      <button
+                        className="absolute right-0"
+                        onClick={() => {
+                          setOpenColorPicker("");
+                        }}
+                      >
+                        X
+                      </button>
+                      <HexColorPicker
+                        className="m-16"
+                        color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
+                        onChange={setfontColorHeader}
+                      />
+                    </div>
+                    <div
+                      className="color-box"
+                      style={
+                        fontColorHeader !== ""
+                          ? { backgroundColor: `${fontColorHeader}` }
+                          : { backgroundColor: `${invert(backgroundColor)}` }
+                      }
+                      onClick={() => setOpenColorPicker("font-header")}
                     ></div>
-                    {/* <HexColorPicker
-                      color={fontColorHeader}
-                      onChange={setfontColorHeader}
-                      /> */}
                   </div>
                 </div>
-                <div className="menu-block flex">
-                  <h3 className="px-4">Hide album titles:</h3>
-                  <input
-                    className=""
-                    type="checkbox"
-                    defaultChecked={hideAlbumTitles}
-                    onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-                  />
+                <div className="menu-block">
+                  <h3>Options:</h3>
+                  <div className="flex px-4">
+                    <h3 className="p-4">Hide album titles:</h3>
+                    <input
+                      className=""
+                      type="checkbox"
+                      defaultChecked={hideAlbumTitles}
+                      onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
+                    />
+                  </div>
                 </div>
                 <button
                   className="my-8 w-full"
