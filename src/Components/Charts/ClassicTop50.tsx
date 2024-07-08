@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { lastFmAlbum } from "../../App";
+import invert from "invert-color";
 
 type Top50Props = {
   exportRef: any;
@@ -85,8 +86,7 @@ const ClassicTop50 = ({
                 fontColorHeader !== ""
                   ? { color: `${fontColorHeader}` }
                   : {
-                      color: `${backgroundColor}`,
-                      filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                      color: `${invert(`${backgroundColor}`)}`,
                     }
               }
             >
@@ -105,8 +105,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -146,8 +145,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -187,8 +185,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -241,7 +238,11 @@ const ClassicTop50 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full text-left ${(i === 29 || i === 39) && "pb-[3px]"}`}
-                            style={{ color: `${fontColorBody}` }}
+                            style={
+                              fontColorBody !== ""
+                                ? { color: `${fontColorBody}` }
+                                : { color: `${invert(backgroundColor)}` }
+                            }
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -286,8 +287,7 @@ const ClassicTop50 = ({
                 fontColorHeader !== ""
                   ? { color: `${fontColorHeader}` }
                   : {
-                      color: `${backgroundColor}`,
-                      filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                      color: `${invert(`${backgroundColor}`)}`,
                     }
               }
             >
@@ -306,8 +306,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -316,10 +315,7 @@ const ClassicTop50 = ({
                 <div className="flex">
                   {top50Data.slice(0, 4).map((a, i) => {
                     return (
-                      <div
-                        className={`h-[135px] w-[135px] mr-[16px]`}
-                        key={i}
-                      >
+                      <div className={`mr-[16px] h-[135px] w-[135px]`} key={i}>
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
@@ -344,8 +340,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -354,10 +349,7 @@ const ClassicTop50 = ({
                 <div className="flex flex-wrap">
                   {top50Data.slice(4, 20).map((a, i) => {
                     return (
-                      <div
-                        className={`h-[65px] w-[65px] p-[2px]`}
-                        key={i + 4}
-                      >
+                      <div className={`h-[65px] w-[65px] p-[2px]`} key={i + 4}>
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
@@ -382,8 +374,7 @@ const ClassicTop50 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -393,7 +384,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(20).map((a, i) => {
                     return (
                       <div
-                        className={`h-[65px] w-[65px] p-[1px]}`}
+                        className={`p-[1px]} h-[65px] w-[65px]`}
                         key={i + 20}
                       >
                         {a.hasOwnProperty("image") ? (
@@ -426,7 +417,11 @@ const ClassicTop50 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full text-left ${(i === 29 || i === 39) && "pb-[3px]"}`}
-                            style={{ color: `${fontColorBody}` }}
+                            style={
+                              fontColorBody !== ""
+                                ? { color: `${fontColorBody}` }
+                                : { color: `${invert(backgroundColor)}` }
+                            }
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50

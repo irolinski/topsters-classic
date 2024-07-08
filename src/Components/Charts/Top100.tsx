@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { lastFmAlbum } from "../../App";
+import invert from "invert-color";
 
 type Top100Props = {
   exportRef: any;
@@ -76,17 +77,18 @@ const Top100 = ({
         }}
       >
         {chartTitle && (
-          <div className={`chart-title bold w-full py-12 text-center text-3xl`}
-          >
+          <div className={`chart-title bold w-full py-12 text-center text-3xl`}>
             <span
-             style={
-              fontColorHeader !== ""
-                ? { color: `${fontColorHeader}` }
-                : {
-                    color: `${backgroundColor}`,
-                    filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
-                  }
-            }>{chartTitle}</span>
+              style={
+                fontColorHeader !== ""
+                  ? { color: `${fontColorHeader}` }
+                  : {
+                      color: `${invert(`${backgroundColor}`)}`,
+                    }
+              }
+            >
+              {chartTitle}
+            </span>
           </div>
         )}
         {/* images container */}
@@ -100,8 +102,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -141,8 +142,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -182,8 +182,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -236,7 +235,11 @@ const Top100 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 4 || i === 19 || i === 29 || i === 49 || i === 59 || i === 69 || i === 79 || i === 89) && "pb-[3px]"}`}
-                            style={{ color: `${fontColorBody}` }}
+                            style={
+                              fontColorBody !== ""
+                                ? { color: `${fontColorBody}` }
+                                : { color: `${invert(backgroundColor)}` }
+                            }
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -278,8 +281,7 @@ const Top100 = ({
                 fontColorHeader !== ""
                   ? { color: `${fontColorHeader}` }
                   : {
-                      color: `${backgroundColor}`,
-                      filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                      color: `${invert(`${backgroundColor}`)}`,
                     }
               }
             >
@@ -298,8 +300,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -333,8 +334,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -371,8 +371,7 @@ const Top100 = ({
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
                       : {
-                          color: `${backgroundColor}`,
-                          filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`,
+                          color: `${invert(`${backgroundColor}`)}`,
                         }
                   }
                 >
@@ -415,7 +414,11 @@ const Top100 = ({
                         <>
                           <span
                             className={`album-title-span m-[2px] block w-full -translate-x-[30px] translate-y-[10px] text-left ${(i === 4 || i === 19 || i === 29 || i === 49 || i === 59 || i === 69 || i === 79 || i === 89) && "pb-[3px]"}`}
-                            style={{ color: `${fontColorBody}` }}
+                            style={
+                              fontColorBody !== ""
+                                ? { color: `${fontColorBody}` }
+                                : { color: `${invert(backgroundColor)}` }
+                            }
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50

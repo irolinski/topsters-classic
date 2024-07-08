@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { lastFmAlbum } from "../../App";
+import invert from "invert-color";
 
 type CollageProps = {
   exportRef: any;
@@ -35,11 +36,11 @@ const Collage = ({
   backgroundColor,
   backgroundImg,
   fontColorHeader,
-  fontColorBody
+  fontColorBody,
 }: CollageProps) => {
   // collage options
   const collageProd = collageRowNum * collageColNum;
-  console.log(`${collageRowNum} and ${collageColNum}`);
+  // console.log(`${collageRowNum} and ${collageColNum}`);
 
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
@@ -87,9 +88,14 @@ const Collage = ({
       >
         {chartTitle && (
           <div
-            className={`bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || collageRowNum === 5 || collageColNum === 6 || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
-            style={fontColorHeader !== "" ? { color: `${fontColorHeader}` } : { color: `${backgroundColor}`, filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`}}
-
+            className={`collage-header bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || collageRowNum === 5 || collageColNum === 6 || (collageRowNum === 6 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
+            style={
+              fontColorHeader !== ""
+                ? { color: `${fontColorHeader}` }
+                : {
+                    color: `${invert(`${backgroundColor}`)}`,
+                  }
+            }
           >
             {chartTitle}
           </div>
@@ -148,8 +154,11 @@ const Collage = ({
                     {a.artist ? (
                       <span
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
-                        style={{color: `${fontColorBody}`}}
-
+                        style={
+                          fontColorBody !== ""
+                            ? { color: `${fontColorBody}` }
+                            : { color: `${invert(backgroundColor)}` }
+                        }
                       >
                         {a.artist} -{" "}
                         {a.name!.length > 100
@@ -183,14 +192,17 @@ const Collage = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
         }}
-  
-
       >
         {chartTitle && (
           <div
-            className={`bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
-            style={fontColorHeader !== "" ? { color: `${fontColorHeader}` } : { color: `${backgroundColor}`, filter: `saturate(0) grayscale(1) brightness(.9) contrast(1000%) invert(1)`}}
-
+            className={`collage-header bold w-full py-12 text-center text-3xl ${((collageRowNum === 6 && collageColNum === 6) || (collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6) || (collageRowNum === 5 && collageColNum === 5)) && "lift-header-if-no-titles"} ${collageRowNum === 5 && collageColNum === 4 && "lower-header-if-titles"} ${(collageRowNum === 6 && (collageColNum === 5 || collageColNum === 4)) || (collageRowNum === 4 && collageColNum === 4 && "lower-header-if-no-titles")} ${((collageRowNum === 4 && collageColNum === 5) || (collageRowNum === 5 && collageColNum === 6)) && "lift-header-if-titles"} ${collageRowNum === 4 && collageColNum === 6 && "double-lift-if-no-titles"}`}
+            style={
+              fontColorHeader !== ""
+                ? { color: `${fontColorHeader}` }
+                : {
+                    color: `${invert(`${backgroundColor}`)}`,
+                  }
+            }
           >
             {chartTitle}
           </div>
@@ -237,7 +249,11 @@ const Collage = ({
                     {a.artist ? (
                       <span
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
-                        style={{color: `${fontColorBody}`}}
+                        style={
+                          fontColorBody !== ""
+                            ? { color: `${fontColorBody}` }
+                            : { color: `${invert(backgroundColor)}` }
+                        }
                       >
                         {a.artist} -{" "}
                         {a.name!.length > 100

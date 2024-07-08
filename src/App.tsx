@@ -6,6 +6,7 @@ import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
 import { HexColorPicker } from "react-colorful";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
+import invert, { RGB, RgbArray, HexColor, BlackWhite } from "invert-color";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -52,15 +53,17 @@ function App() {
   //set font colors
   // const [fontColor, setFontColor] = useState<string>("red");
   function invertHex(hex: string) {
-    return (Number(`0x1${hex}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase()
+    return (Number(`0x1${hex}`) ^ 0xffffff)
+      .toString(16)
+      .substr(1)
+      .toUpperCase();
   }
-  invertHex('00FF00'); 
-  const [fontColorBody, setfontColorBody] = useState<string>("white");
+  invertHex("00FF00");
+  const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
 
-
   // set table background color
-  const [backgroundColor, setBackgroundColor] = useState<string>("black");
+  const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
 
   // set table background image
   const [backgroundImg, setBackgroundImg] = useState<string>("");
@@ -75,7 +78,6 @@ function App() {
     ).then((response) => response.json());
 
     albumData = albumData.results.albummatches.album;
-    console.log(albumData);
     setSearchResults(albumData);
   };
 
@@ -146,7 +148,7 @@ function App() {
               }}
             >
               <option value="collage">Collage</option>
-              <option value="top40">Top 40</option>
+              <option value="top50">Top 50</option>
               <option value="top100">Top 100</option>
             </select>
             <h3>Collage settings:</h3>
@@ -174,37 +176,42 @@ function App() {
               type="text"
               onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
             />
-                          <h2>Styling:</h2>
-              <div>
-                <h3>Background Color:</h3>
-                <HexColorPicker
-                  color={backgroundColor}
-                  onChange={setBackgroundColor}
-                />
-              </div>
-              <div>
-                <h3>Background Image:</h3>
-                {/* @ts-ignore */}
-                <input
-                  type="file"
-                  onChange={(evt) =>
-                    setBackgroundImg(
-                      URL.createObjectURL(
-                        evt.target.files && evt.target.files[0],
-                      ),
-                    )
-                  }
-                />
-                <button onClick={() => setBackgroundImg("")}>Clear</button>
-              </div>
-              <div>
-                <h3>Font:</h3>
-                <h3> Font Color: </h3>
-                <HexColorPicker
-                  color={fontColorBody}
-                  onChange={setfontColorBody}
-                />
-              </div>
+            <h2>Styling:</h2>
+            <div>
+              <h3>Background Color:</h3>
+              <HexColorPicker
+                color={backgroundColor}
+                onChange={setBackgroundColor}
+              />
+            </div>
+            <div>
+              <h3>Background Image:</h3>
+              {/* @ts-ignore */}
+              <input
+                type="file"
+                onChange={(evt) =>
+                  setBackgroundImg(
+                    URL.createObjectURL(
+                      evt.target.files && evt.target.files[0],
+                    ),
+                  )
+                }
+              />
+              <button onClick={() => setBackgroundImg("")}>Clear</button>
+            </div>
+            <div>
+              <h3>Font:</h3>
+              <h3> Body Font Color: </h3>
+              <HexColorPicker
+                color={fontColorBody}
+                onChange={setfontColorBody}
+              />
+              <h3> Header Font Color: </h3>
+              <HexColorPicker
+                color={fontColorHeader}
+                onChange={setfontColorHeader}
+              />
+            </div>
 
             <h3>Hide album titles:</h3>
             <input
@@ -276,7 +283,6 @@ function App() {
                 }}
               >
                 <option value="collage">Collage</option>
-                <option value="top40">Top 40</option>
                 <option value="top50">Top 50</option>
                 <option value="top100">Top 100</option>
               </select>
@@ -328,7 +334,6 @@ function App() {
                       <div
                         className="album-card m-4 inline-flex w-full"
                         onClick={() => {
-                          console.log(a);
                           drawAlbumToCanvas(selectedIndex, a);
                         }}
                       >
@@ -377,10 +382,15 @@ function App() {
               </div>
               <div>
                 <h3>Font:</h3>
-                <h3> Font Color: </h3>
+                <h3> Body font Color: </h3>
                 <HexColorPicker
                   color={fontColorBody}
                   onChange={setfontColorBody}
+                />
+                <h3> Header Font Color: </h3>
+                <HexColorPicker
+                  color={fontColorHeader}
+                  onChange={setfontColorHeader}
                 />
               </div>
 
