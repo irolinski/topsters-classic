@@ -139,37 +139,41 @@ function App() {
             X
           </button>
           <section className="menu-wrapper mobile absolute flex flex-col justify-center p-12">
-            <h2>Choose your chart:</h2>
-            <select
-              value={tableMode}
-              onChange={(evt) => {
-                setTableMode(evt.target.value);
-                setSelectedIndex(0);
-              }}
-            >
-              <option value="collage">Collage</option>
-              <option value="top50">Top 50</option>
-              <option value="top100">Top 100</option>
-            </select>
-            <h3>Collage settings:</h3>
-            <h4>Rows:</h4>
-            <select
-              value={collageRowNum}
-              onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
-            >
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-            </select>
-            <h4>Columns:</h4>
-            <select
-              value={collageColNum}
-              onChange={(evt) => setCollageColNum(Number(evt.target.value))}
-            >
-              <option value={4}>4</option>
-              <option value={5}>5</option>Number
-              <option value={6}>6</option>
-            </select>
+            <div className="menu-block inline-flex">
+              <h2>Chart type:</h2>
+              <select
+                value={tableMode}
+                onChange={(evt) => {
+                  setTableMode(evt.target.value);
+                  setSelectedIndex(0);
+                }}
+              >
+                <option value="collage">Collage</option>
+                <option value="top50">Top 50</option>
+                <option value="top100">Top 100</option>
+              </select>
+            </div>
+            <div className="menu-block">
+              <h3>Collage settings:</h3>
+              <h4>Rows:</h4>
+              <select
+                value={collageRowNum}
+                onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
+              >
+                <option value={4}>4</option>
+                <option value={5}>5</option>
+                <option value={6}>6</option>
+              </select>
+              <h4>Columns:</h4>
+              <select
+                value={collageColNum}
+                onChange={(evt) => setCollageColNum(Number(evt.target.value))}
+              >
+                <option value={4}>4</option>
+                <option value={5}>5</option>Number
+                <option value={6}>6</option>
+              </select>
+            </div>
             <h3>Table title:</h3>
             <input
               className="border"
@@ -272,148 +276,196 @@ function App() {
         </div>
         <div className="inline-flex">
           {/* DESKTOP MENU */}
-          <div className="relative left-0 lg:w-[25vw]">
-            <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:block">
-              <h2>Choose your chart:</h2>
-              <select
-                value={tableMode}
-                onChange={(evt) => {
-                  setTableMode(evt.target.value);
-                  setSelectedIndex(0);
-                }}
-              >
-                <option value="collage">Collage</option>
-                <option value="top50">Top 50</option>
-                <option value="top100">Top 100</option>
-              </select>
-              <h3>Collage settings:</h3>
-              <h4>Rows:</h4>
-              <select
-                value={collageRowNum}
-                onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
-              >
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-              </select>
-              <h4>Columns:</h4>
-              <select
-                value={collageColNum}
-                onChange={(evt) => setCollageColNum(Number(evt.target.value))}
-              >
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-              </select>
-              <h2>Search for your albums:</h2>
-              <div className="search-input">
-                <input
-                  className="border"
-                  type="text"
-                  onKeyUp={async (evt) =>
-                    evt.key === "Enter"
-                      ? searchAlbums(searchInputValue)
-                      : setSearchInputValue(evt.currentTarget.value)
-                  }
-                />
+          <div className="relative left-0 lg:w-[25vw] lg:min-w-[369px]">
+            <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
+              <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
+              <div className="menu-content">
+                <div className="menu-block inline-flex">
+                  <h2 className="pr-4">Chart type:</h2>
+                  <select
+                    value={tableMode}
+                    onChange={(evt) => {
+                      setTableMode(evt.target.value);
+                      setSelectedIndex(0);
+                    }}
+                  >
+                    <option value="collage">Collage</option>
+                    <option value="top50">Top 50</option>
+                    <option value="top100">Top 100</option>
+                  </select>
+                </div>
+                {tableMode === "collage" && (
+                  <div className="menu-block">
+                    <h3>Collage settings:</h3>
+                    <div className="inline-flex w-full">
+                      <h4>Rows:</h4>
+                      <select
+                        value={collageRowNum}
+                        onChange={(evt) =>
+                          setCollageRowNum(Number(evt.target.value))
+                        }
+                      >
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                      </select>
+                    </div>
+                    <div className="inline-flex w-full">
+                      <h4>Columns:</h4>
+                      <select
+                        value={collageColNum}
+                        onChange={(evt) =>
+                          setCollageColNum(Number(evt.target.value))
+                        }
+                      >
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+                <div className="menu-block">
+                  <h2>Search for your albums:</h2>
+                  <div className="search-input my-2 inline-flex h-8 items-stretch border">
+                    <input
+                      className="w-3/4"
+                      type="text"
+                      onKeyUp={async (evt) =>
+                        evt.key === "Enter"
+                          ? searchAlbums(searchInputValue)
+                          : setSearchInputValue(evt.currentTarget.value)
+                      }
+                    />
+                    <button
+                      className="w-1/4"
+                      onClick={() => {
+                        searchAlbums(searchInputValue);
+                      }}
+                    >
+                      🔍
+                    </button>
+                  </div>
+                  <div
+                    className="max-h-[300px] overflow-scroll"
+                    id="search-results-div"
+                  >
+                    {searchResults &&
+                      searchResults.map((a: any) => {
+                        return (
+                          <div
+                            className="album-card m-4 inline-flex w-full"
+                            onClick={() => {
+                              drawAlbumToCanvas(selectedIndex, a);
+                            }}
+                          >
+                            <div className="justify-start">
+                              <img
+                                className="w-16"
+                                src={`${a.image[1]["#text"]}`}
+                              />
+                            </div>
+                            <div className="m-4">
+                              <span className="font-bold"> {a.name} </span>by
+                              <span className="font-bold"> {a.artist}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+                <div className="menu-block">
+                  <h3>Table title:</h3>
+                  <div className="chart-title-input my-2 inline-flex h-8 items-stretch border">
+                    <input
+                      className="w-3/4"
+                      type="text"
+                      onKeyUp={async (evt) =>
+                        setChartTitle(evt.currentTarget.value)
+                      }
+                    />
+                    <button className="w-1/4" onClick={() => setChartTitle("")}>
+                      X
+                    </button>
+                  </div>
+                </div>
+                <div className="menu-block">
+                  <h2>Background:</h2>
+                  <div className="inline-flex p-4">
+                    <h3 className="px-4">Color:</h3>
+                    <div
+                      className="color-box h-[40px] w-[60px]"
+                      style={{ backgroundColor: `${backgroundColor}` }}
+                    ></div>
+                  </div>
+                  <div className="flex p-4">
+                    <h3 className="px-4">Image:</h3>
+                    <input
+                      hidden
+                      type="file"
+                      id="file-input-desktop"
+                      onChange={(evt) =>
+                        setBackgroundImg(
+                          URL.createObjectURL(
+                            evt.target.files && evt.target.files[0],
+                          ),
+                        )
+                      }
+                    />
+                    <label className="w-8 h-4 mr-8" htmlFor="file-input-desktop"><button>💾</button></label>
+                    <button onClick={() => setBackgroundImg("")}>❌</button>
+                  </div>
+                </div>
+                <div className="menu-block">
+                  <div>
+                    <h3>Font:</h3>
+                    <div className="inline-flex p-4">
+                      <h3 className="px-4"> Body Text Color: </h3>
+                      <div
+                        className="color-box h-[40px] w-[60px]"
+                        style={ fontColorBody !== "" ? { backgroundColor: `${fontColorBody}`} : { backgroundColor: `${invert(backgroundColor)}` }}
+                        ></div>
+                      {/* <HexColorPicker
+                      color={fontColorBody}
+                      onChange={setfontColorBody}
+                    /> */}
+                    </div>
+                  </div>
+                  <div className="inline-flex p-4">
+                    <h3 className="px-4"> Header Font Color: </h3>
+                    <div
+                      className="color-box h-[40px] w-[60px]"
+                      style={ fontColorHeader !== "" ? { backgroundColor: `${fontColorHeader}`} : { backgroundColor: `${invert(backgroundColor)}` }}
+                    ></div>
+                    {/* <HexColorPicker
+                      color={fontColorHeader}
+                      onChange={setfontColorHeader}
+                      /> */}
+                  </div>
+                </div>
+                <div className="menu-block flex">
+                  <h3 className="px-4">Hide album titles:</h3>
+                  <input
+                    className=""
+                    type="checkbox"
+                    defaultChecked={hideAlbumTitles}
+                    onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
+                  />
+                </div>
                 <button
+                  className="my-8 w-full"
                   onClick={() => {
-                    searchAlbums(searchInputValue);
+                    exportAsImage(exportRef.current, "title");
                   }}
                 >
-                  Search
+                  Export
                 </button>
               </div>
-              <div
-                className="max-h-[300px] overflow-scroll"
-                id="search-results-div"
-              >
-                {searchResults &&
-                  searchResults.map((a: any) => {
-                    return (
-                      <div
-                        className="album-card m-4 inline-flex w-full"
-                        onClick={() => {
-                          drawAlbumToCanvas(selectedIndex, a);
-                        }}
-                      >
-                        <div className="justify-start">
-                          <img
-                            className="w-16"
-                            src={`${a.image[1]["#text"]}`}
-                          />
-                        </div>
-                        <div className="m-4">
-                          <span className="font-bold"> {a.name} </span>by
-                          <span className="font-bold"> {a.artist}</span>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-              <h3>Table title:</h3>
-              <input
-                className="border"
-                type="text"
-                onKeyUp={async (evt) => setChartTitle(evt.currentTarget.value)}
-              />
-              <h2>Styling:</h2>
-              <div>
-                <h3>Background Color:</h3>
-                <HexColorPicker
-                  color={backgroundColor}
-                  onChange={setBackgroundColor}
-                />
-              </div>
-              <div>
-                <h3>Background Image:</h3>
-                {/* @ts-ignore */}
-                <input
-                  type="file"
-                  onChange={(evt) =>
-                    setBackgroundImg(
-                      URL.createObjectURL(
-                        evt.target.files && evt.target.files[0],
-                      ),
-                    )
-                  }
-                />
-                <button onClick={() => setBackgroundImg("")}>Clear</button>
-              </div>
-              <div>
-                <h3>Font:</h3>
-                <h3> Body font Color: </h3>
-                <HexColorPicker
-                  color={fontColorBody}
-                  onChange={setfontColorBody}
-                />
-                <h3> Header Font Color: </h3>
-                <HexColorPicker
-                  color={fontColorHeader}
-                  onChange={setfontColorHeader}
-                />
-              </div>
-
-              <h3>Hide album titles:</h3>
-              <input
-                className="w-full"
-                type="checkbox"
-                defaultChecked={hideAlbumTitles}
-                onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-              />
-              <button
-                className="my-8 w-full"
-                onClick={() => {
-                  exportAsImage(exportRef.current, "title");
-                }}
-              >
-                Export
-              </button>
             </section>
           </div>
 
           {/* CANVAS SECTION */}
-          <div className="flex justify-center lg:w-[75vw]">
+          <div className="flex justify-center lg:w-[65vw] xl:w-[75vw]">
             {/* collage */}
             {tableMode === "collage" && (
               <Collage
