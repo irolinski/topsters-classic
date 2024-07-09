@@ -14,6 +14,7 @@ type CollageProps = {
   hideAlbumTitles: boolean;
   backgroundColor: string;
   backgroundImg: string;
+  backgroundImgPosition: { x: number; y: number };
   fontColorHeader: string;
   fontColorBody: string;
 };
@@ -35,6 +36,7 @@ const Collage = ({
   hideAlbumTitles,
   backgroundColor,
   backgroundImg,
+  backgroundImgPosition,
   fontColorHeader,
   fontColorBody,
 }: CollageProps) => {
@@ -81,6 +83,7 @@ const Collage = ({
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
+          backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           transform: `scale(${canvasScaleValue})`,
           marginBottom: `${marginValue}`,
           marginTop: `${marginValue}`,
@@ -191,6 +194,7 @@ const Collage = ({
         style={{
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
+          backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`
         }}
       >
         {chartTitle && (

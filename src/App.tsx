@@ -1,5 +1,5 @@
 import "./App.scss";
-import { MutableRefObject, RefObject, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
 import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
@@ -7,6 +7,7 @@ import { HexColorPicker } from "react-colorful";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
 import invert from "invert-color";
+import Draggable from "react-draggable";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -59,8 +60,33 @@ function App() {
   const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
   const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
-  const [backgroundImg, setBackgroundImg] = useState<string>("");
   const [openColorPicker, setOpenColorPicker] = useState<string>("");
+
+  // set background image
+  // (sizes have to be defined as variables for they are crucial to get the offset)
+  const [backgroundImg, setBackgroundImg] = useState<string>("");
+  const [backgroundImgPosition, setBackgroundImgPosition] = useState({
+    x: 0,
+    y: 0,
+  });
+  const [openBackgroundPositionMenu, setOpenBackgroundPositionMenu] =
+    useState<boolean>(false);
+
+  const backgroundPositionMenu = {
+    boxSizeXY: 190, // the size of the container
+    dotSizeXY: 30, // the size of the pointer dot
+    centerDot: 80, // center of the scale
+  };
+
+  const handleBackgroundPositionChange = (dragX: any, dragY: any) => {
+    const scaleEnd =
+      backgroundPositionMenu.boxSizeXY - backgroundPositionMenu.dotSizeXY;
+
+    const offsetX = Math.floor((dragX / scaleEnd) * 100);
+    const offsetY = Math.floor((dragY / scaleEnd) * 100);
+
+    setBackgroundImgPosition({ x: offsetX, y: offsetY });
+  };
 
   // last.fm api search feature
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
@@ -181,6 +207,7 @@ function App() {
             <div>
               <h3>Background Color:</h3>
               <HexColorPicker
+                className="z-10"
                 color={backgroundColor}
                 onChange={setBackgroundColor}
               />
@@ -205,11 +232,13 @@ function App() {
               <h4></h4>
               <h4> Body Font Color: </h4>
               <HexColorPicker
+                className="z-10"
                 color={fontColorBody}
                 onChange={setfontColorBody}
               />
               <h4> Header Font Color: </h4>
               <HexColorPicker
+                className="z-10"
                 color={fontColorHeader}
                 onChange={setfontColorHeader}
               />
@@ -472,7 +501,7 @@ function App() {
                           X
                         </button>
                         <HexColorPicker
-                          className="m-16"
+                          className="z-10 m-16"
                           color={backgroundColor}
                           onChange={setBackgroundColor}
                         />
@@ -515,9 +544,64 @@ function App() {
                           </button>
                         </label>
                       ) : (
-                        <button onClick={() => setBackgroundImg("")}>
-                          Remove
-                        </button>
+                        <>
+                          <button
+                            className=""
+                            onClick={() => setBackgroundImg("")}
+                          >
+                            Remove
+                          </button>
+                          <button
+                            className=""
+                            onClick={() =>
+                              setOpenBackgroundPositionMenu(
+                                !openBackgroundPositionMenu,
+                              )
+                            }
+                          >
+                            Manage Position
+                          </button>
+                          <div
+                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex justify-center`}
+                          >
+                            <button
+                              className="absolute right-0"
+                              onClick={() => {
+                                setOpenBackgroundPositionMenu(false);
+                              }}
+                            >
+                              X
+                            </button>
+                            <div
+                              className="background-position-field relative z-20 m-16 h-[190px] w-[190px] rounded-md"
+                              style={{ backgroundColor: "grey" }}
+                            >
+                              <Draggable
+                                defaultPosition={{
+                                  x: backgroundPositionMenu.centerDot,
+                                  y: backgroundPositionMenu.centerDot,
+                                }}
+                                // it should be 85 (50% off of both axis) but for some reason 80 actually centers it
+                                handle=".handle"
+                                bounds="parent"
+                                onDrag={(_evt, dragElement) => {
+                                  handleBackgroundPositionChange(
+                                    dragElement.x,
+                                    dragElement.y,
+                                  );
+                                }}
+                              >
+                                <div
+                                  className="background-position-dot handle p2 h-[30px] w-[30px] rounded-full"
+                                  style={{
+                                    backgroundColor: "blue",
+                                    cursor: "move",
+                                  }}
+                                ></div>
+                              </Draggable>
+                            </div>
+                          </div>
+                        </>
                       )}
                     </div>
                   </div>
@@ -593,7 +677,7 @@ function App() {
                               X
                             </button>
                             <HexColorPicker
-                              className="mx-16 mt-16"
+                              className="z-10 mx-16 mt-16"
                               color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
                               onChange={setfontColorHeader}
                             />
@@ -632,7 +716,7 @@ function App() {
                               X
                             </button>
                             <HexColorPicker
-                              className="mx-16 mt-16"
+                              className="z-10 mx-16 mt-16"
                               color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
                               onChange={setfontColorBody}
                             />
@@ -707,6 +791,7 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                backgroundImgPosition={backgroundImgPosition}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />
@@ -722,6 +807,7 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                backgroundImgPosition={backgroundImgPosition}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />
@@ -738,6 +824,7 @@ function App() {
                 hideAlbumTitles={hideAlbumTitles}
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
+                backgroundImgPosition={backgroundImgPosition}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />

@@ -68,6 +68,22 @@
   }
 }
 
+.background-position-menu {
+  .background-position-field{
+    --dot-bg: black;
+    --dot-color: white;
+    --dot-size: 1px;
+    --dot-space: 22px;
+    background:
+      linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+      linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+      var(--dot-color);
+  }
+  .background-position-dot{
+  border: 3px solid white;
+  }
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
