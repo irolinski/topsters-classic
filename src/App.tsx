@@ -50,6 +50,9 @@ function App() {
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
 
+  // choose font
+  const [fontFamily, setFontFamily] = useState<string>("Space Mono");
+
   //set colors
   const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
@@ -197,12 +200,13 @@ function App() {
             </div>
             <div>
               <h3>Font:</h3>
-              <h3> Body Font Color: </h3>
+              <h4></h4>
+              <h4> Body Font Color: </h4>
               <HexColorPicker
                 color={fontColorBody}
                 onChange={setfontColorBody}
               />
-              <h3> Header Font Color: </h3>
+              <h4> Header Font Color: </h4>
               <HexColorPicker
                 color={fontColorHeader}
                 onChange={setfontColorHeader}
@@ -446,8 +450,45 @@ function App() {
                 <div className="menu-block">
                   <div>
                     <h3>Font:</h3>
+
+                    <div className="inline-flex max-w-48 px-4">
+                      <h4 className="px-4">Family: </h4>
+                      <select
+                        className="max-w-full"
+                        value={fontFamily}
+                        onChange={(evt) => {
+                          setFontFamily(evt.target.value);
+                        }}
+                      >
+                        <option disabled>-- Monospaced --</option>
+                        <option value={"Space Mono"}>Space Mono</option>
+                        <option value={"Roboto Mono"}>Roboto Mono</option>
+                        <option value={"Nanum Gothic Coding"}>
+                          Nanum Gothic Coding
+                        </option>
+                        <option value={"Courier Prime"}>Courier Prime</option>
+                        <option value={"Sometype Mono"}>Sometype Mono</option>
+                        <option disabled>-- Sans-serif --</option>
+                        <option value={"Inter"}>Inter</option>
+                        <option value={"Rubik"}>Rubik</option>
+                        <option disabled>-- Serif --</option>
+                        <option value={"Arvo"}>Arvo</option>
+                        <option value={"Shrikhand"}>Shrikhand</option>
+                        <option value={"Arbutus"}>Arbutus</option>
+                        <option disabled>-- Weird --</option>
+                        <option value={"Rubik Glitch Pop"}>
+                          Rubik Glitch Pop
+                        </option>
+                        <option value={"Danfo"}>Danfo</option>
+                        <option value={"Rubik Moonrocks"}>
+                          Rubik Moonrocks
+                        </option>
+
+                        <option value={"Orbitron"}>Orbitron</option>
+                      </select>
+                    </div>
                     <div className="inline-flex p-4">
-                      <h3 className="px-4"> Body Text Color: </h3>
+                      <h4 className="px-4"> Body Color: </h4>
                       <div
                         className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
                       >
@@ -477,7 +518,7 @@ function App() {
                     </div>
                   </div>
                   <div className="inline-flex p-4">
-                    <h3 className="px-4"> Header Font Color: </h3>
+                    <h4 className="px-4"> Header Color: </h4>
                     <div
                       className={`${openColorPicker !== "font-header" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
                     >
@@ -509,7 +550,7 @@ function App() {
                 <div className="menu-block">
                   <h3>Options:</h3>
                   <div className="flex px-4">
-                    <h3 className="p-4">Hide album titles:</h3>
+                    <h4 className="p-4">Hide album titles:</h4>
                     <input
                       className=""
                       type="checkbox"
@@ -531,7 +572,10 @@ function App() {
           </div>
 
           {/* CANVAS SECTION */}
-          <div className="flex justify-center lg:w-[65vw] xl:w-[75vw]">
+          <div
+            className="flex justify-center lg:w-[65vw] xl:w-[75vw]"
+            style={{ fontFamily: `${fontFamily}` }}
+          >
             {/* collage */}
             {tableMode === "collage" && (
               <Collage
