@@ -25,7 +25,9 @@ export type lastFmAlbum = {
 };
 
 function App() {
+  //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
+  const [openAccordion, setOpenAccordion] = useState<string>("");
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("top100");
 
@@ -149,7 +151,7 @@ function App() {
               </select>
             </div>
             <div className="menu-block">
-              <h3>Collage settings:</h3>
+              <h3>Collage settings</h3>
               <h4>Rows:</h4>
               <select
                 value={collageRowNum}
@@ -292,32 +294,50 @@ function App() {
                 </div>
                 {tableMode === "collage" && (
                   <div className="menu-block">
-                    <h3>Collage settings:</h3>
-                    <div className="inline-flex w-full">
-                      <h4>Rows:</h4>
-                      <select
-                        value={collageRowNum}
-                        onChange={(evt) =>
-                          setCollageRowNum(Number(evt.target.value))
-                        }
-                      >
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                      </select>
+                    <div
+                      className="open-accordion-btn inline-flex"
+                      onClick={() =>
+                        openAccordion === "collage-settings"
+                          ? setOpenAccordion("")
+                          : setOpenAccordion("collage-settings")
+                      }
+                    >
+                      <h3 className="w-full font-bold">Collage settings</h3>{" "}
+                      {openAccordion === "collage-settings" ? (
+                        <button className="no-style mx-4">－</button>
+                      ) : (
+                        <button className="no-style mx-4">＋</button>
+                      )}{" "}
                     </div>
-                    <div className="inline-flex w-full">
-                      <h4>Columns:</h4>
-                      <select
-                        value={collageColNum}
-                        onChange={(evt) =>
-                          setCollageColNum(Number(evt.target.value))
-                        }
-                      >
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                      </select>
+                    <div
+                      className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
+                    >
+                      <div className="inline-flex w-full p-4">
+                        <h4 className="px-4">Rows:</h4>
+                        <select
+                          value={collageRowNum}
+                          onChange={(evt) =>
+                            setCollageRowNum(Number(evt.target.value))
+                          }
+                        >
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                        </select>
+                      </div>
+                      <div className="inline-flex w-full p-4">
+                        <h4 className="px-4">Columns:</h4>
+                        <select
+                          value={collageColNum}
+                          onChange={(evt) =>
+                            setCollageColNum(Number(evt.target.value))
+                          }
+                        >
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -371,125 +391,260 @@ function App() {
                   </div>
                 </div>
                 <div className="menu-block">
-                  <h3>Table title:</h3>
-                  <div className="chart-title-input my-2 inline-flex h-8 items-stretch border">
-                    <input
-                      className="w-3/4"
-                      type="text"
-                      value={chartTitle}
-                      onChange={async (evt) =>
-                        setChartTitle(evt.currentTarget.value)
-                      }
-                    />
-                    <button className="w-1/4" onClick={() => setChartTitle("")}>
-                      X
-                    </button>
+                  <div
+                    className="open-accordion-btn inline-flex"
+                    onClick={() =>
+                      openAccordion === "titles"
+                        ? setOpenAccordion("")
+                        : setOpenAccordion("titles")
+                    }
+                  >
+                    <h3 className="w-full font-bold">Titles</h3>{" "}
+                    {openAccordion === "titles" ? (
+                      <button className="no-style mx-4">－</button>
+                    ) : (
+                      <button className="no-style mx-4">＋</button>
+                    )}{" "}
+                  </div>{" "}
+                  <div
+                    className={`menu-accordion ${openAccordion === "titles" && "open"}`}
+                  >
+                    <div className="p-4">
+                      <h3 className="px-4">Chart title:</h3>
+                      <div className="chart-title-input my-2 inline-flex h-8 items-stretch border">
+                        <input
+                          className="w-3/4"
+                          type="text"
+                          value={chartTitle}
+                          onChange={async (evt) =>
+                            setChartTitle(evt.currentTarget.value)
+                          }
+                        />
+                        <button
+                          className="w-1/4"
+                          onClick={() => setChartTitle("")}
+                        >
+                          X
+                        </button>
+                      </div>
+                    </div>
+                    <div className="flex px-4">
+                      <h4 className="p-4">Hide album titles:</h4>
+                      <input
+                        className=""
+                        type="checkbox"
+                        defaultChecked={hideAlbumTitles}
+                        onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="menu-block">
-                  <h2>Background:</h2>
-
-                  <div className="inline-flex p-4">
-                    <h3 className="px-4">Color:</h3>
-                    <div
-                      className={`${openColorPicker !== "background" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
-                    >
-                      <button
-                        className="absolute right-0"
-                        onClick={() => {
-                          setOpenColorPicker("");
-                        }}
-                      >
-                        X
-                      </button>
-                      <HexColorPicker
-                        className="m-16"
-                        color={backgroundColor}
-                        onChange={setBackgroundColor}
-                      />
-                    </div>
-                    <div
-                      className="color-box hover:cursor-pointer"
-                      style={{ backgroundColor: `${backgroundColor}` }}
-                      onClick={() => {
-                        openColorPicker !== "background"
-                          ? setOpenColorPicker("background")
-                          : setOpenColorPicker("");
-                      }}
-                    ></div>
+                  <div
+                    className="open-accordion-btn inline-flex"
+                    onClick={() =>
+                      openAccordion === "background"
+                        ? setOpenAccordion("")
+                        : setOpenAccordion("background")
+                    }
+                  >
+                    <h3 className="w-full font-bold">Background</h3>{" "}
+                    {openAccordion === "background" ? (
+                      <button className="no-style mx-4">－</button>
+                    ) : (
+                      <button className="no-style mx-4">＋</button>
+                    )}
                   </div>
-                  <div className="flex p-4">
-                    <h3 className="px-4">Image:</h3>
-                    <label
-                      className="mr-8 h-4 w-8"
-                      htmlFor="file-input-desktop"
-                    >
-                      <input
-                        className="absolute my-[-20px] h-0 w-0 opacity-0"
-                        type="file"
-                        ref={inputRef}
-                        id="file-input-desktop"
-                        onChange={(evt) =>
-                          setBackgroundImg(
-                            URL.createObjectURL(
-                              evt.target.files && evt.target.files[0],
-                            ),
-                          )
-                        }
-                      />
-                      <button
-                        className=""
-                        onClick={() => inputRef.current?.click()}
+                  <div
+                    className={`menu-accordion ${openAccordion === "background" && "open"}`}
+                  >
+                    <div className="inline-flex p-4">
+                      <h3 className="px-4">Color:</h3>
+                      <div
+                        className={`${openColorPicker !== "background" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
                       >
-                        💾
-                      </button>
-                    </label>
-                    <button onClick={() => setBackgroundImg("")}>❌</button>
+                        <button
+                          className="absolute right-0"
+                          onClick={() => {
+                            setOpenColorPicker("");
+                          }}
+                        >
+                          X
+                        </button>
+                        <HexColorPicker
+                          className="m-16"
+                          color={backgroundColor}
+                          onChange={setBackgroundColor}
+                        />
+                      </div>
+                      <div
+                        className="color-box hover:cursor-pointer"
+                        style={{ backgroundColor: `${backgroundColor}` }}
+                        onClick={() => {
+                          openColorPicker !== "background"
+                            ? setOpenColorPicker("background")
+                            : setOpenColorPicker("");
+                        }}
+                      ></div>
+                    </div>
+                    <div className="flex p-4">
+                      <h3 className="px-4">Image:</h3>
+                      {backgroundImg === "" ? (
+                        <label
+                          className="mr-8 h-4 w-8"
+                          htmlFor="file-input-desktop"
+                        >
+                          <input
+                            className="absolute my-[-20px] h-0 w-0 opacity-0"
+                            type="file"
+                            ref={inputRef}
+                            id="file-input-desktop"
+                            onChange={(evt) =>
+                              setBackgroundImg(
+                                URL.createObjectURL(
+                                  evt.target.files && evt.target.files[0],
+                                ),
+                              )
+                            }
+                          />
+                          <button
+                            className=""
+                            onClick={() => inputRef.current?.click()}
+                          >
+                            Add
+                          </button>
+                        </label>
+                      ) : (
+                        <button onClick={() => setBackgroundImg("")}>
+                          Remove
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className="menu-block">
                   <div>
-                    <h3>Font:</h3>
+                    <div
+                      className="open-accordion-btn inline-flex w-full"
+                      onClick={() =>
+                        openAccordion === "font"
+                          ? setOpenAccordion("")
+                          : setOpenAccordion("font")
+                      }
+                    >
+                      <h3 className="font-bold">Font</h3>{" "}
+                      {openAccordion === "font" ? (
+                        <button className="no-style mx-4">－</button>
+                      ) : (
+                        <button className="no-style mx-4">＋</button>
+                      )}{" "}
+                    </div>{" "}
+                    <div
+                      className={`menu-accordion ${openAccordion === "font" && "open"}`}
+                    >
+                      <div className="inline-flex max-w-48 px-4">
+                        <h4 className="p-4">Family: </h4>
+                        <select
+                          className="max-h-12 max-w-full"
+                          value={fontFamily}
+                          onChange={(evt) => {
+                            setFontFamily(evt.target.value);
+                          }}
+                        >
+                          <option disabled>-- Monospaced --</option>
+                          <option value={"Space Mono"}>Space Mono</option>
+                          <option value={"Roboto Mono"}>Roboto Mono</option>
+                          <option value={"Nanum Gothic Coding"}>
+                            Nanum Gothic Coding
+                          </option>
+                          <option value={"Courier Prime"}>Courier Prime</option>
+                          <option value={"Sometype Mono"}>Sometype Mono</option>
+                          <option disabled>-- Sans-serif --</option>
+                          <option value={"Inter"}>Inter</option>
+                          <option value={"Rubik"}>Rubik</option>
+                          <option disabled>-- Serif --</option>
+                          <option value={"Arvo"}>Arvo</option>
+                          <option value={"Shrikhand"}>Shrikhand</option>
+                          <option value={"Arbutus"}>Arbutus</option>
+                          <option disabled>-- Weird --</option>
+                          <option value={"Rubik Glitch Pop"}>
+                            Rubik Glitch Pop
+                          </option>
+                          <option value={"Danfo"}>Danfo</option>
+                          <option value={"Rubik Moonrocks"}>
+                            Rubik Moonrocks
+                          </option>
 
-                    <div className="inline-flex max-w-48 px-4">
-                      <h4 className="px-4">Family: </h4>
-                      <select
-                        className="max-w-full"
-                        value={fontFamily}
-                        onChange={(evt) => {
-                          setFontFamily(evt.target.value);
-                        }}
-                      >
-                        <option disabled>-- Monospaced --</option>
-                        <option value={"Space Mono"}>Space Mono</option>
-                        <option value={"Roboto Mono"}>Roboto Mono</option>
-                        <option value={"Nanum Gothic Coding"}>
-                          Nanum Gothic Coding
-                        </option>
-                        <option value={"Courier Prime"}>Courier Prime</option>
-                        <option value={"Sometype Mono"}>Sometype Mono</option>
-                        <option disabled>-- Sans-serif --</option>
-                        <option value={"Inter"}>Inter</option>
-                        <option value={"Rubik"}>Rubik</option>
-                        <option disabled>-- Serif --</option>
-                        <option value={"Arvo"}>Arvo</option>
-                        <option value={"Shrikhand"}>Shrikhand</option>
-                        <option value={"Arbutus"}>Arbutus</option>
-                        <option disabled>-- Weird --</option>
-                        <option value={"Rubik Glitch Pop"}>
-                          Rubik Glitch Pop
-                        </option>
-                        <option value={"Danfo"}>Danfo</option>
-                        <option value={"Rubik Moonrocks"}>
-                          Rubik Moonrocks
-                        </option>
-
-                        <option value={"Orbitron"}>Orbitron</option>
-                      </select>
-                    </div>
-                    <div className="inline-flex p-4">
-                      <h4 className="px-4"> Body Color: </h4>
-                      <div
+                          <option value={"Orbitron"}>Orbitron</option>
+                        </select>
+                      </div>
+                      <div className="inline-flex p-4">
+                        <h4 className="px-4"> Header Color: </h4>
+                        <div
+                          className={`${openColorPicker !== "font-header" && "hidden"} color-picker-div absolute flex scale-50 flex-col justify-center`}
+                        >
+                          <div>
+                            <button
+                              className="absolute right-0"
+                              onClick={() => {
+                                setOpenColorPicker("");
+                              }}
+                            >
+                              X
+                            </button>
+                            <HexColorPicker
+                              className="mx-16 mt-16"
+                              color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
+                              onChange={setfontColorHeader}
+                            />
+                          </div>
+                          <button
+                            className="mx-auto my-6 w-1/2"
+                            onClick={() => setfontColorHeader("")}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                        <div
+                          className="color-box"
+                          style={
+                            fontColorHeader !== ""
+                              ? { backgroundColor: `${fontColorHeader}` }
+                              : {
+                                  backgroundColor: `${invert(backgroundColor)}`,
+                                }
+                          }
+                          onClick={() => setOpenColorPicker("font-header")}
+                        ></div>
+                      </div>
+                      <div className="inline-flex p-4">
+                        <h4 className="px-4"> Body Color: </h4>
+                        <div
+                          className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 flex-col justify-center`}
+                        >
+                          <div>
+                            <button
+                              className="absolute right-0"
+                              onClick={() => {
+                                setOpenColorPicker("");
+                              }}
+                            >
+                              X
+                            </button>
+                            <HexColorPicker
+                              className="mx-16 mt-16"
+                              color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
+                              onChange={setfontColorBody}
+                            />
+                          </div>
+                          <button
+                            className="mx-auto my-6 w-1/2"
+                            onClick={() => setfontColorBody("")}
+                          >
+                            Reset
+                          </button>
+                        </div>
+                        {/* <div
                         className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
                       >
                         <button
@@ -505,58 +660,20 @@ function App() {
                           color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
                           onChange={setfontColorBody}
                         />
+                      </div> */}
+                        <div
+                          className="color-box"
+                          style={
+                            fontColorBody !== ""
+                              ? { backgroundColor: `${fontColorBody}` }
+                              : {
+                                  backgroundColor: `${invert(backgroundColor)}`,
+                                }
+                          }
+                          onClick={() => setOpenColorPicker("font-body")}
+                        ></div>
                       </div>
-                      <div
-                        className="color-box"
-                        style={
-                          fontColorBody !== ""
-                            ? { backgroundColor: `${fontColorBody}` }
-                            : { backgroundColor: `${invert(backgroundColor)}` }
-                        }
-                        onClick={() => setOpenColorPicker("font-body")}
-                      ></div>
                     </div>
-                  </div>
-                  <div className="inline-flex p-4">
-                    <h4 className="px-4"> Header Color: </h4>
-                    <div
-                      className={`${openColorPicker !== "font-header" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
-                    >
-                      <button
-                        className="absolute right-0"
-                        onClick={() => {
-                          setOpenColorPicker("");
-                        }}
-                      >
-                        X
-                      </button>
-                      <HexColorPicker
-                        className="m-16"
-                        color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
-                        onChange={setfontColorHeader}
-                      />
-                    </div>
-                    <div
-                      className="color-box"
-                      style={
-                        fontColorHeader !== ""
-                          ? { backgroundColor: `${fontColorHeader}` }
-                          : { backgroundColor: `${invert(backgroundColor)}` }
-                      }
-                      onClick={() => setOpenColorPicker("font-header")}
-                    ></div>
-                  </div>
-                </div>
-                <div className="menu-block">
-                  <h3>Options:</h3>
-                  <div className="flex px-4">
-                    <h4 className="p-4">Hide album titles:</h4>
-                    <input
-                      className=""
-                      type="checkbox"
-                      defaultChecked={hideAlbumTitles}
-                      onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-                    />
                   </div>
                 </div>
                 <button

@@ -8,15 +8,25 @@
   input[type="file"] {
     color: rgba(0, 0, 0, 0);
   }
-  &.desktop {
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.055);
-  }
 
   .menu-block {
     margin: 24px 0px;
-    
+  }
+
+  .menu-accordion {
+    transition: max-height ease-in-out 0.7s;
+    max-height: 0;
+    overflow: auto;
+  }
+
+  .menu-accordion.open {
+    max-height: 500px;
+  }
+
+  .open-accordion-btn{
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   .color-box {
@@ -24,7 +34,7 @@
     width: 50px;
     height: 25px;
     min-width: 50px;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
@@ -33,7 +43,7 @@
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.43);
     position: absolute;
-    transform: translate(150px, -120px) scale(0.6);
+    transform: translate(170px, -130px) scale(0.6);
   }
   .color-picker-div::after {
     content: "";
@@ -44,6 +54,51 @@
     border-width: 25px;
     border-style: solid;
     border-color: transparent rgba(0, 0, 0, 0.43) transparent transparent;
+  }
+
+  &.desktop {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.055);
+
+    h3,
+    h4 {
+      text-wrap: nowrap;
+    }
+  }
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+  &:hover {
+    border-color: #646cff;
+  }
+  &:focus,
+  &:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+button.no-style {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  font-size: inherit;
+  &:hover {
+    border-color: none;
+  }
+  &:focus,
+  &:focus-visible {
+    outline: none;
   }
 }
 
