@@ -318,7 +318,7 @@ function App() {
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
               <div className="menu-content">
-                <div className="menu-block inline-flex">
+                <div className="inline-flex pb-4">
                   <h2 className="pr-4">Chart type:</h2>
                   <select
                     value={tableMode}
@@ -332,7 +332,7 @@ function App() {
                     <option value="top100">Top 100</option>
                   </select>
                 </div>
-                <div className="menu-block border-y py-8">
+                <div className="border-b pt-4 mb-8">
                   <h2>Search:</h2>
                   <div className="search-input my-2 inline-flex h-8 items-stretch border">
                     <input

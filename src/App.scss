@@ -23,6 +23,11 @@
     max-height: 500px;
   }
 
+  .menu-content{
+    border-top: 1px solid;
+    padding: 24px 8px 8px 8px; 
+  }
+
   .open-accordion-btn {
     &:hover {
       cursor: pointer;
