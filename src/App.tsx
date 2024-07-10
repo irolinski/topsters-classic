@@ -69,6 +69,9 @@ function App() {
     x: 0,
     y: 0,
   });
+
+  // auto/cover/contain
+  const [backgroundImgMode, setBackgroundImgMode] = useState<string>("cover");
   const [openBackgroundPositionMenu, setOpenBackgroundPositionMenu] =
     useState<boolean>(false);
 
@@ -562,10 +565,10 @@ function App() {
                             Manage Position
                           </button>
                           <div
-                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex justify-center`}
+                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex justify-center flex-col`}
                           >
                             <button
-                              className="absolute right-0"
+                              className="absolute right-0 top-0"
                               onClick={() => {
                                 setOpenBackgroundPositionMenu(false);
                               }}
@@ -573,7 +576,7 @@ function App() {
                               X
                             </button>
                             <div
-                              className="background-position-field relative z-20 m-16 h-[190px] w-[190px] rounded-md"
+                              className="background-position-field relative z-20 mx-16 mt-16 mb-8 h-[190px] w-[190px] rounded-md"
                               style={{ backgroundColor: "grey" }}
                             >
                               <Draggable
@@ -594,12 +597,19 @@ function App() {
                                 <div
                                   className="background-position-dot handle p2 h-[30px] w-[30px] rounded-full"
                                   style={{
-                                    backgroundColor: "blue",
+                                    backgroundColor: "grey",
                                     cursor: "move",
                                   }}
                                 ></div>
                               </Draggable>
-                            </div>
+                              </div>
+                              <h4 className="px-4 pb-4">Image position:</h4>
+
+                              <div className="inline-flex justify-center mb-8">
+                              <button className={`${backgroundImgMode === "auto" && "active"}`} onClick={() => setBackgroundImgMode("auto")}>Auto</button>
+                              <button className={`${backgroundImgMode === "contain" && "active"}`} onClick={() => setBackgroundImgMode("contain")}>Contain</button>
+                              <button className={`${backgroundImgMode === "cover" && "active"}`} onClick={() => setBackgroundImgMode("cover")}>Cover</button>
+                              </div>
                           </div>
                         </>
                       )}
@@ -728,23 +738,6 @@ function App() {
                             Reset
                           </button>
                         </div>
-                        {/* <div
-                        className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
-                      >
-                        <button
-                          className="absolute right-0"
-                          onClick={() => {
-                            setOpenColorPicker("");
-                          }}
-                        >
-                          X
-                        </button>
-                        <HexColorPicker
-                          className="m-16"
-                          color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
-                          onChange={setfontColorBody}
-                        />
-                      </div> */}
                         <div
                           className="color-box"
                           style={
@@ -792,6 +785,7 @@ function App() {
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
                 backgroundImgPosition={backgroundImgPosition}
+                backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />
@@ -808,6 +802,7 @@ function App() {
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
                 backgroundImgPosition={backgroundImgPosition}
+                backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />
@@ -825,6 +820,7 @@ function App() {
                 backgroundColor={backgroundColor}
                 backgroundImg={backgroundImg}
                 backgroundImgPosition={backgroundImgPosition}
+                backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
               />

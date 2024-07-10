@@ -13,6 +13,7 @@ type Top50Props = {
   backgroundColor: string;
   backgroundImg: string;
   backgroundImgPosition: { x: number; y: number };
+  backgroundImgMode: string;
   fontColorHeader: string;
   fontColorBody: string;
 };
@@ -33,6 +34,7 @@ const ClassicTop50 = ({
   backgroundColor,
   backgroundImg,
   backgroundImgPosition,
+  backgroundImgMode,
   fontColorHeader,
   fontColorBody,
 }: Top50Props) => {
@@ -77,6 +79,7 @@ const ClassicTop50 = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
+          backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
           marginBottom: `${marginValue}`,
           marginTop: `${marginValue}`,
@@ -279,6 +282,7 @@ const ClassicTop50 = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
+          backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
           marginBottom: `${marginValue}`,
           marginTop: `${marginValue}`,

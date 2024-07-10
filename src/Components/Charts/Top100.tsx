@@ -13,6 +13,7 @@ type Top100Props = {
   backgroundColor: string;
   backgroundImg: string;
   backgroundImgPosition: { x: number; y: number };
+  backgroundImgMode: string;
   fontColorHeader: string;
   fontColorBody: string;
 };
@@ -33,6 +34,7 @@ const Top100 = ({
   backgroundColor,
   backgroundImg,
   backgroundImgPosition,
+  backgroundImgMode,
   fontColorHeader,
   fontColorBody,
 }: Top100Props) => {
@@ -76,6 +78,7 @@ const Top100 = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
+          backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
         }}
       >
@@ -276,6 +279,7 @@ const Top100 = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
+          backgroundSize: `${backgroundImgMode}`
         }}
       >
         {chartTitle && (

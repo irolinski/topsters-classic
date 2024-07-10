@@ -104,6 +104,10 @@ button {
   }
 }
 
+button.active { 
+  background-color: #5c5c5c;
+}
+
 button.no-style {
   border: none;
   padding: 0;
