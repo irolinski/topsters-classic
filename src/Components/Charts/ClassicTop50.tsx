@@ -16,6 +16,7 @@ type Top50Props = {
   backgroundImgMode: string;
   fontColorHeader: string;
   fontColorBody: string;
+  enableShadows: boolean;
 };
 
 type windowValueTypes = {
@@ -37,6 +38,7 @@ const ClassicTop50 = ({
   backgroundImgMode,
   fontColorHeader,
   fontColorBody,
+  enableShadows,
 }: Top50Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
@@ -70,7 +72,9 @@ const ClassicTop50 = ({
   const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
   return (
-    <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
+    <div
+      className={`max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
+    >
       {/* UI canvas */}
       <div
         className={`top50-container top50-ui flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
@@ -121,7 +125,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(0, 4).map((a, i) => {
                     return (
                       <div
-                        className={`h-[135px] w-[135px] ${i === selectedIndex && "selected-index"} mr-[16px]`}
+                        className={`table-box table-box-lg h-[135px] w-[135px] mr-[16px] ${i === selectedIndex && "selected-index"}`}
                         key={i}
                         onClick={() => {
                           changeIndex(i);
@@ -137,7 +141,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className="h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );
@@ -161,7 +167,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(4, 20).map((a, i) => {
                     return (
                       <div
-                        className={`h-[65px] w-[65px] p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[65px] w-[65px] p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
                         key={i + 4}
                         onClick={() => {
                           changeIndex(i + 4);
@@ -177,7 +183,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className=" h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );
@@ -201,7 +209,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(20).map((a, i) => {
                     return (
                       <div
-                        className={`h-[65px] w-[65px] p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[65px] w-[65px] p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
                         key={i + 20}
                         onClick={() => {
                           changeIndex(i + 20);
@@ -217,7 +225,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className="h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );
@@ -323,7 +333,10 @@ const ClassicTop50 = ({
                 <div className="flex">
                   {top50Data.slice(0, 4).map((a, i) => {
                     return (
-                      <div className={`mr-[16px] h-[135px] w-[135px]`} key={i}>
+                      <div
+                        className={`table-box table-box-lg mr-[16px] h-[135px] w-[135px]`}
+                        key={i}
+                      >
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
@@ -334,7 +347,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className="h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );
@@ -357,7 +372,10 @@ const ClassicTop50 = ({
                 <div className="flex flex-wrap">
                   {top50Data.slice(4, 20).map((a, i) => {
                     return (
-                      <div className={`h-[65px] w-[65px] p-[2px]`} key={i + 4}>
+                      <div
+                        className={`table-box h-[65px] w-[65px] p-[2px]`}
+                        key={i + 4}
+                      >
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
@@ -368,7 +386,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className="h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );
@@ -392,7 +412,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(20).map((a, i) => {
                     return (
                       <div
-                        className={`p-[1px]} h-[65px] w-[65px]`}
+                        className={`table-box h-[65px] w-[65px]`}
                         key={i + 20}
                       >
                         {a.hasOwnProperty("image") ? (
@@ -405,7 +425,9 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray"> </div>
+                          <div className="table-box h-full w-full bg-gray">
+                            {" "}
+                          </div>
                         )}
                       </div>
                     );

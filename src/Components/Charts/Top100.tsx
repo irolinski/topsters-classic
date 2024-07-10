@@ -16,6 +16,7 @@ type Top100Props = {
   backgroundImgMode: string;
   fontColorHeader: string;
   fontColorBody: string;
+  enableShadows: boolean;
 };
 
 type windowValueTypes = {
@@ -37,6 +38,7 @@ const Top100 = ({
   backgroundImgMode,
   fontColorHeader,
   fontColorBody,
+  enableShadows
 }: Top100Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(2000);
@@ -72,7 +74,7 @@ const Top100 = ({
     <div className={`max-h-0`}>
       {/* UI canvas */}
       <div
-        className={`top100-container lg: top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top100-container lg: top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -118,7 +120,7 @@ const Top100 = ({
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
                       <div
-                        className={`h-[120px] w-[120px] ${i === selectedIndex && "selected-index"} m-[2px]`}
+                        className={`table-box table-box-lg h-[120px] w-[120px] ${i === selectedIndex && "selected-index"} m-[2px]`}
                         key={i}
                         onClick={() => {
                           changeIndex(i);
@@ -158,7 +160,7 @@ const Top100 = ({
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
                       <div
-                        className={`h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
                         key={i + 4}
                         onClick={() => {
                           changeIndex(i + 10);
@@ -198,7 +200,7 @@ const Top100 = ({
                   {top100Data.slice(40).map((a, i) => {
                     return (
                       <div
-                        className={`h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
                         key={i + 20}
                         onClick={() => {
                           changeIndex(i + 40);
@@ -279,7 +281,7 @@ const Top100 = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
-          backgroundSize: `${backgroundImgMode}`
+          backgroundSize: `${backgroundImgMode}`,
         }}
       >
         {chartTitle && (
@@ -317,7 +319,10 @@ const Top100 = ({
                 <div className="flex flex-wrap">
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
-                      <div className={`m-[2px] h-[120px] w-[120px]`} key={i}>
+                      <div
+                        className={`table-box table-box-lg m-[2px] h-[120px] w-[120px]`}
+                        key={i}
+                      >
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
@@ -352,7 +357,7 @@ const Top100 = ({
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
                       <div
-                        className={`h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
                         key={i + 10}
                       >
                         {a.hasOwnProperty("image") ? (
@@ -389,7 +394,7 @@ const Top100 = ({
                   {top100Data.slice(40).map((a, i) => {
                     return (
                       <div
-                        className={`h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
+                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
                         key={i + 40}
                       >
                         {a.hasOwnProperty("image") ? (

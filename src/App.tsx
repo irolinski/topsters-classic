@@ -58,15 +58,6 @@ function App() {
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
 
-  // choose font
-  const [fontFamily, setFontFamily] = useState<string>("Space Mono");
-
-  //set colors
-  const [fontColorBody, setfontColorBody] = useState<string>("");
-  const [fontColorHeader, setfontColorHeader] = useState<string>("");
-  const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
-  const [openColorPicker, setOpenColorPicker] = useState<string>("");
-
   // set background image
   // (sizes have to be defined as variables for they are crucial to get the offset)
   const [backgroundImg, setBackgroundImg] = useState<string>("");
@@ -95,6 +86,18 @@ function App() {
 
     setBackgroundImgPosition({ x: offsetX, y: offsetY });
   };
+
+  // choose font
+  const [fontFamily, setFontFamily] = useState<string>("Space Mono");
+
+  //set colors
+  const [fontColorBody, setfontColorBody] = useState<string>("");
+  const [fontColorHeader, setfontColorHeader] = useState<string>("");
+  const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
+  const [openColorPicker, setOpenColorPicker] = useState<string>("");
+
+  // enable/disable shadows
+  const [enableShadows, setEnableShadows] = useState<boolean>(true);
 
   // last.fm api search feature
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
@@ -437,7 +440,7 @@ function App() {
                         : (closeAllWindows(), setOpenAccordion("titles"))
                     }
                   >
-                    <h3 className="w-full font-bold">Titles</h3>{" "}
+                    <h3 className="w-full font-bold">Title</h3>{" "}
                     {openAccordion === "titles" ? (
                       <button className="no-style mx-4">－</button>
                     ) : (
@@ -466,7 +469,7 @@ function App() {
                         </button>
                       </div>
                     </div>
-                    <div className="flex px-4">
+                    {/* <div className="flex px-4">
                       <h4 className="p-4">Hide album titles:</h4>
                       <input
                         className=""
@@ -474,7 +477,7 @@ function App() {
                         defaultChecked={hideAlbumTitles}
                         onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
                 <div className="menu-block">
@@ -774,6 +777,47 @@ function App() {
                     </div>
                   </div>
                 </div>
+                <div className="menu-block">
+                  <div>
+                    <div
+                      className="open-accordion-btn inline-flex w-full"
+                      onClick={() =>
+                        openAccordion === "options"
+                          ? closeAllWindows()
+                          : (closeAllWindows(), setOpenAccordion("options"))
+                      }
+                    >
+                      <h3 className="font-bold">Options</h3>{" "}
+                      {openAccordion === "options" ? (
+                        <button className="no-style mx-4">－</button>
+                      ) : (
+                        <button className="no-style mx-4">＋</button>
+                      )}{" "}
+                    </div>{" "}
+                    <div
+                      className={`menu-accordion ${openAccordion === "options" && "open"}`}
+                    >
+                      <div className="flex px-4">
+                        <h4 className="p-4">Hide album titles:</h4>
+                        <input
+                          className=""
+                          type="checkbox"
+                          defaultChecked={hideAlbumTitles}
+                          onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
+                        />
+                      </div>
+                      <div className="flex px-4">
+                        <h4 className="p-4">Enable shadows:</h4>
+                        <input
+                          className=""
+                          type="checkbox"
+                          defaultChecked={enableShadows}
+                          onChange={() => setEnableShadows(!enableShadows)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button
                   className="my-8 w-full"
                   onClick={() => {
@@ -809,6 +853,7 @@ function App() {
                 backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
+                enableShadows={enableShadows}
               />
             )}
             {tableMode === "top50" && (
@@ -826,6 +871,7 @@ function App() {
                 backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
+                enableShadows={enableShadows}
               />
             )}
 
@@ -844,6 +890,7 @@ function App() {
                 backgroundImgMode={backgroundImgMode}
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
+                enableShadows={enableShadows}
               />
             )}
           </div>

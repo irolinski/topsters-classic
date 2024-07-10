@@ -23,8 +23,8 @@
     max-height: 500px;
   }
 
-  .open-accordion-btn{
-    &:hover{
+  .open-accordion-btn {
+    &:hover {
       cursor: pointer;
     }
   }
@@ -69,18 +69,27 @@
 }
 
 .background-position-menu {
-  .background-position-field{
+  .background-position-field {
     --dot-bg: black;
     --dot-color: white;
     --dot-size: 1px;
     --dot-space: 22px;
     background:
-      linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-      linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+      linear-gradient(
+          90deg,
+          var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+          transparent 1%
+        )
+        center / var(--dot-space) var(--dot-space),
+      linear-gradient(
+          var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+          transparent 1%
+        )
+        center / var(--dot-space) var(--dot-space),
       var(--dot-color);
   }
-  .background-position-dot{
-  border: 3px solid white;
+  .background-position-dot {
+    border: 3px solid white;
   }
 }
 
@@ -104,7 +113,7 @@ button {
   }
 }
 
-button.active { 
+button.active {
   background-color: #5c5c5c;
 }
 
@@ -297,9 +306,7 @@ button.no-style {
 }
 
 .top50-container.hide-album-titles {
-  width: 730px;
-
-  //^^ FOR THE CLASSIC BOXY LOOK ^^
+  width: 730px; //FOR THE CLASSIC BOXY LOOK ^^
 
   // .second-tier-classics > flex {
   //   width: 580px;
@@ -405,7 +412,18 @@ button.no-style {
   }
 }
 
-//all
+//all tables
+
+.enable-shadows {
+  .table-box,
+  &.collage-container .image-div > div {
+    box-shadow: 0px 0px 2px #000000;
+  }
+  .table-box.table-box-lg {
+    box-shadow: 0px 0px 4px #000000;
+  }
+}
+
 .selected-index {
   opacity: 0.5;
 }

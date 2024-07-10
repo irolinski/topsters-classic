@@ -18,6 +18,7 @@ type CollageProps = {
   backgroundImgMode: string;
   fontColorHeader: string;
   fontColorBody: string;
+  enableShadows: boolean;
 };
 
 type windowValueTypes = {
@@ -41,6 +42,7 @@ const Collage = ({
   backgroundImgMode,
   fontColorHeader,
   fontColorBody,
+  enableShadows
 }: CollageProps) => {
   // collage options
   const collageProd = collageRowNum * collageColNum;
@@ -80,7 +82,7 @@ const Collage = ({
     <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
       {/* UI canvas */}
       <div
-        className={`collage-container collage-ui w-full content-center object-scale-down p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`collage-container collage-ui w-full content-center object-scale-down p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
