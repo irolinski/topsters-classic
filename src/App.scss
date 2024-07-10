@@ -14,7 +14,7 @@
   }
 
   .menu-accordion {
-    transition: max-height ease-in-out 0.7s;
+    transition: max-height ease-in-out 0.5s;
     max-height: 0;
     overflow: auto;
   }
@@ -26,6 +26,19 @@
   .open-accordion-btn {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .search-div {
+    overflow-x: hidden;
+    font-size: 12px;
+    .album-card {
+      max-height: 50px;
+      
+      img {
+        max-width: 50px;
+        max-height: 50px;
+      }
     }
   }
 

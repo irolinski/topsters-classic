@@ -28,7 +28,7 @@ export type lastFmAlbum = {
 function App() {
   //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
-  const [openAccordion, setOpenAccordion] = useState<string>("");
+  const [openAccordion, setOpenAccordion] = useState<string>("search");
   const closeAllWindows = () => {
     setOpenColorPicker("");
     setOpenBackgroundPositionMenu(false);
@@ -332,53 +332,63 @@ function App() {
                     <option value="top100">Top 100</option>
                   </select>
                 </div>
-                <div className="menu-block">
-                  <h2>Search for your albums:</h2>
+                <div className="menu-block border-y py-8">
+                  <h2>Search:</h2>
                   <div className="search-input my-2 inline-flex h-8 items-stretch border">
                     <input
                       className="w-3/4"
                       type="text"
                       onKeyUp={async (evt) =>
                         evt.key === "Enter"
-                          ? searchAlbums(searchInputValue)
+                          ? (searchAlbums(searchInputValue),
+                            setOpenAccordion("search"))
                           : setSearchInputValue(evt.currentTarget.value)
                       }
+                      onClick={() => setOpenAccordion("search")}
                     />
                     <button
                       className="w-1/4"
                       onClick={() => {
-                        searchAlbums(searchInputValue);
+                        searchAlbums(searchInputValue),
+                          setOpenAccordion("search");
                       }}
                     >
                       🔍
                     </button>
                   </div>
-                  <div
-                    className="max-h-[300px] overflow-scroll"
-                    id="search-results-div"
-                  >
-                    {searchResults &&
-                      searchResults.map((a: any) => {
-                        return (
-                          <div
-                            className="album-card m-4 inline-flex w-full"
-                            onClick={() => {
-                              drawAlbumToCanvas(selectedIndex, a);
-                            }}
-                          >
-                            <div className="justify-start">
-                              <img
-                                className="w-16"
-                                src={`${a.image[1]["#text"]}`}
-                              />
+                  <div className="pt-4">
+                    <div
+                      className={`search-div menu-accordion h-[250px] max-h-[250px] overflow-scroll text-center ${openAccordion === "search" && "open"}`}
+                      id="search-results-div"
+                    >
+                      {searchResults ? (
+                        searchResults.map((a: any) => {
+                          return (
+                            <div
+                              className="album-card m-4 inline-flex w-full"
+                              onClick={() => {
+                                drawAlbumToCanvas(selectedIndex, a);
+                              }}
+                            >
+                              <div className="justify-start">
+                                <img
+                                  className="w-16"
+                                  src={`${a.image[1]["#text"]}`}
+                                />
+                              </div>
+                              <div className="m-4 overflow-hidden">
+                                <span className="font-bold"> {a.name} </span>by
+                                <span className="font-bold"> {a.artist}</span>
+                              </div>
                             </div>
-                            <div className="m-4">
-                              <span className="font-bold"> {a.name} </span>by
-                              <span className="font-bold"> {a.artist}</span>
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })
+                      ) : (
+                        <span className="relative top-[40%]">
+                          Data provided thanks to last.fm api
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
                 {tableMode === "collage" && (
