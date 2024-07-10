@@ -29,6 +29,11 @@ function App() {
   //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const [openAccordion, setOpenAccordion] = useState<string>("");
+  const closeAllWindows = () => {
+    setOpenColorPicker("");
+    setOpenBackgroundPositionMenu(false);
+    setOpenAccordion("");
+  };
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("top100");
 
@@ -324,55 +329,6 @@ function App() {
                     <option value="top100">Top 100</option>
                   </select>
                 </div>
-                {tableMode === "collage" && (
-                  <div className="menu-block">
-                    <div
-                      className="open-accordion-btn inline-flex"
-                      onClick={() =>
-                        openAccordion === "collage-settings"
-                          ? setOpenAccordion("")
-                          : setOpenAccordion("collage-settings")
-                      }
-                    >
-                      <h3 className="w-full font-bold">Collage settings</h3>{" "}
-                      {openAccordion === "collage-settings" ? (
-                        <button className="no-style mx-4">－</button>
-                      ) : (
-                        <button className="no-style mx-4">＋</button>
-                      )}{" "}
-                    </div>
-                    <div
-                      className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
-                    >
-                      <div className="inline-flex w-full p-4">
-                        <h4 className="px-4">Rows:</h4>
-                        <select
-                          value={collageRowNum}
-                          onChange={(evt) =>
-                            setCollageRowNum(Number(evt.target.value))
-                          }
-                        >
-                          <option value={4}>4</option>
-                          <option value={5}>5</option>
-                          <option value={6}>6</option>
-                        </select>
-                      </div>
-                      <div className="inline-flex w-full p-4">
-                        <h4 className="px-4">Columns:</h4>
-                        <select
-                          value={collageColNum}
-                          onChange={(evt) =>
-                            setCollageColNum(Number(evt.target.value))
-                          }
-                        >
-                          <option value={4}>4</option>
-                          <option value={5}>5</option>
-                          <option value={6}>6</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                )}
                 <div className="menu-block">
                   <h2>Search for your albums:</h2>
                   <div className="search-input my-2 inline-flex h-8 items-stretch border">
@@ -422,13 +378,63 @@ function App() {
                       })}
                   </div>
                 </div>
+                {tableMode === "collage" && (
+                  <div className="menu-block">
+                    <div
+                      className="open-accordion-btn inline-flex"
+                      onClick={() =>
+                        openAccordion === "collage-settings"
+                          ? closeAllWindows()
+                          : (closeAllWindows(),
+                            setOpenAccordion("collage-settings"))
+                      }
+                    >
+                      <h3 className="w-full font-bold">Collage parameters</h3>{" "}
+                      {openAccordion === "collage-settings" ? (
+                        <button className="no-style mx-4">－</button>
+                      ) : (
+                        <button className="no-style mx-4">＋</button>
+                      )}{" "}
+                    </div>
+                    <div
+                      className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
+                    >
+                      <div className="inline-flex w-full p-4">
+                        <h4 className="px-4">Rows:</h4>
+                        <select
+                          value={collageRowNum}
+                          onChange={(evt) =>
+                            setCollageRowNum(Number(evt.target.value))
+                          }
+                        >
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                        </select>
+                      </div>
+                      <div className="inline-flex w-full p-4">
+                        <h4 className="px-4">Columns:</h4>
+                        <select
+                          value={collageColNum}
+                          onChange={(evt) =>
+                            setCollageColNum(Number(evt.target.value))
+                          }
+                        >
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className="menu-block">
                   <div
                     className="open-accordion-btn inline-flex"
                     onClick={() =>
                       openAccordion === "titles"
-                        ? setOpenAccordion("")
-                        : setOpenAccordion("titles")
+                        ? closeAllWindows()
+                        : (closeAllWindows(), setOpenAccordion("titles"))
                     }
                   >
                     <h3 className="w-full font-bold">Titles</h3>{" "}
@@ -476,8 +482,8 @@ function App() {
                     className="open-accordion-btn inline-flex"
                     onClick={() =>
                       openAccordion === "background"
-                        ? setOpenAccordion("")
-                        : setOpenAccordion("background")
+                        ? closeAllWindows()
+                        : (closeAllWindows(), setOpenAccordion("background"))
                     }
                   >
                     <h3 className="w-full font-bold">Background</h3>{" "}
@@ -565,7 +571,7 @@ function App() {
                             Manage Position
                           </button>
                           <div
-                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex justify-center flex-col`}
+                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex flex-col justify-center`}
                           >
                             <button
                               className="absolute right-0 top-0"
@@ -576,7 +582,7 @@ function App() {
                               X
                             </button>
                             <div
-                              className="background-position-field relative z-20 mx-16 mt-16 mb-8 h-[190px] w-[190px] rounded-md"
+                              className="background-position-field relative z-20 mx-16 mb-8 mt-16 h-[190px] w-[190px] rounded-md"
                               style={{ backgroundColor: "grey" }}
                             >
                               <Draggable
@@ -602,14 +608,29 @@ function App() {
                                   }}
                                 ></div>
                               </Draggable>
-                              </div>
-                              <h4 className="px-4 pb-4">Image position:</h4>
+                            </div>
+                            <h4 className="px-4 pb-4">Image position:</h4>
 
-                              <div className="inline-flex justify-center mb-8">
-                              <button className={`${backgroundImgMode === "auto" && "active"}`} onClick={() => setBackgroundImgMode("auto")}>Auto</button>
-                              <button className={`${backgroundImgMode === "contain" && "active"}`} onClick={() => setBackgroundImgMode("contain")}>Contain</button>
-                              <button className={`${backgroundImgMode === "cover" && "active"}`} onClick={() => setBackgroundImgMode("cover")}>Cover</button>
-                              </div>
+                            <div className="mb-8 inline-flex justify-center">
+                              <button
+                                className={`${backgroundImgMode === "auto" && "active"}`}
+                                onClick={() => setBackgroundImgMode("auto")}
+                              >
+                                Auto
+                              </button>
+                              <button
+                                className={`${backgroundImgMode === "contain" && "active"}`}
+                                onClick={() => setBackgroundImgMode("contain")}
+                              >
+                                Contain
+                              </button>
+                              <button
+                                className={`${backgroundImgMode === "cover" && "active"}`}
+                                onClick={() => setBackgroundImgMode("cover")}
+                              >
+                                Cover
+                              </button>
+                            </div>
                           </div>
                         </>
                       )}
@@ -622,8 +643,8 @@ function App() {
                       className="open-accordion-btn inline-flex w-full"
                       onClick={() =>
                         openAccordion === "font"
-                          ? setOpenAccordion("")
-                          : setOpenAccordion("font")
+                          ? closeAllWindows()
+                          : (closeAllWindows(), setOpenAccordion("font"))
                       }
                     >
                       <h3 className="font-bold">Font</h3>{" "}
