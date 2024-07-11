@@ -158,27 +158,27 @@ button.no-style {
   @keyframes l5 {
     0% {
       box-shadow:
-        20px 0 #000,
-        -20px 0 #0002;
-      background: #000;
+        20px 0 #ffffff,
+        -20px 0 rgba(255, 255, 255, 0.133);
+      background: #ffffff;
     }
     33% {
       box-shadow:
-        20px 0 #000,
-        -20px 0 #0002;
-      background: #0002;
+        20px 0 #ffffff,
+        -20px 0 rgba(255, 255, 255, 0.133);
+      background: rgba(255, 255, 255, 0.133);
     }
     66% {
       box-shadow:
-        20px 0 #0002,
-        -20px 0 #000;
-      background: #0002;
+        20px 0 rgba(255, 255, 255, 0.133),
+        -20px 0 #ffffff;
+      background: rgba(255, 255, 255, 0.133),
     }
     100% {
       box-shadow:
-        20px 0 #0002,
-        -20px 0 #000;
-      background: #000;
+        20px 0 rgba(255, 255, 255, 0.133),
+        -20px 0 #ffffff;
+      background: #ffffff;
     }
   }
 }

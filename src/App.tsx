@@ -396,7 +396,9 @@ function App() {
                       id="search-results-div"
                     >
                       {showLoading === "search-results-div" ? (
-                        <div className="dot-loader"></div>
+                        <div className="h-full flex flex-col justify-center align-middle">
+                          <div className="dot-loader mx-auto"></div>
+                          </div>
                       ) : (
                         <>
                           {searchResults ? (
@@ -621,8 +623,8 @@ function App() {
                       ) : (
                         <div className="inline-flex w-full">
                           <button
-                              className="mr-2 h-[35px] w-[60px]"
-                              name="Remove image"
+                            className="mr-2 h-[35px] w-[60px]"
+                            name="Remove image"
                             onClick={() => setBackgroundImg("")}
                           >
                             <img
