@@ -23,9 +23,9 @@
     max-height: 500px;
   }
 
-  .menu-content{
+  .menu-content {
     border-top: 1px solid;
-    padding: 24px 8px 8px 8px; 
+    padding: 24px 8px 8px 8px;
   }
 
   .open-accordion-btn {
@@ -34,12 +34,12 @@
     }
   }
 
-  .search-div {
+  .search-results-div {
     overflow-x: hidden;
     font-size: 12px;
     .album-card {
       max-height: 50px;
-      
+
       img {
         max-width: 50px;
         max-height: 50px;
@@ -146,6 +146,40 @@ button.no-style {
   &:focus,
   &:focus-visible {
     outline: none;
+  }
+}
+
+.dot-loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+
+  @keyframes l5 {
+    0% {
+      box-shadow:
+        20px 0 #000,
+        -20px 0 #0002;
+      background: #000;
+    }
+    33% {
+      box-shadow:
+        20px 0 #000,
+        -20px 0 #0002;
+      background: #0002;
+    }
+    66% {
+      box-shadow:
+        20px 0 #0002,
+        -20px 0 #000;
+      background: #0002;
+    }
+    100% {
+      box-shadow:
+        20px 0 #0002,
+        -20px 0 #000;
+      background: #000;
+    }
   }
 }
 

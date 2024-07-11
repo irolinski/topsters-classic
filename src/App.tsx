@@ -34,6 +34,17 @@ function App() {
     setOpenBackgroundPositionMenu(false);
     setOpenAccordion("");
   };
+
+  // error handling
+
+  const [showErrMsg, setShowErrMsg] = useState<{
+    location: string;
+    message: string;
+  }>({
+    location: "",
+    message: "Something has gone wrong. Please try again later.",
+  });
+
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("top100");
 
@@ -101,15 +112,34 @@ function App() {
 
   // last.fm api search feature
   const [searchInputValue, setSearchInputValue] = useState<string>("hi");
-  const [searchResults, setSearchResults] = useState<any>(null);
+  const [showLoading, setShowLoading] = useState<string>("");
+  const [searchResults, setSearchResults] = useState<Array<lastFmAlbum> | null>(
+    null,
+  );
 
   const searchAlbums = async (albumTitle: string) => {
-    let albumData: any = await fetch(
-      `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
-    ).then((response) => response.json());
-
-    albumData = albumData.results.albummatches.album;
-    setSearchResults(albumData);
+    setShowLoading("search-results-div");
+    try {
+      setSearchResults(null);
+      let albumData: any = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
+      ).then((response) => response.json());
+      albumData = albumData.results.albummatches.album;
+      if (albumData.length === 0) {
+        throw new Error("No results found. Try again!");
+      }
+      setSearchResults(albumData);
+      setShowLoading("");
+    } catch (err: any) {
+      setShowLoading("");
+      let errMessage = err.toString()
+      if (errMessage.includes("Error: ")) errMessage = errMessage.slice((errMessage.lastIndexOf("Error: ")) + 7)
+      console.log(errMessage)
+      setShowErrMsg({
+        location: "search-results-div",
+        message: `${errMessage}`,
+      });
+    }
   };
 
   // insert image onto canvas
@@ -358,40 +388,57 @@ function App() {
                   </div>
                   <div className="pt-4">
                     <div
-                      className={`search-div menu-accordion h-[250px] max-h-[250px] overflow-scroll text-center ${openAccordion === "search" && "open"}`}
+                      className={`search-results-div menu-accordion h-[250px] max-h-[250px] overflow-scroll text-center ${openAccordion === "search" && "open"}`}
                       id="search-results-div"
                     >
-                      {searchResults ? (
-                        searchResults.map((a: any) => {
-                          return (
-                            <div
-                              className="album-card m-4 inline-flex w-full"
-                              onClick={() => {
-                                drawAlbumToCanvas(selectedIndex, a);
-                              }}
-                            >
-                              <div className="justify-start">
-                                <img
-                                  className="w-16"
-                                  src={`${a.image[1]["#text"]}`}
-                                />
-                              </div>
-                              <div className="m-4 overflow-hidden">
-                                <span className="font-bold"> {a.name} </span>by
-                                <span className="font-bold"> {a.artist}</span>
-                              </div>
-                            </div>
-                          );
-                        })
+                      {showLoading === "search-results-div" ? (
+                        <div className="dot-loader"></div>
                       ) : (
-                        <span className="relative top-[40%] inline-block px-8">
-                          Data provided thanks to{" "}
-                          <img
-                            className="max-w-[50px] inline align-top mt-[2px]"
-                            src="/lastfm_logo.svg"
-                          />{" "}
-                          database api
-                        </span>
+                        <>
+                          {searchResults ? (
+                            searchResults.map((a: any) => {
+                              return (
+                                <div
+                                  className="album-card m-4 inline-flex w-full"
+                                  onClick={() => {
+                                    drawAlbumToCanvas(selectedIndex, a);
+                                  }}
+                                >
+                                  <div className="justify-start">
+                                    <img
+                                      className="w-16"
+                                      src={`${a.image[1]["#text"]}`}
+                                    />
+                                  </div>
+                                  <div className="m-4 overflow-hidden">
+                                    <span className="font-bold">
+                                      {" "}
+                                      {a.name}{" "}
+                                    </span>
+                                    by
+                                    <span className="font-bold">
+                                      {" "}
+                                      {a.artist}
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            })
+                          ) : showErrMsg.location !== "search-results-div" ? (
+                            <span className="relative top-[40%] inline-block px-8">
+                              Data provided thanks to{" "}
+                              <img
+                                className="mt-[2px] inline max-w-[50px] align-top"
+                                src="/lastfm_logo.svg"
+                              />{" "}
+                              database api
+                            </span>
+                          ) : (
+                            <span className="relative top-[40%] inline-block px-8">
+                              {showErrMsg.message}
+                            </span>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
