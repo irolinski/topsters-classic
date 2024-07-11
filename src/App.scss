@@ -45,17 +45,25 @@
     overflow-x: hidden;
     font-size: 12px;
     .album-card {
+      min-height: 90px;
+      padding: 8px;
+      border-bottom: 1px solid;
       max-height: 50px;
 
       img {
+        width: 64px;
         max-width: 50px;
         max-height: 50px;
+      }
+      &:hover {
+        opacity: 0.9;
+        background-color: #ffffff21;
       }
     }
   }
   .chart-title-input {
     &:hover {
-      border-color: rgba(245, 245, 245, 0.747) !important;
+      border-color: rgba(245, 245, 245) !important;
     }
   }
   .color-box {
@@ -65,6 +73,7 @@
     min-width: 50px;
     &:hover {
       cursor: pointer;
+      border-color: rgb(245, 245, 245) !important;
     }
   }
 
@@ -134,7 +143,7 @@ button {
   transition: border-color 0.25s;
 
   &:hover {
-    border-color: rgba(245, 245, 245, 0.491) !important;
+    border-color: rgb(245, 245, 245) !important;
   }
 
   &:focus,

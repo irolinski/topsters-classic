@@ -396,25 +396,22 @@ function App() {
                       id="search-results-div"
                     >
                       {showLoading === "search-results-div" ? (
-                        <div className="h-full flex flex-col justify-center align-middle">
+                        <div className="flex h-full flex-col justify-center align-middle">
                           <div className="dot-loader mx-auto"></div>
-                          </div>
+                        </div>
                       ) : (
                         <>
                           {searchResults ? (
                             searchResults.map((a: any) => {
                               return (
                                 <div
-                                  className="album-card m-4 inline-flex w-full"
+                                  className="album-card inline-flex w-full"
                                   onClick={() => {
                                     drawAlbumToCanvas(selectedIndex, a);
                                   }}
                                 >
                                   <div className="justify-start">
-                                    <img
-                                      className="w-16"
-                                      src={`${a.image[1]["#text"]}`}
-                                    />
+                                    <img src={`${a.image[1]["#text"]}`} />
                                   </div>
                                   <div className="m-4 overflow-hidden">
                                     <span className="font-bold">
