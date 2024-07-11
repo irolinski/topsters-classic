@@ -34,6 +34,13 @@
     }
   }
 
+  .search-input,
+  .export-button {
+    &:hover {
+      border-color: #646cff !important;
+    }
+  }
+
   .search-results-div {
     overflow-x: hidden;
     font-size: 12px;
@@ -46,7 +53,11 @@
       }
     }
   }
-
+  .chart-title-input {
+    &:hover {
+      border-color: rgba(245, 245, 245, 0.747) !important;
+    }
+  }
   .color-box {
     border: 3px solid white;
     width: 50px;
@@ -123,8 +134,9 @@ button {
   transition: border-color 0.25s;
 
   &:hover {
-    border-color: #646cff;
+    border-color: rgba(245, 245, 245, 0.491) !important;
   }
+
   &:focus,
   &:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
@@ -172,7 +184,7 @@ button.no-style {
       box-shadow:
         20px 0 rgba(255, 255, 255, 0.133),
         -20px 0 #ffffff;
-      background: rgba(255, 255, 255, 0.133),
+      background: rgba(255, 255, 255, 0.133);
     }
     100% {
       box-shadow:

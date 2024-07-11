@@ -891,7 +891,7 @@ function App() {
                   </div>
                 </div>
                 <button
-                  className="my-8 w-full"
+                  className="export-button my-8 w-full"
                   onClick={() => {
                     exportAsImage(exportRef.current, "title");
                   }}
