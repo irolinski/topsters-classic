@@ -28,7 +28,7 @@ export type lastFmAlbum = {
 function App() {
   //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
-  const [openAccordion, setOpenAccordion] = useState<string>("search");
+  const [openAccordion, setOpenAccordion] = useState<string>("");
   const closeAllWindows = () => {
     setOpenColorPicker("");
     setOpenBackgroundPositionMenu(false);
@@ -132,9 +132,10 @@ function App() {
       setShowLoading("");
     } catch (err: any) {
       setShowLoading("");
-      let errMessage = err.toString()
-      if (errMessage.includes("Error: ")) errMessage = errMessage.slice((errMessage.lastIndexOf("Error: ")) + 7)
-      console.log(errMessage)
+      let errMessage = err.toString();
+      if (errMessage.includes("Error: "))
+        errMessage = errMessage.slice(errMessage.lastIndexOf("Error: ") + 7);
+      console.log(errMessage);
       setShowErrMsg({
         location: "search-results-div",
         message: `${errMessage}`,
@@ -344,7 +345,7 @@ function App() {
         </div>
         <div className="inline-flex">
           {/* DESKTOP MENU */}
-          <div className="relative left-0 lg:w-[25vw] lg:min-w-[369px]">
+          <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
               <div className="menu-content">
@@ -363,7 +364,7 @@ function App() {
                   </select>
                 </div>
                 <div className="mb-8 border-b pt-4">
-                  <h2>Search:</h2>
+                  <h2>Add albums:</h2>
                   <div className="search-input my-2 inline-flex h-8 items-stretch border">
                     <input
                       className="w-3/4"
@@ -383,7 +384,10 @@ function App() {
                           setOpenAccordion("search");
                       }}
                     >
-                      🔍
+                      <img
+                        className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                        src="/search_icon.svg"
+                      />
                     </button>
                   </div>
                   <div className="pt-4">
@@ -527,19 +531,13 @@ function App() {
                           className="w-1/4"
                           onClick={() => setChartTitle("")}
                         >
-                          X
+                          <img
+                            className="mx-auto max-h-[15px] min-w-[15px] max-w-[15px] -translate-y-[2.5px]"
+                            src="/close_icon.svg"
+                          />
                         </button>
                       </div>
                     </div>
-                    {/* <div className="flex px-4">
-                      <h4 className="p-4">Hide album titles:</h4>
-                      <input
-                        className=""
-                        type="checkbox"
-                        defaultChecked={hideAlbumTitles}
-                        onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-                      />
-                    </div> */}
                   </div>
                 </div>
                 <div className="menu-block">
@@ -611,29 +609,39 @@ function App() {
                             }
                           />
                           <button
-                            className=""
+                            className="h-[35px] w-[60px]"
                             onClick={() => inputRef.current?.click()}
                           >
-                            Add
+                            <img
+                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                              src="/upload_icon.svg"
+                            />
                           </button>
                         </label>
                       ) : (
-                        <>
+                        <div className="inline-flex w-full">
                           <button
-                            className=""
+                              className="mr-2 h-[35px] w-[60px]"
+                              name="Remove image"
                             onClick={() => setBackgroundImg("")}
                           >
-                            Remove
+                            <img
+                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                              src="/trash_icon.svg"
+                            />
                           </button>
                           <button
-                            className=""
+                            className="h-[35px] w-[60px]"
                             onClick={() =>
                               setOpenBackgroundPositionMenu(
                                 !openBackgroundPositionMenu,
                               )
                             }
                           >
-                            Manage Position
+                            <img
+                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                              src="/move_icon.svg"
+                            />
                           </button>
                           <div
                             className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex flex-col justify-center`}
@@ -697,7 +705,7 @@ function App() {
                               </button>
                             </div>
                           </div>
-                        </>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -722,10 +730,10 @@ function App() {
                     <div
                       className={`menu-accordion ${openAccordion === "font" && "open"}`}
                     >
-                      <div className="inline-flex max-w-48 px-4">
-                        <h4 className="p-4">Family: </h4>
+                      <div className="px-4">
+                        <h4 className="block w-full p-4">Family: </h4>
                         <select
-                          className="max-h-12 max-w-full"
+                          className="ml-8 max-h-12 w-[180px] max-w-full p-1"
                           value={fontFamily}
                           onChange={(evt) => {
                             setFontFamily(evt.target.value);
