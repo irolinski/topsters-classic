@@ -332,7 +332,7 @@ function App() {
                     <option value="top100">Top 100</option>
                   </select>
                 </div>
-                <div className="border-b pt-4 mb-8">
+                <div className="mb-8 border-b pt-4">
                   <h2>Search:</h2>
                   <div className="search-input my-2 inline-flex h-8 items-stretch border">
                     <input
@@ -384,8 +384,13 @@ function App() {
                           );
                         })
                       ) : (
-                        <span className="relative top-[40%]">
-                          Data provided thanks to last.fm api
+                        <span className="relative top-[40%] inline-block px-8">
+                          Data provided thanks to{" "}
+                          <img
+                            className="max-w-[50px] inline align-top mt-[2px]"
+                            src="/lastfm_logo.svg"
+                          />{" "}
+                          database api
                         </span>
                       )}
                     </div>
