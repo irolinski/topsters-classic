@@ -8,22 +8,12 @@ import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
 import invert from "invert-color";
 import Draggable from "react-draggable";
+import { lastFmAlbum } from "./models/models";
+import fontList from "./assets/fontList";
+import exportOptionList from "./assets/exportOptionList";
+import Footer from "./Components/MenuElements/Footer";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
-
-// type declarations
-export type lastFmAlbumImages = {
-  text: string;
-  size: string;
-};
-
-export type lastFmAlbum = {
-  name?: string;
-  artist: string;
-  image: lastFmAlbumImages[];
-  // ?streamable: number
-  url: string;
-};
 
 function App() {
   //menu navigation
@@ -746,31 +736,28 @@ function App() {
                             setFontFamily(evt.target.value);
                           }}
                         >
-                          <option disabled>-- Monospaced --</option>
-                          <option value={"Space Mono"}>Space Mono</option>
-                          <option value={"Roboto Mono"}>Roboto Mono</option>
-                          <option value={"Nanum Gothic Coding"}>
-                            Nanum Gothic Coding
-                          </option>
-                          <option value={"Courier Prime"}>Courier Prime</option>
-                          <option value={"Sometype Mono"}>Sometype Mono</option>
-                          <option disabled>-- Sans-serif --</option>
-                          <option value={"Inter"}>Inter</option>
-                          <option value={"Rubik"}>Rubik</option>
-                          <option disabled>-- Serif --</option>
-                          <option value={"Arvo"}>Arvo</option>
-                          <option value={"Shrikhand"}>Shrikhand</option>
-                          <option value={"Arbutus"}>Arbutus</option>
-                          <option disabled>-- Weird --</option>
-                          <option value={"Rubik Glitch Pop"}>
-                            Rubik Glitch Pop
-                          </option>
-                          <option value={"Danfo"}>Danfo</option>
-                          <option value={"Rubik Moonrocks"}>
-                            Rubik Moonrocks
-                          </option>
-
-                          <option value={"Orbitron"}>Orbitron</option>
+                          <>
+                            {fontList.map(
+                              (style: { name: string; fonts: string[] }) => {
+                                return (
+                                  <>
+                                    {" "}
+                                    <option disabled>
+                                      {" "}
+                                      --- {style.name} ---{" "}
+                                    </option>
+                                    <>
+                                      {style.fonts.map((font: string) => {
+                                        return (
+                                          <option value={font}>{font}</option>
+                                        );
+                                      })}
+                                    </>
+                                  </>
+                                );
+                              },
+                            )}
+                          </>
                         </select>
                       </div>
                       <div className="inline-flex p-4">
@@ -853,10 +840,10 @@ function App() {
                                 }
                           }
                           onClick={() => {
-                          openMenuPopUp !== "font-body"
-                            ? setOpenMenuPopUp("font-body")
-                            : setOpenMenuPopUp("");
-                        }}
+                            openMenuPopUp !== "font-body"
+                              ? setOpenMenuPopUp("font-body")
+                              : setOpenMenuPopUp("");
+                          }}
                         ></div>
                       </div>
                     </div>
@@ -909,38 +896,11 @@ function App() {
                             setExportOptions(JSON.parse(evt.target.value));
                           }}
                         >
-                          <option
-                            value={JSON.stringify({
-                              format: "image/png",
-                              quality: 1.0,
-                            })}
-                          >
-                            .png, High
-                          </option>
-                          <option
-                            value={JSON.stringify({
-                              format: "image/jpeg",
-                              quality: 1.0,
-                            })}
-                          >
-                            .jpeg, High
-                          </option>
-                          <option
-                            value={JSON.stringify({
-                              format: "image/jpeg",
-                              quality: 0.5,
-                            })}
-                          >
-                            .jpeg, Medium
-                          </option>
-                          <option
-                            value={JSON.stringify({
-                              format: "image/jpeg",
-                              quality: 0.1,
-                            })}
-                          >
-                            .jpeg, Low
-                          </option>
+                          {exportOptionList.map(
+                            (o: { name: string; value: string }) => {
+                              return <option value={o.value}>{o.name}</option>;
+                            },
+                          )}
                         </select>
                       </div>
                     </div>
@@ -955,14 +915,7 @@ function App() {
                   Export
                 </button>
               </div>
-              <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[24px]">
-                <div className="w-full p-[24px] pt-[36px]">
-                  <span className="text-gray-100 mr-4 text-sm">
-                    Topsters Classic©️ 2024{" "}
-                  </span>
-                  <button className="no-style ml-4 font-bold">About</button>
-                </div>
-              </footer>
+              <Footer />
             </section>
           </div>
 
