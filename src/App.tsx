@@ -330,16 +330,18 @@ function App() {
         <div className="search-results-div-mobile flex h-[100px] max-h-[125px] w-[85vw] max-w-[75vw] overflow-y-hidden overflow-x-scroll lg:hidden">
           {searchResults ? (
             searchResults.map((a: any) => {
-              return (
-                <div
-                  className="w-[125px] p-2 hover:opacity-50"
-                  onClick={() => {
-                    drawAlbumToCanvas(selectedIndex, a);
-                  }}
-                >
-                  <img className="min-w-16" src={`${a.image[1]["#text"]}`} />
-                </div>
-              );
+              if (a.image[1]["#text"]) {
+                return (
+                  <div
+                    className="w-[125px] p-2 hover:opacity-50"
+                    onClick={() => {
+                      drawAlbumToCanvas(selectedIndex, a);
+                    }}
+                  >
+                    <img className="min-w-16" src={`${a.image[1]["#text"]}`} />
+                  </div>
+                )
+              };
             })
           ) : (
             <div className="flex w-full items-center justify-center">
@@ -410,29 +412,31 @@ function App() {
                         <>
                           {searchResults ? (
                             searchResults.map((a: any) => {
-                              return (
-                                <div
-                                  className="album-card inline-flex w-full"
-                                  onClick={() => {
-                                    drawAlbumToCanvas(selectedIndex, a);
-                                  }}
-                                >
-                                  <div className="justify-start">
-                                    <img src={`${a.image[1]["#text"]}`} />
+                              if (a.image[1]["#text"]) {
+                                return (
+                                  <div
+                                    className="album-card inline-flex w-full"
+                                    onClick={() => {
+                                      drawAlbumToCanvas(selectedIndex, a);
+                                    }}
+                                  >
+                                    <div className="justify-start">
+                                      <img src={`${a.image[1]["#text"]}`} />
+                                    </div>
+                                    <div className="m-4 overflow-hidden">
+                                      <span className="font-bold">
+                                        {" "}
+                                        {a.name}{" "}
+                                      </span>
+                                      by
+                                      <span className="font-bold">
+                                        {" "}
+                                        {a.artist}
+                                      </span>
+                                    </div>
                                   </div>
-                                  <div className="m-4 overflow-hidden">
-                                    <span className="font-bold">
-                                      {" "}
-                                      {a.name}{" "}
-                                    </span>
-                                    by
-                                    <span className="font-bold">
-                                      {" "}
-                                      {a.artist}
-                                    </span>
-                                  </div>
-                                </div>
-                              );
+                                )
+                              }
                             })
                           ) : showErrMsg.location !== "search-results-div" ? (
                             <span className="relative top-[40%] inline-block px-8">
