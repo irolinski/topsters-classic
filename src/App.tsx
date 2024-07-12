@@ -2,15 +2,16 @@ import "./App.scss";
 import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 import Collage from "./Components/Charts/Collage";
-import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
-import { HexColorPicker } from "react-colorful";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
+import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
+import fontList from "./assets/fontList";
+import exportOptionList from "./assets/exportOptionList";
+import { HexColorPicker } from "react-colorful";
 import invert from "invert-color";
 import Draggable from "react-draggable";
 import { lastFmAlbum } from "./models/models";
-import fontList from "./assets/fontList";
-import exportOptionList from "./assets/exportOptionList";
+
 import Footer from "./Components/MenuElements/Footer";
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
@@ -172,10 +173,10 @@ function App() {
   };
 
   //file input ref
-  const inputRef: MutableRefObject<HTMLInputElement | undefined> = useRef();
+  const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   //export image
-  const exportRef: MutableRefObject<undefined> = useRef();
+  const exportRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const [exportOptions, setExportOptions] = useState<{
     format: string;
     quality: number;
@@ -250,15 +251,10 @@ function App() {
             </div>
             <div>
               <h3>Background Image:</h3>
-              {/* @ts-ignore */}
               <input
                 type="file"
                 onChange={(evt) =>
-                  setBackgroundImg(
-                    URL.createObjectURL(
-                      evt.target.files && evt.target.files[0],
-                    ),
-                  )
+                  setBackgroundImg(URL.createObjectURL(evt.target.files![0]))
                 }
               />
               <button onClick={() => setBackgroundImg("")}>Clear</button>
@@ -599,9 +595,7 @@ function App() {
                             id="file-input-desktop"
                             onChange={(evt) =>
                               setBackgroundImg(
-                                URL.createObjectURL(
-                                  evt.target.files && evt.target.files[0],
-                                ),
+                                URL.createObjectURL(evt.target.files![0]),
                               )
                             }
                           />
