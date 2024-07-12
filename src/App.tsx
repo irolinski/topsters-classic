@@ -9,34 +9,43 @@ import fontList from "./assets/fontList";
 import exportOptionList from "./assets/exportOptionList";
 import { HexColorPicker } from "react-colorful";
 import invert from "invert-color";
-import Draggable from "react-draggable";
 import { lastFmAlbum } from "./models/models";
 
-import Footer from "./Components/MenuElements/Footer";
+import Footer from "./Components/MenuElements/Desktop/Footer";
+import MobileHeader from "./Components/MenuElements/Mobile/Header";
+import SelectTableMode from "./Components/MenuElements/Desktop/SelectTableMode";
+import Search from "./Components/MenuElements/Desktop/Search";
+import Title from "./Components/MenuElements/Desktop/Title";
+import Background from "./Components/MenuElements/Desktop/Background";
 
-const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
+// const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
 function App() {
   //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const [openAccordion, setOpenAccordion] = useState<string>("");
+
   const closeAllWindows = () => {
     setOpenMenuPopUp("");
     setOpenAccordion("");
   };
 
-  // error handling
-
-  const [showErrMsg, setShowErrMsg] = useState<{
-    location: string;
-    message: string;
-  }>({
-    location: "",
-    message: "Something has gone wrong. Please try again later.",
-  });
+  const handleOpenAccordion = (selectedAccordion: string) => {
+    if (selectedAccordion !== "search") {
+      openAccordion === selectedAccordion
+        ? closeAllWindows()
+        : (closeAllWindows(), setOpenAccordion(selectedAccordion));
+    } else {
+      setOpenAccordion("search");
+    }
+  };
 
   // set table mode - (collage || top40 || top100)
   const [tableMode, setTableMode] = useState("top100");
+  const handleTableModeChange = (mode: string) => {
+    setTableMode(mode);
+    setSelectedIndex(0);
+  };
 
   // collage options
   const [collageRowNum, setCollageRowNum] = useState<number>(4);
@@ -55,13 +64,19 @@ function App() {
 
   //set chart title
   const [chartTitle, setChartTitle] = useState<string>("");
+  const handleSetChartTitle = (newTitle: string) => {
+    setChartTitle(newTitle);
+  };
 
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
 
   // set background image
-  // (sizes have to be defined as variables for they are crucial to get the offset)
+  // (sizes have to be defined as variables for they are crucial to get the offset right)
   const [backgroundImg, setBackgroundImg] = useState<string>("");
+  const handleSetBackgroundImg = (url: string) => {
+    setBackgroundImg(url);
+  };
   const [backgroundImgPosition, setBackgroundImgPosition] = useState({
     x: 0,
     y: 0,
@@ -69,6 +84,9 @@ function App() {
 
   // auto/cover/contain
   const [backgroundImgMode, setBackgroundImgMode] = useState<string>("cover");
+  const handleSetBackgroundImgMode = (newMode: string) => {
+    setBackgroundImgMode(newMode);
+  };
 
   const backgroundPositionMenu = {
     boxSizeXY: 190, // the size of the container
@@ -93,43 +111,23 @@ function App() {
   const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
   const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
+  const handleSetBackgroundColor = (newColor: string) => {
+    setBackgroundColor(newColor);
+  };
   const [openMenuPopUp, setOpenMenuPopUp] = useState<string>("");
+
+  const handleOpenPopUp = (selectedPopUp: string) => {
+    if (selectedPopUp !== "") {
+      openMenuPopUp !== selectedPopUp
+        ? setOpenMenuPopUp(selectedPopUp)
+        : setOpenMenuPopUp("");
+    } else {
+      setOpenMenuPopUp("");
+    }
+  };
 
   // enable/disable shadows
   const [enableShadows, setEnableShadows] = useState<boolean>(true);
-
-  // last.fm api search feature
-  const [searchInputValue, setSearchInputValue] = useState<string>("hi");
-  const [showLoading, setShowLoading] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<Array<lastFmAlbum> | null>(
-    null,
-  );
-
-  const searchAlbums = async (albumTitle: string) => {
-    setShowLoading("search-results-div");
-    try {
-      setSearchResults(null);
-      let albumData: any = await fetch(
-        `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
-      ).then((response) => response.json());
-      albumData = albumData.results.albummatches.album;
-      if (albumData.length === 0) {
-        throw new Error("No results found. Try again!");
-      }
-      setSearchResults(albumData);
-      setShowLoading("");
-    } catch (err: any) {
-      setShowLoading("");
-      let errMessage = err.toString();
-      if (errMessage.includes("Error: "))
-        errMessage = errMessage.slice(errMessage.lastIndexOf("Error: ") + 7);
-      console.log(errMessage);
-      setShowErrMsg({
-        location: "search-results-div",
-        message: `${errMessage}`,
-      });
-    }
-  };
 
   // insert image onto canvas
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -166,7 +164,7 @@ function App() {
         ? setSelectedIndex(selectedIndex + 1)
         : setSelectedIndex(0);
     }
-    // this forces rerender in a gentle way I don't really know why but it works
+    // this is to force a rerender in a gentle way
     setRefresh(true);
     setRefresh(!refresh);
     setChartDirty(true);
@@ -284,26 +282,23 @@ function App() {
             />
           </section>
         </div>
-        {/* PAGE HEADER */}
-        <div className="logo relative left-1/2 top-8 w-full -translate-x-1/2 text-center">
-          <h1 className="lg:hidden">Topsters</h1>
-        </div>
+        <MobileHeader />
         {/* SEARCH SECTION */}
         <div className="mobile-menu flex w-[75vw] max-w-[75vw] flex-col justify-center pt-24 md:w-1/2 lg:hidden">
           <div className="search-input w-full border">
             <input
               className="w-[75%]"
               type="text"
-              onKeyUp={async (evt) =>
-                evt.key === "Enter"
-                  ? searchAlbums(searchInputValue)
-                  : setSearchInputValue(evt.currentTarget.value)
+              onKeyUp={
+                async (evt) => evt.key === "Enter"
+                // ? searchAlbums(searchInputValue)
+                // : setSearchInputValue(evt.currentTarget.value)
               }
             />
             <button
               className="w-[25%] text-xs"
               onClick={() => {
-                searchAlbums(searchInputValue);
+                // searchAlbums(searchInputValue);
               }}
             >
               Search
@@ -311,7 +306,7 @@ function App() {
           </div>
         </div>
         <div className="search-results-div-mobile flex h-[100px] max-h-[125px] w-[85vw] max-w-[75vw] overflow-y-hidden overflow-x-scroll lg:hidden">
-          {searchResults ? (
+          {/* {searchResults ? (
             searchResults.map((a: any) => {
               if (a.image[1]["#text"]) {
                 return (
@@ -333,7 +328,7 @@ function App() {
                 Search for the albums using the box above!{" "}
               </span>
             </div>
-          )}
+          )} */}
         </div>
         <div className="inline-flex">
           {/* DESKTOP MENU */}
@@ -341,105 +336,17 @@ function App() {
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
               <div className="menu-content max-h-[70%] overflow-scroll">
-                <div className="inline-flex pb-4">
-                  <h2 className="pr-4">Chart type:</h2>
-                  <select
-                    value={tableMode}
-                    onChange={(evt) => {
-                      setTableMode(evt.target.value);
-                      setSelectedIndex(0);
-                    }}
-                  >
-                    <option value="collage">Collage</option>
-                    <option value="top50">Top 50</option>
-                    <option value="top100">Top 100</option>
-                  </select>
-                </div>
-                <div className="mb-8 border-b pt-4">
-                  <h2>Add albums:</h2>
-                  <div className="search-input my-2 inline-flex h-8 items-stretch border">
-                    <input
-                      className="w-3/4"
-                      type="text"
-                      onKeyUp={async (evt) =>
-                        evt.key === "Enter"
-                          ? (searchAlbums(searchInputValue),
-                            setOpenAccordion("search"))
-                          : setSearchInputValue(evt.currentTarget.value)
-                      }
-                      onClick={() => setOpenAccordion("search")}
-                    />
-                    <button
-                      className="w-1/4"
-                      onClick={() => {
-                        searchAlbums(searchInputValue),
-                          setOpenAccordion("search");
-                      }}
-                    >
-                      <img
-                        className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                        src="/search_icon.svg"
-                      />
-                    </button>
-                  </div>
-                  <div className="pt-4">
-                    <div
-                      className={`search-results-div menu-accordion h-[250px] max-h-[250px] overflow-scroll text-center ${openAccordion === "search" && "open"}`}
-                      id="search-results-div"
-                    >
-                      {showLoading === "search-results-div" ? (
-                        <div className="flex h-full flex-col justify-center align-middle">
-                          <div className="dot-loader mx-auto"></div>
-                        </div>
-                      ) : (
-                        <>
-                          {searchResults ? (
-                            searchResults.map((a: any) => {
-                              if (a.image[1]["#text"]) {
-                                return (
-                                  <div
-                                    className="album-card inline-flex w-full"
-                                    onClick={() => {
-                                      drawAlbumToCanvas(selectedIndex, a);
-                                    }}
-                                  >
-                                    <div className="justify-start">
-                                      <img src={`${a.image[1]["#text"]}`} />
-                                    </div>
-                                    <div className="m-4 overflow-hidden">
-                                      <span className="font-bold">
-                                        {" "}
-                                        {a.name}{" "}
-                                      </span>
-                                      by
-                                      <span className="font-bold">
-                                        {" "}
-                                        {a.artist}
-                                      </span>
-                                    </div>
-                                  </div>
-                                );
-                              }
-                            })
-                          ) : showErrMsg.location !== "search-results-div" ? (
-                            <span className="relative top-[40%] inline-block px-8">
-                              Data provided thanks to{" "}
-                              <img
-                                className="mt-[2px] inline max-w-[50px] align-top"
-                                src="/lastfm_logo.svg"
-                              />{" "}
-                              database api
-                            </span>
-                          ) : (
-                            <span className="relative top-[40%] inline-block px-8">
-                              {showErrMsg.message}
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                <SelectTableMode
+                  tableMode={tableMode}
+                  handleTableModeChange={handleTableModeChange}
+                />
+                <Search
+                  selectedIndex={selectedIndex}
+                  drawAlbumToCanvas={drawAlbumToCanvas}
+                  openAccordion={openAccordion}
+                  handleOpenAccordion={handleOpenAccordion}
+                />
+                {/* Collage table settings */}
                 {tableMode === "collage" && (
                   <div className="menu-block">
                     <div
@@ -490,50 +397,30 @@ function App() {
                     </div>
                   </div>
                 )}
-                <div className="menu-block">
-                  <div
-                    className="open-accordion-btn inline-flex"
-                    onClick={() =>
-                      openAccordion === "titles"
-                        ? closeAllWindows()
-                        : (closeAllWindows(), setOpenAccordion("titles"))
-                    }
-                  >
-                    <h3 className="w-full font-bold">Title</h3>{" "}
-                    {openAccordion === "titles" ? (
-                      <button className="no-style mx-4">－</button>
-                    ) : (
-                      <button className="no-style mx-4">＋</button>
-                    )}{" "}
-                  </div>{" "}
-                  <div
-                    className={`menu-accordion ${openAccordion === "titles" && "open"}`}
-                  >
-                    <div className="p-4">
-                      <h3 className="px-4">Chart title:</h3>
-                      <div className="chart-title-input my-2 inline-flex h-8 items-stretch border">
-                        <input
-                          className="w-3/4"
-                          type="text"
-                          value={chartTitle}
-                          onChange={async (evt) =>
-                            setChartTitle(evt.currentTarget.value)
-                          }
-                        />
-                        <button
-                          className="w-1/4"
-                          onClick={() => setChartTitle("")}
-                        >
-                          <img
-                            className="mx-auto max-h-[15px] min-w-[15px] max-w-[15px] -translate-y-[2.5px]"
-                            src="/close_icon.svg"
-                          />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="menu-block">
+                <Title
+                  openAccordion={openAccordion}
+                  chartTitle={chartTitle}
+                  handleSetChartTitle={handleSetChartTitle}
+                  handleOpenAccordion={handleOpenAccordion}
+                />
+                <Background
+                  openAccordion={openAccordion}
+                  handleOpenAccordion={handleOpenAccordion}
+                  openMenuPopUp={openMenuPopUp}
+                  handleOpenPopUp={handleOpenPopUp}
+                  backgroundColor={backgroundColor}
+                  handleSetBackgroundColor={handleSetBackgroundColor}
+                  backgroundImg={backgroundImg}
+                  handleSetBackgroundImg={handleSetBackgroundImg}
+                  backgroundPositionMenu={backgroundPositionMenu}
+                  handleBackgroundPositionChange={
+                    handleBackgroundPositionChange
+                  }
+                  backgroundImgMode={backgroundImgMode}
+                  handleSetBackgroundImgMode={handleSetBackgroundImgMode}
+                  inputRef={inputRef}
+                />
+                {/* <div className="menu-block">
                   <div
                     className="open-accordion-btn inline-flex"
                     onClick={() =>
@@ -700,7 +587,7 @@ function App() {
                       )}
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="menu-block">
                   <div>
                     <div
