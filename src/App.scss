@@ -85,8 +85,11 @@
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.43);
     position: absolute;
-    transform: translate(170px, -130px) scale(0.6);
+    z-index: 20;
+    // transform: translate(170px, -130px) scale(0.6);
+    // transform: translate(55%, -35%) scale(0.6);
   }
+
   .color-picker-div::after {
     content: "";
     position: absolute;
@@ -96,6 +99,12 @@
     border-width: 25px;
     border-style: solid;
     border-color: transparent rgba(0, 0, 0, 0.43) transparent transparent;
+  }
+  .font-menu-pop-up {
+    transform: translate(55%, -35%) scale(0.6);
+  }
+  .bg-menu-pop-up {
+    transform: translate(35%, -35%) scale(0.6);
   }
 
   &.desktop {
@@ -144,7 +153,7 @@
     }
     button {
       transition: color 1s;
-      &:hover{
+      &:hover {
         color: rgba(245, 245, 245, 0.613);
       }
     }

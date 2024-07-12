@@ -30,8 +30,7 @@ function App() {
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const [openAccordion, setOpenAccordion] = useState<string>("");
   const closeAllWindows = () => {
-    setOpenColorPicker("");
-    setOpenBackgroundPositionMenu(false);
+    setOpenMenuPopUp("");
     setOpenAccordion("");
   };
 
@@ -79,8 +78,6 @@ function App() {
 
   // auto/cover/contain
   const [backgroundImgMode, setBackgroundImgMode] = useState<string>("cover");
-  const [openBackgroundPositionMenu, setOpenBackgroundPositionMenu] =
-    useState<boolean>(false);
 
   const backgroundPositionMenu = {
     boxSizeXY: 190, // the size of the container
@@ -105,7 +102,7 @@ function App() {
   const [fontColorBody, setfontColorBody] = useState<string>("");
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
   const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
-  const [openColorPicker, setOpenColorPicker] = useState<string>("");
+  const [openMenuPopUp, setOpenMenuPopUp] = useState<string>("");
 
   // enable/disable shadows
   const [enableShadows, setEnableShadows] = useState<boolean>(true);
@@ -357,7 +354,7 @@ function App() {
           <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
-              <div className="menu-content overflow-scroll max-h-[70%]">
+              <div className="menu-content max-h-[70%] overflow-scroll">
                 <div className="inline-flex pb-4">
                   <h2 className="pr-4">Chart type:</h2>
                   <select
@@ -572,12 +569,12 @@ function App() {
                     <div className="inline-flex p-4">
                       <h3 className="px-4">Color:</h3>
                       <div
-                        className={`${openColorPicker !== "background" && "hidden"} color-picker-div absolute flex scale-50 justify-center`}
+                        className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up absolute flex scale-50 justify-center`}
                       >
                         <button
                           className="absolute right-0"
                           onClick={() => {
-                            setOpenColorPicker("");
+                            setOpenMenuPopUp("");
                           }}
                         >
                           X
@@ -592,9 +589,9 @@ function App() {
                         className="color-box hover:cursor-pointer"
                         style={{ backgroundColor: `${backgroundColor}` }}
                         onClick={() => {
-                          openColorPicker !== "background"
-                            ? setOpenColorPicker("background")
-                            : setOpenColorPicker("");
+                          openMenuPopUp !== "background"
+                            ? setOpenMenuPopUp("background")
+                            : setOpenMenuPopUp("");
                         }}
                       ></div>
                     </div>
@@ -642,11 +639,11 @@ function App() {
                           </button>
                           <button
                             className="h-[35px] w-[60px]"
-                            onClick={() =>
-                              setOpenBackgroundPositionMenu(
-                                !openBackgroundPositionMenu,
-                              )
-                            }
+                            onClick={() => {
+                              openMenuPopUp !== "background-position"
+                                ? setOpenMenuPopUp("background-position")
+                                : setOpenMenuPopUp("");
+                            }}
                           >
                             <img
                               className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -654,12 +651,12 @@ function App() {
                             />
                           </button>
                           <div
-                            className={`background-position-menu ${!openBackgroundPositionMenu && "hidden"} color-picker-div absolute flex flex-col justify-center`}
+                            className={`background-position-menu ${openMenuPopUp !== "background-position" && "hidden"} color-picker-div bg-menu-pop-up absolute flex flex-col justify-center`}
                           >
                             <button
                               className="absolute right-0 top-0"
                               onClick={() => {
-                                setOpenBackgroundPositionMenu(false);
+                                setOpenMenuPopUp("");
                               }}
                             >
                               X
@@ -779,13 +776,13 @@ function App() {
                       <div className="inline-flex p-4">
                         <h4 className="px-4"> Header Color: </h4>
                         <div
-                          className={`${openColorPicker !== "font-header" && "hidden"} color-picker-div absolute flex scale-50 flex-col justify-center`}
+                          className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
                         >
                           <div>
                             <button
                               className="absolute right-0"
                               onClick={() => {
-                                setOpenColorPicker("");
+                                setOpenMenuPopUp("");
                               }}
                             >
                               X
@@ -812,19 +809,23 @@ function App() {
                                   backgroundColor: `${invert(backgroundColor)}`,
                                 }
                           }
-                          onClick={() => setOpenColorPicker("font-header")}
+                          onClick={() => {
+                            openMenuPopUp !== "font-header"
+                              ? setOpenMenuPopUp("font-header")
+                              : setOpenMenuPopUp("");
+                          }}
                         ></div>
                       </div>
                       <div className="inline-flex p-4">
                         <h4 className="px-4"> Body Color: </h4>
                         <div
-                          className={`${openColorPicker !== "font-body" && "hidden"} color-picker-div absolute flex scale-50 flex-col justify-center`}
+                          className={`${openMenuPopUp !== "font-body" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
                         >
                           <div>
                             <button
                               className="absolute right-0"
                               onClick={() => {
-                                setOpenColorPicker("");
+                                setOpenMenuPopUp("");
                               }}
                             >
                               X
@@ -851,7 +852,11 @@ function App() {
                                   backgroundColor: `${invert(backgroundColor)}`,
                                 }
                           }
-                          onClick={() => setOpenColorPicker("font-body")}
+                          onClick={() => {
+                          openMenuPopUp !== "font-body"
+                            ? setOpenMenuPopUp("font-body")
+                            : setOpenMenuPopUp("");
+                        }}
                         ></div>
                       </div>
                     </div>
@@ -952,8 +957,10 @@ function App() {
               </div>
               <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[24px]">
                 <div className="w-full p-[24px] pt-[36px]">
-                  <span className="text-sm text-gray-100 mr-4">Topsters Classic©️ 2024 </span>
-                  <button className="no-style font-bold ml-4">About</button>
+                  <span className="text-gray-100 mr-4 text-sm">
+                    Topsters Classic©️ 2024{" "}
+                  </span>
+                  <button className="no-style ml-4 font-bold">About</button>
                 </div>
               </footer>
             </section>
