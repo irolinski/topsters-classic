@@ -357,7 +357,7 @@ function App() {
           <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
-              <div className="menu-content">
+              <div className="menu-content overflow-scroll max-h-[70%]">
                 <div className="inline-flex pb-4">
                   <h2 className="pr-4">Chart type:</h2>
                   <select
@@ -950,10 +950,10 @@ function App() {
                   Export
                 </button>
               </div>
-              <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[36px]">
-                <div className="w-full p-[24px]">
+              <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[24px]">
+                <div className="w-full p-[24px] pt-[36px]">
                   <span className="text-sm text-gray-100 mr-4">Topsters Classic©️ 2024 </span>
-                  <button className="no-style">About</button>
+                  <button className="no-style font-bold ml-4">About</button>
                 </div>
               </footer>
             </section>
