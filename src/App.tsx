@@ -340,8 +340,8 @@ function App() {
                   >
                     <img className="min-w-16" src={`${a.image[1]["#text"]}`} />
                   </div>
-                )
-              };
+                );
+              }
             })
           ) : (
             <div className="flex w-full items-center justify-center">
@@ -435,7 +435,7 @@ function App() {
                                       </span>
                                     </div>
                                   </div>
-                                )
+                                );
                               }
                             })
                           ) : showErrMsg.location !== "search-results-div" ? (
@@ -950,6 +950,12 @@ function App() {
                   Export
                 </button>
               </div>
+              <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[36px]">
+                <div className="w-full p-[24px]">
+                  <span className="text-sm text-gray-100 mr-4">Topsters Classic©️ 2024 </span>
+                  <button className="no-style">About</button>
+                </div>
+              </footer>
             </section>
           </div>
 

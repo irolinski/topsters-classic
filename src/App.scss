@@ -67,8 +67,7 @@
     }
   }
 
-
-  .export-options-div{
+  .export-options-div {
     border-top: dotted 1px rgb(245, 245, 245);
   }
   .color-box {
@@ -102,7 +101,8 @@
   &.desktop {
     height: 100vh;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.055);
+    // background-color: rgba(255, 255, 255, 0.055);
+    background-color: #303030;
 
     h3,
     h4 {
@@ -133,6 +133,15 @@
   }
   .background-position-dot {
     border: 3px solid white;
+  }
+}
+.desktop-footer {
+  background-color: #303030;
+  & > div {
+    border-top: 1px solid rgb(425, 425, 425);
+    span {
+      color: #ffffff26;
+    }
   }
 }
 
