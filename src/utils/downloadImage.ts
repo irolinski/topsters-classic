@@ -15,7 +15,7 @@ export const downloadImage = (blob: any, fileName: string) => {
     fakeLink.remove();
   };
 
-  export const exportAsImage = async (el: any, imageFileName: string) => {
+  export const exportAsImage = async (el: any, imageFileName: string, exportOptions: {format: string, quality: number}) => {
     window.scrollTo(0, 0);
     setTimeout(async () => {
       const canvas = await html2canvas(el, {
@@ -26,7 +26,10 @@ export const downloadImage = (blob: any, fileName: string) => {
         height: el.height,
         windowWidth: 1024,
       }).then(function (canvas: any) {
-        var img = canvas.toDataURL();
+        // const fileFormat = "image/jpeg"
+        // const fileQuality = 1.0
+        console.log(exportOptions)
+        const img = canvas.toDataURL(exportOptions.format, exportOptions.quality);
         downloadImage(img, imageFileName);
       });
     }, 1000);

@@ -189,6 +189,13 @@ function App() {
 
   //export image
   const exportRef: MutableRefObject<undefined> = useRef();
+  const [exportOptions, setExportOptions] = useState<{
+    format: string;
+    quality: number;
+  }>({
+    format: "image/jpeg",
+    quality: 0.5,
+  });
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
@@ -875,7 +882,7 @@ function App() {
                           onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
                         />
                       </div>
-                      <div className="flex px-4">
+                      <div className="flex px-4 pb-[8px]">
                         <h4 className="p-4">Enable shadows:</h4>
                         <input
                           className=""
@@ -884,13 +891,56 @@ function App() {
                           onChange={() => setEnableShadows(!enableShadows)}
                         />
                       </div>
+                      <div className="export-options-div px-4 pt-[8px]">
+                        <h4 className="block w-full p-4">Export quality: </h4>
+                        <select
+                          className="ml-8 max-h-12 w-[180px] max-w-full p-1"
+                          value={JSON.stringify(exportOptions)}
+                          onChange={(evt) => {
+                            setExportOptions(JSON.parse(evt.target.value));
+                          }}
+                        >
+                          <option
+                            value={JSON.stringify({
+                              format: "image/png",
+                              quality: 1.0,
+                            })}
+                          >
+                            .png, High
+                          </option>
+                          <option
+                            value={JSON.stringify({
+                              format: "image/jpeg",
+                              quality: 1.0,
+                            })}
+                          >
+                            .jpeg, High
+                          </option>
+                          <option
+                            value={JSON.stringify({
+                              format: "image/jpeg",
+                              quality: 0.5,
+                            })}
+                          >
+                            .jpeg, Medium
+                          </option>
+                          <option
+                            value={JSON.stringify({
+                              format: "image/jpeg",
+                              quality: 0.1,
+                            })}
+                          >
+                            .jpeg, Low
+                          </option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <button
                   className="export-button my-8 w-full"
                   onClick={() => {
-                    exportAsImage(exportRef.current, "title");
+                    exportAsImage(exportRef.current, "title", exportOptions);
                   }}
                 >
                   Export
@@ -974,7 +1024,7 @@ function App() {
           <button
             className="m-2"
             onClick={() => {
-              exportAsImage(exportRef.current, "title");
+              exportAsImage(exportRef.current, "title", exportOptions);
             }}
           >
             Export
