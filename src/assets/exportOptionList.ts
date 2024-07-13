@@ -24,7 +24,7 @@ const exportOptionList = [
     name: "Low (.jpeg)",
     value: `${JSON.stringify({
       format: "image/jpeg",
-      quality: 0.1,
+      quality: 0.2,
     })}`,
   },
 ];

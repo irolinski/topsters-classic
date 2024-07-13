@@ -108,8 +108,13 @@ const Search = ({
                           <div className="justify-start">
                             <img src={`${a.image[1]["#text"]}`} />
                           </div>
-                          <div className="m-4 overflow-hidden">
-                            <span className="font-bold"> {a.name} </span>
+                          <div className="ml-2 content-center overflow-hidden">
+                            <span className="font-bold">
+                              {" "}
+                              {a.name!.length + a.artist!.length > 50
+                                ? `${a.name?.match(/^.{19}\w*/)} (...)`
+                                : a.name}{" "}
+                            </span>
                             by
                             <span className="font-bold"> {a.artist}</span>
                           </div>
