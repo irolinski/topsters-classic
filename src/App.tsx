@@ -1,15 +1,14 @@
 import "./App.scss";
 import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
+
+import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
+import { HexColorPicker } from "react-colorful";
+import { lastFmAlbum } from "./models/models";
+
 import Collage from "./Components/Charts/Collage";
 import ClassicTop50 from "./Components/Charts/ClassicTop50";
 import Top100 from "./Components/Charts/Top100";
-import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
-import fontList from "./assets/fontList";
-import exportOptionList from "./assets/exportOptionList";
-import { HexColorPicker } from "react-colorful";
-import invert from "invert-color";
-import { lastFmAlbum } from "./models/models";
 
 import Footer from "./Components/MenuElements/Desktop/Footer";
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
@@ -17,6 +16,8 @@ import SelectTableMode from "./Components/MenuElements/Desktop/SelectTableMode";
 import Search from "./Components/MenuElements/Desktop/Search";
 import Title from "./Components/MenuElements/Desktop/Title";
 import Background from "./Components/MenuElements/Desktop/Background";
+import Font from "./Components/MenuElements/Desktop/Font";
+import Options from "./Components/MenuElements/Desktop/Options";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -70,6 +71,8 @@ function App() {
 
   //customize chart
   const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
+  const handleSetHideAlbumTitles = (isTrue: boolean) =>
+    setHideAlbumTitles(isTrue);
 
   // set background image
   // (sizes have to be defined as variables for they are crucial to get the offset right)
@@ -106,10 +109,20 @@ function App() {
 
   // choose font
   const [fontFamily, setFontFamily] = useState<string>("Space Mono");
+  const handleSetFontFamily = (newFontName: string) => {
+    setFontFamily(newFontName);
+  };
 
   //set colors
   const [fontColorBody, setfontColorBody] = useState<string>("");
+  const handleSetFontColorBody = (newColor: string) => {
+    setfontColorBody(newColor);
+  };
   const [fontColorHeader, setfontColorHeader] = useState<string>("");
+  const handleSetFontColorHeader = (newColor: string) => {
+    setfontColorHeader(newColor);
+  };
+
   const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
   const handleSetBackgroundColor = (newColor: string) => {
     setBackgroundColor(newColor);
@@ -128,6 +141,7 @@ function App() {
 
   // enable/disable shadows
   const [enableShadows, setEnableShadows] = useState<boolean>(true);
+  const handleSetEnableShadows = (isTrue: boolean) => setEnableShadows(isTrue);
 
   // insert image onto canvas
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -182,6 +196,12 @@ function App() {
     format: "image/jpeg",
     quality: 0.5,
   });
+  const handleSetExportOptions = (options: {
+    format: string;
+    quality: number;
+  }) => {
+    setExportOptions(options);
+  };
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
@@ -420,373 +440,30 @@ function App() {
                   handleSetBackgroundImgMode={handleSetBackgroundImgMode}
                   inputRef={inputRef}
                 />
-                {/* <div className="menu-block">
-                  <div
-                    className="open-accordion-btn inline-flex"
-                    onClick={() =>
-                      openAccordion === "background"
-                        ? closeAllWindows()
-                        : (closeAllWindows(), setOpenAccordion("background"))
-                    }
-                  >
-                    <h3 className="w-full font-bold">Background</h3>{" "}
-                    {openAccordion === "background" ? (
-                      <button className="no-style mx-4">－</button>
-                    ) : (
-                      <button className="no-style mx-4">＋</button>
-                    )}
-                  </div>
-                  <div
-                    className={`menu-accordion ${openAccordion === "background" && "open"}`}
-                  >
-                    <div className="inline-flex p-4">
-                      <h3 className="px-4">Color:</h3>
-                      <div
-                        className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up absolute flex scale-50 justify-center`}
-                      >
-                        <button
-                          className="absolute right-0"
-                          onClick={() => {
-                            setOpenMenuPopUp("");
-                          }}
-                        >
-                          X
-                        </button>
-                        <HexColorPicker
-                          className="z-10 m-16"
-                          color={backgroundColor}
-                          onChange={setBackgroundColor}
-                        />
-                      </div>
-                      <div
-                        className="color-box hover:cursor-pointer"
-                        style={{ backgroundColor: `${backgroundColor}` }}
-                        onClick={() => {
-                          openMenuPopUp !== "background"
-                            ? setOpenMenuPopUp("background")
-                            : setOpenMenuPopUp("");
-                        }}
-                      ></div>
-                    </div>
-                    <div className="flex p-4">
-                      <h3 className="px-4">Image:</h3>
-                      {backgroundImg === "" ? (
-                        <label
-                          className="mr-8 h-4 w-8"
-                          htmlFor="file-input-desktop"
-                        >
-                          <input
-                            className="absolute my-[-20px] h-0 w-0 opacity-0"
-                            type="file"
-                            ref={inputRef}
-                            id="file-input-desktop"
-                            onChange={(evt) =>
-                              setBackgroundImg(
-                                URL.createObjectURL(evt.target.files![0]),
-                              )
-                            }
-                          />
-                          <button
-                            className="h-[35px] w-[60px]"
-                            onClick={() => inputRef.current?.click()}
-                          >
-                            <img
-                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                              src="/upload_icon.svg"
-                            />
-                          </button>
-                        </label>
-                      ) : (
-                        <div className="inline-flex w-full">
-                          <button
-                            className="mr-2 h-[35px] w-[60px]"
-                            name="Remove image"
-                            onClick={() => setBackgroundImg("")}
-                          >
-                            <img
-                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                              src="/trash_icon.svg"
-                            />
-                          </button>
-                          <button
-                            className="h-[35px] w-[60px]"
-                            onClick={() => {
-                              openMenuPopUp !== "background-position"
-                                ? setOpenMenuPopUp("background-position")
-                                : setOpenMenuPopUp("");
-                            }}
-                          >
-                            <img
-                              className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                              src="/move_icon.svg"
-                            />
-                          </button>
-                          <div
-                            className={`background-position-menu ${openMenuPopUp !== "background-position" && "hidden"} color-picker-div bg-menu-pop-up absolute flex flex-col justify-center`}
-                          >
-                            <button
-                              className="absolute right-0 top-0"
-                              onClick={() => {
-                                setOpenMenuPopUp("");
-                              }}
-                            >
-                              X
-                            </button>
-                            <div
-                              className="background-position-field relative z-20 mx-16 mb-8 mt-16 h-[190px] w-[190px] rounded-md"
-                              style={{ backgroundColor: "grey" }}
-                            >
-                              <Draggable
-                                defaultPosition={{
-                                  x: backgroundPositionMenu.centerDot,
-                                  y: backgroundPositionMenu.centerDot,
-                                }}
-                                // it should be 85 (50% off of both axis) but for some reason 80 actually centers it
-                                handle=".handle"
-                                bounds="parent"
-                                onDrag={(_evt, dragElement) => {
-                                  handleBackgroundPositionChange(
-                                    dragElement.x,
-                                    dragElement.y,
-                                  );
-                                }}
-                              >
-                                <div
-                                  className="background-position-dot handle p2 h-[30px] w-[30px] rounded-full"
-                                  style={{
-                                    backgroundColor: "grey",
-                                    cursor: "move",
-                                  }}
-                                ></div>
-                              </Draggable>
-                            </div>
-                            <h4 className="px-4 pb-4">Image position:</h4>
 
-                            <div className="mb-8 inline-flex justify-center">
-                              <button
-                                className={`${backgroundImgMode === "auto" && "active"}`}
-                                onClick={() => setBackgroundImgMode("auto")}
-                              >
-                                Auto
-                              </button>
-                              <button
-                                className={`${backgroundImgMode === "contain" && "active"}`}
-                                onClick={() => setBackgroundImgMode("contain")}
-                              >
-                                Contain
-                              </button>
-                              <button
-                                className={`${backgroundImgMode === "cover" && "active"}`}
-                                onClick={() => setBackgroundImgMode("cover")}
-                              >
-                                Cover
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div> */}
-                <div className="menu-block">
-                  <div>
-                    <div
-                      className="open-accordion-btn inline-flex w-full"
-                      onClick={() =>
-                        openAccordion === "font"
-                          ? closeAllWindows()
-                          : (closeAllWindows(), setOpenAccordion("font"))
-                      }
-                    >
-                      <h3 className="font-bold">Font</h3>{" "}
-                      {openAccordion === "font" ? (
-                        <button className="no-style mx-4">－</button>
-                      ) : (
-                        <button className="no-style mx-4">＋</button>
-                      )}{" "}
-                    </div>{" "}
-                    <div
-                      className={`menu-accordion ${openAccordion === "font" && "open"}`}
-                    >
-                      <div className="px-4">
-                        <h4 className="block w-full p-4">Family: </h4>
-                        <select
-                          className="ml-8 max-h-12 w-[180px] max-w-full p-1"
-                          value={fontFamily}
-                          onChange={(evt) => {
-                            setFontFamily(evt.target.value);
-                          }}
-                        >
-                          <>
-                            {fontList.map(
-                              (style: { name: string; fonts: string[] }) => {
-                                return (
-                                  <>
-                                    {" "}
-                                    <option disabled>
-                                      {" "}
-                                      --- {style.name} ---{" "}
-                                    </option>
-                                    <>
-                                      {style.fonts.map((font: string) => {
-                                        return (
-                                          <option value={font}>{font}</option>
-                                        );
-                                      })}
-                                    </>
-                                  </>
-                                );
-                              },
-                            )}
-                          </>
-                        </select>
-                      </div>
-                      <div className="inline-flex p-4">
-                        <h4 className="px-4"> Header Color: </h4>
-                        <div
-                          className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
-                        >
-                          <div>
-                            <button
-                              className="absolute right-0"
-                              onClick={() => {
-                                setOpenMenuPopUp("");
-                              }}
-                            >
-                              X
-                            </button>
-                            <HexColorPicker
-                              className="z-10 mx-16 mt-16"
-                              color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
-                              onChange={setfontColorHeader}
-                            />
-                          </div>
-                          <button
-                            className="mx-auto my-6 w-1/2"
-                            onClick={() => setfontColorHeader("")}
-                          >
-                            Reset
-                          </button>
-                        </div>
-                        <div
-                          className="color-box"
-                          style={
-                            fontColorHeader !== ""
-                              ? { backgroundColor: `${fontColorHeader}` }
-                              : {
-                                  backgroundColor: `${invert(backgroundColor)}`,
-                                }
-                          }
-                          onClick={() => {
-                            openMenuPopUp !== "font-header"
-                              ? setOpenMenuPopUp("font-header")
-                              : setOpenMenuPopUp("");
-                          }}
-                        ></div>
-                      </div>
-                      <div className="inline-flex p-4">
-                        <h4 className="px-4"> Body Color: </h4>
-                        <div
-                          className={`${openMenuPopUp !== "font-body" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
-                        >
-                          <div>
-                            <button
-                              className="absolute right-0"
-                              onClick={() => {
-                                setOpenMenuPopUp("");
-                              }}
-                            >
-                              X
-                            </button>
-                            <HexColorPicker
-                              className="z-10 mx-16 mt-16"
-                              color={`${fontColorBody !== "" ? fontColorBody : invert(backgroundColor)}`}
-                              onChange={setfontColorBody}
-                            />
-                          </div>
-                          <button
-                            className="mx-auto my-6 w-1/2"
-                            onClick={() => setfontColorBody("")}
-                          >
-                            Reset
-                          </button>
-                        </div>
-                        <div
-                          className="color-box"
-                          style={
-                            fontColorBody !== ""
-                              ? { backgroundColor: `${fontColorBody}` }
-                              : {
-                                  backgroundColor: `${invert(backgroundColor)}`,
-                                }
-                          }
-                          onClick={() => {
-                            openMenuPopUp !== "font-body"
-                              ? setOpenMenuPopUp("font-body")
-                              : setOpenMenuPopUp("");
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="menu-block">
-                  <div>
-                    <div
-                      className="open-accordion-btn inline-flex w-full"
-                      onClick={() =>
-                        openAccordion === "options"
-                          ? closeAllWindows()
-                          : (closeAllWindows(), setOpenAccordion("options"))
-                      }
-                    >
-                      <h3 className="font-bold">Options</h3>{" "}
-                      {openAccordion === "options" ? (
-                        <button className="no-style mx-4">－</button>
-                      ) : (
-                        <button className="no-style mx-4">＋</button>
-                      )}{" "}
-                    </div>{" "}
-                    <div
-                      className={`menu-accordion ${openAccordion === "options" && "open"}`}
-                    >
-                      <div className="flex px-4">
-                        <h4 className="p-4">Hide album titles:</h4>
-                        <input
-                          className=""
-                          type="checkbox"
-                          defaultChecked={hideAlbumTitles}
-                          onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-                        />
-                      </div>
-                      <div className="flex px-4 pb-[8px]">
-                        <h4 className="p-4">Enable shadows:</h4>
-                        <input
-                          className=""
-                          type="checkbox"
-                          defaultChecked={enableShadows}
-                          onChange={() => setEnableShadows(!enableShadows)}
-                        />
-                      </div>
-                      <div className="export-options-div px-4 pt-[8px]">
-                        <h4 className="block w-full p-4">Export quality: </h4>
-                        <select
-                          className="ml-8 max-h-12 w-[180px] max-w-full p-1"
-                          value={JSON.stringify(exportOptions)}
-                          onChange={(evt) => {
-                            setExportOptions(JSON.parse(evt.target.value));
-                          }}
-                        >
-                          {exportOptionList.map(
-                            (o: { name: string; value: string }) => {
-                              return <option value={o.value}>{o.name}</option>;
-                            },
-                          )}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Font
+                  openAccordion={openAccordion}
+                  handleOpenAccordion={handleOpenAccordion}
+                  fontFamily={fontFamily}
+                  handleSetFontFamily={handleSetFontFamily}
+                  openMenuPopUp={openMenuPopUp}
+                  handleOpenPopUp={handleOpenPopUp}
+                  fontColorHeader={fontColorHeader}
+                  handleSetFontColorHeader={handleSetFontColorHeader}
+                  fontColorBody={fontColorBody}
+                  handleSetFontColorBody={handleSetFontColorBody}
+                  backgroundColor={backgroundColor}
+                />
+                <Options
+                  openAccordion={openAccordion}
+                  handleOpenAccordion={handleOpenAccordion}
+                  hideAlbumTitles={hideAlbumTitles}
+                  handleSetHideAlbumTitles={handleSetHideAlbumTitles}
+                  enableShadows={enableShadows}
+                  handleSetEnableShadows={handleSetEnableShadows}
+                  exportOptions={exportOptions}
+                  handleSetExportOptions={handleSetExportOptions}
+                />
                 <button
                   className="export-button my-8 w-full"
                   onClick={() => {
