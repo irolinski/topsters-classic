@@ -89,7 +89,7 @@
     // transform: translate(170px, -130px) scale(0.6);
     // transform: translate(55%, -35%) scale(0.6);
   }
-// i'd do it but i don't want to deal with compensating scroll smh
+  // i'd do it but i don't want to deal with compensating scroll smh
   // .color-picker-div::after {
   //   content: "";
   //   position: absolute;
@@ -100,7 +100,6 @@
   //   border-style: solid;
   //   border-color: transparent rgba(0, 0, 0, 0.43) transparent transparent;
   // }
-
 
   .font-menu-pop-up {
     transform: translate(55%, -35%) scale(0.6);
@@ -531,3 +530,15 @@ button.no-style {
 .selected-index {
   opacity: 0.5;
 }
+
+
+// modal
+
+.about-modal{
+  background-color: #000000da;
+  .modal-body{
+    background-color: #242424;
+  }
+}
+
+

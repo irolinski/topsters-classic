@@ -18,6 +18,7 @@ import Title from "./Components/MenuElements/Desktop/Title";
 import Background from "./Components/MenuElements/Desktop/Background";
 import Font from "./Components/MenuElements/Desktop/Font";
 import Options from "./Components/MenuElements/Desktop/Options";
+import AboutModal from "./Components/AboutModal";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -203,9 +204,19 @@ function App() {
     setExportOptions(options);
   };
 
+  // about modal
+
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
+
   return (
     <div className="flex h-full w-full flex-col justify-center">
       <main className="flex flex-wrap justify-center lg:block">
+        {/* About Modal */}
+        <AboutModal
+          showAboutModal={showAboutModal}
+          handleSetShowAboutModal={handleSetShowAboutModal}
+        />
         {/* MOBILE MENU */}
         <div
           className={`mobile-menu-modal h-[100vh] w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"}`}
@@ -473,7 +484,10 @@ function App() {
                   Export
                 </button>
               </div>
-              <Footer />
+              <Footer
+                showAboutModal={showAboutModal}
+                handleSetShowAboutModal={handleSetShowAboutModal}
+              />
             </section>
           </div>
 
