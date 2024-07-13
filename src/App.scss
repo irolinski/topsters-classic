@@ -49,6 +49,9 @@
       padding: 8px;
       border-bottom: 1px solid;
       max-height: 50px;
+      &:hover{
+        cursor: pointer;
+      }
 
       img {
         width: 64px;
