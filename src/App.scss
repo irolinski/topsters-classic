@@ -153,12 +153,14 @@
   & > div {
     border-top: 1px solid rgb(425, 425, 425);
     span {
-      color: #ffffff26;
+      color: rgba(245, 245, 245, 0.25);
     }
     button {
       transition: color 1s;
+      color: rgba(245, 245, 245, 0.35);
+
       &:hover {
-        color: rgba(245, 245, 245, 0.613);
+        color: rgb(245, 245, 245);
       }
     }
   }
