@@ -149,12 +149,14 @@ function App() {
   const changeIndex = (i: number) => {
     setSelectedIndex(i);
   };
-  const [loadingImage, setLoadingImage] = useState<number>(1)
+  const [loadingImage, setLoadingImage] = useState<number>(999)
   const handleImageLoaded = () => setLoadingImage(999)
   const [chartDirty, setChartDirty] = useState<boolean>(true);
   const [refresh, setRefresh] = useState(false);
 
   const drawAlbumToCanvas = (index: number, album: lastFmAlbum) => {
+    setLoadingImage(index)
+
     if (tableMode === "collage") {
       let updatedArr = collageData;
       updatedArr[index] = album;
@@ -174,7 +176,6 @@ function App() {
     }
 
     if (tableMode === "top100") {
-      setLoadingImage(index)
       let updatedArr = top100Data;
       updatedArr[index] = album;
       setTop100Data(updatedArr);
@@ -519,6 +520,8 @@ function App() {
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
                 enableShadows={enableShadows}
+                loadingImage={loadingImage}
+                handleImageLoaded={handleImageLoaded}
               />
             )}
             {tableMode === "top50" && (
@@ -537,6 +540,8 @@ function App() {
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
                 enableShadows={enableShadows}
+                loadingImage={loadingImage}
+                handleImageLoaded={handleImageLoaded}
               />
             )}
 

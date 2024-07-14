@@ -138,10 +138,10 @@ const Top100 = ({
                                 <div
                                   className={`mx-auto ${i === loadingImage ? "block" : "hidden"} `}
                                 >
-                                  <div className="circle-loader-lg mx-auto w-[50px]"></div>
+                                  <div className="circle-loader-lg mx-auto"></div>
                                 </div>
                                 <img
-                                  className={`w-full ${i === loadingImage && "max-w-[0px]"} `}
+                                  className={`w-full ${i === loadingImage && "max-w-0"} `}
                                   /*@ts-ignore */
                                   src={`${a.image[2]["#text"]}`}
                                   onLoad={() => handleImageLoaded()}
@@ -175,7 +175,7 @@ const Top100 = ({
                     return (
                       <div
                         className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
-                        key={i + 4}
+                        key={i + 10}
                         onClick={() => {
                           changeIndex(i + 10);
                         }}

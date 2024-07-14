@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { lastFmAlbum } from "../../App";
 import invert from "invert-color";
+import { lastFmAlbum } from "../../models/models";
 
 type CollageProps = {
   exportRef: any;
@@ -19,6 +19,8 @@ type CollageProps = {
   fontColorHeader: string;
   fontColorBody: string;
   enableShadows: boolean;
+  loadingImage: number;
+  handleImageLoaded: () => void;
 };
 
 type windowValueTypes = {
@@ -42,7 +44,9 @@ const Collage = ({
   backgroundImgMode,
   fontColorHeader,
   fontColorBody,
-  enableShadows
+  enableShadows,
+  loadingImage,
+  handleImageLoaded,
 }: CollageProps) => {
   // collage options
   const collageProd = collageRowNum * collageColNum;
@@ -118,7 +122,7 @@ const Collage = ({
             {collageData.slice(0, collageProd).map((a, i) => {
               return (
                 <div
-                  className={`${
+                  className={`flex flex-col justify-center ${
                     i === selectedIndex && "selected-index"
                   } collage ${collageRowNum === 4 && collageColNum === 4 && "h-[125px] w-[125px]"} ${collageProd === 20 && "h-[100px] w-[100px]"} ${collageProd === 24 && "h-[85px] w-[85px]"} ${collageProd === 25 && "h-[82px] w-[82px]"} ${collageProd === 30 && "h-[85px] w-[85px]"} ${collageProd === 36 && "h-[65px] w-[65px]"} m-[2px]`}
                   key={i}
@@ -129,11 +133,19 @@ const Collage = ({
                   {a.hasOwnProperty("image") ? (
                     /*@ts-ignore */
                     a.image[1]["#text"] && (
-                      <img
-                        className="w-full"
-                        /*@ts-ignore */
-                        src={`${a.image[2]["#text"]}`}
-                      />
+                      <>
+                        <div
+                          className={`mx-auto ${i === loadingImage ? "block" : "hidden"} `}
+                        >
+                          <div className="circle-loader-sm mx-auto"></div>
+                        </div>
+                        <img
+                          className={`w-full ${i === loadingImage && "max-w-0"} `}
+                          /*@ts-ignore */
+                          src={`${a.image[2]["#text"]}`}
+                          onLoad={() => handleImageLoaded()}
+                        />
+                      </>
                     )
                   ) : (
                     <div className="h-full w-full bg-gray"> </div>
@@ -174,7 +186,6 @@ const Collage = ({
                           : a.name}{" "}
                       </span>
                     ) : (
-                      // <br />
                       <span></span>
                     )}
 
@@ -200,7 +211,7 @@ const Collage = ({
           backgroundColor: `${backgroundColor}`,
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
-          backgroundSize: `${backgroundImgMode}`
+          backgroundSize: `${backgroundImgMode}`,
         }}
       >
         {chartTitle && (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { lastFmAlbum } from "../../App";
+import { lastFmAlbum } from "../../models/models";
 import invert from "invert-color";
 
 type Top50Props = {
@@ -17,6 +17,8 @@ type Top50Props = {
   fontColorHeader: string;
   fontColorBody: string;
   enableShadows: boolean;
+  loadingImage: number;
+  handleImageLoaded: () => void;
 };
 
 type windowValueTypes = {
@@ -39,6 +41,8 @@ const ClassicTop50 = ({
   fontColorHeader,
   fontColorBody,
   enableShadows,
+  loadingImage,
+  handleImageLoaded,
 }: Top50Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
@@ -71,6 +75,7 @@ const ClassicTop50 = ({
   const size: windowValueTypes = useWindowSize();
   const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
+
   return (
     <div
       className={`max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
@@ -125,7 +130,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(0, 4).map((a, i) => {
                     return (
                       <div
-                        className={`table-box table-box-lg h-[135px] w-[135px] mr-[16px] ${i === selectedIndex && "selected-index"}`}
+                        className={`table-box table-box-lg mr-[16px] flex h-[135px] w-[135px] flex-col justify-center ${i === selectedIndex && "selected-index"}`}
                         key={i}
                         onClick={() => {
                           changeIndex(i);
@@ -134,16 +139,22 @@ const ClassicTop50 = ({
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
+                            <>
+                              <div
+                                className={`mx-auto ${i === loadingImage ? "block" : "hidden"} `}
+                              >
+                                <div className="circle-loader-lg mx-auto"></div>
+                              </div>
+                              <img
+                                className={`w-full ${i === loadingImage && "max-w-0"} `}
+                                /*@ts-ignore */
+                                src={`${a.image[2]["#text"]}`}
+                                onLoad={() => handleImageLoaded()}
+                              />
+                            </>
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray">
-                            {" "}
-                          </div>
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
                       </div>
                     );
@@ -167,7 +178,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(4, 20).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[65px] w-[65px] p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[65px] w-[65px] flex-col justify-center p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
                         key={i + 4}
                         onClick={() => {
                           changeIndex(i + 4);
@@ -176,16 +187,23 @@ const ClassicTop50 = ({
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
+                            <>
+                              {" "}
+                              <div
+                                className={`mx-auto ${i + 4 === loadingImage ? "block" : "hidden"} `}
+                              >
+                                <div className="circle-loader-sm mx-auto"></div>
+                              </div>
+                              <img
+                                className={`w-full ${i + 4 === loadingImage && "max-w-0"}`}
+                                /*@ts-ignore */
+                                src={`${a.image[2]["#text"]}`}
+                                onLoad={() => handleImageLoaded()}
+                              />
+                            </>
                           )
                         ) : (
-                          <div className=" h-full w-full bg-gray">
-                            {" "}
-                          </div>
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
                       </div>
                     );
@@ -209,7 +227,7 @@ const ClassicTop50 = ({
                   {top50Data.slice(20).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[65px] w-[65px] p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[65px] w-[65px] flex-col justify-center p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
                         key={i + 20}
                         onClick={() => {
                           changeIndex(i + 20);
@@ -218,16 +236,22 @@ const ClassicTop50 = ({
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
                           a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
+                            <>
+                              <div
+                                className={`mx-auto ${i + 20 === loadingImage ? "block" : "hidden"} `}
+                              >
+                                <div className="circle-loader-sm mx-auto"></div>
+                              </div>
+                              <img
+                                className={`w-full ${i + 20 === loadingImage && "max-w-[0px]"}`}
+                                /*@ts-ignore */
+                                src={`${a.image[2]["#text"]}`}
+                                onLoad={() => handleImageLoaded()}
+                              />
+                            </>
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray">
-                            {" "}
-                          </div>
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
                       </div>
                     );
@@ -347,9 +371,7 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray">
-                            {" "}
-                          </div>
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
                       </div>
                     );
@@ -386,9 +408,7 @@ const ClassicTop50 = ({
                             />
                           )
                         ) : (
-                          <div className="h-full w-full bg-gray">
-                            {" "}
-                          </div>
+                          <div className="h-full w-full bg-gray"> </div>
                         )}
                       </div>
                     );
