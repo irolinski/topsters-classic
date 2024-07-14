@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { lastFmAlbum } from "../../App";
 import invert from "invert-color";
+import { lastFmAlbum } from "../../models/models";
 
 type Top100Props = {
   exportRef: any;
@@ -17,6 +17,8 @@ type Top100Props = {
   fontColorHeader: string;
   fontColorBody: string;
   enableShadows: boolean;
+  loadingImage: number;
+  handleImageLoaded: () => void;
 };
 
 type windowValueTypes = {
@@ -38,7 +40,9 @@ const Top100 = ({
   backgroundImgMode,
   fontColorHeader,
   fontColorBody,
-  enableShadows
+  enableShadows,
+  loadingImage,
+  handleImageLoaded,
 }: Top100Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(2000);
@@ -74,7 +78,7 @@ const Top100 = ({
     <div className={`max-h-0`}>
       {/* UI canvas */}
       <div
-        className={`top100-container lg: top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
+        className={`top100-container top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-60px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -120,24 +124,34 @@ const Top100 = ({
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
                       <div
-                        className={`table-box table-box-lg h-[120px] w-[120px] ${i === selectedIndex && "selected-index"} m-[2px]`}
+                        className={`table-box table-box-lg flex h-[120px] w-[120px] flex-col justify-center ${i === selectedIndex && "selected-index"} m-[2px]`}
                         key={i}
                         onClick={() => {
                           changeIndex(i);
                         }}
                       >
-                        {a.hasOwnProperty("image") ? (
-                          /*@ts-ignore */
-                          a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
-                          )
-                        ) : (
-                          <div className="h-full w-full bg-gray"> </div>
-                        )}
+                        <>
+                          {a.hasOwnProperty("image") ? (
+                            /*@ts-ignore */
+                            a.image[1]["#text"] && (
+                              <>
+                                <div
+                                  className={`mx-auto ${i === loadingImage ? "block" : "hidden"} `}
+                                >
+                                  <div className="circle-loader-lg mx-auto w-[50px]"></div>
+                                </div>
+                                <img
+                                  className={`w-full ${i === loadingImage && "max-w-[0px]"} `}
+                                  /*@ts-ignore */
+                                  src={`${a.image[2]["#text"]}`}
+                                  onLoad={() => handleImageLoaded()}
+                                />
+                              </>
+                            )
+                          ) : (
+                            <div className="h-full w-full bg-gray"> </div>
+                          )}
+                        </>
                       </div>
                     );
                   })}
@@ -160,24 +174,34 @@ const Top100 = ({
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
                         key={i + 4}
                         onClick={() => {
                           changeIndex(i + 10);
                         }}
                       >
-                        {a.hasOwnProperty("image") ? (
-                          /*@ts-ignore */
-                          a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
-                          )
-                        ) : (
-                          <div className="h-full w-full bg-gray"> </div>
-                        )}
+                        <>
+                          {a.hasOwnProperty("image") ? (
+                            /*@ts-ignore */
+                            a.image[1]["#text"] && (
+                              <>
+                                <div
+                                  className={`mx-auto ${i + 10 === loadingImage ? "block" : "hidden"} `}
+                                >
+                                  <div className="circle-loader-sm mx-auto"></div>
+                                </div>
+                                <img
+                                  className={`w-full ${i + 10 === loadingImage && "max-w-0"}`}
+                                  /*@ts-ignore */
+                                  src={`${a.image[2]["#text"]}`}
+                                  onLoad={() => handleImageLoaded()}
+                                />
+                              </>
+                            )
+                          ) : (
+                            <div className="h-full w-full bg-gray"> </div>
+                          )}
+                        </>
                       </div>
                     );
                   })}
@@ -200,24 +224,34 @@ const Top100 = ({
                   {top100Data.slice(40).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
                         key={i + 20}
                         onClick={() => {
                           changeIndex(i + 40);
                         }}
                       >
-                        {a.hasOwnProperty("image") ? (
-                          /*@ts-ignore */
-                          a.image[1]["#text"] && (
-                            <img
-                              className="w-full"
-                              /*@ts-ignore */
-                              src={`${a.image[2]["#text"]}`}
-                            />
-                          )
-                        ) : (
-                          <div className="h-full w-full bg-gray"> </div>
-                        )}
+                        <>
+                          {a.hasOwnProperty("image") ? (
+                            /*@ts-ignore */
+                            a.image[1]["#text"] && (
+                              <>
+                                <div
+                                  className={`mx-auto ${i + 40 === loadingImage ? "block" : "hidden"} `}
+                                >
+                                  <div className="circle-loader-sm mx-auto"></div>
+                                </div>
+                                <img
+                                  className={`w-full ${i + 40 === loadingImage && "max-w-[0px]"}`}
+                                  /*@ts-ignore */
+                                  src={`${a.image[2]["#text"]}`}
+                                  onLoad={() => handleImageLoaded()}
+                                />
+                              </>
+                            )
+                          ) : (
+                            <div className="h-full w-full bg-gray"> </div>
+                          )}
+                        </>
                       </div>
                     );
                   })}

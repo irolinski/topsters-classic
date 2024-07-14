@@ -149,6 +149,8 @@ function App() {
   const changeIndex = (i: number) => {
     setSelectedIndex(i);
   };
+  const [loadingImage, setLoadingImage] = useState<number>(1)
+  const handleImageLoaded = () => setLoadingImage(999)
   const [chartDirty, setChartDirty] = useState<boolean>(true);
   const [refresh, setRefresh] = useState(false);
 
@@ -172,6 +174,7 @@ function App() {
     }
 
     if (tableMode === "top100") {
+      setLoadingImage(index)
       let updatedArr = top100Data;
       updatedArr[index] = album;
       setTop100Data(updatedArr);
@@ -179,6 +182,7 @@ function App() {
         ? setSelectedIndex(selectedIndex + 1)
         : setSelectedIndex(0);
     }
+
     // this is to force a rerender in a gentle way
     setRefresh(true);
     setRefresh(!refresh);
@@ -552,6 +556,8 @@ function App() {
                 fontColorHeader={fontColorHeader}
                 fontColorBody={fontColorBody}
                 enableShadows={enableShadows}
+                loadingImage={loadingImage}
+                handleImageLoaded={handleImageLoaded}
               />
             )}
           </div>
