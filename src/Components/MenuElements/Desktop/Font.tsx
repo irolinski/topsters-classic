@@ -78,12 +78,12 @@ const Font = ({
               >
                 <div>
                   <button
-                    className="absolute right-0"
+                    className="close-pop-up-btn absolute right-0"
                     onClick={() => {
                       handleOpenPopUp("");
                     }}
                   >
-                    X
+                    &#10005;{" "}
                   </button>
                   <HexColorPicker
                     className="z-10 mx-16 mt-16"
@@ -92,7 +92,7 @@ const Font = ({
                   />
                 </div>
                 <button
-                  className="mx-auto my-6 w-1/2"
+                  className="reset-pop-up-btn mx-auto my-6 w-1/2"
                   onClick={() => handleSetFontColorHeader("")}
                 >
                   Reset
@@ -119,12 +119,12 @@ const Font = ({
               >
                 <div>
                   <button
-                    className="absolute right-0"
+                    className="close-pop-up-btn absolute right-0"
                     onClick={() => {
                       handleOpenPopUp("");
                     }}
                   >
-                    X
+                    &#10005;
                   </button>
                   <HexColorPicker
                     className="z-10 mx-16 mt-16"
@@ -133,7 +133,7 @@ const Font = ({
                   />
                 </div>
                 <button
-                  className="mx-auto my-6 w-1/2"
+                  className="reset-pop-up-btn mx-auto my-6 w-1/2"
                   onClick={() => handleSetFontColorBody("")}
                 >
                   Reset

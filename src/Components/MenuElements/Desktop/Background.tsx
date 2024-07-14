@@ -61,10 +61,10 @@ const Background = ({
               className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up absolute flex scale-50 justify-center`}
             >
               <button
-                className="absolute right-0"
+                className="close-pop-up-btn absolute right-0"
                 onClick={() => handleOpenPopUp("")}
               >
-                X
+                &#10005;
               </button>
               <HexColorPicker
                 className="z-10 m-16"
@@ -128,10 +128,10 @@ const Background = ({
                   className={`background-position-menu ${openMenuPopUp !== "background-position" && "hidden"} color-picker-div bg-menu-pop-up absolute flex flex-col justify-center`}
                 >
                   <button
-                    className="absolute right-0 top-0"
+                    className="close-pop-up-btn absolute right-0 top-0 font-4xl"
                     onClick={() => handleOpenPopUp("")}
                   >
-                    X
+                    &#10005;
                   </button>
                   <div
                     className="background-position-field relative z-20 mx-16 mb-8 mt-16 h-[190px] w-[190px] rounded-md"
@@ -161,9 +161,9 @@ const Background = ({
                       ></div>
                     </Draggable>
                   </div>
-                  <h4 className="px-4 pb-4">Image position:</h4>
+                  <h4 className="px-4 pb-4 text-xl">Image position:</h4>
 
-                  <div className="mb-8 inline-flex justify-center">
+                  <div className="image-position-pop-up-btn mb-8 inline-flex justify-center">
                     <button
                       className={`${backgroundImgMode === "auto" && "active"}`}
                       onClick={() => handleSetBackgroundImgMode("auto")}
