@@ -317,7 +317,6 @@ const ClassicTop50 = ({
           backgroundImage: `url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
-          transform: `scale(${canvasScaleValue})`,
           marginBottom: `${marginValue}`,
           marginTop: `${marginValue}`,
         }}
