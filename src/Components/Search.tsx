@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { lastFmAlbum } from "../../../models/models";
+import { lastFmAlbum } from "../models/models";
 
 type MenuContentProps = {
   selectedIndex: number;
@@ -58,9 +58,9 @@ const Search = ({
 
   return (
     <>
-      <div className="mb-8 border-b pt-4">
-        <h2>Add albums:</h2>
-        <div className="search-input my-2 inline-flex h-8 items-stretch border">
+      <div className="my-8 flex flex-col border-b pt-4 text-center lg:mt-0 lg:text-left">
+        <h2 className="">Add albums:</h2>
+        <div className="search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full">
           <input
             className="w-3/4"
             type="text"
@@ -84,9 +84,10 @@ const Search = ({
             />
           </button>
         </div>
-        <div className="pt-4">
+        {/* desktop search results */}
+        <div className="desktop-search-results-div-wrapper mt-4 h-[80px] min-w-[90vw] max-w-[90vw] overflow-scroll border-t text-center sm:min-w-[576px] sm:max-w-[576px] lg:mt-0 lg:h-auto lg:min-w-0 lg:border-t-0 lg:pt-4">
           <div
-            className={`search-results-div menu-accordion h-[250px] max-h-[250px] overflow-scroll text-center ${openAccordion === "search" && "open"}`}
+            className={`search-results-div menu-accordion lg:max-h-[250[x] inline-flex h-[250px] max-h-[70px] overflow-scroll overflow-y-hidden overflow-x-scroll text-center lg:block lg:h-[250px] lg:border-t ${openAccordion === "search" && "open"}`}
             id="search-results-div"
           >
             {showLoading === "search-results-div" ? (
@@ -100,7 +101,7 @@ const Search = ({
                     if (a.image[1]["#text"]) {
                       return (
                         <div
-                          className="album-card inline-flex w-full"
+                          className="album-card block w-[65px] lg:inline-flex lg:w-full"
                           onClick={() => {
                             drawAlbumToCanvas(selectedIndex, a);
                           }}
@@ -108,7 +109,7 @@ const Search = ({
                           <div className="justify-start">
                             <img src={`${a.image[1]["#text"]}`} />
                           </div>
-                          <div className="ml-2 content-center overflow-hidden">
+                          <div className="ml-2 hidden content-center overflow-hidden lg:block">
                             <span className="font-bold">
                               {" "}
                               {a.name!.length + a.artist!.length > 50
@@ -123,7 +124,7 @@ const Search = ({
                     }
                   })
                 ) : showErrMsg.location !== "search-results-div" ? (
-                  <span className="relative top-[40%] inline-block px-8">
+                  <span className="relative top-[33%] inline-block px-8 pb-4 text-xs lg:top-[40%]">
                     Data provided thanks to{" "}
                     <img
                       className="mt-[2px] inline max-w-[50px] align-top"
@@ -132,7 +133,7 @@ const Search = ({
                     database api
                   </span>
                 ) : (
-                  <span className="relative top-[40%] inline-block px-8">
+                  <span className="relative top-[30%] inline-block px-8 text-xs lg:top-[40%]">
                     {showErrMsg.message}
                   </span>
                 )}

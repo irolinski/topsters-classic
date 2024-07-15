@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+// logo
+
+.brand {
+  h2 {
+    color: #ba0606;
+
+  }
+}
+
 //menu
 .menu-wrapper {
   // hide 'no file selected'

@@ -17,7 +17,7 @@ const AboutModal = ({
             className="no-style absolute right-0 top-0 m-4 p-4"
             onClick={() => handleSetShowAboutModal(!showAboutModal)}
           >
-            X
+            &#10005;
           </button>
           <h2 className="p-4 text-2xl font-bold">About</h2>
           <p className="modal-text px-8 py-6 text-justify text-xs md:text-sm">
@@ -25,9 +25,10 @@ const AboutModal = ({
             nostalgia I have for the first Topsters page that I've used as a
             teen lurking music forums circa 2014. <br /> <br />
             The design of the charts is recreated from the charts made back then
-            and the credit for it is due to the developer of the original version. The
-            UI I have designed from scratch for it to be up to today's
-            standards; especially in regards to mobile use. <br /> <br />
+            and the credit for it is due to the developer of the original
+            version. The UI I have designed from scratch for it to be up to
+            today's standards; especially in regards to mobile use. <br />{" "}
+            <br />
             The code is{" "}
             <a className="underline" href="https://github.com/irolinski/top-40">
               available on github

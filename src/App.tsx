@@ -13,12 +13,13 @@ import Top100 from "./Components/Charts/Top100";
 import Footer from "./Components/MenuElements/Desktop/Footer";
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
 import SelectTableMode from "./Components/MenuElements/Desktop/SelectTableMode";
-import Search from "./Components/MenuElements/Desktop/Search";
+import Search from "./Components/Search";
 import Title from "./Components/MenuElements/Desktop/Title";
 import Background from "./Components/MenuElements/Desktop/Background";
 import Font from "./Components/MenuElements/Desktop/Font";
 import Options from "./Components/MenuElements/Desktop/Options";
 import AboutModal from "./Components/AboutModal";
+import Logo from "./Components/Logo";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -149,13 +150,13 @@ function App() {
   const changeIndex = (i: number) => {
     setSelectedIndex(i);
   };
-  const [loadingImage, setLoadingImage] = useState<number>(999)
-  const handleImageLoaded = () => setLoadingImage(999)
+  const [loadingImage, setLoadingImage] = useState<number>(999);
+  const handleImageLoaded = () => setLoadingImage(999);
   const [chartDirty, setChartDirty] = useState<boolean>(true);
   const [refresh, setRefresh] = useState(false);
 
   const drawAlbumToCanvas = (index: number, album: lastFmAlbum) => {
-    setLoadingImage(index)
+    setLoadingImage(index);
 
     if (tableMode === "collage") {
       let updatedArr = collageData;
@@ -230,7 +231,7 @@ function App() {
             className="relative z-10 float-right"
             onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
           >
-            X
+            &#10005;
           </button>
           <section className="menu-wrapper mobile absolute flex flex-col justify-center p-12">
             <div className="menu-block inline-flex">
@@ -320,57 +321,19 @@ function App() {
         </div>
         <MobileHeader />
         {/* SEARCH SECTION */}
-        <div className="mobile-menu flex w-[75vw] max-w-[75vw] flex-col justify-center pt-24 md:w-1/2 lg:hidden">
-          <div className="search-input w-full border">
-            <input
-              className="w-[75%]"
-              type="text"
-              onKeyUp={
-                async (evt) => evt.key === "Enter"
-                // ? searchAlbums(searchInputValue)
-                // : setSearchInputValue(evt.currentTarget.value)
-              }
-            />
-            <button
-              className="w-[25%] text-xs"
-              onClick={() => {
-                // searchAlbums(searchInputValue);
-              }}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-        <div className="search-results-div-mobile flex h-[100px] max-h-[125px] w-[85vw] max-w-[75vw] overflow-y-hidden overflow-x-scroll lg:hidden">
-          {/* {searchResults ? (
-            searchResults.map((a: any) => {
-              if (a.image[1]["#text"]) {
-                return (
-                  <div
-                    className="w-[125px] p-2 hover:opacity-50"
-                    onClick={() => {
-                      drawAlbumToCanvas(selectedIndex, a);
-                    }}
-                  >
-                    <img className="min-w-16" src={`${a.image[1]["#text"]}`} />
-                  </div>
-                );
-              }
-            })
-          ) : (
-            <div className="flex w-full items-center justify-center">
-              <span className="text-center text-sm">
-                {" "}
-                Search for the albums using the box above!{" "}
-              </span>
-            </div>
-          )} */}
+        <div className="lg:hidden">
+          <Search
+            selectedIndex={selectedIndex}
+            drawAlbumToCanvas={drawAlbumToCanvas}
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+          />
         </div>
         <div className="inline-flex">
           {/* DESKTOP MENU */}
           <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
-              <h1 className="mx-auto p-8 text-4xl">Topsters</h1>
+              <Logo />
               <div className="menu-content max-h-[70%] overflow-scroll">
                 <SelectTableMode
                   tableMode={tableMode}
