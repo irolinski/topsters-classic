@@ -16,27 +16,38 @@ $background-color: #242424;
 
   /* uncomment in production so the live canvas isn't visible  */
   overflow-x: hidden;
-  overflow-y: scroll; 
-  
+  overflow-y: scroll;
 }
 
-input[type="text"], textarea,
+input[type="text"],
+textarea,
 select {
-
-  background-color: $background-color; 
-
+  background-color: $background-color;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
   height: 110vh;
   display: block;
-  max-height: 110vh !important;
-  div{
-    border-color: rgba(245, 245, 245, 0.371)!important;
+  min-height: 120vh;
+  overflow: hidden;
 
+  @media (min-width: 640px) {
+    min-height: 130vh;
+  }
+
+  @media (min-width: 768px) {
+    min-height: 150vh;
+  }
+
+  @media (min-width: 1024px) {
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+
+  div {
+    border-color: rgba(245, 245, 245, 0.371) !important;
   }
 }
 
@@ -48,5 +59,3 @@ body {
 a:hover {
   color: #535bf2;
 } */
-
-

@@ -104,7 +104,7 @@ const Top100 = ({
           </div>
         )}
         {/* images container */}
-        <div className="flex">
+        <div className="flex top-100-wrapper">
           <div className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}>
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">
@@ -309,7 +309,7 @@ const Top100 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top100-container html2canvas-container flex w-full flex-col content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top100-container html2canvas-container flex w-full flex-col content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"}}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,

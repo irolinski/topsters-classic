@@ -216,7 +216,7 @@ function App() {
   const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
 
   return (
-    <div className="flex h-full w-full flex-col justify-center">
+    <div className="flex h-full w-full flex-col justify-center max-h-[120vh]">
       <main className="flex flex-wrap justify-center lg:block">
         {/* About Modal */}
         <AboutModal
@@ -461,7 +461,7 @@ function App() {
 
           {/* CANVAS SECTION */}
           <div
-            className="flex justify-center lg:w-[65vw] xl:w-[75vw]"
+            className="flex justify-center lg:w-[65vw] xl:w-[75vw] canvas-section"
             style={{ fontFamily: `${fontFamily}` }}
           >
             {/* collage */}
@@ -530,7 +530,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className="mobile-menu lg:hidden">
+        <div className="mobile-menu lg:hidden flex justify-center w-full">
           <button
             className="m-2"
             onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
