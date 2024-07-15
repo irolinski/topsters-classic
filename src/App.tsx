@@ -19,6 +19,7 @@ import Font from "./Components/MenuElements/Desktop/Font";
 import Options from "./Components/MenuElements/Desktop/Options";
 import AboutModal from "./Components/AboutModal";
 import Logo from "./Components/Logo";
+import FooterMobile from "./Components/MenuElements/Mobile/Footer";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -572,6 +573,10 @@ function App() {
           </button>
         </div>
       </main>
+      <FooterMobile
+        showAboutModal={showAboutModal}
+        handleSetShowAboutModal={handleSetShowAboutModal}
+      />
     </div>
   );
 }

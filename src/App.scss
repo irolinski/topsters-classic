@@ -170,6 +170,11 @@
     border: 3px solid white;
   }
 }
+
+.mobile-footer{
+  background-color: #242424;
+  border-top: 0.2px dashed;
+}
 .desktop-footer {
   background-color: #303030;
   & > div {

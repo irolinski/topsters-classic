@@ -104,7 +104,7 @@ const Top100 = ({
           </div>
         )}
         {/* images container */}
-        <div className="flex top-100-wrapper">
+        <div className="top-100-wrapper flex">
           <div className={`${hideAlbumTitles ? "w-full" : "w-2/3"}`}>
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">

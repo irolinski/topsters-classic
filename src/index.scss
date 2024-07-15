@@ -17,14 +17,14 @@ $background-color: #242424;
   /* uncomment in production so the live canvas isn't visible  */
   overflow-x: hidden;
   overflow-y: scroll;
-  @media (max-width: 450px) {
-    @media (min-height: 700px) {
-      overflow-y: hidden !important;
-    }
-  }
-  @media (min-height: 1180px) {
-    overflow-y: hidden !important;
-  }
+  // @media (max-width: 424px) {
+  //   @media (min-height: 815px) {
+  //     overflow-y: hidden !important;
+  //   }
+  // }
+  // @media (min-height: 1180px) {
+  //   overflow-y: hidden !important;
+  // }
 }
 
 input[type="text"],
