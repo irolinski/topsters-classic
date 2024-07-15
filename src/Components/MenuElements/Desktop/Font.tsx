@@ -71,7 +71,8 @@ const Font = ({
                 </>
               </select>
             </div>
-            <div className="inline-flex p-4">
+            <h4 className="block w-full px-8 pt-4 lg:hidden">Header: </h4>
+            <div className="inline-flex p-4 px-8 lg:px-4">
               <h4 className="px-4"> Header Color: </h4>
               <div
                 className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
@@ -112,7 +113,7 @@ const Font = ({
                 }}
               ></div>
             </div>
-            <div className="inline-flex p-4">
+            <div className="inline-flex p-4 px-8 lg:px-4">
               <h4 className="px-4"> Body Color: </h4>
               <div
                 className={`${openMenuPopUp !== "font-body" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}

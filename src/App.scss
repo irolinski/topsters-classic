@@ -6,7 +6,9 @@
 
 .brand {
   h2 {
-    color: #ba0606;
+    color: #D51007;
+    transform: rotate(5deg);
+    text-shadow: #000 1px 1px 1px;
   }
 }
 
@@ -603,4 +605,9 @@ button.no-style {
   .modal-body {
     background-color: #242424;
   }
+}
+
+.mobile-menu-modal{
+  background-color: #171313;
+  min-height: 130vh ;
 }

@@ -92,7 +92,8 @@ const Search = ({
           >
             {showLoading === "search-results-div" ? (
               <div className="flex h-full flex-col justify-center align-middle">
-                <div className="dot-loader mx-auto"></div>
+                <div className="hidden lg:block dot-loader mx-auto"></div>
+                <div className="circle-loader-sm mx-auto"></div>
               </div>
             ) : (
               <>

@@ -3,7 +3,6 @@ import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 
 import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
-import { HexColorPicker } from "react-colorful";
 import { lastFmAlbum } from "./models/models";
 
 import Collage from "./Components/Charts/Collage";
@@ -216,7 +215,7 @@ function App() {
   const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
 
   return (
-    <div className="flex h-full w-full flex-col justify-center max-h-[120vh]">
+    <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
       <main className="flex flex-wrap justify-center lg:block">
         {/* About Modal */}
         <AboutModal
@@ -225,100 +224,126 @@ function App() {
         />
         {/* MOBILE MENU */}
         <div
-          className={`mobile-menu-modal h-[100vh] w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"}`}
+          className={`mobile-menu-modal absolute z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} lg:hidden`}
         >
           <button
-            className="relative z-10 float-right"
+            className="fixed right-0 top-0 z-10"
             onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
           >
             &#10005;
           </button>
-          <section className="menu-wrapper mobile absolute flex flex-col justify-center p-12">
-            <div className="menu-block inline-flex">
-              <h2>Chart type:</h2>
-              <select
-                value={tableMode}
-                onChange={(evt) => {
-                  setTableMode(evt.target.value);
-                  setSelectedIndex(0);
-                }}
-              >
-                <option value="collage">Collage</option>
-                <option value="top50">Top 50</option>
-                <option value="top100">Top 100</option>
-              </select>
-            </div>
-            <div className="menu-block">
-              <h3>Collage settings</h3>
-              <h4>Rows:</h4>
-              <select
-                value={collageRowNum}
-                onChange={(evt) => setCollageRowNum(Number(evt.target.value))}
-              >
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-              </select>
-              <h4>Columns:</h4>
-              <select
-                value={collageColNum}
-                onChange={(evt) => setCollageColNum(Number(evt.target.value))}
-              >
-                <option value={4}>4</option>
-                <option value={5}>5</option>Number
-                <option value={6}>6</option>
-              </select>
-            </div>
-            <h3>Table title:</h3>
-            <input
-              className="border"
-              type="text"
-              onChange={async (evt) => setChartTitle(evt.currentTarget.value)}
-            />
-            <h2>Styling:</h2>
-            <div>
-              <h3>Background Color:</h3>
-              <HexColorPicker
-                className="z-10"
-                color={backgroundColor}
-                onChange={setBackgroundColor}
+          <section className="menu-wrapper flex flex-col justify-center p-12">
+            <div className="relative h-full">
+              <SelectTableMode
+                tableMode={tableMode}
+                handleTableModeChange={handleTableModeChange}
               />
-            </div>
-            <div>
-              <h3>Background Image:</h3>
-              <input
-                type="file"
-                onChange={(evt) =>
-                  setBackgroundImg(URL.createObjectURL(evt.target.files![0]))
-                }
+              {/* Collage table settings */}
+              {tableMode === "collage" && (
+                <div className="menu-block">
+                  <div
+                    className="open-accordion-btn inline-flex"
+                    onClick={() =>
+                      openAccordion === "collage-settings"
+                        ? closeAllWindows()
+                        : (closeAllWindows(),
+                          setOpenAccordion("collage-settings"))
+                    }
+                  >
+                    <h3 className="w-full font-bold">Collage parameters</h3>{" "}
+                    {openAccordion === "collage-settings" ? (
+                      <button className="no-style mx-4">－</button>
+                    ) : (
+                      <button className="no-style mx-4">＋</button>
+                    )}{" "}
+                  </div>
+                  <div
+                    className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
+                  >
+                    <div className="inline-flex w-full p-4">
+                      <h4 className="px-4">Rows:</h4>
+                      <select
+                        value={collageRowNum}
+                        onChange={(evt) =>
+                          setCollageRowNum(Number(evt.target.value))
+                        }
+                      >
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                      </select>
+                    </div>
+                    <div className="inline-flex w-full p-4">
+                      <h4 className="px-4">Columns:</h4>
+                      <select
+                        value={collageColNum}
+                        onChange={(evt) =>
+                          setCollageColNum(Number(evt.target.value))
+                        }
+                      >
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
+                        <option value={6}>6</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <Title
+                openAccordion={openAccordion}
+                chartTitle={chartTitle}
+                handleSetChartTitle={handleSetChartTitle}
+                handleOpenAccordion={handleOpenAccordion}
               />
-              <button onClick={() => setBackgroundImg("")}>Clear</button>
-            </div>
-            <div>
-              <h3>Font:</h3>
-              <h4></h4>
-              <h4> Body Font Color: </h4>
-              <HexColorPicker
-                className="z-10"
-                color={fontColorBody}
-                onChange={setfontColorBody}
+              <Background
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                openMenuPopUp={openMenuPopUp}
+                handleOpenPopUp={handleOpenPopUp}
+                backgroundColor={backgroundColor}
+                handleSetBackgroundColor={handleSetBackgroundColor}
+                backgroundImg={backgroundImg}
+                handleSetBackgroundImg={handleSetBackgroundImg}
+                backgroundPositionMenu={backgroundPositionMenu}
+                handleBackgroundPositionChange={handleBackgroundPositionChange}
+                backgroundImgMode={backgroundImgMode}
+                handleSetBackgroundImgMode={handleSetBackgroundImgMode}
+                inputRef={inputRef}
               />
-              <h4> Header Font Color: </h4>
-              <HexColorPicker
-                className="z-10"
-                color={fontColorHeader}
-                onChange={setfontColorHeader}
-              />
-            </div>
 
-            <h3>Hide album titles:</h3>
-            <input
-              type="checkbox"
-              defaultChecked={hideAlbumTitles}
-              onChange={() => setHideAlbumTitles(!hideAlbumTitles)}
-            />
+              <Font
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                fontFamily={fontFamily}
+                handleSetFontFamily={handleSetFontFamily}
+                openMenuPopUp={openMenuPopUp}
+                handleOpenPopUp={handleOpenPopUp}
+                fontColorHeader={fontColorHeader}
+                handleSetFontColorHeader={handleSetFontColorHeader}
+                fontColorBody={fontColorBody}
+                handleSetFontColorBody={handleSetFontColorBody}
+                backgroundColor={backgroundColor}
+              />
+              <Options
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                hideAlbumTitles={hideAlbumTitles}
+                handleSetHideAlbumTitles={handleSetHideAlbumTitles}
+                enableShadows={enableShadows}
+                handleSetEnableShadows={handleSetEnableShadows}
+                exportOptions={exportOptions}
+                handleSetExportOptions={handleSetExportOptions}
+              />
+              <button
+                className="export-button my-8 w-full"
+                onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
+              >
+                Return
+              </button>
+            </div>
           </section>
         </div>
+
         <MobileHeader />
         {/* SEARCH SECTION */}
         <div className="lg:hidden">
@@ -461,7 +486,7 @@ function App() {
 
           {/* CANVAS SECTION */}
           <div
-            className="flex justify-center lg:w-[65vw] xl:w-[75vw] canvas-section"
+            className="canvas-section flex justify-center lg:w-[65vw] xl:w-[75vw]"
             style={{ fontFamily: `${fontFamily}` }}
           >
             {/* collage */}
@@ -530,7 +555,7 @@ function App() {
             )}
           </div>
         </div>
-        <div className="mobile-menu lg:hidden flex justify-center w-full">
+        <div className="mobile-menu flex w-full justify-center lg:hidden">
           <button
             className="m-2"
             onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
