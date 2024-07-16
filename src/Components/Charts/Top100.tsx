@@ -78,7 +78,7 @@ const Top100 = ({
     <div className={`max-h-0 ${chartTitle && "-translate-y-[30px] lg:-translate-y-0"}`}>
       {/* UI canvas */}
       <div
-        className={`top100-container top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-125px] md:mt-[-40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
+        className={`top100-container top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-150px] md:mt-[-40px] lg:mt-[-10%] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,

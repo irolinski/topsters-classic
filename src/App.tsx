@@ -231,7 +231,7 @@ function App() {
         />
         {/* MOBILE MENU */}
         <div
-          className={`mobile-menu-modal absolute z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} lg:hidden`}
+          className={`mobile-menu-modal fixed z-20 sm:p-4 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} lg:hidden md:p-[20vw]`}
         >
           <button
             className="fixed right-0 top-0 z-10"
