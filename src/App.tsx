@@ -11,15 +11,16 @@ import Top100 from "./Components/Charts/Top100";
 
 import Footer from "./Components/MenuElements/Desktop/Footer";
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
-import SelectTableMode from "./Components/MenuElements/Desktop/SelectTableMode";
+import SelectTableMode from "./Components/MenuElements/SelectTableMode";
 import Search from "./Components/Search";
-import Title from "./Components/MenuElements/Desktop/Title";
-import Background from "./Components/MenuElements/Desktop/Background";
-import Font from "./Components/MenuElements/Desktop/Font";
-import Options from "./Components/MenuElements/Desktop/Options";
+import Title from "./Components/MenuElements/Title";
+import Background from "./Components/MenuElements/Background";
+import Font from "./Components/MenuElements/Font";
+import Options from "./Components/MenuElements/Options";
 import AboutModal from "./Components/AboutModal";
 import Logo from "./Components/Logo";
 import FooterMobile from "./Components/MenuElements/Mobile/Footer";
+import CollageSettings from "./Components/MenuElements/CollageSettings";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -52,8 +53,13 @@ function App() {
 
   // collage options
   const [collageRowNum, setCollageRowNum] = useState<number>(4);
+  const handleSetCollageRowNum = (val: number) => {
+    setCollageRowNum(val);
+  };
   const [collageColNum, setCollageColNum] = useState<number>(4);
-
+  const handleSetCollageColNum = (val: number) => {
+    setCollageColNum(val);
+  };
   // chart states
   const [collageData, setCollageData] = useState<
     lastFmAlbum[] | Record<string, never>[]
@@ -239,57 +245,15 @@ function App() {
                 tableMode={tableMode}
                 handleTableModeChange={handleTableModeChange}
               />
-              {/* Collage table settings */}
-              {tableMode === "collage" && (
-                <div className="menu-block">
-                  <div
-                    className="open-accordion-btn inline-flex"
-                    onClick={() =>
-                      openAccordion === "collage-settings"
-                        ? closeAllWindows()
-                        : (closeAllWindows(),
-                          setOpenAccordion("collage-settings"))
-                    }
-                  >
-                    <h3 className="w-full font-bold">Collage parameters</h3>{" "}
-                    {openAccordion === "collage-settings" ? (
-                      <button className="no-style mx-4">－</button>
-                    ) : (
-                      <button className="no-style mx-4">＋</button>
-                    )}{" "}
-                  </div>
-                  <div
-                    className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
-                  >
-                    <div className="inline-flex w-full p-4">
-                      <h4 className="px-4">Rows:</h4>
-                      <select
-                        value={collageRowNum}
-                        onChange={(evt) =>
-                          setCollageRowNum(Number(evt.target.value))
-                        }
-                      >
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                      </select>
-                    </div>
-                    <div className="inline-flex w-full p-4">
-                      <h4 className="px-4">Columns:</h4>
-                      <select
-                        value={collageColNum}
-                        onChange={(evt) =>
-                          setCollageColNum(Number(evt.target.value))
-                        }
-                      >
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
-                        <option value={6}>6</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              )}
+              <CollageSettings
+                tableMode={tableMode}
+                openAccordion={openAccordion}
+                handleOpenAccordion={handleOpenAccordion}
+                collageRowNum={collageRowNum}
+                handleSetCollageRowNum={handleSetCollageRowNum}
+                collageColNum={collageColNum}
+                handleSetCollageColNum={handleSetCollageColNum}
+              />
               <Title
                 openAccordion={openAccordion}
                 chartTitle={chartTitle}
@@ -372,56 +336,15 @@ function App() {
                   handleOpenAccordion={handleOpenAccordion}
                 />
                 {/* Collage table settings */}
-                {tableMode === "collage" && (
-                  <div className="menu-block">
-                    <div
-                      className="open-accordion-btn inline-flex"
-                      onClick={() =>
-                        openAccordion === "collage-settings"
-                          ? closeAllWindows()
-                          : (closeAllWindows(),
-                            setOpenAccordion("collage-settings"))
-                      }
-                    >
-                      <h3 className="w-full font-bold">Collage parameters</h3>{" "}
-                      {openAccordion === "collage-settings" ? (
-                        <button className="no-style mx-4">－</button>
-                      ) : (
-                        <button className="no-style mx-4">＋</button>
-                      )}{" "}
-                    </div>
-                    <div
-                      className={`menu-accordion ${openAccordion === "collage-settings" && "open"}`}
-                    >
-                      <div className="inline-flex w-full p-4">
-                        <h4 className="px-4">Rows:</h4>
-                        <select
-                          value={collageRowNum}
-                          onChange={(evt) =>
-                            setCollageRowNum(Number(evt.target.value))
-                          }
-                        >
-                          <option value={4}>4</option>
-                          <option value={5}>5</option>
-                          <option value={6}>6</option>
-                        </select>
-                      </div>
-                      <div className="inline-flex w-full p-4">
-                        <h4 className="px-4">Columns:</h4>
-                        <select
-                          value={collageColNum}
-                          onChange={(evt) =>
-                            setCollageColNum(Number(evt.target.value))
-                          }
-                        >
-                          <option value={4}>4</option>
-                          <option value={5}>5</option>
-                          <option value={6}>6</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <CollageSettings
+                  tableMode={tableMode}
+                  openAccordion={openAccordion}
+                  handleOpenAccordion={handleOpenAccordion}
+                  collageRowNum={collageRowNum}
+                  handleSetCollageRowNum={handleSetCollageRowNum}
+                  collageColNum={collageColNum}
+                  handleSetCollageColNum={handleSetCollageColNum}
+                />{" "}
                 <Title
                   openAccordion={openAccordion}
                   chartTitle={chartTitle}
@@ -445,7 +368,6 @@ function App() {
                   handleSetBackgroundImgMode={handleSetBackgroundImgMode}
                   inputRef={inputRef}
                 />
-
                 <Font
                   openAccordion={openAccordion}
                   handleOpenAccordion={handleOpenAccordion}

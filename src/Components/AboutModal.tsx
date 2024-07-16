@@ -10,7 +10,7 @@ const AboutModal = ({
   return (
     <>
       <div
-        className={`about-modal absolute z-30 block h-full w-full ${showAboutModal ? "block" : "hidden"}`}
+        className={`about-modal fixed z-30 block h-full w-full ${showAboutModal ? "block" : "hidden"}`}
       >
         <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[60vw] xl:w-[55vw]">
           <button

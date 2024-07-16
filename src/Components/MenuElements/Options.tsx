@@ -1,4 +1,4 @@
-import exportOptionList from "../../../assets/exportOptionList";
+import exportOptionList from "../../assets/exportOptionList";
 
 type optionPropTypes = {
   openAccordion: string;

@@ -1,5 +1,5 @@
 import { HexColorPicker } from "react-colorful";
-import fontList from "../../../assets/fontList";
+import fontList from "../../assets/fontList";
 import invert from "invert-color";
 
 type fontPropTypes = {
