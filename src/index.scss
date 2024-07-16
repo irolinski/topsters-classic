@@ -48,10 +48,10 @@ body {
     min-height: 1300px;
   }
 
-  // @media (min-width: 768px) {
-  //   // min-height: 150vh;
-  //   min-height: 1500px;
-  // }
+  @media (min-width: 768px) {
+    // min-height: 150vh;
+    min-height: 1400px;
+  }
 
   @media (min-width: 1025px) {
     min-height: 100vh;
