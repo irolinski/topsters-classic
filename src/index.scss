@@ -37,18 +37,23 @@ body {
   margin: 0;
   min-width: 320px;
   display: block;
-  min-height: 120vh;
+  min-height: 900px;
   overflow: hidden;
 
+  @media (min-width: 512px) {
+    min-height: 1000px;
+  }
   @media (min-width: 640px) {
-    min-height: 130vh;
+    // min-height: 130vh;
+    min-height: 1300px;
   }
 
-  @media (min-width: 768px) {
-    min-height: 150vh;
-  }
+  // @media (min-width: 768px) {
+  //   // min-height: 150vh;
+  //   min-height: 1500px;
+  // }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     min-height: 100vh;
     max-height: 100vh;
   }

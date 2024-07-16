@@ -12,32 +12,27 @@ const FooterMobile = ({
   const [documentHeight, setDocumentHeight] = useState<number | undefined>(
     undefined,
   );
-
-  function getDocumentHeight() {
-    useEffect(() => {
+  useEffect(() => {
+    function handleResize() {
       const h = document.body.offsetHeight;
-      function handleResize() {
-        setDocumentHeight(h);
-      }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-      return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return documentHeight;
-  }
-
-  const offsetTopValue: string = `${getDocumentHeight()}px`
+      setDocumentHeight(h);
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+console.log(documentHeight)
   return (
     <footer
       className="mobile-footer absolute flex w-full p-[12px] lg:hidden"
-      style={{ top: `${offsetTopValue}`, height: "100px" }}
+      style={{ top: `${documentHeight}px`, height: "100px" }}
     >
-      <div className="w-full p-[24px] inline-flex justify-around">
-        <span className="text-gray-100 mr-4 text-md">
+      <div className="inline-flex w-full justify-around p-[24px]">
+        <span className="text-gray-100 text-md mr-4">
           Topsters Classic©️ 2024{" "}
         </span>
         <button
-          className="no-style ml-4 font-bold -translate-y-[2px]"
+          className="no-style ml-4 -translate-y-[2px] font-bold"
           onClick={() => handleSetShowAboutModal(!showAboutModal)}
         >
           <img className="min-w-[25px]" src="/info_icon.svg" />

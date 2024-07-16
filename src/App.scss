@@ -456,7 +456,7 @@ button.no-style {
   position: relative;
   top: 2% !important;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     transform: scale(0.6) !important;
     // transform: none !important;
     top: 12.5%;
@@ -543,7 +543,7 @@ button.no-style {
   max-width: 1080px;
   position: relative;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     transform: scale(0.6) !important;
   }
 
