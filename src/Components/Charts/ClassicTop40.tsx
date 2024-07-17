@@ -52,17 +52,6 @@ const ClassicTop40 = ({
   });
 
   useEffect(() => {
-    // function handleResize() {
-    //   if (window.visualViewport) {
-    //     setWindowSize({
-    //       width: window.visualViewport.width ?? window.innerWidth,
-    //       height: window.visualViewport.width ?? window.innerHeight,
-    //     });
-    //     if (window.visualViewport!.width < 640) { setCanvasScaleDivisior(1050) }
-    //     else if (window.visualViewport!.width >= 1048) { setCanvasScaleDivisior(2300) }
-    //     else {setCanvasScaleDivisior(1400)}
-    //   }
-    // }
     function scaleToViewport() {
       if (window.visualViewport) {
         setWindowSize({

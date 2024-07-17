@@ -25,11 +25,11 @@ const FooterMobile = ({
 
   return (
     <footer
-      className="mobile-footer absolute flex w-full p-[12px] lg:hidden"
+      className="mobile-footer absolute flex w-full  lg:hidden"
       style={{ top: `${documentHeight}px`, height: "100px" }}
     >
-      <div className="inline-flex w-full justify-around p-[24px]">
-        <span className="text-gray-100 text-md mr-4">
+      <div className="flex items-center opacity-60 w-full justify-around mx-12 sm:mx-16 pb-2 ">
+        <span className="text-gray-100 text-xs sm:text-md mr-4">
           Topsters Classic©️ 2024{" "}
         </span>
         <button

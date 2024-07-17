@@ -72,7 +72,7 @@ function App() {
   >(top100Empty);
 
   //set chart title
-  const [chartTitle, setChartTitle] = useState<string>(" ");
+  const [chartTitle, setChartTitle] = useState<string>("");
   const handleSetChartTitle = (newTitle: string) => {
     setChartTitle(newTitle);
   };

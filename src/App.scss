@@ -173,7 +173,10 @@
 
 .mobile-footer {
   background-color: #242424;
-  border-top: 0.2px dashed;
+  & > div{
+    border-top: 1px solid;
+
+  }
 }
 .desktop-footer {
   background-color: #303030;
