@@ -19,7 +19,7 @@ const SelectTableMode = ({
           }}
         >
           <option value="collage">Collage</option>
-          <option value="top50">Top 50</option>
+          <option value="top40">Top 40</option>
           <option value="top100">Top 100</option>
         </select>
       </div>

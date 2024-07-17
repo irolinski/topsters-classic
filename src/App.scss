@@ -419,9 +419,9 @@ button.no-style {
   }
 }
 
-// top50
+// top40
 
-.top50-container {
+.top40-container {
   width: 1080px;
   height: 720px;
 
@@ -441,7 +441,7 @@ button.no-style {
     line-height: 9.9px;
     color: white;
   }
-  .top50-section-header {
+  .top40-section-header {
     margin: 0 16px 28px 16px;
     font-size: 24px;
     line-height: 32px;
@@ -449,11 +449,10 @@ button.no-style {
   }
 }
 
-.top50-ui {
+.top40-ui {
   max-width: 1080px;
   margin: auto;
   position: relative;
-  top: 2% !important;
 
   @media (min-width: 1025px) {
     transform: scale(0.6) !important;
@@ -466,7 +465,7 @@ button.no-style {
   }
 }
 
-.top50-container.show-chart-title {
+.top40-container.show-chart-title {
   --title-size: 1.15;
   --height: 720px;
   height: calc(var(--height) * var(--title-size));
@@ -479,7 +478,7 @@ button.no-style {
   }
 }
 
-.top50-container.hide-album-titles {
+.top40-container.hide-album-titles {
   width: 730px; //FOR THE CLASSIC BOXY LOOK ^^
 
   // .second-tier-classics > flex {

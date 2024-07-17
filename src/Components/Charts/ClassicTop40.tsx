@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { lastFmAlbum } from "../../models/models";
 import invert from "invert-color";
 
-type Top50Props = {
+type Top40Props = {
   exportRef: any;
-  top50Data: lastFmAlbum[] | Record<string, never>[];
+  top40Data: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: any;
   chartDirty: boolean;
@@ -26,9 +26,9 @@ type windowValueTypes = {
   height: number | undefined;
 };
 
-const ClassicTop50 = ({
+const ClassicTop40 = ({
   exportRef,
-  top50Data,
+  top40Data,
   selectedIndex,
   changeIndex,
   chartDirty,
@@ -43,7 +43,7 @@ const ClassicTop50 = ({
   enableShadows,
   loadingImage,
   handleImageLoaded,
-}: Top50Props) => {
+}: Top40Props) => {
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);
   const [windowSize, setWindowSize] = useState<windowValueTypes>({
@@ -51,38 +51,33 @@ const ClassicTop50 = ({
     height: window.innerWidth,
   });
 
-  function useWindowSize() {
-    useEffect(() => {
-      function handleResize() {
-        if (window.visualViewport) {
-          setWindowSize({
-            width: window.visualViewport.width ?? window.innerWidth,
-            height: window.visualViewport.width ?? window.innerHeight,
-          });
-          if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050);
-          if (window.visualViewport!.width >= 1048)
-            setCanvasScaleDivisior(2300);
-          else setCanvasScaleDivisior(1400);
-        }
+  useEffect(() => {
+    function handleResize() {
+      if (window.visualViewport) {
+        setWindowSize({
+          width: window.visualViewport.width ?? window.innerWidth,
+          height: window.visualViewport.width ?? window.innerHeight,
+        });
+        if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050);
+        if (window.visualViewport!.width >= 1048) setCanvasScaleDivisior(2300);
+        else setCanvasScaleDivisior(1400);
       }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-      return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-  }
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
 
-  const size: windowValueTypes = useWindowSize();
-  const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
+  const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
 
   return (
     <div
-      className={`max-h-0 -translate-y-[10vh] xxs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
+      className={`lg: max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
     >
       {/* UI canvas */}
       <div
-        className={`top50-container top50-ui flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top40-container top40-ui top-[-10vh] flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -115,7 +110,7 @@ const ClassicTop50 = ({
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -127,7 +122,7 @@ const ClassicTop50 = ({
                   Top 4
                 </h2>
                 <div className="flex">
-                  {top50Data.slice(0, 4).map((a, i) => {
+                  {top40Data.slice(0, 4).map((a, i) => {
                     return (
                       <div
                         className={`table-box table-box-lg mr-[16px] flex h-[135px] w-[135px] flex-col justify-center ${i === selectedIndex && "selected-index"}`}
@@ -163,7 +158,7 @@ const ClassicTop50 = ({
               </div>
               <div className="second-tier-classics my-[12px] w-4/5">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -175,7 +170,7 @@ const ClassicTop50 = ({
                   Second-tier classics
                 </h2>
                 <div className="flex flex-wrap">
-                  {top50Data.slice(4, 20).map((a, i) => {
+                  {top40Data.slice(4, 20).map((a, i) => {
                     return (
                       <div
                         className={`table-box flex h-[65px] w-[65px] flex-col justify-center p-[2px] ${i + 4 === selectedIndex && "selected-index"}`}
@@ -212,7 +207,7 @@ const ClassicTop50 = ({
               </div>
               <div className="other-favorites my-[12px] w-full">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -224,7 +219,7 @@ const ClassicTop50 = ({
                   Other favorites
                 </h2>
                 <div className="flex flex-wrap">
-                  {top50Data.slice(20).map((a, i) => {
+                  {top40Data.slice(20).map((a, i) => {
                     return (
                       <div
                         className={`table-box flex h-[65px] w-[65px] flex-col justify-center p-[1px] ${i + 20 === selectedIndex && "selected-index"}`}
@@ -271,7 +266,7 @@ const ClassicTop50 = ({
                   </p>
                 )}
 
-                {top50Data.map((a, i) => {
+                {top40Data.map((a, i) => {
                   return (
                     <>
                       {a.artist ? (
@@ -310,7 +305,7 @@ const ClassicTop50 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top50-container html2canvas-container flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
+        className={`top40-container html2canvas-container flex w-full flex-col content-center object-scale-down px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -342,7 +337,7 @@ const ClassicTop50 = ({
             <div className={`image-div flex flex-col`}>
               <div className="top-4 my-[12px]">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -354,7 +349,7 @@ const ClassicTop50 = ({
                   Top 4
                 </h2>
                 <div className="flex">
-                  {top50Data.slice(0, 4).map((a, i) => {
+                  {top40Data.slice(0, 4).map((a, i) => {
                     return (
                       <div
                         className={`table-box table-box-lg mr-[16px] h-[135px] w-[135px]`}
@@ -379,7 +374,7 @@ const ClassicTop50 = ({
               </div>
               <div className="second-tier-classics my-[12px] w-4/5">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -391,7 +386,7 @@ const ClassicTop50 = ({
                   Second-tier classics
                 </h2>
                 <div className="flex flex-wrap">
-                  {top50Data.slice(4, 20).map((a, i) => {
+                  {top40Data.slice(4, 20).map((a, i) => {
                     return (
                       <div
                         className={`table-box h-[65px] w-[65px] p-[2px]`}
@@ -416,7 +411,7 @@ const ClassicTop50 = ({
               </div>
               <div className="other-favorites my-[12px] w-full">
                 <h2
-                  className="top50-section-header"
+                  className="top40-section-header"
                   style={
                     fontColorHeader !== ""
                       ? { color: `${fontColorHeader}` }
@@ -428,7 +423,7 @@ const ClassicTop50 = ({
                   Other favorites
                 </h2>
                 <div className="flex flex-wrap">
-                  {top50Data.slice(20).map((a, i) => {
+                  {top40Data.slice(20).map((a, i) => {
                     return (
                       <div
                         className={`table-box h-[65px] w-[65px]`}
@@ -459,7 +454,7 @@ const ClassicTop50 = ({
           {!hideAlbumTitles && (
             <div className="my-[12px] flex max-h-full w-1/3 flex-col justify-center text-[10px] leading-[1.1]">
               <div className="">
-                {top50Data.map((a, i) => {
+                {top40Data.map((a, i) => {
                   return (
                     <>
                       {a.artist ? (
@@ -499,4 +494,4 @@ const ClassicTop50 = ({
   );
 };
 
-export default ClassicTop50;
+export default ClassicTop40;

@@ -2,11 +2,11 @@ import "./App.scss";
 import { MutableRefObject, useRef, useState } from "react";
 import { exportAsImage } from "./utils/downloadImage";
 
-import { collageEmpty, top50Empty, top100Empty } from "./assets/emptyCharts";
+import { collageEmpty, top40Empty, top100Empty } from "./assets/emptyCharts";
 import { lastFmAlbum } from "./models/models";
 
 import Collage from "./Components/Charts/Collage";
-import ClassicTop50 from "./Components/Charts/ClassicTop50";
+import ClassicTop40 from "./Components/Charts/ClassicTop40";
 import Top100 from "./Components/Charts/Top100";
 
 import Footer from "./Components/MenuElements/Desktop/Footer";
@@ -45,7 +45,7 @@ function App() {
   };
 
   // set table mode - (collage || top40 || top100)
-  const [tableMode, setTableMode] = useState("top100");
+  const [tableMode, setTableMode] = useState("top40");
   const handleTableModeChange = (mode: string) => {
     setTableMode(mode);
     setSelectedIndex(0);
@@ -64,9 +64,9 @@ function App() {
   const [collageData, setCollageData] = useState<
     lastFmAlbum[] | Record<string, never>[]
   >(collageEmpty);
-  const [top50Data, setTop50Data] = useState<
+  const [top40Data, setTop40Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(top50Empty);
+  >(top40Empty);
   const [top100Data, setTop100Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
   >(top100Empty);
@@ -173,10 +173,10 @@ function App() {
         : setSelectedIndex(0);
     }
 
-    if (tableMode === "top50") {
-      let updatedArr = top50Data;
+    if (tableMode === "top40") {
+      let updatedArr = top40Data;
       updatedArr[index] = album;
-      setTop50Data(updatedArr);
+      setTop40Data(updatedArr);
       selectedIndex < 50 - 1
         ? setSelectedIndex(selectedIndex + 1)
         : setSelectedIndex(0);
@@ -435,10 +435,10 @@ function App() {
                 handleImageLoaded={handleImageLoaded}
               />
             )}
-            {tableMode === "top50" && (
-              <ClassicTop50
+            {tableMode === "top40" && (
+              <ClassicTop40
                 exportRef={exportRef}
-                top50Data={top50Data}
+                top40Data={top40Data}
                 selectedIndex={selectedIndex}
                 changeIndex={changeIndex}
                 chartDirty={chartDirty}

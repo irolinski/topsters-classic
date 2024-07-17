@@ -80,8 +80,8 @@ const Top100 = ({
   }, []); // Empty array ensures that effect is only run on mount
 
   const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
-  console.log(window.visualViewport!.width);
-  console.log(canvasScaleDivisior);
+  // console.log(window.visualViewport!.width);
+  // console.log(canvasScaleDivisior);
   return (
     <div
       className={`max-h-0 ${chartTitle && "-translate-y-[370px] lg:-translate-y-0"}`}
