@@ -60,7 +60,7 @@ const Collage = ({
   });
 
   useEffect(() => {
-    function handleResize() {
+    function scaleToViewport() {
       if (window.visualViewport) {
         setWindowSize({
           width: window.visualViewport.width ?? window.innerWidth,
@@ -73,16 +73,16 @@ const Collage = ({
         } else setCanvasScaleDivisior(1400);
       }
     }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", scaleToViewport);
+    scaleToViewport();
+    return () => window.removeEventListener("resize", scaleToViewport);
   }, []); // Empty array ensures that effect is only run on mount
 
   const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
   return (
     <div
-      className={`max-h-0 -translate-y-[10vh] xxs:-translate-y-[5vh] md:transform-none ${chartTitle && "lg:-translate-y-0"}`}
+      className={`max-h-0 -translate-y-[10vh] xxs:-translate-y-[5vh] lg:-translate-y-[10vh] ${chartTitle && "lg:-translate-y-0"}`}
     >
       {/* UI canvas */}
       <div
