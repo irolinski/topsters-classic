@@ -78,7 +78,7 @@ const ClassicTop50 = ({
 
   return (
     <div
-      className={`max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
+      className={`max-h-0 -translate-y-[10vh] xxs:-translate-y-[5vh] md:transform-none ${enableShadows && "enable-shadows"}`}
     >
       {/* UI canvas */}
       <div

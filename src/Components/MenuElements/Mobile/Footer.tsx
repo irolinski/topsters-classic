@@ -12,6 +12,7 @@ const FooterMobile = ({
   const [documentHeight, setDocumentHeight] = useState<number | undefined>(
     undefined,
   );
+  
   useEffect(() => {
     function handleResize() {
       const h = document.body.offsetHeight;
@@ -21,7 +22,7 @@ const FooterMobile = ({
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []); // Empty array ensures that effect is only run on mount
-console.log(documentHeight)
+
   return (
     <footer
       className="mobile-footer absolute flex w-full p-[12px] lg:hidden"

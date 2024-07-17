@@ -6,7 +6,7 @@
 
 .brand {
   h2 {
-    color: #D51007;
+    color: #d51007;
     transform: rotate(5deg);
     text-shadow: #000 1px 1px 1px;
   }
@@ -171,7 +171,7 @@
   }
 }
 
-.mobile-footer{
+.mobile-footer {
   background-color: #242424;
   border-top: 0.2px dashed;
 }
@@ -310,14 +310,13 @@ button.no-style {
 
 .collage-ui {
   max-width: 1024px;
-  margin: auto;
   position: relative;
-  top: 2% !important;
+  top: 2%;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1025px) {
     transform: scale(0.6) !important;
     // transform: none !important;
-    top: 12.5%;
+    top: 15vh;
   }
 
   @media (min-width: 1600) {
@@ -541,8 +540,6 @@ button.no-style {
 
 .top100-ui {
   max-width: 1080px;
-  position: relative;
-
   @media (min-width: 1025px) {
     transform: scale(0.6) !important;
   }
@@ -612,7 +609,7 @@ button.no-style {
   }
 }
 
-.mobile-menu-modal{
+.mobile-menu-modal {
   background-color: #171313;
-  min-height: 130vh ;
+  min-height: 130vh;
 }

@@ -20,8 +20,8 @@ module.exports = {
       gray: "#727579",
     },
     screens: {
-      xxs: "375px",
-      xs: "425px",
+      xxs: "425px",
+      xs: "520px",
       // sm	640px	@media (min-width: 640px) { ... }
       // md	768px	@media (min-width: 768px) { ... }
       // lg	1024px	@media (min-width: 1024px) { ... }

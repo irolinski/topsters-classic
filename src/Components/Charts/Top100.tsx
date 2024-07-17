@@ -51,34 +51,44 @@ const Top100 = ({
     height: window.innerWidth,
   });
 
-  function useWindowSize() {
-    useEffect(() => {
-      function handleResize() {
-        if (window.visualViewport) {
-          setWindowSize({
-            width: window.visualViewport.width ?? window.innerWidth,
-            height: window.visualViewport.width ?? window.innerHeight,
-          });
-          if (window.visualViewport!.width < 640) setCanvasScaleDivisior(450);
-          if (window.visualViewport!.width >= 1048)
-            setCanvasScaleDivisior(2300);
-          else setCanvasScaleDivisior(1400);
+  useEffect(() => {
+    function scaleToViewport() {
+      if (window.visualViewport) {
+        setWindowSize({
+          width: window.visualViewport.width ?? window.innerWidth,
+          height: window.visualViewport.width ?? window.innerHeight,
+        });
+        if (window.visualViewport!.width < 640) {
+          setCanvasScaleDivisior(1250);
+          return;
+        } else if (window.visualViewport!.width >= 1025) {
+          setCanvasScaleDivisior(2300);
+          return;
+        } else if (
+          window.visualViewport!.width < 1025 &&
+          window.visualViewport!.width > (window.visualViewport!.height * 1.2)
+        ) {
+          setCanvasScaleDivisior(2500);
+          return;
         }
+        setCanvasScaleDivisior(1500);
       }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-      return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-  }
+    }
+    window.addEventListener("resize", scaleToViewport);
+    scaleToViewport();
+    return () => window.removeEventListener("resize", scaleToViewport);
+  }, []); // Empty array ensures that effect is only run on mount
 
-  const size: windowValueTypes = useWindowSize();
-  const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
+  const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
+  console.log(window.visualViewport!.width);
+  console.log(canvasScaleDivisior);
   return (
-    <div className={`max-h-0 ${chartTitle && "-translate-y-[30px] lg:-translate-y-0"}`}>
+    <div
+      className={`max-h-0 ${chartTitle && "-translate-y-[370px] lg:-translate-y-0"}`}
+    >
       {/* UI canvas */}
       <div
-        className={`top100-container top100-ui mt-[-320px] flex w-full flex-col content-center object-scale-down px-[40px] xxs:mt-[-280px] xs:mt-[-230px] sm:mt-[-150px] md:mt-[-40px] lg:mt-[-10%] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
+        className={`top100-container top100-ui absolute top-[10vh] flex w-full flex-col content-center object-scale-down px-[40px] xs:my-[5vh] sm:top-[15vh] md:top-[20vh] lg:top-0 lg:mt-[-10vh] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,

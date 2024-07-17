@@ -58,35 +58,35 @@ const Collage = ({
     width: window.innerHeight,
     height: window.innerWidth,
   });
-  function useWindowSize() {
-    useEffect(() => {
-      function handleResize() {
-        if (window.visualViewport) {
-          setWindowSize({
-            width: window.visualViewport.width ?? window.innerWidth,
-            height: window.visualViewport.width ?? window.innerHeight,
-          });
-          if (window.visualViewport!.width < 640) setCanvasScaleDivisior(1050);
-          if (window.visualViewport!.width >= 1048)
-            setCanvasScaleDivisior(2300);
-          else setCanvasScaleDivisior(1400);
-        }
-      }
-      window.addEventListener("resize", handleResize);
-      handleResize();
-      return () => window.removeEventListener("resize", handleResize);
-    }, []); // Empty array ensures that effect is only run on mount
-    return windowSize;
-  }
 
-  const size: windowValueTypes = useWindowSize();
-  const canvasScaleValue: number = size.width! / canvasScaleDivisior; //original width + sth for there to be a margin
+  useEffect(() => {
+    function handleResize() {
+      if (window.visualViewport) {
+        setWindowSize({
+          width: window.visualViewport.width ?? window.innerWidth,
+          height: window.visualViewport.width ?? window.innerHeight,
+        });
+        if (window.visualViewport!.width < 640) {
+          setCanvasScaleDivisior(1050);
+        } else if (window.visualViewport!.width >= 1048) {
+          setCanvasScaleDivisior(2300);
+        } else setCanvasScaleDivisior(1400);
+      }
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
   return (
-    <div className="max-h-0 -translate-y-[10vh] xs:-translate-y-[5vh] md:transform-none">
+    <div
+      className={`max-h-0 -translate-y-[10vh] xxs:-translate-y-[5vh] md:transform-none ${chartTitle && "lg:-translate-y-0"}`}
+    >
       {/* UI canvas */}
       <div
-        className={`collage-container collage-ui w-full content-center object-scale-down p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
+        className={`collage-container collage-ui mt-[5vh] w-full content-center object-scale-down p-[2px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"} ${enableShadows && "enable-shadows"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
