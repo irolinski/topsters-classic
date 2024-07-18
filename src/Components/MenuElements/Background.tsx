@@ -16,7 +16,7 @@ type BackgroundTypes = {
     dotSizeXY: number;
     centerDot: number;
   };
-  handleBackgroundPositionChange: any;
+  handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   inputRef: MutableRefObject<HTMLInputElement | null>;

@@ -9,24 +9,21 @@ import Collage from "./Components/Charts/Collage";
 import ClassicTop40 from "./Components/Charts/ClassicTop40";
 import Top100 from "./Components/Charts/Top100";
 
-import Footer from "./Components/MenuElements/Desktop/Footer";
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
-import SelectTableMode from "./Components/MenuElements/SelectTableMode";
 import Search from "./Components/Search";
-import Title from "./Components/MenuElements/Title";
-import Background from "./Components/MenuElements/Background";
-import Font from "./Components/MenuElements/Font";
-import Options from "./Components/MenuElements/Options";
 import AboutModal from "./Components/AboutModal";
-import Logo from "./Components/Logo";
 import FooterMobile from "./Components/MenuElements/Mobile/Footer";
-import CollageSettings from "./Components/MenuElements/CollageSettings";
+import MenuMobile from "./Components/MenuMobile";
+import MenuDesktop from "./Components/MenuDesktop";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
 function App() {
   //menu navigation
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
+  const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
+    setMobileMenuIsOpened(mobileMenuIsOpened);
+  };
   const [openAccordion, setOpenAccordion] = useState<string>("");
 
   const closeAllWindows = () => {
@@ -224,93 +221,51 @@ function App() {
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
       <main className="flex flex-wrap justify-center lg:block">
-        {/* About Modal */}
+        {/* MODAL */}
         <AboutModal
           showAboutModal={showAboutModal}
           handleSetShowAboutModal={handleSetShowAboutModal}
         />
         {/* MOBILE MENU */}
-        <div
-          className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] sm:p-4 ${mobileMenuIsOpened ? "block" : "hidden"} md:p-[20vw] lg:hidden`}
-        >
-          <button
-            className="fixed right-0 top-0 z-10"
-            onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
-          >
-            &#10005;
-          </button>
-          <section className="menu-wrapper flex flex-col justify-center p-12">
-            <div className="relative h-full">
-              <SelectTableMode
-                tableMode={tableMode}
-                handleTableModeChange={handleTableModeChange}
-              />
-              <CollageSettings
-                tableMode={tableMode}
-                openAccordion={openAccordion}
-                handleOpenAccordion={handleOpenAccordion}
-                collageRowNum={collageRowNum}
-                handleSetCollageRowNum={handleSetCollageRowNum}
-                collageColNum={collageColNum}
-                handleSetCollageColNum={handleSetCollageColNum}
-              />
-              <Title
-                openAccordion={openAccordion}
-                chartTitle={chartTitle}
-                handleSetChartTitle={handleSetChartTitle}
-                handleOpenAccordion={handleOpenAccordion}
-              />
-              <Background
-                openAccordion={openAccordion}
-                handleOpenAccordion={handleOpenAccordion}
-                openMenuPopUp={openMenuPopUp}
-                handleOpenPopUp={handleOpenPopUp}
-                backgroundColor={backgroundColor}
-                handleSetBackgroundColor={handleSetBackgroundColor}
-                backgroundImg={backgroundImg}
-                handleSetBackgroundImg={handleSetBackgroundImg}
-                backgroundPositionMenu={backgroundPositionMenu}
-                handleBackgroundPositionChange={handleBackgroundPositionChange}
-                backgroundImgMode={backgroundImgMode}
-                handleSetBackgroundImgMode={handleSetBackgroundImgMode}
-                inputRef={inputRef}
-              />
-
-              <Font
-                openAccordion={openAccordion}
-                handleOpenAccordion={handleOpenAccordion}
-                fontFamily={fontFamily}
-                handleSetFontFamily={handleSetFontFamily}
-                openMenuPopUp={openMenuPopUp}
-                handleOpenPopUp={handleOpenPopUp}
-                fontColorHeader={fontColorHeader}
-                handleSetFontColorHeader={handleSetFontColorHeader}
-                fontColorBody={fontColorBody}
-                handleSetFontColorBody={handleSetFontColorBody}
-                backgroundColor={backgroundColor}
-              />
-              <Options
-                openAccordion={openAccordion}
-                handleOpenAccordion={handleOpenAccordion}
-                hideAlbumTitles={hideAlbumTitles}
-                handleSetHideAlbumTitles={handleSetHideAlbumTitles}
-                enableShadows={enableShadows}
-                handleSetEnableShadows={handleSetEnableShadows}
-                exportOptions={exportOptions}
-                handleSetExportOptions={handleSetExportOptions}
-              />
-              <button
-                className="export-button my-8 w-full"
-                onClick={() => setMobileMenuIsOpened(!mobileMenuIsOpened)}
-              >
-                Return
-              </button>
-            </div>
-          </section>
-        </div>
-
+        <MenuMobile
+          tableMode={tableMode}
+          handleTableModeChange={handleTableModeChange}
+          mobileMenuIsOpened={mobileMenuIsOpened}
+          handleSetMobileMenuIsOpened={handleSetMobileMenuIsOpened}
+          openAccordion={openAccordion}
+          handleOpenAccordion={handleOpenAccordion}
+          collageRowNum={collageRowNum}
+          handleSetCollageRowNum={handleSetCollageRowNum}
+          collageColNum={collageColNum}
+          handleSetCollageColNum={handleSetCollageColNum}
+          chartTitle={chartTitle}
+          handleSetChartTitle={handleSetChartTitle}
+          openMenuPopUp={openMenuPopUp}
+          handleOpenPopUp={handleOpenPopUp}
+          backgroundColor={backgroundColor}
+          handleSetBackgroundColor={handleSetBackgroundColor}
+          backgroundImg={backgroundImg}
+          handleSetBackgroundImg={handleSetBackgroundImg}
+          backgroundPositionMenu={backgroundPositionMenu}
+          handleBackgroundPositionChange={handleBackgroundPositionChange}
+          backgroundImgMode={backgroundImgMode}
+          handleSetBackgroundImgMode={handleSetBackgroundImgMode}
+          fontFamily={fontFamily}
+          handleSetFontFamily={handleSetFontFamily}
+          fontColorHeader={fontColorHeader}
+          handleSetFontColorHeader={handleSetFontColorHeader}
+          fontColorBody={fontColorBody}
+          handleSetFontColorBody={handleSetFontColorBody}
+          hideAlbumTitles={hideAlbumTitles}
+          handleSetHideAlbumTitles={handleSetHideAlbumTitles}
+          enableShadows={enableShadows}
+          handleSetEnableShadows={handleSetEnableShadows}
+          exportOptions={exportOptions}
+          handleSetExportOptions={handleSetExportOptions}
+          inputRef={inputRef}
+        />
         <MobileHeader />
-        {/* SEARCH SECTION */}
+        {/* MOBILE SEARCH SECTION */}
         <div className="lg:hidden">
           <Search
             selectedIndex={selectedIndex}
@@ -320,8 +275,51 @@ function App() {
           />
         </div>
         <div className="inline-flex">
+          <MenuDesktop
+            tableMode={tableMode}
+            handleTableModeChange={handleTableModeChange}
+            mobileMenuIsOpened={mobileMenuIsOpened}
+            handleSetMobileMenuIsOpened={handleSetMobileMenuIsOpened}
+            openAccordion={openAccordion}
+            handleOpenAccordion={handleOpenAccordion}
+            collageRowNum={collageRowNum}
+            handleSetCollageRowNum={handleSetCollageRowNum}
+            collageColNum={collageColNum}
+            handleSetCollageColNum={handleSetCollageColNum}
+            chartTitle={chartTitle}
+            handleSetChartTitle={handleSetChartTitle}
+            openMenuPopUp={openMenuPopUp}
+            handleOpenPopUp={handleOpenPopUp}
+            backgroundColor={backgroundColor}
+            handleSetBackgroundColor={handleSetBackgroundColor}
+            backgroundImg={backgroundImg}
+            handleSetBackgroundImg={handleSetBackgroundImg}
+            backgroundPositionMenu={backgroundPositionMenu}
+            handleBackgroundPositionChange={handleBackgroundPositionChange}
+            backgroundImgMode={backgroundImgMode}
+            handleSetBackgroundImgMode={handleSetBackgroundImgMode}
+            fontFamily={fontFamily}
+            handleSetFontFamily={handleSetFontFamily}
+            fontColorHeader={fontColorHeader}
+            handleSetFontColorHeader={handleSetFontColorHeader}
+            fontColorBody={fontColorBody}
+            handleSetFontColorBody={handleSetFontColorBody}
+            hideAlbumTitles={hideAlbumTitles}
+            handleSetHideAlbumTitles={handleSetHideAlbumTitles}
+            enableShadows={enableShadows}
+            handleSetEnableShadows={handleSetEnableShadows}
+            exportOptions={exportOptions}
+            handleSetExportOptions={handleSetExportOptions}
+            inputRef={inputRef}
+            selectedIndex={selectedIndex}
+            drawAlbumToCanvas={drawAlbumToCanvas}
+            exportRef={exportRef}
+            showAboutModal={showAboutModal}
+            handleSetShowAboutModal={handleSetShowAboutModal}
+            
+          />
           {/* DESKTOP MENU */}
-          <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
+          {/* <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
             <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
               <Logo />
               <div className="menu-content max-h-[70%] overflow-scroll">
@@ -335,7 +333,7 @@ function App() {
                   openAccordion={openAccordion}
                   handleOpenAccordion={handleOpenAccordion}
                 />
-                {/* Collage table settings */}
+                {/* Collage table settings }
                 <CollageSettings
                   tableMode={tableMode}
                   openAccordion={openAccordion}
@@ -405,7 +403,7 @@ function App() {
                 handleSetShowAboutModal={handleSetShowAboutModal}
               />
             </section>
-          </div>
+          </div> */}
 
           {/* CANVAS SECTION */}
           <div

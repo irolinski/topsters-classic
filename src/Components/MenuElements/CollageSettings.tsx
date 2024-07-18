@@ -6,6 +6,7 @@ type collageSettingsPropTypes = {
   collageColNum: number;
   handleSetCollageRowNum: (val: number) => void;
   handleSetCollageColNum: (val: number) => void;
+  
 };
 
 const CollageSettings = ({

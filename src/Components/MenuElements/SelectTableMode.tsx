@@ -1,6 +1,6 @@
 type MenuContentProps = {
   tableMode: string;
-  handleTableModeChange: any;
+  handleTableModeChange: (tableMode: string) => void;
 };
 
 const SelectTableMode = ({
