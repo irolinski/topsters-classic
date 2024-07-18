@@ -401,7 +401,7 @@ const Top100 = ({
                   {top100Data.slice(10, 40).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
                         key={i + 10}
                       >
                         {a.hasOwnProperty("image") ? (
@@ -438,7 +438,7 @@ const Top100 = ({
                   {top100Data.slice(40).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[62px] w-[62px] p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
+                        className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
                         key={i + 40}
                       >
                         {a.hasOwnProperty("image") ? (

@@ -436,7 +436,7 @@ const ClassicTop40 = ({
                   {top40Data.slice(20).map((a, i) => {
                     return (
                       <div
-                        className={`table-box h-[65px] w-[65px]`}
+                        className={`table-box flex h-[65px] w-[65px] flex-col justify-center p-[1px]`}
                         key={i + 20}
                       >
                         {a.hasOwnProperty("image") ? (
