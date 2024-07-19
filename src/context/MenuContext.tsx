@@ -5,6 +5,32 @@ import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
 export const MenuContext = createContext<any>([[], () => null]);
 
 const MenuContextProvider = (props: any) => {
+  // check for saved chart in localStorage
+  const currentChart = JSON.parse(localStorage.getItem("currentChart") ?? "{}"); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
+
+  const defaultChart = {
+    tableMode: "top40",
+    collageRowNum: 4,
+    collageColNum: 4,
+    chartTitle: "",
+    hideAlbumTitles: false,
+    backgroundImg: "",
+    backgroundImgPosition: {
+      x: 0,
+      y: 0,
+    },
+    backgroundImgMode: "cover",
+    fontFamily: "Space Mono",
+    fontColorBody: "",
+    fontColorHeader: "",
+    backgroundColor: "#000000",
+    enableShadows: true,
+    collageData: collageEmpty,
+    top40Data: top40Empty,
+    top100Data: top100Empty,
+  };
+
+  // navigation states
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
     setMobileMenuIsOpened(!mobileMenuIsOpened);
@@ -26,57 +52,65 @@ const MenuContextProvider = (props: any) => {
     }
   };
 
-  // set table mode - (collage || top40 || top100)
-  const [tableMode, setTableMode] = useState("top40");
+  // choose tableMode
+  const [tableMode, setTableMode] = useState(
+    currentChart.tableMode ?? defaultChart.tableMode,
+  );
   const handleTableModeChange = (mode: string) => {
     setTableMode(mode);
     setSelectedIndex(0);
   };
 
-  // collage options
-  const [collageRowNum, setCollageRowNum] = useState<number>(4);
+  // collage chart options
+  const [collageRowNum, setCollageRowNum] = useState<number>(
+    currentChart.collageRowNum ?? defaultChart.collageRowNum,
+  );
   const handleSetCollageRowNum = (val: number) => {
     setCollageRowNum(val);
   };
-  const [collageColNum, setCollageColNum] = useState<number>(4);
+  const [collageColNum, setCollageColNum] = useState<number>(
+    currentChart.collageColNum ?? defaultChart.collageColNum,
+  );
   const handleSetCollageColNum = (val: number) => {
     setCollageColNum(val);
   };
-  // chart states
+
+  // chart Data states
   const [collageData, setCollageData] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(collageEmpty);
+  >(currentChart.collageData ?? defaultChart.collageData);
   const [top40Data, setTop40Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(top40Empty);
+  >(currentChart.top40Data ?? defaultChart.top40Data);
   const [top100Data, setTop100Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(top100Empty);
+  >(currentChart.top100Data ?? defaultChart.top100Data);
 
-  //set chart title
-  const [chartTitle, setChartTitle] = useState<string>("");
+  //chart title states
+  const [chartTitle, setChartTitle] = useState<string>(
+    currentChart.chartTitle ?? defaultChart.chartTitle,
+  );
   const handleSetChartTitle = (newTitle: string) => {
     setChartTitle(newTitle);
   };
 
   //customize chart
-  const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(false);
+  const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(currentChart.hideAlbumTitles ?? defaultChart.hideAlbumTitles);
   const handleSetHideAlbumTitles = (isTrue: boolean) =>
     setHideAlbumTitles(isTrue);
+  const [enableShadows, setEnableShadows] = useState<boolean>(currentChart.enableShadows ?? defaultChart.enableShadows);
+  const handleSetEnableShadows = (isTrue: boolean) => setEnableShadows(isTrue);
 
   // set background image
   // (sizes have to be defined as variables for they are crucial to get the offset right)
-  const [backgroundImg, setBackgroundImg] = useState<string>("");
+  const [backgroundImg, setBackgroundImg] = useState<string>(currentChart.backgroundImg ?? defaultChart.backgroundImg);
   const handleSetBackgroundImg = (url: string) => {
     setBackgroundImg(url);
   };
-  const [backgroundImgPosition, setBackgroundImgPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [backgroundImgPosition, setBackgroundImgPosition] = useState(currentChart.backgroundImgPosition ?? defaultChart.backgroundImgPosition);
 
   // auto/cover/contain
-  const [backgroundImgMode, setBackgroundImgMode] = useState<string>("cover");
+  const [backgroundImgMode, setBackgroundImgMode] = useState<string>(currentChart.backgroundImgMode ?? defaultChart.backgroundImgMode);
   const handleSetBackgroundImgMode = (newMode: string) => {
     setBackgroundImgMode(newMode);
   };
@@ -98,22 +132,22 @@ const MenuContextProvider = (props: any) => {
   };
 
   // choose font
-  const [fontFamily, setFontFamily] = useState<string>("Space Mono");
+  const [fontFamily, setFontFamily] = useState<string>(currentChart.fontFamily ?? defaultChart.fontFamily);
   const handleSetFontFamily = (newFontName: string) => {
     setFontFamily(newFontName);
   };
 
   //set colors
-  const [fontColorBody, setfontColorBody] = useState<string>("");
+  const [fontColorBody, setfontColorBody] = useState<string>(currentChart.fontColorBody ?? defaultChart.fontColorBody);
   const handleSetFontColorBody = (newColor: string) => {
     setfontColorBody(newColor);
   };
-  const [fontColorHeader, setfontColorHeader] = useState<string>("");
+  const [fontColorHeader, setfontColorHeader] = useState<string>(currentChart.fontColorHeader ?? defaultChart.fontColorHeader);
   const handleSetFontColorHeader = (newColor: string) => {
     setfontColorHeader(newColor);
   };
 
-  const [backgroundColor, setBackgroundColor] = useState<string>("#000000");
+  const [backgroundColor, setBackgroundColor] = useState<string>(currentChart.backgroundColor ?? defaultChart.backgroundColor);
   const handleSetBackgroundColor = (newColor: string) => {
     setBackgroundColor(newColor);
   };
@@ -128,10 +162,6 @@ const MenuContextProvider = (props: any) => {
       setOpenMenuPopUp("");
     }
   };
-
-  // enable/disable shadows
-  const [enableShadows, setEnableShadows] = useState<boolean>(true);
-  const handleSetEnableShadows = (isTrue: boolean) => setEnableShadows(isTrue);
 
   // insert image onto canvas
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -199,7 +229,6 @@ const MenuContextProvider = (props: any) => {
   };
 
   // about modal
-
   const [showAboutModal, setShowAboutModal] = useState(false);
   const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
 

@@ -1,5 +1,5 @@
 import "./App.scss";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import Collage from "./Components/Charts/Collage";
 import ClassicTop40 from "./Components/Charts/ClassicTop40";
@@ -18,6 +18,56 @@ import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
 
 function App() {
   const menu: any = useContext(MenuContext);
+
+  useEffect(() => {
+    let currentChart: any = new Object();
+
+    currentChart.tableMode = menu.tableMode;
+    currentChart.collageRowNum = menu.collageRowNum;
+    currentChart.collageColNum = menu.collageColNum;
+    currentChart.chartTitle = menu.chartTitle;
+    currentChart.hideAlbumTitles = menu.hideAlbumTitles;
+    currentChart.backgroundImg = menu.backgroundImg;
+    currentChart.backgroundImgPosition = menu.backgroundImgPosition;
+    currentChart.backgroundImgMode = menu.backgroundImgMode;
+    currentChart.fontFamily = menu.fontFamily;
+    currentChart.fontColorBody = menu.fontColorBody;
+    currentChart.fontColorHeader = menu.fontColorHeader;
+    currentChart.backgroundColor = menu.backgroundColor;
+    currentChart.enableShadows = menu.enableShadows;
+
+    if (currentChart.tableMode === "top40") {
+      currentChart.top40Data = menu.top40Data;
+    }
+
+    if (currentChart.tableMode === "collage") {
+      currentChart.collageData = menu.collageData;
+    }
+
+    if (currentChart.tableMode === "top100") {
+      currentChart.top100Data = menu.top100Data;
+    }
+
+    currentChart = JSON.stringify(currentChart);
+    localStorage.setItem("currentChart", currentChart);
+    // const q = JSON.parse(localStorage.getItem("currentChart") || "{}");
+    // console.log(q);
+  }, [
+    menu.tableMode,
+    menu.collageRowNum,
+    menu.collageColNum,
+    menu.chartTitle,
+    menu.hideAlbumTitles,
+    menu.backgroundImg,
+    menu.backgroundImgPosition,
+    menu.backgroundImgMode,
+    menu.fontFamily,
+    menu.fontColorBody,
+    menu.fontColorHeader,
+    menu.backgroundColor,
+    menu.enableShadows,
+    menu.selectedIndex, // for some reason useEffect did not hear state changes in [chartName]Data states so I had it listen to selectedIndex instead
+  ]);
 
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">

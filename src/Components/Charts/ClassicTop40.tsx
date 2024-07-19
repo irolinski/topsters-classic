@@ -81,8 +81,8 @@ const ClassicTop40 = ({
 
   const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
-  console.log(canvasScaleDivisior);
-  console.log(windowSize.width);
+  // console.log(canvasScaleDivisior);
+  // console.log(windowSize.width);
   return (
     <div className={`max-h-0 ${chartTitle && "-translate-y-[20px]"}`}>
       {/* UI canvas */}
