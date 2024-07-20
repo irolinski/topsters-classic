@@ -21,7 +21,7 @@ export type chartSavedData = {
   fontColorHeader: string;
   backgroundColor: string;
   enableShadows: boolean;
-  top40Data: lastFmAlbum[] | Record<string, never>[];
-  top100Data: lastFmAlbum[] | Record<string, never>[];
-  collageData: lastFmAlbum[] | Record<string, never>[];
+  top40Data?: lastFmAlbum[] | Record<string, never>[];
+  top100Data?: lastFmAlbum[] | Record<string, never>[];
+  collageData?: lastFmAlbum[] | Record<string, never>[];
 };

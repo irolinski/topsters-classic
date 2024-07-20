@@ -1,7 +1,10 @@
-export const saveCurrentChart = (currentChart: any) => {
-  const selectedChartName = sessionStorage.getItem("selectedChart") ?? "{}";
+import { defaultChart } from "../assets/emptyCharts";
+
+export const saveCurrentChart = (newChartName: string) => {
+  const selectedChartName = sessionStorage.getItem("selectedChart");
+
   let savedChart = JSON.parse(
-    localStorage.getItem(selectedChartName ?? "") ?? "{}"
+    localStorage.getItem(`${selectedChartName}`) ?? "{}",
   );
 
   if (!savedChart.name) {
@@ -24,5 +27,8 @@ export const saveCurrentChart = (currentChart: any) => {
   }
 
   savedChart = JSON.stringify(savedChart);
-  localStorage.setItem(selectedChartName, currentChart);
+  localStorage.setItem(`${newChartName}`, savedChart);
+  sessionStorage.setItem("selectedChart", `${newChartName}`);
+  localStorage.setItem("New Chart", JSON.stringify(defaultChart))
+  window.location.reload();
 };

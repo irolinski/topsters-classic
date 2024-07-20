@@ -1,48 +1,25 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
 import { chartSavedData, lastFmAlbum } from "../models/models";
-import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
+import { collageEmpty, defaultChart, top100Empty, top40Empty } from "../assets/emptyCharts";
 
 export const MenuContext = createContext<any>([[], () => null]);
 
 const MenuContextProvider = (props: any) => {
   // choose chart to display
   const selectedChartName: string =
-    sessionStorage.getItem("selectedChart") ?? "currentSession";
+    sessionStorage.getItem("selectedChart") ?? "New Chart";
 
   // check for saved currentChart in localStorage
-  const currentChart = JSON.parse(
-    localStorage.getItem(`${selectedChartName}`) ?? "{}",
-  ); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
 
+  const currentChart: any = JSON.parse(
+    localStorage.getItem(`${selectedChartName}`) ?? "{}",
+  );
+  // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
   const changeDisplayedChart = (chartName: string) => {
-    // setSelectedChartName(chartName);
-    // setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`) ?? "{}"));
     sessionStorage.setItem("selectedChart", `${chartName}`);
     window.location.reload();
   };
 
-  const defaultChart: chartSavedData = {
-    name: "default",
-    tableMode: "top40",
-    collageRowNum: 4,
-    collageColNum: 4,
-    chartTitle: "",
-    hideAlbumTitles: false,
-    backgroundImg: "",
-    backgroundImgPosition: {
-      x: 0,
-      y: 0,
-    },
-    backgroundImgMode: "cover",
-    fontFamily: "Space Mono",
-    fontColorBody: "",
-    fontColorHeader: "",
-    backgroundColor: "#000000",
-    enableShadows: true,
-    collageData: collageEmpty,
-    top40Data: top40Empty,
-    top100Data: top100Empty,
-  };
 
   // menu navigation states
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);

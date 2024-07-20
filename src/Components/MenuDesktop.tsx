@@ -50,8 +50,6 @@ const MenuDesktop = ({
   exportRef,
   showAboutModal,
   handleSetShowAboutModal,
-  currentChart,
-  currentChartName,
   changeDisplayedChart,
 }: DesktopMenuPropTypes) => {
   return (
@@ -62,7 +60,6 @@ const MenuDesktop = ({
           <SelectTableMode
             tableMode={tableMode}
             changeDisplayedChart={changeDisplayedChart}
-            currentChartName={currentChartName}
             // handleTableModeChange={handleTableModeChange}
           />
           <Search
@@ -73,21 +70,21 @@ const MenuDesktop = ({
           />
           {/* Collage table settings */}
           <div className="inline-flex">
-        <h2 className="pr-4">Chart type:</h2>
-        <select
-          value={tableMode}
-          onChange={(evt) => {
-            handleTableModeChange(evt.target.value);
-          }}
-        >
-          <option value="collage">Collage</option>
-          <option value="top40">Top 40</option>
-          <option value="top100">Top 100</option>
-        </select>
-        {/* <button className=" no-style max-w-[20px] ml-12">
+            <h2 className="pr-4">Chart type:</h2>
+            <select
+              value={tableMode}
+              onChange={(evt) => {
+                handleTableModeChange(evt.target.value);
+              }}
+            >
+              <option value="collage">Collage</option>
+              <option value="top40">Top 40</option>
+              <option value="top100">Top 100</option>
+            </select>
+            {/* <button className=" no-style max-w-[20px] ml-12">
           <img className="min-w-[10px]" src="/load_icon.svg"/>
         </button> */}
-      </div>
+          </div>
           <CollageSettings
             tableMode={tableMode}
             openAccordion={openAccordion}
@@ -143,7 +140,7 @@ const MenuDesktop = ({
           />
           <div className="inline-flex w-full">
             <button
-              className="export-button my-8 w-1/2"
+              className="export-button my-8 w-2/3"
               onClick={() => {
                 exportAsImage(exportRef.current, "title", exportOptions);
               }}
@@ -151,16 +148,17 @@ const MenuDesktop = ({
               Export
             </button>
             <button
-              className="export-button mx-4 my-8 w-1/5"
+              className="export-button mx-4 my-8 w-1/3"
               // onClick={() => {
               // openSaveChartModal()
               // }}
-              onClick={() => saveCurrentChart(currentChart)}
+              onClick={() => saveCurrentChart("wawaw!")}
             >
-              <img
+              {/* <img
                 className="mx-auto min-h-[25px] max-w-[15px]"
                 src="/save_icon.svg"
-              />
+              /> */}
+              Save
             </button>
           </div>
         </div>

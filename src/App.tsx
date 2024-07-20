@@ -22,7 +22,10 @@ function App() {
 
   // on every chart-related state change, create and save a new object in localStorage
   useEffect(() => {
-    const selectedChartName = sessionStorage.getItem('selectedChart') ?? ""
+    const selectedChartName = sessionStorage.getItem("selectedChart") ?? "New Chart";
+
+    if (selectedChartName === "New Chart") {sessionStorage.setItem("selectedChart", "New Chart")}
+
     let currentChart: chartSavedData = {
       name: selectedChartName,
       tableMode: menu.tableMode,
@@ -38,9 +41,6 @@ function App() {
       fontColorHeader: menu.fontColorHeader,
       backgroundColor: menu.backgroundColor,
       enableShadows: menu.enableShadows,
-      top40Data: menu.top40Data,
-      top100Data: menu.top100Data,
-      collageData: menu.collageData,
     };
 
     if (currentChart.tableMode === "top40") {

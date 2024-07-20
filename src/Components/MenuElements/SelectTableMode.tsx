@@ -1,6 +1,5 @@
 type MenuContentProps = {
   tableMode: string;
-  currentChartName: string
   // handleTableModeChange: (tableMode: string) => void;
   changeDisplayedChart: (chartName: string) => void;
 };
@@ -8,11 +7,11 @@ type MenuContentProps = {
 const SelectTableMode = ({
   // tableMode,
   // handleTableModeChange,
-  currentChartName,
   changeDisplayedChart,
 }: MenuContentProps) => {
   const savedCharts = Object.keys({ ...localStorage });
-  
+
+  const currentChartName: string = sessionStorage.getItem("selectedChart") ?? "{}";
   return (
     <>
       <div className="inline-flex pb-4">
@@ -22,18 +21,22 @@ const SelectTableMode = ({
           value={currentChartName}
           onChange={(evt) => {
             changeDisplayedChart(evt.target.value);
-            console.log(evt.target.value);
-            console.log(JSON.parse(localStorage.getItem(`${evt.target.value}`) ?? "{}"));
+            // console.log(evt.target.value);
+            // console.log(JSON.parse(localStorage.getItem(`${evt.target.value}`) ?? "{}"));
           }}
         >
           <>
-            {savedCharts.map((ch: string) => {
-              return (
-                <option className="" value={ch}>
-                  {ch}
-                </option>
-              );
-            })}
+            {savedCharts[0] ? (
+              savedCharts.map((ch: string) => {
+                return (
+                  <option className="" value={ch}>
+                    {ch}
+                  </option>
+                );
+              })
+            ) : (
+              <option value="New chart">New Chart</option>
+            )}
           </>
         </select>
         {/* <select
