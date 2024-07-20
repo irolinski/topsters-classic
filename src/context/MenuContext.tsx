@@ -5,14 +5,18 @@ import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
 export const MenuContext = createContext<any>([[], () => null]);
 
 const MenuContextProvider = (props: any) => {
+
   // check for saved currentChart in localStorage
   const [currentChart, setCurrentChart] = useState(
     JSON.parse(localStorage.getItem("currentChart") ?? "{}"),
   ); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
 
   const changeDisplayedChart = (chartName: string) => {
-    setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`) ?? "{}"));
+    setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`)));
+    setRefresh(true);
+    setRefresh(!refresh);
   };
+  console.log(currentChart)
 
   const defaultChart: chartSavedData = {
     name: "default",
@@ -41,6 +45,8 @@ const MenuContextProvider = (props: any) => {
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
     setMobileMenuIsOpened(!mobileMenuIsOpened);
+    setRefresh(true);
+    setRefresh(!refresh);
   };
   const [openAccordion, setOpenAccordion] = useState<string>("");
 
