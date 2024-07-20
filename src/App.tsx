@@ -13,28 +13,34 @@ import MenuMobile from "./Components/MenuMobile";
 import MenuDesktop from "./Components/MenuDesktop";
 import { MenuContext } from "./context/MenuContext";
 import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
+import { chartSavedData } from "./models/models";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
 function App() {
   const menu: any = useContext(MenuContext);
 
-  useEffect(() => {
-    let currentChart: any = new Object();
+  // on every chart-related state change, create and save a new object in localStorage
 
-    currentChart.tableMode = menu.tableMode;
-    currentChart.collageRowNum = menu.collageRowNum;
-    currentChart.collageColNum = menu.collageColNum;
-    currentChart.chartTitle = menu.chartTitle;
-    currentChart.hideAlbumTitles = menu.hideAlbumTitles;
-    currentChart.backgroundImg = menu.backgroundImg;
-    currentChart.backgroundImgPosition = menu.backgroundImgPosition;
-    currentChart.backgroundImgMode = menu.backgroundImgMode;
-    currentChart.fontFamily = menu.fontFamily;
-    currentChart.fontColorBody = menu.fontColorBody;
-    currentChart.fontColorHeader = menu.fontColorHeader;
-    currentChart.backgroundColor = menu.backgroundColor;
-    currentChart.enableShadows = menu.enableShadows;
+  useEffect(() => {
+    let currentChart: chartSavedData = {
+      tableMode: menu.tableMode,
+      collageRowNum: menu.collageRowNum,
+      collageColNum: menu.collageColNum,
+      chartTitle: menu.chartTitle,
+      hideAlbumTitles: menu.hideAlbumTitles,
+      backgroundImg: menu.backgroundImg,
+      backgroundImgPosition: menu.backgroundImgPosition,
+      backgroundImgMode: menu.backgroundImgMode,
+      fontFamily: menu.fontFamily,
+      fontColorBody: menu.fontColorBody,
+      fontColorHeader: menu.fontColorHeader,
+      backgroundColor: menu.backgroundColor,
+      enableShadows: menu.enableShadows,
+      top40Data: menu.top40Data,
+      top100Data: menu.top100Data,
+      collageData: menu.collageData,
+    };
 
     if (currentChart.tableMode === "top40") {
       currentChart.top40Data = menu.top40Data;
@@ -48,10 +54,8 @@ function App() {
       currentChart.top100Data = menu.top100Data;
     }
 
-    currentChart = JSON.stringify(currentChart);
-    localStorage.setItem("currentChart", currentChart);
-    // const q = JSON.parse(localStorage.getItem("currentChart") || "{}");
-    // console.log(q);
+    const currentChartJSON = JSON.stringify(currentChart);
+    localStorage.setItem("currentChart", currentChartJSON);
   }, [
     menu.tableMode,
     menu.collageRowNum,

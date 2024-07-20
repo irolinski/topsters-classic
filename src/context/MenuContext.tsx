@@ -1,5 +1,5 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
-import { lastFmAlbum } from "../models/models";
+import { chartSavedData, lastFmAlbum } from "../models/models";
 import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
 
 export const MenuContext = createContext<any>([[], () => null]);
@@ -8,7 +8,7 @@ const MenuContextProvider = (props: any) => {
   // check for saved chart in localStorage
   const currentChart = JSON.parse(localStorage.getItem("currentChart") ?? "{}"); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
 
-  const defaultChart = {
+  const defaultChart: chartSavedData = {
     tableMode: "top40",
     collageRowNum: 4,
     collageColNum: 4,

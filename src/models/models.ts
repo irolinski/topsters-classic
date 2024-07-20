@@ -4,3 +4,23 @@ export type lastFmAlbum = {
   image: { text: string; size: string }[];
   url: string;
 };
+
+
+export type chartSavedData = {
+  tableMode: string;
+  collageRowNum: number;
+  collageColNum: number;
+  chartTitle: string;
+  hideAlbumTitles: boolean;
+  backgroundImg: string;
+  backgroundImgPosition: any;
+  backgroundImgMode: string;
+  fontFamily: string;
+  fontColorBody: string;
+  fontColorHeader: string;
+  backgroundColor: string;
+  enableShadows: boolean;
+  top40Data: lastFmAlbum[] | Record<string, never>[];
+  top100Data: lastFmAlbum[] | Record<string, never>[];
+  collageData: lastFmAlbum[] | Record<string, never>[];
+};
