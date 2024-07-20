@@ -7,6 +7,7 @@ export type lastFmAlbum = {
 
 
 export type chartSavedData = {
+  name: string;
   tableMode: string;
   collageRowNum: number;
   collageColNum: number;

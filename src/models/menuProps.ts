@@ -100,4 +100,6 @@ export type DesktopMenuPropTypes = {
   showAboutModal: boolean;
   handleSetShowAboutModal: (showAboutModal: boolean) => void;
   selectedIndex: number;
+  currentChartName: string;
+  changeDisplayedChart: (chartName: string) => void;
 };

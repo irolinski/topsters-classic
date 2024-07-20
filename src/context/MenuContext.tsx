@@ -5,10 +5,17 @@ import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
 export const MenuContext = createContext<any>([[], () => null]);
 
 const MenuContextProvider = (props: any) => {
-  // check for saved chart in localStorage
-  const currentChart = JSON.parse(localStorage.getItem("currentChart") ?? "{}"); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
+  // check for saved currentChart in localStorage
+  const [currentChart, setCurrentChart] = useState(
+    JSON.parse(localStorage.getItem("currentChart") ?? "{}"),
+  ); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
+
+  const changeDisplayedChart = (chartName: string) => {
+    setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`) ?? "{}"));
+  };
 
   const defaultChart: chartSavedData = {
+    name: "default",
     tableMode: "top40",
     collageRowNum: 4,
     collageColNum: 4,
@@ -30,7 +37,7 @@ const MenuContextProvider = (props: any) => {
     top100Data: top100Empty,
   };
 
-  // navigation states
+  // menu navigation states
   const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
   const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
     setMobileMenuIsOpened(!mobileMenuIsOpened);
@@ -95,22 +102,32 @@ const MenuContextProvider = (props: any) => {
   };
 
   //customize chart
-  const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(currentChart.hideAlbumTitles ?? defaultChart.hideAlbumTitles);
+  const [hideAlbumTitles, setHideAlbumTitles] = useState<boolean>(
+    currentChart.hideAlbumTitles ?? defaultChart.hideAlbumTitles,
+  );
   const handleSetHideAlbumTitles = (isTrue: boolean) =>
     setHideAlbumTitles(isTrue);
-  const [enableShadows, setEnableShadows] = useState<boolean>(currentChart.enableShadows ?? defaultChart.enableShadows);
+  const [enableShadows, setEnableShadows] = useState<boolean>(
+    currentChart.enableShadows ?? defaultChart.enableShadows,
+  );
   const handleSetEnableShadows = (isTrue: boolean) => setEnableShadows(isTrue);
 
   // set background image
   // (sizes have to be defined as variables for they are crucial to get the offset right)
-  const [backgroundImg, setBackgroundImg] = useState<string>(currentChart.backgroundImg ?? defaultChart.backgroundImg);
+  const [backgroundImg, setBackgroundImg] = useState<string>(
+    currentChart.backgroundImg ?? defaultChart.backgroundImg,
+  );
   const handleSetBackgroundImg = (url: string) => {
     setBackgroundImg(url);
   };
-  const [backgroundImgPosition, setBackgroundImgPosition] = useState(currentChart.backgroundImgPosition ?? defaultChart.backgroundImgPosition);
+  const [backgroundImgPosition, setBackgroundImgPosition] = useState(
+    currentChart.backgroundImgPosition ?? defaultChart.backgroundImgPosition,
+  );
 
   // auto/cover/contain
-  const [backgroundImgMode, setBackgroundImgMode] = useState<string>(currentChart.backgroundImgMode ?? defaultChart.backgroundImgMode);
+  const [backgroundImgMode, setBackgroundImgMode] = useState<string>(
+    currentChart.backgroundImgMode ?? defaultChart.backgroundImgMode,
+  );
   const handleSetBackgroundImgMode = (newMode: string) => {
     setBackgroundImgMode(newMode);
   };
@@ -132,22 +149,30 @@ const MenuContextProvider = (props: any) => {
   };
 
   // choose font
-  const [fontFamily, setFontFamily] = useState<string>(currentChart.fontFamily ?? defaultChart.fontFamily);
+  const [fontFamily, setFontFamily] = useState<string>(
+    currentChart.fontFamily ?? defaultChart.fontFamily,
+  );
   const handleSetFontFamily = (newFontName: string) => {
     setFontFamily(newFontName);
   };
 
   //set colors
-  const [fontColorBody, setfontColorBody] = useState<string>(currentChart.fontColorBody ?? defaultChart.fontColorBody);
+  const [fontColorBody, setfontColorBody] = useState<string>(
+    currentChart.fontColorBody ?? defaultChart.fontColorBody,
+  );
   const handleSetFontColorBody = (newColor: string) => {
     setfontColorBody(newColor);
   };
-  const [fontColorHeader, setfontColorHeader] = useState<string>(currentChart.fontColorHeader ?? defaultChart.fontColorHeader);
+  const [fontColorHeader, setfontColorHeader] = useState<string>(
+    currentChart.fontColorHeader ?? defaultChart.fontColorHeader,
+  );
   const handleSetFontColorHeader = (newColor: string) => {
     setfontColorHeader(newColor);
   };
 
-  const [backgroundColor, setBackgroundColor] = useState<string>(currentChart.backgroundColor ?? defaultChart.backgroundColor);
+  const [backgroundColor, setBackgroundColor] = useState<string>(
+    currentChart.backgroundColor ?? defaultChart.backgroundColor,
+  );
   const handleSetBackgroundColor = (newColor: string) => {
     setBackgroundColor(newColor);
   };
@@ -285,6 +310,8 @@ const MenuContextProvider = (props: any) => {
         handleSetExportOptions,
         showAboutModal,
         handleSetShowAboutModal,
+        currentChart,
+        changeDisplayedChart
       }}
     >
       {props.children}
