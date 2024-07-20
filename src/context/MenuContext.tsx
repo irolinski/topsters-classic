@@ -5,18 +5,21 @@ import { collageEmpty, top100Empty, top40Empty } from "../assets/emptyCharts";
 export const MenuContext = createContext<any>([[], () => null]);
 
 const MenuContextProvider = (props: any) => {
+  // choose chart to display
+  const selectedChartName: string =
+    sessionStorage.getItem("selectedChart") ?? "currentSession";
 
   // check for saved currentChart in localStorage
-  const [currentChart, setCurrentChart] = useState(
-    JSON.parse(localStorage.getItem("currentChart") ?? "{}"),
+  const currentChart = JSON.parse(
+    localStorage.getItem(`${selectedChartName}`) ?? "{}",
   ); // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
 
   const changeDisplayedChart = (chartName: string) => {
-    setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`)));
-    setRefresh(true);
-    setRefresh(!refresh);
+    // setSelectedChartName(chartName);
+    // setCurrentChart(JSON.parse(localStorage.getItem(`${chartName}`) ?? "{}"));
+    sessionStorage.setItem("selectedChart", `${chartName}`);
+    window.location.reload();
   };
-  console.log(currentChart)
 
   const defaultChart: chartSavedData = {
     name: "default",
@@ -317,7 +320,7 @@ const MenuContextProvider = (props: any) => {
         showAboutModal,
         handleSetShowAboutModal,
         currentChart,
-        changeDisplayedChart
+        changeDisplayedChart,
       }}
     >
       {props.children}

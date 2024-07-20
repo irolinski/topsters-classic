@@ -50,6 +50,7 @@ const MenuDesktop = ({
   exportRef,
   showAboutModal,
   handleSetShowAboutModal,
+  currentChart,
   currentChartName,
   changeDisplayedChart,
 }: DesktopMenuPropTypes) => {
@@ -154,11 +155,11 @@ const MenuDesktop = ({
               // onClick={() => {
               // openSaveChartModal()
               // }}
-              onClick={() => saveCurrentChart("myBart")}
+              onClick={() => saveCurrentChart(currentChart)}
             >
               <img
                 className="mx-auto min-h-[25px] max-w-[15px]"
-                src="/save-icon.svg"
+                src="/save_icon.svg"
               />
             </button>
           </div>

@@ -1,5 +1,5 @@
 import { MutableRefObject } from "react";
-import { lastFmAlbum } from "./models";
+import { chartSavedData, lastFmAlbum } from "./models";
 
 export type MobileMenuPropTypes = {
   tableMode: string;
@@ -100,6 +100,7 @@ export type DesktopMenuPropTypes = {
   showAboutModal: boolean;
   handleSetShowAboutModal: (showAboutModal: boolean) => void;
   selectedIndex: number;
+  currentChart: chartSavedData;
   currentChartName: string;
   changeDisplayedChart: (chartName: string) => void;
 };

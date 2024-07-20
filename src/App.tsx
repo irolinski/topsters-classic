@@ -22,8 +22,9 @@ function App() {
 
   // on every chart-related state change, create and save a new object in localStorage
   useEffect(() => {
+    const selectedChartName = sessionStorage.getItem('selectedChart') ?? ""
     let currentChart: chartSavedData = {
-      name: "currentChart",
+      name: selectedChartName,
       tableMode: menu.tableMode,
       collageRowNum: menu.collageRowNum,
       collageColNum: menu.collageColNum,
@@ -55,7 +56,7 @@ function App() {
     }
 
     const currentChartJSON = JSON.stringify(currentChart);
-    localStorage.setItem("currentChart", currentChartJSON);
+    localStorage.setItem(selectedChartName, currentChartJSON);
   }, [
     menu.tableMode,
     menu.collageRowNum,
@@ -73,8 +74,7 @@ function App() {
     menu.selectedIndex, // for some reason useEffect did not hear state changes in [chartName]Data states so I had it listen to selectedIndex instead
   ]);
 
-  // save currentChart as previousChart in localStorage 
-
+  // save currentChart as previousChart in localStorage
 
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
@@ -175,6 +175,7 @@ function App() {
             exportRef={menu.exportRef}
             showAboutModal={menu.showAboutModal}
             handleSetShowAboutModal={menu.handleSetShowAboutModal}
+            currentChart={menu.currentChart}
             currentChartName={menu.currentChart.name}
             changeDisplayedChart={menu.changeDisplayedChart}
           />

@@ -1,22 +1,28 @@
-export const saveCurrentChart = (name: string) => {
-  let currentChart = JSON.parse(localStorage.getItem("currentChart") ?? "{}");
-  currentChart.name = name;
+export const saveCurrentChart = (currentChart: any) => {
+  const selectedChartName = sessionStorage.getItem("selectedChart") ?? "{}";
+  let savedChart = JSON.parse(
+    localStorage.getItem(selectedChartName ?? "") ?? "{}"
+  );
 
-  if (currentChart.tableMode === "top40") {
-    delete currentChart.top100Data;
-    delete currentChart.collageData;
+  if (!savedChart.name) {
+    savedChart.name = selectedChartName;
   }
 
-  if (currentChart.tableMode === "top100") {
-    delete currentChart.top40Data;
-    delete currentChart.collageData;
+  if (savedChart.tableMode === "top40") {
+    delete savedChart.top100Data;
+    delete savedChart.collageData;
   }
 
-  if (currentChart.tableMode === "collage") {
-    delete currentChart.top40Data;
-    delete currentChart.top100Data;
+  if (savedChart.tableMode === "top100") {
+    delete savedChart.top40Data;
+    delete savedChart.collageData;
   }
 
-  currentChart = JSON.stringify(currentChart);
-  localStorage.setItem(`${name}`, currentChart);
+  if (savedChart.tableMode === "collage") {
+    delete savedChart.top40Data;
+    delete savedChart.top100Data;
+  }
+
+  savedChart = JSON.stringify(savedChart);
+  localStorage.setItem(selectedChartName, currentChart);
 };
