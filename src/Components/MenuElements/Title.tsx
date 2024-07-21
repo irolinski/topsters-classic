@@ -1,3 +1,5 @@
+import { preventSpecialChar } from "../../utils/preventSpecialChars";
+
 type TitleProps = {
   openAccordion: string;
   chartTitle: string;
@@ -35,6 +37,8 @@ const Title = ({
               <input
                 className="w-3/4"
                 type="text"
+                onKeyDown={(evt) => preventSpecialChar(evt)}
+                maxLength={32}
                 value={chartTitle}
                 onChange={async (evt) =>
                   handleSetChartTitle(evt.currentTarget.value)

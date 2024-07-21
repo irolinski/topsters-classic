@@ -143,26 +143,27 @@ const MenuDesktop = ({
           />
           <div className="inline-flex w-full">
             <button
-              className="export-button my-8 w-2/3"
+              className="export-button my-8 w-full min-w-[66%]"
               onClick={() => {
                 exportAsImage(exportRef.current, "title", exportOptions);
               }}
             >
               Export
             </button>
-            <button
-              className="export-button mx-4 my-8 w-1/3"
-              onClick={() => {
-                handleSetShowSaveModal(showSaveModal);
-              }}
-              // onClick={() => saveCurrentChart("oKKKKKK")}
-            >
-              {/* <img
-                className="mx-auto min-h-[25px] max-w-[15px]"
-                src="/save_icon.svg"
-              /> */}
-              Save
-            </button>
+            {sessionStorage.getItem("selectedChart") === "newChart" && (
+              <button
+                className="export-button mx-4 my-8 w-1/3"
+                onClick={() => {
+                  handleSetShowSaveModal(showSaveModal);
+                }}
+              >
+                <img
+                  className="mx-auto min-h-[25px] max-w-[15px]"
+                  src="/save_icon.svg"
+                />
+                {/* Save */}
+              </button>
+            )}
           </div>
         </div>
         <Footer

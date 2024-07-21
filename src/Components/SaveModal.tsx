@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { saveCurrentChart } from "../utils/currentChart_CRUD";
+import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type saveModalPropTypes = {
   showSaveModal: boolean;
   handleSetShowSaveModal: (showSaveModal: boolean) => void;
 };
 
+
 const SaveModal = ({
   showSaveModal,
   handleSetShowSaveModal,
 }: saveModalPropTypes) => {
-  const [savedChartTitle, setSavedChartTitle] = useState(`My Chart 1`);
+  const allChartNames = Object.keys(localStorage);
+
+  const [savedChartTitle, setSavedChartTitle] = useState(
+    `My Chart ${allChartNames.length}`,
+  );
 
   const [chartNameIsAvailable, setChartNameIsAvailable] =
     useState<boolean>(true);
 
   const checkIsNameAvailable = (name: string) => {
-    Object.keys(localStorage).includes(name)
+    allChartNames.includes(name)
       ? setChartNameIsAvailable(false)
       : setChartNameIsAvailable(true);
   };
@@ -35,7 +41,7 @@ const SaveModal = ({
           </button>
           <h2 className="p-4 text-2xl font-bold">Save chart</h2>
           <div className="pb-4">
-            <p className="px-4 md:px-16 lg:px-36 text-center text-xs">
+            <p className="px-4 text-center text-xs md:px-16 lg:px-36">
               Ok, now, title your chart, click save, and it will stay here as
               long as you don't erase your browser cache.
             </p>
@@ -44,9 +50,11 @@ const SaveModal = ({
             <h3 className="px-4">Chart title:</h3>
             <div className="my-2 inline-flex h-8 w-3/4 items-stretch border">
               <input
-                className="w-full"
+                className="w-full px-2"
                 type="text"
+                maxLength={24}
                 value={savedChartTitle}
+                onKeyDown={(evt) => preventSpecialChar(evt)}
                 onChange={async (evt) => {
                   setSavedChartTitle(evt.currentTarget.value);
                   checkIsNameAvailable(evt.currentTarget.value);

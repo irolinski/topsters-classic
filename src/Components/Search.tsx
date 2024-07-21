@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { lastFmAlbum } from "../models/models";
+import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type MenuContentProps = {
   selectedIndex: number;
@@ -64,12 +65,14 @@ const Search = ({
           <input
             className="w-3/4"
             type="text"
+            maxLength={32}
             onKeyUp={async (evt) =>
               evt.key === "Enter"
                 ? (searchAlbums(searchInputValue),
                   handleOpenAccordion("search"))
                 : setSearchInputValue(evt.currentTarget.value)
             }
+            onKeyDown={(evt) => preventSpecialChar(evt)}
             onClick={() => handleOpenAccordion("search")}
           />
           <button
