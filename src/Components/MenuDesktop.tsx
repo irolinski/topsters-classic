@@ -69,22 +69,24 @@ const MenuDesktop = ({
             handleOpenAccordion={handleOpenAccordion}
           />
           {/* Collage table settings */}
-          <div className="inline-flex">
-            <h2 className="pr-4">Chart type:</h2>
-            <select
-              value={tableMode}
-              onChange={(evt) => {
-                handleTableModeChange(evt.target.value);
-              }}
-            >
-              <option value="collage">Collage</option>
-              <option value="top40">Top 40</option>
-              <option value="top100">Top 100</option>
-            </select>
-            {/* <button className=" no-style max-w-[20px] ml-12">
+          {sessionStorage.getItem("selectedChart") === "newChart" && (
+            <div className="inline-flex">
+              <h2 className="pr-4">Chart type:</h2>
+              <select
+                value={tableMode}
+                onChange={(evt) => {
+                  handleTableModeChange(evt.target.value);
+                }}
+              >
+                <option value="collage">Collage</option>
+                <option value="top40">Top 40</option>
+                <option value="top100">Top 100</option>
+              </select>
+              {/* <button className=" no-style max-w-[20px] ml-12">
           <img className="min-w-[10px]" src="/load_icon.svg"/>
         </button> */}
-          </div>
+            </div>
+          )}
           <CollageSettings
             tableMode={tableMode}
             openAccordion={openAccordion}
