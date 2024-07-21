@@ -11,7 +11,8 @@ const SelectTableMode = ({
 }: MenuContentProps) => {
   const savedCharts = Object.keys({ ...localStorage });
 
-  const currentChartName: string = sessionStorage.getItem("selectedChart") ?? "{}";
+  const currentChartName: string =
+    sessionStorage.getItem("selectedChart") ?? "{}";
   return (
     <>
       <div className="inline-flex pb-4">
@@ -26,16 +27,24 @@ const SelectTableMode = ({
           }}
         >
           <>
-            {savedCharts[0] ? (
-              savedCharts.map((ch: string) => {
-                return (
-                  <option className="" value={ch}>
-                    {ch}
-                  </option>
-                );
-              })
+            {savedCharts[1] ? (
+              <>
+                <option disabled> Create a new chart: </option>
+                <option value="newChart">New chart</option>
+                <option disabled> --------------</option>
+                <option disabled> Load saved charts: </option>
+                {savedCharts.map((ch: string) => {
+                  if (ch !== "newChart") {
+                    return (
+                      <option className="" value={ch}>
+                        {ch}
+                      </option>
+                    );
+                  }
+                })}
+              </>
             ) : (
-              <option value="New chart">New Chart</option>
+              <option value="newChart">New Chart</option>
             )}
           </>
         </select>

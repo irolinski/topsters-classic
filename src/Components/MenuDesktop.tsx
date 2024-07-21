@@ -152,7 +152,7 @@ const MenuDesktop = ({
               // onClick={() => {
               // openSaveChartModal()
               // }}
-              onClick={() => saveCurrentChart("wawaw!")}
+              onClick={() => saveCurrentChart("oKKKKKK")}
             >
               {/* <img
                 className="mx-auto min-h-[25px] max-w-[15px]"

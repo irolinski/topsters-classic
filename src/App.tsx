@@ -22,9 +22,9 @@ function App() {
 
   // on every chart-related state change, create and save a new object in localStorage
   useEffect(() => {
-    const selectedChartName = sessionStorage.getItem("selectedChart") ?? "New Chart";
+    const selectedChartName = sessionStorage.getItem("selectedChart") ?? "newChart";
 
-    if (selectedChartName === "New Chart") {sessionStorage.setItem("selectedChart", "New Chart")}
+    if (selectedChartName === "newChart") {sessionStorage.setItem("selectedChart", "newChart")}
 
     let currentChart: chartSavedData = {
       name: selectedChartName,

@@ -7,7 +7,7 @@ export const MenuContext = createContext<any>([[], () => null]);
 const MenuContextProvider = (props: any) => {
   // choose chart to display
   const selectedChartName: string =
-    sessionStorage.getItem("selectedChart") ?? "New Chart";
+    sessionStorage.getItem("selectedChart") ?? "newChart";
 
   // check for saved currentChart in localStorage
 

@@ -29,6 +29,6 @@ export const saveCurrentChart = (newChartName: string) => {
   savedChart = JSON.stringify(savedChart);
   localStorage.setItem(`${newChartName}`, savedChart);
   sessionStorage.setItem("selectedChart", `${newChartName}`);
-  localStorage.setItem("New Chart", JSON.stringify(defaultChart))
+  localStorage.setItem("newChart", JSON.stringify(defaultChart))
   window.location.reload();
 };
