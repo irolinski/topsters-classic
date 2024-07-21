@@ -14,6 +14,7 @@ import MenuDesktop from "./Components/MenuDesktop";
 import { MenuContext } from "./context/MenuContext";
 import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
 import { chartSavedData } from "./models/models";
+import SaveModal from "./Components/SaveModal";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -22,9 +23,12 @@ function App() {
 
   // on every chart-related state change, create and save a new object in localStorage
   useEffect(() => {
-    const selectedChartName = sessionStorage.getItem("selectedChart") ?? "newChart";
+    const selectedChartName =
+      sessionStorage.getItem("selectedChart") ?? "newChart";
 
-    if (selectedChartName === "newChart") {sessionStorage.setItem("selectedChart", "newChart")}
+    if (selectedChartName === "newChart") {
+      sessionStorage.setItem("selectedChart", "newChart");
+    }
 
     let currentChart: chartSavedData = {
       name: selectedChartName,
@@ -79,6 +83,11 @@ function App() {
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
       <main className="flex flex-wrap justify-center lg:block">
+        {/* MODAL - SAVE CHART */}
+        <SaveModal
+          showSaveModal={menu.showSaveModal}
+          handleSetShowSaveModal={menu.handleSetShowSaveModal}
+        />
         {/* MODAL - ABOUT */}
         <AboutModal
           showAboutModal={menu.showAboutModal}
@@ -175,6 +184,8 @@ function App() {
             exportRef={menu.exportRef}
             showAboutModal={menu.showAboutModal}
             handleSetShowAboutModal={menu.handleSetShowAboutModal}
+            showSaveModal={menu.showSaveModal}
+            handleSetShowSaveModal={menu.handleSetShowSaveModal}
             currentChart={menu.currentChart}
             currentChartName={menu.currentChart.name}
             changeDisplayedChart={menu.changeDisplayedChart}

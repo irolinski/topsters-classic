@@ -11,6 +11,8 @@ export const saveCurrentChart = (newChartName: string) => {
     savedChart.name = selectedChartName;
   }
 
+  // delete unused data
+
   if (savedChart.tableMode === "top40") {
     delete savedChart.top100Data;
     delete savedChart.collageData;
@@ -25,6 +27,7 @@ export const saveCurrentChart = (newChartName: string) => {
     delete savedChart.top40Data;
     delete savedChart.top100Data;
   }
+
 
   savedChart = JSON.stringify(savedChart);
   localStorage.setItem(`${newChartName}`, savedChart);

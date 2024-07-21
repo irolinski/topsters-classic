@@ -1,6 +1,5 @@
 import { DesktopMenuPropTypes } from "../models/menuProps";
 import { exportAsImage } from "../utils/downloadImage";
-import { saveCurrentChart } from "../utils/currentChart_CRUD";
 import Logo from "./Logo";
 import Background from "./MenuElements/Background";
 import CollageSettings from "./MenuElements/CollageSettings";
@@ -50,6 +49,8 @@ const MenuDesktop = ({
   exportRef,
   showAboutModal,
   handleSetShowAboutModal,
+  showSaveModal,
+  handleSetShowSaveModal,
   changeDisplayedChart,
 }: DesktopMenuPropTypes) => {
   return (
@@ -151,10 +152,10 @@ const MenuDesktop = ({
             </button>
             <button
               className="export-button mx-4 my-8 w-1/3"
-              // onClick={() => {
-              // openSaveChartModal()
-              // }}
-              onClick={() => saveCurrentChart("oKKKKKK")}
+              onClick={() => {
+                handleSetShowSaveModal(showSaveModal);
+              }}
+              // onClick={() => saveCurrentChart("oKKKKKK")}
             >
               {/* <img
                 className="mx-auto min-h-[25px] max-w-[15px]"

@@ -1,6 +1,6 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
-import { chartSavedData, lastFmAlbum } from "../models/models";
-import { collageEmpty, defaultChart, top100Empty, top40Empty } from "../assets/emptyCharts";
+import { lastFmAlbum } from "../models/models";
+import { defaultChart } from "../assets/emptyCharts";
 
 export const MenuContext = createContext<any>([[], () => null]);
 
@@ -239,6 +239,10 @@ const MenuContextProvider = (props: any) => {
     setExportOptions(options);
   };
 
+  // save modal
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal)
+
   // about modal
   const [showAboutModal, setShowAboutModal] = useState(false);
   const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
@@ -294,6 +298,8 @@ const MenuContextProvider = (props: any) => {
         exportRef,
         exportOptions,
         handleSetExportOptions,
+        showSaveModal,
+        handleSetShowSaveModal,
         showAboutModal,
         handleSetShowAboutModal,
         currentChart,

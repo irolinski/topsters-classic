@@ -99,6 +99,8 @@ export type DesktopMenuPropTypes = {
   exportRef: MutableRefObject<HTMLInputElement | null>;
   showAboutModal: boolean;
   handleSetShowAboutModal: (showAboutModal: boolean) => void;
+  showSaveModal: boolean;
+  handleSetShowSaveModal: (showSaveModal: boolean) => void;
   selectedIndex: number;
   currentChart: chartSavedData;
   currentChartName: string;
