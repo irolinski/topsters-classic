@@ -28,10 +28,24 @@ export const saveCurrentChart = (newChartName: string) => {
     delete savedChart.top100Data;
   }
 
-
   savedChart = JSON.stringify(savedChart);
   localStorage.setItem(`${newChartName}`, savedChart);
   sessionStorage.setItem("selectedChart", `${newChartName}`);
-  localStorage.setItem("newChart", JSON.stringify(defaultChart))
+  localStorage.setItem("newChart", JSON.stringify(defaultChart));
+  window.location.reload();
+};
+
+export const deleteCurrentChart = () => {
+  const selectedChartName = sessionStorage.getItem("selectedChart");
+  const allChartNames: string[] = Object.keys(localStorage);
+  const deletedChartIndex: number = allChartNames.indexOf(
+    `${selectedChartName}`,
+  );
+  localStorage.removeItem(`${selectedChartName}`);
+  sessionStorage.removeItem(`${selectedChartName}`);
+  sessionStorage.setItem(
+    "selectedChart",
+    `${allChartNames[deletedChartIndex + 1]}`,
+  );
   window.location.reload();
 };

@@ -1,4 +1,5 @@
 import exportOptionList from "../../assets/exportOptionList";
+import { deleteCurrentChart } from "../../utils/chartCRUD";
 
 type optionPropTypes = {
   openAccordion: string;
@@ -63,7 +64,7 @@ const Options = ({
                 onChange={() => handleSetEnableShadows(!enableShadows)}
               />
             </div>
-            <div className="export-options-div px-4 pt-[8px]">
+            <div className="export-options-div px-4 pb-[16px] pt-[8px]">
               <h4 className="block w-full p-4">Export quality: </h4>
               <select
                 className="ml-8 max-h-12 w-[180px] max-w-full p-1"
@@ -76,6 +77,14 @@ const Options = ({
                   return <option value={o.value}>{o.name}</option>;
                 })}
               </select>
+            </div>
+            <div className="delete-chart-div px-4 pt-[8px]">
+              <h4 className="block w-full p-4">Delete chart: </h4>
+              <div className="my-4 ml-16">
+                <button className="delete min-w-24" onClick={() => deleteCurrentChart()}>
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>

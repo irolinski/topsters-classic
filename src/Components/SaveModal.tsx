@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { saveCurrentChart } from "../utils/currentChart_CRUD";
+import { saveCurrentChart } from "../utils/chartCRUD";
 import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type saveModalPropTypes = {
   showSaveModal: boolean;
   handleSetShowSaveModal: (showSaveModal: boolean) => void;
 };
-
 
 const SaveModal = ({
   showSaveModal,
