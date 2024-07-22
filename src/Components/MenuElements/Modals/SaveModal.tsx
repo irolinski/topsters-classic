@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { saveCurrentChart } from "../utils/chartCRUD";
-import { preventSpecialChar } from "../utils/preventSpecialChars";
+import { saveCurrentChart } from "../../../utils/chartCRUD";
+import { preventSpecialChar } from "../../../utils/preventSpecialChars";
 
 type saveModalPropTypes = {
   showSaveModal: boolean;
@@ -31,23 +31,23 @@ const SaveModal = ({
       <div
         className={`about-modal fixed z-30 block h-full w-full ${showSaveModal ? "block" : "hidden"}`}
       >
-        <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[60vw] xl:w-[55vw]">
+        <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[55vw] xl:w-[50vw]">
           <button
             className="no-style absolute right-0 top-0 m-4 p-4"
             onClick={() => handleSetShowSaveModal(!showSaveModal)}
           >
             &#10005;
           </button>
-          <h2 className="p-4 text-2xl font-bold">Save chart</h2>
-          <div className="pb-4">
-            <p className="px-4 text-center text-xs md:px-16 lg:px-36">
-              Ok, now, title your chart, click save, and it will stay here as
+          <h2 className="pb-4 text-2xl font-bold">Save chart</h2>
+          <div className="">
+            <p className="text-center text-xs opacity-70 md:px-[10vw]">
+              Ok, now title your chart, click save, and it will stay here as
               long as you don't erase your browser cache.
             </p>
           </div>
           <div className="pt-8">
-            <h3 className="px-4">Chart title:</h3>
-            <div className="my-2 inline-flex h-8 w-3/4 items-stretch border">
+            <h3 className="px-4 py-2">Chart title:</h3>
+            <div className="my-2 inline-flex h-8 w-3/4 max-w-[400px] items-stretch border md:w-2/3">
               <input
                 className="w-full px-2"
                 type="text"
@@ -68,7 +68,7 @@ const SaveModal = ({
               )}
             </div>
             <button
-              className={`export-button mx-4 my-8 w-1/3 ${!chartNameIsAvailable && "disabled"}`}
+              className={`export-button mx-4 my-8 w-1/3 max-w-[150px] ${!chartNameIsAvailable && "disabled"}`}
               disabled={!chartNameIsAvailable}
               onClick={() => {
                 if (!chartNameIsAvailable) {

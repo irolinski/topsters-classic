@@ -7,14 +7,14 @@ import Top100 from "./Components/Charts/Top100";
 
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
 import Search from "./Components/Search";
-import AboutModal from "./Components/AboutModal";
+import AboutModal from "./Components/MenuElements/Modals/AboutModal";
 import FooterMobile from "./Components/MenuElements/Mobile/Footer";
 import MenuMobile from "./Components/MenuMobile";
 import MenuDesktop from "./Components/MenuDesktop";
 import { MenuContext } from "./context/MenuContext";
 import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
 import { chartSavedData } from "./models/models";
-import SaveModal from "./Components/SaveModal";
+import SaveModal from "./Components/MenuElements/Modals/SaveModal";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -75,7 +75,8 @@ function App() {
     menu.fontColorHeader,
     menu.backgroundColor,
     menu.enableShadows,
-    menu.selectedIndex, // for some reason useEffect did not hear state changes in [chartName]Data states so I had it listen to selectedIndex instead
+    menu.selectedIndex,
+    // for some reason useEffect did not hear state changes in [chartName]Data states so I had it listen to selectedIndex instead
   ]);
 
   // save currentChart as previousChart in localStorage
