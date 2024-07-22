@@ -49,7 +49,7 @@ const MenuMobile = ({
 }: MobileMenuPropTypes) => {
   return (
     <div
-      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw]  ${mobileMenuIsOpened ? "block" : "hidden"} xxs:p-[20vw] lg:hidden`}
+      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} xxs:px-[10vw] py-[5vh] xxs:py-[10vh] lg:hidden`}
     >
       <button
         className="fixed right-0 top-0 z-10"
@@ -57,17 +57,17 @@ const MenuMobile = ({
       >
         &#10005;
       </button>
-      <section className="menu-wrapper flex flex-col justify-center p-12 max-h-[100vh]">
+      <section className="menu-wrapper flex max-h-[100vh] flex-col justify-center p-12">
         <div className="relative h-full overflow-scroll">
           <SelectDisplayChart
             tableMode={tableMode}
             changeDisplayedChart={changeDisplayedChart}
           />
           {/* <div className="py-4"> */}
-            <SelectTableMode
-              tableMode={tableMode}
-              handleTableModeChange={handleTableModeChange}
-            />
+          <SelectTableMode
+            tableMode={tableMode}
+            handleTableModeChange={handleTableModeChange}
+          />
           {/* </div> */}
           <CollageSettings
             tableMode={tableMode}

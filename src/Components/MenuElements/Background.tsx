@@ -58,7 +58,7 @@ const Background = ({
           <div className="inline-flex p-4">
             <h3 className="px-4">Color:</h3>
             <div
-              className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up absolute flex scale-50 justify-center`}
+              className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-[20%] flex scale-50 justify-center sm:right-auto sm:top-auto`}
             >
               <button
                 className="close-pop-up-btn absolute right-0"
@@ -125,10 +125,10 @@ const Background = ({
                   />
                 </button>
                 <div
-                  className={`background-position-menu ${openMenuPopUp !== "background-position" && "hidden"} color-picker-div bg-menu-pop-up absolute flex flex-col justify-center`}
+                  className={`background-position-menu ${openMenuPopUp !== "background-position" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-1/4 flex flex-col justify-center sm:right-auto sm:top-auto`}
                 >
                   <button
-                    className="close-pop-up-btn absolute right-0 top-0 font-4xl"
+                    className="close-pop-up-btn font-4xl absolute right-0 top-0"
                     onClick={() => handleOpenPopUp("")}
                   >
                     &#10005;

@@ -80,7 +80,8 @@
     }
   }
 
-  .export-options-div,.delete-chart-div {
+  .export-options-div,
+  .delete-chart-div {
     border-top: dotted 1px rgb(245, 245, 245);
   }
   .color-box {
@@ -97,13 +98,13 @@
   .color-picker-div {
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.43);
-    position: absolute;
+    // position: absolute;
     z-index: 20;
     // transform: translate(170px, -130px) scale(0.6);
     // transform: translate(55%, -35%) scale(0.6);
   }
-  
-  // arrow for the box -- unused 
+
+  // arrow for the box -- unused
   // .color-picker-div::after {
   //   content: "";
   //   position: absolute;
@@ -116,9 +117,15 @@
   // }
 
   .font-menu-pop-up {
+    @media (max-width: 640px) {
+      transform: scale(0.5);
+    }
     transform: translate(55%, -35%) scale(0.6);
   }
   .bg-menu-pop-up {
+    @media (max-width: 640px) {
+      transform: scale(0.5);
+    }
     transform: translate(35%, -35%) scale(0.6);
   }
 
@@ -485,7 +492,6 @@ button.no-style {
   // .second-tier-classics > flex {
   //   width: 580px;   // FOR THE WIDE MODERN LOOK ^^
   // }
-
 
   display: flex;
   background-color: black;

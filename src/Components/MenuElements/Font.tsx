@@ -71,52 +71,54 @@ const Font = ({
                 </>
               </select>
             </div>
-            <h4 className="block w-full px-8 pt-4 lg:hidden">Header: </h4>
-            <div className="inline-flex p-4 px-8 lg:px-4">
-              <h4 className="px-4"> Header Color: </h4>
-              <div
-                className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
-              >
-                <div>
-                  <button
-                    className="close-pop-up-btn absolute right-0"
-                    onClick={() => {
-                      handleOpenPopUp("");
-                    }}
-                  >
-                    &#10005;{" "}
-                  </button>
-                  <HexColorPicker
-                    className="z-10 mx-16 mt-16"
-                    color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
-                    onChange={handleSetFontColorHeader}
-                  />
-                </div>
-                <button
-                  className="reset-pop-up-btn mx-auto my-6 w-1/2"
-                  onClick={() => handleSetFontColorHeader("")}
+            <div>
+              <h4 className="block w-full px-8 pt-4 lg:hidden">Header: </h4>
+              <div className="inline-flex p-4 px-8 lg:px-4">
+                <h4 className="px-4"> Header Color: </h4>
+                <div
+                  className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up fixed right-0 top-1/3 flex scale-50 flex-col justify-center  sm:right-auto sm:top-auto`}
                 >
-                  Reset
-                </button>
+                  <div>
+                    <button
+                      className="close-pop-up-btn absolute right-0"
+                      onClick={() => {
+                        handleOpenPopUp("");
+                      }}
+                    >
+                      &#10005;{" "}
+                    </button>
+                    <HexColorPicker
+                      className="z-10 mx-16 mt-16"
+                      color={`${fontColorHeader !== "" ? fontColorHeader : invert(backgroundColor)}`}
+                      onChange={handleSetFontColorHeader}
+                    />
+                  </div>
+                  <button
+                    className="reset-pop-up-btn mx-auto my-6 w-1/2"
+                    onClick={() => handleSetFontColorHeader("")}
+                  >
+                    Reset
+                  </button>
+                </div>
+                <div
+                  className="color-box"
+                  style={
+                    fontColorHeader !== ""
+                      ? { backgroundColor: `${fontColorHeader}` }
+                      : {
+                          backgroundColor: `${invert(backgroundColor)}`,
+                        }
+                  }
+                  onClick={() => {
+                    handleOpenPopUp("font-header");
+                  }}
+                ></div>
               </div>
-              <div
-                className="color-box"
-                style={
-                  fontColorHeader !== ""
-                    ? { backgroundColor: `${fontColorHeader}` }
-                    : {
-                        backgroundColor: `${invert(backgroundColor)}`,
-                      }
-                }
-                onClick={() => {
-                  handleOpenPopUp("font-header");
-                }}
-              ></div>
             </div>
             <div className="inline-flex p-4 px-8 lg:px-4">
               <h4 className="px-4"> Body Color: </h4>
               <div
-                className={`${openMenuPopUp !== "font-body" && "hidden"} color-picker-div font-menu-pop-up absolute flex scale-50 flex-col justify-center`}
+                className={`${openMenuPopUp !== "font-body" && "hidden"} color-picker-div font-menu-pop-up fixed right-0 top-1/3 flex scale-50 flex-col justify-center sm:right-auto sm:top-auto`}
               >
                 <div>
                   <button
