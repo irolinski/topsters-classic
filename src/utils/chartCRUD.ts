@@ -17,12 +17,10 @@ export const saveCurrentChart = (newChartName: string) => {
     delete savedChart.top100Data;
     delete savedChart.collageData;
   }
-
   if (savedChart.tableMode === "top100") {
     delete savedChart.top40Data;
     delete savedChart.collageData;
   }
-
   if (savedChart.tableMode === "collage") {
     delete savedChart.top40Data;
     delete savedChart.top100Data;
