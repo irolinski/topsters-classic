@@ -42,11 +42,20 @@
     &:hover {
       cursor: pointer;
     }
+    &:focus {
+      opacity: 80%;
+    }
+  }
+
+  .select-chart-display-input{
+    border: 1px solid transparent;
   }
 
   .search-input,
+  .select-chart-display-input,
   .export-button {
-    &:hover {
+    &:hover,
+    &:focus {
       border-color: #646cff !important;
     }
   }
@@ -54,13 +63,19 @@
   .search-results-div {
     overflow-x: hidden;
     font-size: 12px;
+
     .album-card {
       min-height: 70px;
       padding: 8px;
       border-bottom: 1px solid;
       max-height: 50px;
+
       &:hover {
         cursor: pointer;
+      }
+
+      &:focus {
+        opacity: 0.8;
       }
 
       img {
@@ -68,7 +83,8 @@
         max-width: 50px;
         max-height: 50px;
       }
-      &:hover {
+      &:hover,
+      &:focus {
         opacity: 0.9;
         background-color: #ffffff21;
       }
@@ -89,7 +105,8 @@
     width: 50px;
     height: 25px;
     min-width: 50px;
-    &:hover {
+    &:hover,
+    &:focus {
       cursor: pointer;
       border-color: rgb(245, 245, 245) !important;
     }
@@ -195,7 +212,8 @@
       transition: color 1s;
       color: rgba(245, 245, 245, 0.35);
 
-      &:hover {
+      &:hover,
+      &:focus {
         color: rgb(245, 245, 245);
       }
     }
@@ -209,16 +227,17 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    cursor: pointer;
     border-color: rgb(245, 245, 245) !important;
   }
 
   &:focus,
   &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    outline: 4px auto;
   }
 }
 
@@ -231,7 +250,8 @@ button.no-style {
   padding: 0;
   background-color: transparent;
   font-size: inherit;
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: none;
   }
   &:focus,

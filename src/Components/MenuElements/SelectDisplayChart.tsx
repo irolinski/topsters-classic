@@ -13,7 +13,7 @@ const SelectDisplayChart = ({ changeDisplayedChart }: MenuContentProps) => {
       <div className="inline-flex w-[250px] min-w-[66%] border-b pb-8 lg:border-none lg:pb-4">
         <h2 className="pr-4">Display:</h2>
         <select
-          className="max-w-[150px]"
+          className="max-w-[150px] select-chart-display-input"
           value={currentChartName}
           onChange={(evt) => {
             changeDisplayedChart(evt.target.value);
