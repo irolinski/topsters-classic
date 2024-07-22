@@ -78,25 +78,27 @@ const Options = ({
                 })}
               </select>
             </div>
-            <div className="delete-chart-div px-4 pt-[8px]">
-              <h4 className="block w-full p-4">Delete chart: </h4>
-              <div className="my-4 ml-16">
-                <button
-                  className="delete min-w-24"
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "Are you sure you wish to delete this item?",
+            {sessionStorage.getItem("selectedChart") !== "newChart" && (
+              <div className="delete-chart-div px-4 pt-[8px]">
+                <h4 className="block w-full p-4">Delete chart: </h4>
+                <div className="my-4 ml-16">
+                  <button
+                    className="delete min-w-24"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this item?",
+                        )
                       )
-                    )
-                      deleteCurrentChart();
-                  }}
-                >
-                  {/* // onClick={() => }> */}
-                  Delete
-                </button>
+                        deleteCurrentChart();
+                    }}
+                  >
+                    {/* // onClick={() => }> */}
+                    Delete
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

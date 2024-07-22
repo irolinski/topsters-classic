@@ -102,7 +102,8 @@
     // transform: translate(170px, -130px) scale(0.6);
     // transform: translate(55%, -35%) scale(0.6);
   }
-  // i'd do it but i don't want to deal with compensating scroll smh
+  
+  // arrow for the box -- unused 
   // .color-picker-div::after {
   //   content: "";
   //   position: absolute;
@@ -136,7 +137,6 @@
   &.desktop {
     height: 100vh;
     width: 100%;
-    // background-color: rgba(255, 255, 255, 0.055);
     background-color: #303030;
 
     h3,
@@ -196,7 +196,6 @@
 }
 
 button {
-  // border-radius: 8px;
   border: 1px solid transparent;
   padding: 10px 10px;
   font-size: 1em;
@@ -484,10 +483,9 @@ button.no-style {
   width: 730px; //FOR THE CLASSIC BOXY LOOK ^^
 
   // .second-tier-classics > flex {
-  //   width: 580px;
+  //   width: 580px;   // FOR THE WIDE MODERN LOOK ^^
   // }
 
-  // ^^ FOR THE WIDE MODERN LOOK ^^
 
   display: flex;
   background-color: black;

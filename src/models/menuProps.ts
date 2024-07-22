@@ -40,6 +40,9 @@ export type MobileMenuPropTypes = {
   enableShadows: boolean;
   handleSetEnableShadows: (isTrue: boolean) => void;
   exportOptions: { format: string; quality: number };
+  showSaveModal: boolean;
+  handleSetShowSaveModal: (showSaveModal: boolean) => void;
+  changeDisplayedChart: () => void;
   handleSetExportOptions: ({
     format,
     quality,

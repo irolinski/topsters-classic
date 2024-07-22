@@ -6,6 +6,7 @@ import CollageSettings from "./MenuElements/CollageSettings";
 import Footer from "./MenuElements/Desktop/Footer";
 import Font from "./MenuElements/Font";
 import Options from "./MenuElements/Options";
+import SelectDisplayChart from "./MenuElements/SelectDisplayChart";
 import SelectTableMode from "./MenuElements/SelectTableMode";
 import Title from "./MenuElements/Title";
 import Search from "./Search";
@@ -58,10 +59,9 @@ const MenuDesktop = ({
       <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
         <Logo />
         <div className="menu-content max-h-[70%] overflow-scroll">
-          <SelectTableMode
+          <SelectDisplayChart
             tableMode={tableMode}
             changeDisplayedChart={changeDisplayedChart}
-            // handleTableModeChange={handleTableModeChange}
           />
           <Search
             selectedIndex={selectedIndex}
@@ -69,25 +69,10 @@ const MenuDesktop = ({
             openAccordion={openAccordion}
             handleOpenAccordion={handleOpenAccordion}
           />
-          {/* Collage table settings */}
-          {sessionStorage.getItem("selectedChart") === "newChart" && (
-            <div className="inline-flex">
-              <h2 className="pr-4">Chart type:</h2>
-              <select
-                value={tableMode}
-                onChange={(evt) => {
-                  handleTableModeChange(evt.target.value);
-                }}
-              >
-                <option value="collage">Collage</option>
-                <option value="top40">Top 40</option>
-                <option value="top100">Top 100</option>
-              </select>
-              {/* <button className=" no-style max-w-[20px] ml-12">
-          <img className="min-w-[10px]" src="/load_icon.svg"/>
-        </button> */}
-            </div>
-          )}
+          <SelectTableMode
+            tableMode={tableMode}
+            handleTableModeChange={handleTableModeChange}
+          />
           <CollageSettings
             tableMode={tableMode}
             openAccordion={openAccordion}
@@ -162,11 +147,11 @@ const MenuDesktop = ({
                   handleSetShowSaveModal(showSaveModal);
                 }}
               >
-                <img
+                {/* <img
                   className="mx-auto min-h-[25px] max-w-[15px]"
                   src="/save_icon.svg"
-                />
-                {/* Save */}
+                /> */}
+                Save
               </button>
             )}
           </div>

@@ -129,6 +129,9 @@ function App() {
           handleSetEnableShadows={menu.handleSetEnableShadows}
           exportOptions={menu.exportOptions}
           handleSetExportOptions={menu.handleSetExportOptions}
+          showSaveModal={menu.showSaveModal}
+          handleSetShowSaveModal={menu.handleSetShowSaveModal}
+          changeDisplayedChart={menu.changeDisplayedChart}
           inputRef={menu.inputRef}
         />
         <MobileHeader />
