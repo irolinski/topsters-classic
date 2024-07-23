@@ -1,14 +1,13 @@
 import { openAccordionOptions, tableModeOptions } from "../../models/models";
 
 type collageSettingsPropTypes = {
-  tableMode: tableModeOptions;
+  tableMode: tableModeOptions | string;
   openAccordion: openAccordionOptions;
   handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
   collageColNum: number;
   handleSetCollageRowNum: (val: number) => void;
   handleSetCollageColNum: (val: number) => void;
-  
 };
 
 const CollageSettings = ({

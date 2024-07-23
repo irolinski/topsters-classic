@@ -1,7 +1,7 @@
 import { tableModeOptions } from "../../models/models";
 
 type selectTableModePropTypes = {
-  tableMode: tableModeOptions;
+  tableMode: tableModeOptions | string;
   handleTableModeChange: (tableMode: tableModeOptions | string) => void;
 };
 

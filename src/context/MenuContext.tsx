@@ -54,7 +54,7 @@ const MenuContextProvider = (props: any) => {
   const [tableMode, setTableMode] = useState<tableModeOptions | string>(
     currentChart.tableMode ?? defaultChart.tableMode,
   );
-  const handleTableModeChange = (modeToSet: tableModeOptions) => {
+  const handleTableModeChange = (modeToSet: tableModeOptions | string) => {
     setTableMode(modeToSet);
     setSelectedIndex(0);
   };
