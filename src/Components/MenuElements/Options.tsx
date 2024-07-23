@@ -32,46 +32,59 @@ const Options = ({
     <>
       <div className="menu-block">
         <div>
-          <div
-            className="open-accordion-btn inline-flex w-full"
+          <button
+            className="no-style open-accordion-btn inline-flex w-full"
             onClick={() => handleOpenAccordion("options")}
+            aria-expanded={openAccordion === "options" ? true : false}
           >
-            <h3 className="font-bold">Options</h3>{" "}
+            <span className="font-bold">Options</span>
             {openAccordion === "options" ? (
-              <button className="no-style mx-4">－</button>
+              <span className="no-style mx-4">－</span>
             ) : (
-              <button className="no-style mx-4">＋</button>
-            )}{" "}
-          </div>{" "}
+              <span className="no-style mx-4">＋</span>
+            )}
+          </button>
           <div
             className={`menu-accordion ${openAccordion === "options" && "open"}`}
           >
             <div className="flex px-4">
-              <h4 className="p-4">Hide album titles:</h4>
+              <h4 className="p-4" id="hide-album-titles-label">
+                Hide album titles:
+              </h4>
               <input
                 className=""
                 type="checkbox"
                 defaultChecked={hideAlbumTitles}
                 onChange={() => handleSetHideAlbumTitles(!hideAlbumTitles)}
+                aria-labelledby="hide-album-titles-label"
+                tabIndex={openAccordion === "option" ? 0 : 1}
               />
             </div>
             <div className="flex px-4 pb-[8px]">
-              <h4 className="p-4">Enable shadows:</h4>
+              <h4 className="p-4" id="enable-shadows-label">
+                Enable shadows:
+              </h4>
               <input
                 className=""
                 type="checkbox"
                 defaultChecked={enableShadows}
                 onChange={() => handleSetEnableShadows(!enableShadows)}
+                aria-labelledby="enable-shadows-label"
+                tabIndex={openAccordion === "option" ? 0 : 1}
               />
             </div>
             <div className="export-options-div px-4 pb-[16px] pt-[8px]">
-              <h4 className="block w-full p-4">Export quality: </h4>
+              <h4 className="block w-full p-4" id="export-quality-label">
+                Export quality:{" "}
+              </h4>
               <select
                 className="ml-8 max-h-12 w-[180px] max-w-full p-1"
                 value={JSON.stringify(exportOptions)}
                 onChange={(evt) => {
                   handleSetExportOptions(JSON.parse(evt.target.value));
                 }}
+                aria-labelledby="export-quality-label"
+                tabIndex={openAccordion === "option" ? 0 : 1}
               >
                 {exportOptionList.map((o: { name: string; value: string }) => {
                   return <option value={o.value}>{o.name}</option>;
@@ -93,7 +106,6 @@ const Options = ({
                         deleteCurrentChart();
                     }}
                   >
-                    {/* // onClick={() => }> */}
                     Delete
                   </button>
                 </div>

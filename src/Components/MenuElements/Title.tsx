@@ -15,19 +15,21 @@ const Title = ({
 }: TitleProps) => {
   return (
     <>
-      {" "}
       <div className="menu-block">
-        <div
-          className="open-accordion-btn inline-flex"
+        <button
+          className="no-style open-accordion-btn inline-flex"
           onClick={() => handleOpenAccordion("titles")}
+          aria-label="Open chart title settings accordion"
+          aria-expanded={openAccordion === "titles" ? true : false}
+          tabIndex={0}
         >
-          <h3 className="w-full font-bold">Title</h3>{" "}
+          <span className="w-full font-bold">Title</span>
           {openAccordion === "titles" ? (
-            <button className="no-style mx-4">－</button>
+            <span className="no-style mx-4">－</span>
           ) : (
-            <button className="no-style mx-4">＋</button>
-          )}{" "}
-        </div>{" "}
+            <span className="no-style mx-4">＋</span>
+          )}
+        </button>
         <div
           className={`menu-accordion ${openAccordion === "titles" && "open"}`}
         >
@@ -43,8 +45,17 @@ const Title = ({
                 onChange={async (evt) =>
                   handleSetChartTitle(evt.currentTarget.value)
                 }
+                aria-label="Set chart header title"
+                tabIndex={openAccordion === "titles" ? 0 : 1}
+                aria-hidden={`${openAccordion !== "titles" ? "true" : "false"}`}
               />
-              <button className="w-1/4" onClick={() => handleSetChartTitle("")}>
+              <button
+                className="w-1/4"
+                onClick={() => handleSetChartTitle("")}
+                aria-label="Erase chart name"
+                tabIndex={openAccordion === "titles" ? 0 : 1}
+                aria-hidden={`${openAccordion !== "titles" ? "true" : "false"}`}
+              >
                 <img
                   className="mx-auto max-h-[15px] min-w-[15px] max-w-[15px] -translate-y-[2.5px]"
                   src="/close_icon.svg"

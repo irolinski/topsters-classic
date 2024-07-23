@@ -7,6 +7,7 @@ type MenuContentProps = {
   drawAlbumToCanvas: (index: number, album: lastFmAlbum) => void;
   openAccordion: string;
   handleOpenAccordion: (selectedAccordion: string) => void;
+  mobileMenuIsOpened: boolean;
 };
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
@@ -16,6 +17,7 @@ const Search = ({
   drawAlbumToCanvas,
   openAccordion,
   handleOpenAccordion,
+  mobileMenuIsOpened,
 }: MenuContentProps) => {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [showLoading, setShowLoading] = useState<string>("");
@@ -59,9 +61,17 @@ const Search = ({
 
   return (
     <>
-      <div className="my-8 flex flex-col border-b pt-4 text-center lg:mt-0 lg:text-left">
-        <h2 className="">Add albums:</h2>
-        <div className="search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full">
+      <div
+        className={`my-8 flex flex-col border-b pt-4 text-center lg:mt-0 lg:text-left`}
+      >
+        <h2 id="add-albums-label">Add albums:</h2>
+        <div
+          className={`search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full ${mobileMenuIsOpened === true && "hidden"}`}
+          aria-labelledby="add-albums-label"
+          role="search"
+          aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
+          tabIndex={mobileMenuIsOpened ? 1 : 0}
+        >
           <input
             className="w-3/4"
             type="text"
@@ -74,12 +84,18 @@ const Search = ({
             }
             onKeyDown={(evt) => preventSpecialChar(evt)}
             onClick={() => handleOpenAccordion("search")}
+            aria-label="Search for albums"
+            aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
+            tabIndex={mobileMenuIsOpened ? 1 : 0}
           />
           <button
             className="w-1/4"
             onClick={() => {
               searchAlbums(searchInputValue), handleOpenAccordion("search");
             }}
+            aria-label="Search input"
+            aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
+            tabIndex={mobileMenuIsOpened ? 1 : 0}
           >
             <img
               className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -92,6 +108,7 @@ const Search = ({
           <div
             className={`search-results-div menu-accordion lg:max-h-[250[x] inline-flex h-[250px] max-h-[70px] overflow-scroll overflow-y-hidden overflow-x-scroll text-center lg:block lg:h-[250px] lg:border-t ${openAccordion === "search" && "open"}`}
             id="search-results-div"
+            aria-expanded={openAccordion === "search" ? true : false}
           >
             {showLoading === "search-results-div" ? (
               <div className="flex h-full flex-col justify-center align-middle">
@@ -99,7 +116,10 @@ const Search = ({
                 <div className="circle-loader-sm mx-auto block lg:hidden"></div>
               </div>
             ) : (
-              <>
+              <div
+                className="flex h-full w-full lg:block"
+                aria-label="Search results box"
+              >
                 {searchResults ? (
                   searchResults.map((a: any) => {
                     if (a.image[1]["#text"]) {
@@ -109,9 +129,14 @@ const Search = ({
                           onClick={() => {
                             drawAlbumToCanvas(selectedIndex, a);
                           }}
+                          aria-label={`Add album ${a.name} by ${a.artist}. Currently adding to the index:${selectedIndex + 1}`}
+                          tabIndex={0}
                         >
                           <div className="justify-start">
-                            <img src={`${a.image[1]["#text"]}`} />
+                            <img
+                              className="hover:cursor-pointer"
+                              src={`${a.image[1]["#text"]}`}
+                            />
                           </div>
                           <div className="ml-2 hidden content-center overflow-hidden lg:block">
                             <span className="font-bold">
@@ -141,7 +166,7 @@ const Search = ({
                     {showErrMsg.message}
                   </span>
                 )}
-              </>
+              </div>
             )}
           </div>
         </div>

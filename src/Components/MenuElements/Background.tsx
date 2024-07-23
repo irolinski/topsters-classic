@@ -39,19 +39,21 @@ const Background = ({
 }: BackgroundTypes) => {
   return (
     <>
-      {" "}
       <div className="menu-block">
-        <div
-          className="open-accordion-btn inline-flex"
+        <button
+          className="no-style open-accordion-btn inline-flex"
           onClick={() => handleOpenAccordion("background")}
+          aria-label="Open background settings accordion"
+          aria-expanded={openAccordion === "background" ? true : false}
+          tabIndex={0}
         >
-          <h3 className="w-full font-bold">Background</h3>{" "}
+          <span className="w-full font-bold">Background</span>
           {openAccordion === "background" ? (
-            <button className="no-style mx-4">－</button>
+            <span className="no-style mx-4">－</span>
           ) : (
-            <button className="no-style mx-4">＋</button>
+            <span className="no-style mx-4">＋</span>
           )}
-        </div>
+        </button>
         <div
           className={`menu-accordion ${openAccordion === "background" && "open"}`}
         >
@@ -63,6 +65,7 @@ const Background = ({
               <button
                 className="close-pop-up-btn absolute right-0"
                 onClick={() => handleOpenPopUp("")}
+                aria-label="close pop-up"
               >
                 &#10005;
               </button>
@@ -81,7 +84,11 @@ const Background = ({
           <div className="flex p-4">
             <h3 className="px-4">Image:</h3>
             {backgroundImg === "" ? (
-              <label className="mr-8 h-4 w-8" htmlFor="file-input-desktop">
+              <label
+                className="mr-8 h-4 w-8"
+                htmlFor="file-input-desktop"
+                tabIndex={1}
+              >
                 <input
                   className="absolute my-[-20px] h-0 w-0 opacity-0"
                   type="file"
@@ -92,14 +99,19 @@ const Background = ({
                       URL.createObjectURL(evt.target.files![0]),
                     )
                   }
+                  tabIndex={openAccordion === "background" ? 0 : 1}
+
                 />
                 <button
                   className="h-[35px] w-[60px]"
                   onClick={() => inputRef.current?.click()}
+                  tabIndex={openAccordion === "background" ? 0 : 1}
+                  aria-label="Upload background image button"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
                     src="/upload_icon.svg"
+                    tabIndex={1}
                   />
                 </button>
               </label>
@@ -108,7 +120,8 @@ const Background = ({
                 <button
                   className="mr-2 h-[35px] w-[60px]"
                   name="Remove image"
-                  onClick={() => handleSetBackgroundImg("")}
+                    onClick={() => handleSetBackgroundImg("")}
+                    
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"

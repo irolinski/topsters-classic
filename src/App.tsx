@@ -143,6 +143,7 @@ function App() {
             drawAlbumToCanvas={menu.drawAlbumToCanvas}
             openAccordion={menu.openAccordion}
             handleOpenAccordion={menu.handleOpenAccordion}
+            mobileMenuIsOpened={menu.mobileMenuIsOpened}
           />
         </div>
         {/* MENU DESKTOP */}
@@ -274,6 +275,7 @@ function App() {
       <FooterMobile
         showAboutModal={menu.showAboutModal}
         handleSetShowAboutModal={menu.handleSetShowAboutModal}
+        mobileMenuIsOpened={menu.mobileMenuIsOpened}
       />
     </div>
   );

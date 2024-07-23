@@ -33,32 +33,35 @@ const Font = ({
     <>
       <div className="menu-block">
         <div>
-          <div
-            className="open-accordion-btn inline-flex w-full"
+          <button
+            className="no-style open-accordion-btn inline-flex w-full"
             onClick={() => handleOpenAccordion("font")}
+            aria-label="Open font settings accordion"
+            aria-expanded={openAccordion === "font" ? true : false}
           >
-            <h3 className="font-bold">Font</h3>{" "}
+            <span className="font-bold">Font</span>
             {openAccordion === "font" ? (
-              <button className="no-style mx-4">－</button>
+              <span className="no-style mx-4">－</span>
             ) : (
-              <button className="no-style mx-4">＋</button>
-            )}{" "}
-          </div>{" "}
+              <span className="no-style mx-4">＋</span>
+            )}
+          </button>
           <div
             className={`menu-accordion ${openAccordion === "font" && "open"}`}
           >
             <div className="px-4">
-              <h4 className="block w-full p-4">Family: </h4>
+              <span className="block w-full p-4">Family: </span>
               <select
                 className="ml-8 max-h-12 w-[180px] max-w-full p-1"
                 value={fontFamily}
                 onChange={(evt) => handleSetFontFamily(evt.target.value)}
+                aria-label="Choose font family"
+                tabIndex={openAccordion === "font" ? 0 : 1}
               >
                 <>
                   {fontList.map((style: { name: string; fonts: string[] }) => {
                     return (
                       <>
-                        {" "}
                         <option disabled> --- {style.name} --- </option>
                         <>
                           {style.fonts.map((font: string) => {
@@ -76,7 +79,7 @@ const Font = ({
               <div className="inline-flex p-4 px-8 lg:px-4">
                 <h4 className="px-4"> Header Color: </h4>
                 <div
-                  className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up fixed right-0 top-1/3 flex scale-50 flex-col justify-center  sm:right-auto sm:top-auto`}
+                  className={`${openMenuPopUp !== "font-header" && "hidden"} color-picker-div font-menu-pop-up fixed right-0 top-1/3 flex scale-50 flex-col justify-center sm:right-auto sm:top-auto`}
                 >
                   <div>
                     <button

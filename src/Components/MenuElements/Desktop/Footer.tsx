@@ -13,6 +13,7 @@ const Footer = ({showAboutModal ,handleSetShowAboutModal }: footerPropTypes) => 
         <button
           className="no-style ml-4 font-bold"
           onClick={() => handleSetShowAboutModal(!showAboutModal)}
+          aria-label="Open 'about' modal"
         >
           About
         </button>

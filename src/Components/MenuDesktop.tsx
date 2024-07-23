@@ -56,7 +56,10 @@ const MenuDesktop = ({
 }: DesktopMenuPropTypes) => {
   return (
     <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
-      <section className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex">
+      <section
+        className="menu-wrapper desktop relative hidden flex-col px-16 lg:flex"
+        role="menu"
+      >
         <Logo />
         <div className="menu-content max-h-[70%] overflow-scroll">
           <SelectDisplayChart
@@ -137,6 +140,7 @@ const MenuDesktop = ({
                   exportOptions,
                 );
               }}
+              aria-label="Export chart"
             >
               Export
             </button>
@@ -146,6 +150,7 @@ const MenuDesktop = ({
                 onClick={() => {
                   handleSetShowSaveModal(showSaveModal);
                 }}
+                aria-label="Save chart in browser storage"
               >
                 {/* <img
                   className="mx-auto min-h-[25px] max-w-[15px]"

@@ -44,10 +44,11 @@
     }
     &:focus {
       opacity: 80%;
+      border: 0.5px dashed;
     }
   }
 
-  .select-chart-display-input{
+  .select-chart-display-input {
     border: 1px solid transparent;
   }
 
@@ -69,23 +70,17 @@
       padding: 8px;
       border-bottom: 1px solid;
       max-height: 50px;
-
-      &:hover {
-        cursor: pointer;
-      }
-
-      &:focus {
-        opacity: 0.8;
-      }
-
       img {
         width: 64px;
         max-width: 50px;
         max-height: 50px;
+
       }
+      
       &:hover,
       &:focus {
-        opacity: 0.9;
+        cursor: pointer;
+        opacity: 0.8;
         background-color: #ffffff21;
       }
     }

@@ -49,16 +49,28 @@ const MenuMobile = ({
 }: MobileMenuPropTypes) => {
   return (
     <div
-      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} xxs:px-[10vw] py-[5vh] xxs:py-[10vh] lg:hidden`}
+      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} py-[5vh] xxs:px-[10vw] xxs:py-[10vh] lg:hidden`}
+      tabIndex={0}
+      aria-modal="true"
+      role="menu"
+      autoFocus
     >
       <button
         className="fixed right-0 top-0 z-10"
-        onClick={() => handleSetMobileMenuIsOpened(mobileMenuIsOpened)}
+        onClick={() => {
+          handleSetMobileMenuIsOpened(mobileMenuIsOpened);
+        }}
+        aria-label="close mobile menu"
+        tabIndex={0}
       >
         &#10005;
       </button>
-      <section className="menu-wrapper flex max-h-[100vh] flex-col justify-center p-12">
-        <div className="relative h-full overflow-scroll">
+      <section
+        className="menu-wrapper z-20 flex max-h-[100vh] flex-col justify-center p-12"
+        role="menu"
+      >
+        <div className="relative h-full overflow-scroll"
+        >
           <SelectDisplayChart
             tableMode={tableMode}
             changeDisplayedChart={changeDisplayedChart}
@@ -127,6 +139,7 @@ const MenuMobile = ({
             <button
               className="export-button my-8 min-w-[66%]"
               onClick={() => handleSetMobileMenuIsOpened(mobileMenuIsOpened)}
+              aria-label="Close mobile menu"
             >
               Return
             </button>
@@ -136,6 +149,7 @@ const MenuMobile = ({
                 onClick={() => {
                   handleSetShowSaveModal(showSaveModal);
                 }}
+                aria-label="Save chart in browser storage"
               >
                 Save
                 {/* <img

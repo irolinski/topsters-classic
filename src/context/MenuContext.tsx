@@ -20,14 +20,7 @@ const MenuContextProvider = (props: any) => {
     window.location.reload();
   };
 
-
   // menu navigation states
-  const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
-  const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
-    setMobileMenuIsOpened(!mobileMenuIsOpened);
-    setRefresh(true);
-    setRefresh(!refresh);
-  };
   const [openAccordion, setOpenAccordion] = useState<string>("");
 
   const closeAllWindows = () => {
@@ -239,13 +232,25 @@ const MenuContextProvider = (props: any) => {
     setExportOptions(options);
   };
 
+  // // mobile menu ref
+  // const firstMobileMenuElRef: MutableRefObject<HTMLInputElement | null> =
+  //   useRef(null);
+
+  //mobile menu modal
+  const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
+  const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
+    setMobileMenuIsOpened(!mobileMenuIsOpened);
+  };
+
   // save modal
   const [showSaveModal, setShowSaveModal] = useState(false);
-  const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal)
+  const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal);
 
   // about modal
   const [showAboutModal, setShowAboutModal] = useState(false);
   const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
+
+  
 
   return (
     <MenuContext.Provider

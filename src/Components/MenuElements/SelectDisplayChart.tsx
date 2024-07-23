@@ -3,33 +3,49 @@ type MenuContentProps = {
   changeDisplayedChart: (chartName: string) => void;
 };
 
-const SelectDisplayChart = ({ changeDisplayedChart }: MenuContentProps) => {
+const SelectDisplayChart = ({
+  changeDisplayedChart,
+}: MenuContentProps) => {
   const savedCharts = Object.keys({ ...localStorage });
 
   const currentChartName: string =
     sessionStorage.getItem("selectedChart") ?? "{}";
   return (
     <>
-      <div className="inline-flex w-[250px] min-w-[66%] border-b pb-8 lg:border-none lg:pb-4">
-        <h2 className="pr-4">Display:</h2>
+      <div
+        className="inline-flex w-[250px] min-w-[66%] border-b pb-8 lg:border-none lg:pb-4"
+        tabIndex={-1}
+      >
+        <h2 className="pr-4" id="display-chart-label">
+          Display:
+        </h2>
         <select
-          className="max-w-[150px] select-chart-display-input"
+          className="select-chart-display-input max-w-[150px]"
           value={currentChartName}
           onChange={(evt) => {
             changeDisplayedChart(evt.target.value);
           }}
+          aria-label="select chart to display"
         >
           <>
             {savedCharts[1] ? (
               <>
-                <option disabled> Create a new chart: </option>
-                <option value="newChart">New chart</option>
-                <option disabled> -------------- </option>
+                <option disabled id="new-chart-label">
+                  {" "}
+                  Create a new chart:{" "}
+                </option>
+                <option value="newChart" aria-label="create a new chart">
+                  New chart
+                </option>
+                <option disabled aria-hidden="true">
+                  {" "}
+                  --------------{" "}
+                </option>
                 <option disabled> Load saved charts: </option>
                 {savedCharts.map((ch: string) => {
                   if (ch !== "newChart") {
                     return (
-                      <option className="" value={ch}>
+                      <option className="" value={ch} aria-label="load-chart">
                         {ch}
                       </option>
                     );
