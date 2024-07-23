@@ -26,3 +26,7 @@ export type chartSavedData = {
   top100Data?: lastFmAlbum[] | Record<string, never>[];
   collageData?: lastFmAlbum[] | Record<string, never>[];
 };
+
+//
+
+export type openModalOptions = "mobileMenu" | "save" | "about" | ""

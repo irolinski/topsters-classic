@@ -10,8 +10,6 @@ import SelectTableMode from "./MenuElements/SelectTableMode";
 const MenuMobile = ({
   tableMode,
   handleTableModeChange,
-  mobileMenuIsOpened,
-  handleSetMobileMenuIsOpened,
   openAccordion,
   handleOpenAccordion,
   collageRowNum,
@@ -42,14 +40,14 @@ const MenuMobile = ({
   handleSetEnableShadows,
   exportOptions,
   handleSetExportOptions,
-  showSaveModal,
-  handleSetShowSaveModal,
+  openModal,
+  handleSetOpenModal,
   changeDisplayedChart,
   inputRef,
 }: MobileMenuPropTypes) => {
   return (
     <div
-      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] ${mobileMenuIsOpened ? "block" : "hidden"} py-[5vh] xxs:px-[10vw] xxs:py-[10vh] lg:hidden`}
+      className={`mobile-menu-modal fixed z-20 max-h-[100vh] min-w-[100vw] ${openModal === "mobileMenu" ? "block" : "hidden"} py-[5vh] xxs:px-[10vw] xxs:py-[10vh] lg:hidden`}
       tabIndex={0}
       aria-modal="true"
       role="menu"
@@ -58,7 +56,7 @@ const MenuMobile = ({
       <button
         className="fixed right-0 top-0 z-10"
         onClick={() => {
-          handleSetMobileMenuIsOpened(mobileMenuIsOpened);
+          handleSetOpenModal("");
         }}
         aria-label="close mobile menu"
         tabIndex={0}
@@ -69,8 +67,7 @@ const MenuMobile = ({
         className="menu-wrapper z-20 flex max-h-[100vh] flex-col justify-center p-12"
         role="menu"
       >
-        <div className="relative h-full overflow-scroll"
-        >
+        <div className="relative h-full overflow-scroll">
           <SelectDisplayChart
             tableMode={tableMode}
             changeDisplayedChart={changeDisplayedChart}
@@ -138,7 +135,7 @@ const MenuMobile = ({
           <div className="inline-flex w-full justify-center">
             <button
               className="export-button my-8 min-w-[66%]"
-              onClick={() => handleSetMobileMenuIsOpened(mobileMenuIsOpened)}
+              onClick={() => handleSetOpenModal("")}
               aria-label="Close mobile menu"
             >
               Return
@@ -147,7 +144,7 @@ const MenuMobile = ({
               <button
                 className="export-button mx-4 my-8 w-1/2"
                 onClick={() => {
-                  handleSetShowSaveModal(showSaveModal);
+                  handleSetOpenModal("save");
                 }}
                 aria-label="Save chart in browser storage"
               >

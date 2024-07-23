@@ -1,5 +1,5 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
-import { lastFmAlbum } from "../models/models";
+import { lastFmAlbum, openModalOptions } from "../models/models";
 import { defaultChart } from "../assets/emptyCharts";
 
 export const MenuContext = createContext<any>([[], () => null]);
@@ -237,26 +237,28 @@ const MenuContextProvider = (props: any) => {
   //   useRef(null);
 
   //mobile menu modal
-  const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
-  const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
-    setMobileMenuIsOpened(!mobileMenuIsOpened);
-  };
+  // const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
+  // const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
+  //   setMobileMenuIsOpened(!mobileMenuIsOpened);
+  // };
 
   // save modal
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal);
+  // const [showSaveModal, setShowSaveModal] = useState(false);
+  // const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal);
 
   // about modal
-  const [showAboutModal, setShowAboutModal] = useState(false);
-  const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
+  // const [showAboutModal, setShowAboutModal] = useState(false);
+  // const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
 
   
+  const [openModal, setOpenModal] = useState<openModalOptions>("");
+  const handleSetOpenModal = (modalToOpen: openModalOptions) => {setOpenModal(modalToOpen)}
 
   return (
     <MenuContext.Provider
       value={{
-        mobileMenuIsOpened,
-        handleSetMobileMenuIsOpened,
+        // mobileMenuIsOpened,
+        // handleSetMobileMenuIsOpened,
         openAccordion,
         closeAllWindows,
         handleOpenAccordion,
@@ -303,10 +305,8 @@ const MenuContextProvider = (props: any) => {
         exportRef,
         exportOptions,
         handleSetExportOptions,
-        showSaveModal,
-        handleSetShowSaveModal,
-        showAboutModal,
-        handleSetShowAboutModal,
+        openModal,
+        handleSetOpenModal,
         currentChart,
         changeDisplayedChart,
       }}

@@ -1,11 +1,9 @@
 import { MutableRefObject } from "react";
-import { chartSavedData, lastFmAlbum } from "./models";
+import { chartSavedData, lastFmAlbum, openModalOptions } from "./models";
 
 export type MobileMenuPropTypes = {
   tableMode: string;
   handleTableModeChange: (tableMode: string) => void;
-  mobileMenuIsOpened: boolean;
-  handleSetMobileMenuIsOpened: (mobileMenu: boolean) => void;
   openAccordion: string;
   handleOpenAccordion: (selectedAccordion: string) => void;
   collageRowNum: number;
@@ -40,8 +38,6 @@ export type MobileMenuPropTypes = {
   enableShadows: boolean;
   handleSetEnableShadows: (isTrue: boolean) => void;
   exportOptions: { format: string; quality: number };
-  showSaveModal: boolean;
-  handleSetShowSaveModal: (showSaveModal: boolean) => void;
   changeDisplayedChart: () => void;
   handleSetExportOptions: ({
     format,
@@ -50,13 +46,13 @@ export type MobileMenuPropTypes = {
     format: string;
     quality: number;
   }) => void;
+  openModal: openModalOptions;
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };
 
 export type DesktopMenuPropTypes = {
   tableMode: string;
   handleTableModeChange: (tableMode: string) => void;
-  mobileMenuIsOpened: boolean;
-  handleSetMobileMenuIsOpened: (mobileMenu: boolean) => void;
   openAccordion: string;
   handleOpenAccordion: (selectedAccordion: string) => void;
   collageRowNum: number;
@@ -100,12 +96,10 @@ export type DesktopMenuPropTypes = {
   }) => void;
   drawAlbumToCanvas: (index: number, album: lastFmAlbum) => void;
   exportRef: MutableRefObject<HTMLInputElement | null>;
-  showAboutModal: boolean;
-  handleSetShowAboutModal: (showAboutModal: boolean) => void;
-  showSaveModal: boolean;
-  handleSetShowSaveModal: (showSaveModal: boolean) => void;
   selectedIndex: number;
   currentChart: chartSavedData;
   currentChartName: string;
   changeDisplayedChart: (chartName: string) => void;
+  openModal: openModalOptions;
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };

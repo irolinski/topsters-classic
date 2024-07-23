@@ -47,11 +47,9 @@ const MenuDesktop = ({
   inputRef,
   selectedIndex,
   drawAlbumToCanvas,
+  openModal,
+  handleSetOpenModal,
   exportRef,
-  showAboutModal,
-  handleSetShowAboutModal,
-  showSaveModal,
-  handleSetShowSaveModal,
   changeDisplayedChart,
 }: DesktopMenuPropTypes) => {
   return (
@@ -71,6 +69,7 @@ const MenuDesktop = ({
             drawAlbumToCanvas={drawAlbumToCanvas}
             openAccordion={openAccordion}
             handleOpenAccordion={handleOpenAccordion}
+            openModal={openModal}
           />
           <SelectTableMode
             tableMode={tableMode}
@@ -148,7 +147,7 @@ const MenuDesktop = ({
               <button
                 className="export-button mx-4 my-8 w-1/3"
                 onClick={() => {
-                  handleSetShowSaveModal(showSaveModal);
+                  handleSetOpenModal("save");
                 }}
                 aria-label="Save chart in browser storage"
               >
@@ -161,10 +160,7 @@ const MenuDesktop = ({
             )}
           </div>
         </div>
-        <Footer
-          showAboutModal={showAboutModal}
-          handleSetShowAboutModal={handleSetShowAboutModal}
-        />
+        <Footer handleSetOpenModal={handleSetOpenModal} />
       </section>
     </div>
   );

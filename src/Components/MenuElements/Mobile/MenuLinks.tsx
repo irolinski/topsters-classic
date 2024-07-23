@@ -1,29 +1,30 @@
 import { MutableRefObject } from "react";
 import { exportAsImage } from "../../../utils/downloadImage";
+import { openModalOptions } from "../../../models/models";
 
 type MenuLinksPropTypes = {
-  mobileMenuIsOpened: boolean;
-  handleSetMobileMenuIsOpened: (mobileMenuIsOpened: boolean) => void;
+  openModal: openModalOptions;
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
   exportRef: MutableRefObject<HTMLInputElement | null>;
   exportOptions: { format: string; quality: number };
 };
 
 const MenuLinks = ({
-  mobileMenuIsOpened,
-  handleSetMobileMenuIsOpened,
+  openModal,
+  handleSetOpenModal,
   exportRef,
   exportOptions,
 }: MenuLinksPropTypes) => {
   return (
     <div
-      className={`mobile-menu flex w-full justify-center lg:hidden ${mobileMenuIsOpened === true && "hidden"}`}
+      className={`mobile-menu flex w-full justify-center lg:hidden ${openModal !== "" && "hidden"}`}
     >
       <button
         className="m-2"
-        onClick={() => handleSetMobileMenuIsOpened(mobileMenuIsOpened)}
+        onClick={() => handleSetOpenModal("mobileMenu")}
         aria-label="Open mobile menu"
-        tabIndex={mobileMenuIsOpened ? 1 : 0}
-        aria-hidden={`${mobileMenuIsOpened && "true"}`}
+        tabIndex={openModal !== "" ? 1 : 0}
+        aria-hidden={`${openModal !== "" ? "true" : "false"}`}
       >
         Customize
       </button>
@@ -33,8 +34,8 @@ const MenuLinks = ({
           exportAsImage(exportRef.current, "title", exportOptions);
         }}
         aria-label="Download chart"
-        tabIndex={mobileMenuIsOpened ? 1 : 0}
-        aria-hidden={`${mobileMenuIsOpened && "true"}`}
+        tabIndex={openModal !== "" ? 1 : 0}
+        aria-hidden={`${openModal !== "" ? "true" : "false"}`}
       >
         Export
       </button>

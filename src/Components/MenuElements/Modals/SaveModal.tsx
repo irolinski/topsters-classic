@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { saveCurrentChart } from "../../../utils/chartCRUD";
 import { preventSpecialChar } from "../../../utils/preventSpecialChars";
+import { openModalOptions } from "../../../models/models";
 
 type saveModalPropTypes = {
-  showSaveModal: boolean;
-  handleSetShowSaveModal: (showSaveModal: boolean) => void;
+  openModal: openModalOptions
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };
 
 const SaveModal = ({
-  showSaveModal,
-  handleSetShowSaveModal,
+  openModal,
+  handleSetOpenModal,
 }: saveModalPropTypes) => {
   const allChartNames = Object.keys(localStorage);
 
@@ -29,12 +30,12 @@ const SaveModal = ({
   return (
     <>
       <div
-        className={`about-modal fixed z-30 block h-full w-full ${showSaveModal ? "block" : "hidden"}`}
+        className={`about-modal fixed z-30 block h-full w-full ${openModal === "save" ? "block" : "hidden"}`}
       >
         <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[55vw] xl:w-[50vw]">
           <button
             className="no-style absolute right-0 top-0 m-4 p-4"
-            onClick={() => handleSetShowSaveModal(!showSaveModal)}
+            onClick={() => handleSetOpenModal("")}
           >
             &#10005;
           </button>

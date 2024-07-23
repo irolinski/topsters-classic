@@ -86,20 +86,18 @@ function App() {
       <main className="flex flex-wrap justify-center lg:block">
         {/* MODAL - SAVE CHART */}
         <SaveModal
-          showSaveModal={menu.showSaveModal}
-          handleSetShowSaveModal={menu.handleSetShowSaveModal}
+          openModal={menu.openModal}
+          handleSetOpenModal={menu.handleSetOpenModal}
         />
         {/* MODAL - ABOUT */}
         <AboutModal
-          showAboutModal={menu.showAboutModal}
-          handleSetShowAboutModal={menu.handleSetShowAboutModal}
+          openModal={menu.openModal}
+          handleSetOpenModal={menu.handleSetOpenModal}
         />
         {/* MOBILE MENU */}
         <MenuMobile
           tableMode={menu.tableMode}
           handleTableModeChange={menu.handleTableModeChange}
-          mobileMenuIsOpened={menu.mobileMenuIsOpened}
-          handleSetMobileMenuIsOpened={menu.handleSetMobileMenuIsOpened}
           openAccordion={menu.openAccordion}
           handleOpenAccordion={menu.handleOpenAccordion}
           collageRowNum={menu.collageRowNum}
@@ -130,9 +128,9 @@ function App() {
           handleSetEnableShadows={menu.handleSetEnableShadows}
           exportOptions={menu.exportOptions}
           handleSetExportOptions={menu.handleSetExportOptions}
-          showSaveModal={menu.showSaveModal}
-          handleSetShowSaveModal={menu.handleSetShowSaveModal}
           changeDisplayedChart={menu.changeDisplayedChart}
+          openModal={menu.openModal}
+          handleSetOpenModal={menu.handleSetOpenModal}
           inputRef={menu.inputRef}
         />
         <MobileHeader />
@@ -143,7 +141,7 @@ function App() {
             drawAlbumToCanvas={menu.drawAlbumToCanvas}
             openAccordion={menu.openAccordion}
             handleOpenAccordion={menu.handleOpenAccordion}
-            mobileMenuIsOpened={menu.mobileMenuIsOpened}
+            openModal={menu.openModal}
           />
         </div>
         {/* MENU DESKTOP */}
@@ -151,8 +149,8 @@ function App() {
           <MenuDesktop
             tableMode={menu.tableMode}
             handleTableModeChange={menu.handleTableModeChange}
-            mobileMenuIsOpened={menu.mobileMenuIsOpened}
-            handleSetMobileMenuIsOpened={menu.handleSetMobileMenuIsOpened}
+            openModal={menu.openModal}
+            handleSetOpenModal={menu.handleSetOpenModal}
             openAccordion={menu.openAccordion}
             handleOpenAccordion={menu.handleOpenAccordion}
             collageRowNum={menu.collageRowNum}
@@ -187,10 +185,6 @@ function App() {
             selectedIndex={menu.selectedIndex}
             drawAlbumToCanvas={menu.drawAlbumToCanvas}
             exportRef={menu.exportRef}
-            showAboutModal={menu.showAboutModal}
-            handleSetShowAboutModal={menu.handleSetShowAboutModal}
-            showSaveModal={menu.showSaveModal}
-            handleSetShowSaveModal={menu.handleSetShowSaveModal}
             currentChart={menu.currentChart}
             currentChartName={menu.currentChart.name}
             changeDisplayedChart={menu.changeDisplayedChart}
@@ -266,16 +260,15 @@ function App() {
           </div>
         </div>
         <MenuLinks
-          mobileMenuIsOpened={menu.mobileMenuIsOpened}
-          handleSetMobileMenuIsOpened={menu.handleSetMobileMenuIsOpened}
+          openModal={menu.openModal}
+          handleSetOpenModal={menu.handleSetOpenModal}
           exportRef={menu.exportRef}
           exportOptions={menu.exportOptions}
         />
       </main>
       <FooterMobile
-        showAboutModal={menu.showAboutModal}
-        handleSetShowAboutModal={menu.handleSetShowAboutModal}
-        mobileMenuIsOpened={menu.mobileMenuIsOpened}
+        openModal={menu.openModal}
+        handleSetOpenModal={menu.handleSetOpenModal}
       />
     </div>
   );

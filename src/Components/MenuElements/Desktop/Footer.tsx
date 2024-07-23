@@ -1,9 +1,10 @@
+import { openModalOptions } from "../../../models/models";
+
 type footerPropTypes = {
-  showAboutModal: boolean;
-  handleSetShowAboutModal: (showAboutModal: boolean) => void;
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };
 
-const Footer = ({showAboutModal ,handleSetShowAboutModal }: footerPropTypes) => {
+const Footer = ({ handleSetOpenModal }: footerPropTypes) => {
   return (
     <footer className="desktop-footer absolute bottom-0 left-0 flex w-full p-[24px]">
       <div className="w-full p-[24px] pt-[36px]">
@@ -12,7 +13,7 @@ const Footer = ({showAboutModal ,handleSetShowAboutModal }: footerPropTypes) => 
         </span>
         <button
           className="no-style ml-4 font-bold"
-          onClick={() => handleSetShowAboutModal(!showAboutModal)}
+          onClick={() => handleSetOpenModal("about")}
           aria-label="Open 'about' modal"
         >
           About

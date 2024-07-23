@@ -1,21 +1,20 @@
+import { openModalOptions } from "../../../models/models";
+
 type aboutModalPropTypes = {
-  showAboutModal: boolean;
-  handleSetShowAboutModal: (showAboutModal: boolean) => void;
+  openModal: openModalOptions;
+  handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };
 
-const AboutModal = ({
-  showAboutModal,
-  handleSetShowAboutModal,
-}: aboutModalPropTypes) => {
+const AboutModal = ({ openModal, handleSetOpenModal }: aboutModalPropTypes) => {
   return (
     <>
       <div
-        className={`about-modal fixed z-30 block h-full w-full ${showAboutModal ? "block" : "hidden"}`}
+        className={`about-modal fixed z-30 block h-full w-full ${openModal === "about" ? "block" : "hidden"}`}
       >
         <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[60vw] xl:w-[55vw]">
           <button
             className="no-style absolute right-0 top-0 m-4 p-4"
-            onClick={() => handleSetShowAboutModal(!showAboutModal)}
+            onClick={() => handleSetOpenModal("")}
           >
             &#10005;
           </button>

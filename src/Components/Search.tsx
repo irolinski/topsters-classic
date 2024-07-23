@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { lastFmAlbum } from "../models/models";
+import { lastFmAlbum, openModalOptions } from "../models/models";
 import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type MenuContentProps = {
@@ -7,7 +7,7 @@ type MenuContentProps = {
   drawAlbumToCanvas: (index: number, album: lastFmAlbum) => void;
   openAccordion: string;
   handleOpenAccordion: (selectedAccordion: string) => void;
-  mobileMenuIsOpened: boolean;
+  openModal: openModalOptions;
 };
 
 const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
@@ -17,7 +17,7 @@ const Search = ({
   drawAlbumToCanvas,
   openAccordion,
   handleOpenAccordion,
-  mobileMenuIsOpened,
+  openModal,
 }: MenuContentProps) => {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [showLoading, setShowLoading] = useState<string>("");
@@ -66,11 +66,11 @@ const Search = ({
       >
         <h2 id="add-albums-label">Add albums:</h2>
         <div
-          className={`search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full ${mobileMenuIsOpened === true && "hidden"}`}
+          className={`search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full ${openModal !== "" && "hidden"}`}
           aria-labelledby="add-albums-label"
           role="search"
-          aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
-          tabIndex={mobileMenuIsOpened ? 1 : 0}
+          aria-hidden={`${openModal !== "" && "true"}`}
+          tabIndex={openModal !== "" ? 1 : 0}
         >
           <input
             className="w-3/4"
@@ -85,8 +85,8 @@ const Search = ({
             onKeyDown={(evt) => preventSpecialChar(evt)}
             onClick={() => handleOpenAccordion("search")}
             aria-label="Search for albums"
-            aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
-            tabIndex={mobileMenuIsOpened ? 1 : 0}
+            aria-hidden={`${openModal !== "" && "true"}`}
+            tabIndex={openModal !== "" ? 1 : 0}
           />
           <button
             className="w-1/4"
@@ -94,8 +94,8 @@ const Search = ({
               searchAlbums(searchInputValue), handleOpenAccordion("search");
             }}
             aria-label="Search input"
-            aria-hidden={`${mobileMenuIsOpened === true && "true"}`}
-            tabIndex={mobileMenuIsOpened ? 1 : 0}
+            aria-hidden={`${openModal !== "" && "true"}`}
+            tabIndex={openModal !== "" ? 1 : 0}
           >
             <img
               className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
