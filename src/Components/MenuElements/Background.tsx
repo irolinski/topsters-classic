@@ -1,12 +1,13 @@
 import { MutableRefObject } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
+import { openAccordionOptions, openPopUpOptions } from "../../models/models";
 
 type BackgroundTypes = {
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
-  openMenuPopUp: string;
-  handleOpenPopUp: (selectedPopUp: string) => void;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
+  openMenuPopUp: openPopUpOptions;
+  handleOpenPopUp: (selectedPopUp: openPopUpOptions) => void;
   backgroundColor: string;
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;

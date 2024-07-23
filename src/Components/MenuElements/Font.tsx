@@ -1,14 +1,15 @@
 import { HexColorPicker } from "react-colorful";
 import fontList from "../../assets/fontList";
 import invert from "invert-color";
+import { openAccordionOptions, openPopUpOptions } from "../../models/models";
 
 type fontPropTypes = {
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
-  openMenuPopUp: string;
-  handleOpenPopUp: (selectedPopUp: string) => void;
+  openMenuPopUp: openPopUpOptions;
+  handleOpenPopUp: (selectedPopUp: openPopUpOptions) => void;
   fontColorHeader: string;
   handleSetFontColorHeader: (newColor: string) => void;
   fontColorBody: string;

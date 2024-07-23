@@ -1,19 +1,26 @@
 import { MutableRefObject } from "react";
-import { chartSavedData, lastFmAlbum, openModalOptions } from "./models";
+import {
+  chartSavedData,
+  lastFmAlbum,
+  openAccordionOptions,
+  openModalOptions,
+  openPopUpOptions,
+  tableModeOptions,
+} from "./models";
 
 export type MobileMenuPropTypes = {
-  tableMode: string;
-  handleTableModeChange: (tableMode: string) => void;
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  tableMode: tableModeOptions;
+  handleTableModeChange: (tableMode: tableModeOptions) => void;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
   collageColNum: number;
   handleSetCollageRowNum: (val: number) => void;
   handleSetCollageColNum: (val: number) => void;
   chartTitle: string;
   handleSetChartTitle: (newTitle: string) => void;
-  openMenuPopUp: string;
-  handleOpenPopUp: (selectedPopUp: string) => void;
+  openMenuPopUp: openPopUpOptions;
+  handleOpenPopUp: (selectedPopUp: openPopUpOptions) => void;
   backgroundColor: string;
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;
@@ -51,18 +58,18 @@ export type MobileMenuPropTypes = {
 };
 
 export type DesktopMenuPropTypes = {
-  tableMode: string;
-  handleTableModeChange: (tableMode: string) => void;
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  tableMode: tableModeOptions;
+  handleTableModeChange: (tableMode: tableModeOptions) => void;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
   collageColNum: number;
   handleSetCollageRowNum: (val: number) => void;
   handleSetCollageColNum: (val: number) => void;
   chartTitle: string;
   handleSetChartTitle: (newTitle: string) => void;
-  openMenuPopUp: string;
-  handleOpenPopUp: (selectedPopUp: string) => void;
+  openMenuPopUp: openPopUpOptions;
+  handleOpenPopUp: (selectedPopUp: openPopUpOptions) => void;
   backgroundColor: string;
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;

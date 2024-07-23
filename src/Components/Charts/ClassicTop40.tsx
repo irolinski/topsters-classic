@@ -6,7 +6,7 @@ type Top40Props = {
   exportRef: any;
   top40Data: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
-  changeIndex: any;
+  changeIndex: (newIndex: number) => void;
   chartDirty: boolean;
   chartTitle: string;
   hideAlbumTitles: boolean;
@@ -81,8 +81,6 @@ const ClassicTop40 = ({
 
   const canvasScaleValue: number = windowSize.width! / canvasScaleDivisior; //original width + sth for there to be a margin
   const marginValue = canvasScaleValue - 1;
-  // console.log(canvasScaleDivisior);
-  // console.log(windowSize.width);
   return (
     <div className={`max-h-0 ${chartTitle && "-translate-y-[20px]"}`}>
       {/* UI canvas */}

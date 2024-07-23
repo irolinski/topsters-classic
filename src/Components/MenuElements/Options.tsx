@@ -1,9 +1,10 @@
 import exportOptionList from "../../assets/exportOptionList";
+import { openAccordionOptions } from "../../models/models";
 import { deleteCurrentChart } from "../../utils/chartCRUD";
 
 type optionPropTypes = {
   openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   hideAlbumTitles: boolean;
   handleSetHideAlbumTitles: (isTrue: boolean) => void;
   enableShadows: boolean;

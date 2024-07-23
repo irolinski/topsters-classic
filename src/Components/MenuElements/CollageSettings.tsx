@@ -1,7 +1,9 @@
+import { openAccordionOptions, tableModeOptions } from "../../models/models";
+
 type collageSettingsPropTypes = {
-  tableMode: string;
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  tableMode: tableModeOptions;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
   collageColNum: number;
   handleSetCollageRowNum: (val: number) => void;

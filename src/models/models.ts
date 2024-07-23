@@ -1,5 +1,3 @@
-import { MutableRefObject } from "react";
-
 export type lastFmAlbum = {
   name?: string;
   artist: string;
@@ -27,6 +25,18 @@ export type chartSavedData = {
   collageData?: lastFmAlbum[] | Record<string, never>[];
 };
 
-//
 
-export type openModalOptions = "mobileMenu" | "save" | "about" | ""
+export type openModalOptions = "mobileMenu" | "save" | "about" | "";
+
+export type openAccordionOptions =
+  | "search"
+  | "background"
+  | "titles"
+  | "collage-settings"
+  | "font"
+  | "options"
+  | "";
+
+export type tableModeOptions = "collage" | "top40" | "top100";
+
+export type openPopUpOptions = "background" | "background-position" | "font-header" |"font-body" | ""

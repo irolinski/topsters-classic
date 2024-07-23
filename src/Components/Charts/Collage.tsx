@@ -8,7 +8,7 @@ type CollageProps = {
   collageRowNum: number;
   collageColNum: number;
   selectedIndex: number;
-  changeIndex: any;
+  changeIndex: (newIndex: number) => void;
   chartDirty: boolean;
   chartTitle: string;
   hideAlbumTitles: boolean;
@@ -50,7 +50,6 @@ const Collage = ({
 }: CollageProps) => {
   // collage options
   const collageProd = collageRowNum * collageColNum;
-  // console.log(`${collageRowNum} and ${collageColNum}`);
 
   //auto scale
   const [canvasScaleDivisior, setCanvasScaleDivisior] = useState<number>(1500);

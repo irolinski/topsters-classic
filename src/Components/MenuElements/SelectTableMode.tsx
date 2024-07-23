@@ -1,6 +1,8 @@
+import { tableModeOptions } from "../../models/models";
+
 type selectTableModePropTypes = {
-  tableMode: string;
-  handleTableModeChange: (tableMode: string) => void;
+  tableMode: tableModeOptions;
+  handleTableModeChange: (tableMode: tableModeOptions | string) => void;
 };
 
 const SelectTableMode = ({
@@ -11,7 +13,9 @@ const SelectTableMode = ({
     <>
       {sessionStorage.getItem("selectedChart") === "newChart" && (
         <div className="inline-flex w-[250px] min-w-[66%] border-b py-8 lg:border-none lg:py-0">
-          <h2 className="pr-4" id="chart-type-label">Chart type:</h2>
+          <h2 className="pr-4" id="chart-type-label">
+            Chart type:
+          </h2>
           <select
             value={tableMode}
             onChange={(evt) => {

@@ -1,6 +1,18 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
-import { lastFmAlbum, openModalOptions } from "../models/models";
-import { defaultChart } from "../assets/emptyCharts";
+import {
+  chartSavedData,
+  lastFmAlbum,
+  openAccordionOptions,
+  openModalOptions,
+  openPopUpOptions,
+  tableModeOptions,
+} from "../models/models";
+import {
+  collageEmpty,
+  defaultChart,
+  top100Empty,
+  top40Empty,
+} from "../assets/emptyCharts";
 
 export const MenuContext = createContext<any>([[], () => null]);
 
@@ -11,7 +23,7 @@ const MenuContextProvider = (props: any) => {
 
   // check for saved currentChart in localStorage
 
-  const currentChart: any = JSON.parse(
+  const currentChart: chartSavedData = JSON.parse(
     localStorage.getItem(`${selectedChartName}`) ?? "{}",
   );
   // it's important to have the empty object instead of just empty string here because otherwise JSON.parse error bugs out the whole code and the app does not open if there is no currentChart in localStorage
@@ -21,14 +33,14 @@ const MenuContextProvider = (props: any) => {
   };
 
   // menu navigation states
-  const [openAccordion, setOpenAccordion] = useState<string>("");
+  const [openAccordion, setOpenAccordion] = useState<openAccordionOptions>("");
 
   const closeAllWindows = () => {
     setOpenMenuPopUp("");
     setOpenAccordion("");
   };
 
-  const handleOpenAccordion = (selectedAccordion: string) => {
+  const handleOpenAccordion = (selectedAccordion: openAccordionOptions) => {
     if (selectedAccordion !== "search") {
       openAccordion === selectedAccordion
         ? closeAllWindows()
@@ -39,11 +51,11 @@ const MenuContextProvider = (props: any) => {
   };
 
   // choose tableMode
-  const [tableMode, setTableMode] = useState(
+  const [tableMode, setTableMode] = useState<tableModeOptions | string>(
     currentChart.tableMode ?? defaultChart.tableMode,
   );
-  const handleTableModeChange = (mode: string) => {
-    setTableMode(mode);
+  const handleTableModeChange = (modeToSet: tableModeOptions) => {
+    setTableMode(modeToSet);
     setSelectedIndex(0);
   };
 
@@ -64,13 +76,13 @@ const MenuContextProvider = (props: any) => {
   // chart Data states
   const [collageData, setCollageData] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(currentChart.collageData ?? defaultChart.collageData);
+  >(currentChart.collageData ?? collageEmpty);
   const [top40Data, setTop40Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(currentChart.top40Data ?? defaultChart.top40Data);
+  >(currentChart.top40Data ?? top40Empty);
   const [top100Data, setTop100Data] = useState<
     lastFmAlbum[] | Record<string, never>[]
-  >(currentChart.top100Data ?? defaultChart.top100Data);
+  >(currentChart.top100Data ?? top100Empty);
 
   //chart title states
   const [chartTitle, setChartTitle] = useState<string>(
@@ -155,9 +167,9 @@ const MenuContextProvider = (props: any) => {
   const handleSetBackgroundColor = (newColor: string) => {
     setBackgroundColor(newColor);
   };
-  const [openMenuPopUp, setOpenMenuPopUp] = useState<string>("");
+  const [openMenuPopUp, setOpenMenuPopUp] = useState<openPopUpOptions>("");
 
-  const handleOpenPopUp = (selectedPopUp: string) => {
+  const handleOpenPopUp = (selectedPopUp: openPopUpOptions) => {
     if (selectedPopUp !== "") {
       openMenuPopUp !== selectedPopUp
         ? setOpenMenuPopUp(selectedPopUp)
@@ -232,33 +244,14 @@ const MenuContextProvider = (props: any) => {
     setExportOptions(options);
   };
 
-  // // mobile menu ref
-  // const firstMobileMenuElRef: MutableRefObject<HTMLInputElement | null> =
-  //   useRef(null);
-
-  //mobile menu modal
-  // const [mobileMenuIsOpened, setMobileMenuIsOpened] = useState<boolean>(false);
-  // const handleSetMobileMenuIsOpened = (mobileMenuIsOpened: boolean) => {
-  //   setMobileMenuIsOpened(!mobileMenuIsOpened);
-  // };
-
-  // save modal
-  // const [showSaveModal, setShowSaveModal] = useState(false);
-  // const handleSetShowSaveModal = () => setShowSaveModal(!showSaveModal);
-
-  // about modal
-  // const [showAboutModal, setShowAboutModal] = useState(false);
-  // const handleSetShowAboutModal = () => setShowAboutModal(!showAboutModal);
-
-  
   const [openModal, setOpenModal] = useState<openModalOptions>("");
-  const handleSetOpenModal = (modalToOpen: openModalOptions) => {setOpenModal(modalToOpen)}
+  const handleSetOpenModal = (modalToOpen: openModalOptions) => {
+    setOpenModal(modalToOpen);
+  };
 
   return (
     <MenuContext.Provider
       value={{
-        // mobileMenuIsOpened,
-        // handleSetMobileMenuIsOpened,
         openAccordion,
         closeAllWindows,
         handleOpenAccordion,

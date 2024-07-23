@@ -1,10 +1,11 @@
+import { openAccordionOptions } from "../../models/models";
 import { preventSpecialChar } from "../../utils/preventSpecialChars";
 
 type TitleProps = {
-  openAccordion: string;
+  openAccordion: openAccordionOptions;
   chartTitle: string;
   handleSetChartTitle: (newTitle: string) => void;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
 };
 
 const Title = ({

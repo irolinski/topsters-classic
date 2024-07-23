@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { lastFmAlbum, openModalOptions } from "../models/models";
+import { lastFmAlbum, openAccordionOptions, openModalOptions } from "../models/models";
 import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type MenuContentProps = {
   selectedIndex: number;
   drawAlbumToCanvas: (index: number, album: lastFmAlbum) => void;
-  openAccordion: string;
-  handleOpenAccordion: (selectedAccordion: string) => void;
+  openAccordion: openAccordionOptions;
+  handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   openModal: openModalOptions;
 };
 
