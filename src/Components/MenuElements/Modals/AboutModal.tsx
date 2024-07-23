@@ -20,9 +20,9 @@ const AboutModal = ({ openModal, handleSetOpenModal }: aboutModalPropTypes) => {
           </button>
           <h2 className="p-4 text-2xl font-bold">About</h2>
           <p className="modal-text px-8 py-6 text-justify text-xs md:text-sm">
-            Topsters Classic is a hobby project that I have made, channeling the
-            nostalgia I have for the first Topsters page that I've used as a
-            teen lurking music forums circa 2014. <br /> <br />
+            Topsters Classic is a hobby project that I have made, channeling my
+            nostalgia for the first Topsters page that I've used as a teen
+            lurking music forums circa 2014. <br /> <br />
             The design of the charts is recreated from the charts made back then
             and the credit for it is due to the developer of the original
             version. The UI I have designed from scratch for it to be up to
@@ -33,7 +33,13 @@ const AboutModal = ({ openModal, handleSetOpenModal }: aboutModalPropTypes) => {
               available on github
             </a>{" "}
             if you wish to take a peek. <br /> <br /> If you have any bugs to
-            report, you can reach me at igi.ro1998@gmail.com.
+            report or wish to collaborate, you can reach me at {" "}
+            <a className="underline" href="mailto:neverendingchartequations@gmail.com">
+              neverendingchartequations@gmail.com
+            </a>
+            .
+            <br /> <br /> Hope you get some use out of my work. <br /> <br />{" "}
+            Cheers.
           </p>
         </div>
       </div>
