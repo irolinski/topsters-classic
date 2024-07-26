@@ -19,7 +19,7 @@ export const downloadImage = (blob: any, fileName: string) => {
     window.scrollTo(0, 0);
     setTimeout(async () => {
        await html2canvas(el, {
-        allowTaint: true,
+        allowTaint : true, // false?
         useCORS: true,
         logging: true,
         width: el.width,

@@ -35,8 +35,8 @@ const Title = ({
           className={`menu-accordion ${openAccordion === "titles" && "open"}`}
         >
           <div className="p-4">
-            <h3 className="px-4">Chart title:</h3>
-            <div className="chart-title-input my-2 inline-flex h-8 items-stretch border">
+            <h3 className="">Chart title:</h3>
+            <div className=" mx-4 chart-title-input my-2 inline-flex h-8 items-stretch border">
               <input
                 className="w-3/4"
                 type="text"

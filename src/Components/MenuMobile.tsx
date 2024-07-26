@@ -106,7 +106,7 @@ const MenuMobile = ({
             handleBackgroundPositionChange={handleBackgroundPositionChange}
             backgroundImgMode={backgroundImgMode}
             handleSetBackgroundImgMode={handleSetBackgroundImgMode}
-            inputRef={inputRef}
+            openModal={openModal}
           />
 
           <Font
