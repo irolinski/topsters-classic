@@ -106,6 +106,17 @@ const Background = ({
                     onChange={(evt) =>
                       setBackgroundImgInputValue(evt.currentTarget.value)
                     }
+                    onPaste={() => {
+                      if (
+                        backgroundImgInputValue.length < 8 ||
+                        !backgroundImgInputValue.includes(".") ||
+                        !backgroundImgInputValue.includes("/")
+                      ) {
+                        alert(
+                          "You'll have to enter a valid url if you want it to work.",
+                        );
+                      }
+                    }}
                     placeholder="Paste URL here"
                     aria-label="Background image URL"
                     aria-hidden={`${openModal !== "" && "true"}`}
@@ -114,6 +125,17 @@ const Background = ({
                   <button
                     className="w-1/4"
                     onClick={() => {
+                      console.log(backgroundImgInputValue);
+                      if (
+                        backgroundImgInputValue.length < 8 ||
+                        !backgroundImgInputValue.includes(".") ||
+                        !backgroundImgInputValue.includes("/")
+                      ) {
+                        alert(
+                          "You'll have to enter a valid url if you want it to work.",
+                        );
+                        return;
+                      }
                       handleSetBackgroundImg(
                         `https://corsproxy.io/?${backgroundImgInputValue}`,
                       );
@@ -134,7 +156,10 @@ const Background = ({
                 <button
                   className="mr-2 h-[35px] w-[60px]"
                   name="Remove image"
-                  onClick={() => handleSetBackgroundImg("")}
+                  onClick={() => {
+                    handleSetBackgroundImg("");
+                    setBackgroundImgInputValue("");
+                  }}
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
