@@ -74,9 +74,8 @@
         width: 64px;
         max-width: 50px;
         max-height: 50px;
-
       }
-      
+
       &:hover,
       &:focus {
         cursor: pointer;
@@ -497,6 +496,7 @@ button.no-style {
     span {
       font-size: 36px;
       font-weight: 800;
+      text-shadow: -8px -1px 44px rgba(66, 68, 90, 1);
     }
   }
 }
