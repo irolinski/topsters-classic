@@ -3,9 +3,7 @@ type MenuContentProps = {
   changeDisplayedChart: (chartName: string) => void;
 };
 
-const SelectDisplayChart = ({
-  changeDisplayedChart,
-}: MenuContentProps) => {
+const SelectDisplayChart = ({ changeDisplayedChart }: MenuContentProps) => {
   const savedCharts = Object.keys({ ...localStorage });
 
   const currentChartName: string =
@@ -42,10 +40,15 @@ const SelectDisplayChart = ({
                   --------------{" "}
                 </option>
                 <option disabled> Load saved charts: </option>
-                {savedCharts.map((ch: string) => {
+                {savedCharts.map((ch: string, i: number) => {
                   if (ch !== "newChart") {
                     return (
-                      <option className="" value={ch} aria-label="load-chart">
+                      <option
+                        className=""
+                        value={ch}
+                        aria-label="load-chart"
+                        key={i}
+                      >
                         {ch}
                       </option>
                     );
@@ -53,7 +56,9 @@ const SelectDisplayChart = ({
                 })}
               </>
             ) : (
-              <option value="newChart">New Chart</option>
+              <option value="newChart" aria-label="Create new chart">
+                New Chart
+              </option>
             )}
           </>
         </select>

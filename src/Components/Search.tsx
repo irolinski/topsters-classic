@@ -121,7 +121,7 @@ const Search = ({
                 aria-label="Search results box"
               >
                 {searchResults ? (
-                  searchResults.map((a: any) => {
+                  searchResults.map((a: lastFmAlbum, i: number) => {
                     if (a.image[1]["#text"]) {
                       return (
                         <div
@@ -131,6 +131,7 @@ const Search = ({
                           }}
                           aria-label={`Add album ${a.name} by ${a.artist}. Currently adding to the index:${selectedIndex + 1}`}
                           tabIndex={0}
+                          key={i}
                         >
                           <div className="justify-start">
                             <img

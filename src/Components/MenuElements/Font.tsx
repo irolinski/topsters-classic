@@ -2,6 +2,7 @@ import { HexColorPicker } from "react-colorful";
 import fontList from "../../assets/fontList";
 import invert from "invert-color";
 import { openAccordionOptions, openPopUpOptions } from "../../models/models";
+import { Fragment } from "react/jsx-runtime";
 
 type fontPropTypes = {
   openAccordion: openAccordionOptions;
@@ -60,18 +61,24 @@ const Font = ({
                 tabIndex={openAccordion === "font" ? 0 : 1}
               >
                 <>
-                  {fontList.map((style: { name: string; fonts: string[] }) => {
-                    return (
-                      <>
-                        <option disabled> --- {style.name} --- </option>
-                        <>
-                          {style.fonts.map((font: string) => {
-                            return <option value={font}>{font}</option>;
-                          })}
-                        </>
-                      </>
-                    );
-                  })}
+                  {fontList.map(
+                    (style: { name: string; fonts: string[] }, i: number) => {
+                      return (
+                        <Fragment key={i}>
+                          <option disabled> --- {style.name} --- </option>
+                          <Fragment>
+                            {style.fonts.map((font: string, i: number) => {
+                              return (
+                                <option value={font} key={i}>
+                                  {font}
+                                </option>
+                              );
+                            })}
+                          </Fragment>
+                        </Fragment>
+                      );
+                    },
+                  )}
                 </>
               </select>
             </div>

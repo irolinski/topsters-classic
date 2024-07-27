@@ -1,7 +1,7 @@
 export type lastFmAlbum = {
   name?: string;
   artist: string;
-  image: { text: string; size: string }[];
+  image: { text?: string; "#text": string; size: string }[];
   url: string;
 };
 
@@ -25,7 +25,6 @@ export type chartSavedData = {
   collageData?: lastFmAlbum[] | Record<string, never>[];
 };
 
-
 export type openModalOptions = "mobileMenu" | "save" | "about" | "";
 
 export type openAccordionOptions =
@@ -39,4 +38,9 @@ export type openAccordionOptions =
 
 export type tableModeOptions = "collage" | "top40" | "top100";
 
-export type openPopUpOptions = "background" | "background-position" | "font-header" |"font-body" | ""
+export type openPopUpOptions =
+  | "background"
+  | "background-position"
+  | "font-header"
+  | "font-body"
+  | "";

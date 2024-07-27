@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import invert from "invert-color";
 import { lastFmAlbum } from "../../models/models";
 
@@ -124,10 +124,10 @@ const Collage = ({
                   className={`flex flex-col justify-center ${
                     i === selectedIndex && "selected-index"
                   } collage ${collageRowNum === 4 && collageColNum === 4 && "h-[125px] w-[125px]"} ${collageProd === 20 && "h-[100px] w-[100px]"} ${collageProd === 24 && "h-[85px] w-[85px]"} ${collageProd === 25 && "h-[82px] w-[82px]"} ${collageProd === 30 && "h-[85px] w-[85px]"} ${collageProd === 36 && "h-[65px] w-[65px]"} m-[2px]`}
-                  key={i}
                   onClick={() => {
                     changeIndex(i);
                   }}
+                  key={i}
                 >
                   {a.hasOwnProperty("image") ? (
                     /*@ts-ignore */
@@ -169,7 +169,7 @@ const Collage = ({
 
               {collageData.slice(0, collageProd).map((a, i) => {
                 return (
-                  <>
+                  <Fragment key={i}>
                     {a.artist ? (
                       <span
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
@@ -178,6 +178,7 @@ const Collage = ({
                             ? { color: `${fontColorBody}` }
                             : { color: `${invert(backgroundColor)}` }
                         }
+                        key={i}
                       >
                         {a.artist} -{" "}
                         {a.name!.length > 100
@@ -194,7 +195,7 @@ const Collage = ({
                         <br />{" "}
                       </div>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </div>
@@ -265,7 +266,7 @@ const Collage = ({
             >
               {collageData.slice(0, collageProd).map((a, i) => {
                 return (
-                  <>
+                  <Fragment key={i}>
                     {a.artist ? (
                       <span
                         className={`${collageProd < 30 && "m-[2px]"} album-title-span text-left`}
@@ -274,6 +275,7 @@ const Collage = ({
                             ? { color: `${fontColorBody}` }
                             : { color: `${invert(backgroundColor)}` }
                         }
+                        key={i}
                       >
                         {a.artist} -{" "}
                         {a.name!.length > 100
@@ -291,7 +293,7 @@ const Collage = ({
                         <br />{" "}
                       </div>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </div>

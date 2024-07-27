@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { lastFmAlbum } from "../../models/models";
 import invert from "invert-color";
 
@@ -85,7 +85,7 @@ const ClassicTop40 = ({
     <div className={`max-h-0 ${chartTitle && "-translate-y-[20px]"}`}>
       {/* UI canvas */}
       <div
-        className={`top40-container top40-ui  top-[-16vh] flex w-full flex-col content-center object-scale-down px-[40px] xxs:top-[-12vh] xs:top-[-10vh] sm:top-[-8vh] md:top-[0px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${enableShadows && "enable-shadows"} ${chartTitle && "show-chart-title"} }`}
+        className={`top40-container top40-ui top-[-16vh] flex w-full flex-col content-center object-scale-down px-[40px] xxs:top-[-12vh] xs:top-[-10vh] sm:top-[-8vh] md:top-[0px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${enableShadows && "enable-shadows"} ${chartTitle && "show-chart-title"} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -134,10 +134,10 @@ const ClassicTop40 = ({
                     return (
                       <div
                         className={`table-box table-box-lg mr-[16px] flex h-[135px] w-[135px] flex-col justify-center ${i === selectedIndex && "selected-index"}`}
-                        key={i}
                         onClick={() => {
                           changeIndex(i);
                         }}
+                        key={i}
                       >
                         {a.hasOwnProperty("image") ? (
                           /*@ts-ignore */
@@ -276,7 +276,7 @@ const ClassicTop40 = ({
 
                 {top40Data.map((a, i) => {
                   return (
-                    <>
+                    <Fragment key={i}>
                       {a.artist ? (
                         <>
                           <span
@@ -286,6 +286,7 @@ const ClassicTop40 = ({
                                 ? { color: `${fontColorBody}` }
                                 : { color: `${invert(backgroundColor)}` }
                             }
+                            key={i}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -302,7 +303,7 @@ const ClassicTop40 = ({
                       ) : (
                         <span></span>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </div>
@@ -464,7 +465,7 @@ const ClassicTop40 = ({
               <div className="">
                 {top40Data.map((a, i) => {
                   return (
-                    <>
+                    <Fragment key={i}>
                       {a.artist ? (
                         <>
                           <span
@@ -490,7 +491,7 @@ const ClassicTop40 = ({
                       ) : (
                         <span></span>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </div>

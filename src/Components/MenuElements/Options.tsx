@@ -87,8 +87,8 @@ const Options = ({
                 aria-labelledby="export-quality-label"
                 tabIndex={openAccordion === "option" ? 0 : 1}
               >
-                {exportOptionList.map((o: { name: string; value: string }) => {
-                  return <option value={o.value}>{o.name}</option>;
+                {exportOptionList.map((o: { name: string; value: string }, i:number) => {
+                  return <option value={o.value} key={i}>{o.name}</option>;
                 })}
               </select>
             </div>

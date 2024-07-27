@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import invert from "invert-color";
 import { lastFmAlbum } from "../../models/models";
 
@@ -66,7 +66,7 @@ const Top100 = ({
           return;
         } else if (
           window.visualViewport!.width < 1025 &&
-          window.visualViewport!.width > (window.visualViewport!.height * 1.2)
+          window.visualViewport!.width > window.visualViewport!.height * 1.2
         ) {
           setCanvasScaleDivisior(2500);
           return;
@@ -133,10 +133,10 @@ const Top100 = ({
                     return (
                       <div
                         className={`table-box table-box-lg flex h-[120px] w-[120px] flex-col justify-center ${i === selectedIndex && "selected-index"} m-[2px]`}
-                        key={i}
                         onClick={() => {
                           changeIndex(i);
                         }}
+                        key={i}
                       >
                         <>
                           {a.hasOwnProperty("image") ? (
@@ -183,10 +183,10 @@ const Top100 = ({
                     return (
                       <div
                         className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 10 === selectedIndex && "selected-index"}`}
-                        key={i + 10}
                         onClick={() => {
                           changeIndex(i + 10);
                         }}
+                        key={i + 10}
                       >
                         <>
                           {a.hasOwnProperty("image") ? (
@@ -233,10 +233,10 @@ const Top100 = ({
                     return (
                       <div
                         className={`table-box flex h-[62px] w-[62px] flex-col justify-center p-[1px] ${i + 40 === selectedIndex && "selected-index"}`}
-                        key={i + 20}
                         onClick={() => {
                           changeIndex(i + 40);
                         }}
+                        key={i + 20}
                       >
                         <>
                           {a.hasOwnProperty("image") ? (
@@ -280,7 +280,7 @@ const Top100 = ({
 
                 {top100Data.map((a, i) => {
                   return (
-                    <>
+                    <Fragment key={i}>
                       {a.artist ? (
                         <>
                           <span
@@ -290,6 +290,7 @@ const Top100 = ({
                                 ? { color: `${fontColorBody}` }
                                 : { color: `${invert(backgroundColor)}` }
                             }
+                            key={i}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -306,7 +307,7 @@ const Top100 = ({
                       ) : (
                         <span></span>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </div>
@@ -464,7 +465,7 @@ const Top100 = ({
               <div className="">
                 {top100Data.map((a, i) => {
                   return (
-                    <>
+                    <Fragment key={i}>
                       {a.artist ? (
                         <>
                           <span
@@ -474,6 +475,7 @@ const Top100 = ({
                                 ? { color: `${fontColorBody}` }
                                 : { color: `${invert(backgroundColor)}` }
                             }
+                            key={i}
                           >
                             {a.artist} -{" "}
                             {a.name!.length + a.artist!.length > 50
@@ -490,7 +492,7 @@ const Top100 = ({
                       ) : (
                         <span></span>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </div>

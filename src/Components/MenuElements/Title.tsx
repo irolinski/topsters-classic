@@ -41,7 +41,7 @@ const Title = ({
                 className="w-3/4"
                 type="text"
                 onKeyDown={(evt) => preventSpecialChar(evt)}
-                maxLength={32}
+                maxLength={42}
                 value={chartTitle}
                 onChange={async (evt) =>
                   handleSetChartTitle(evt.currentTarget.value)
