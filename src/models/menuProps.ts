@@ -9,8 +9,8 @@ import {
 } from "./models";
 
 export type MobileMenuPropTypes = {
-  tableMode: tableModeOptions;
-  handleTableModeChange: (tableMode: tableModeOptions) => void;
+  tableMode: tableModeOptions |string;
+  handleTableModeChange: (modeToSet: tableModeOptions |string) => void;
   openAccordion: openAccordionOptions;
   handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
@@ -58,8 +58,8 @@ export type MobileMenuPropTypes = {
 };
 
 export type DesktopMenuPropTypes = {
-  tableMode: tableModeOptions;
-  handleTableModeChange: (tableMode: tableModeOptions) => void;
+  tableMode: tableModeOptions | string;
+  handleTableModeChange: (tableMode: tableModeOptions | string) => void;
   openAccordion: openAccordionOptions;
   handleOpenAccordion: (selectedAccordion: openAccordionOptions) => void;
   collageRowNum: number;
