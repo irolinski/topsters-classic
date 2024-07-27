@@ -38,6 +38,19 @@ const Background = ({
   handleSetBackgroundImgMode,
   inputRef,
 }: BackgroundTypes) => {
+  const saveBackgroundImage = (image: File) => {
+    if (image.size > 3.5 * 1048576) {
+      alert("File too big. Max file size allowed is 3.5mb.");
+      return;
+    }
+    const fr = new FileReader();
+    fr.readAsDataURL(image);
+    fr.addEventListener("load", () => {
+      const url: string = fr.result as string;
+      handleSetBackgroundImg(url);
+    });
+  };
+
   return (
     <>
       <div className="menu-block">
@@ -93,18 +106,11 @@ const Background = ({
                 <input
                   className="absolute my-[-20px] h-0 w-0 opacity-0"
                   type="file"
+                  accept=".jpg,.jpeg,.png" 
                   ref={inputRef}
                   id="file-input-desktop"
                   onChange={(evt) => {
-                    const fr = new FileReader();
-                    fr.readAsDataURL(evt.target.files![0]);
-                    fr.addEventListener("load", () => {
-                      const url: string = fr.result as string;
-                      handleSetBackgroundImg(url);
-                    });
-                    // handleSetBackgroundImg(
-                    //   URL.createObjectURL(evt.target.files![0]),
-                    // );
+                    saveBackgroundImage(evt.target.files![0]);
                   }}
                   tabIndex={openAccordion === "background" ? 0 : 1}
                 />
