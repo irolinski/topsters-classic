@@ -18,7 +18,7 @@ export const defaultChart: chartSavedData = {
       x: 0,
       y: 0,
     },
-    backgroundImgMode: "cover",
+    backgroundImgMode: "auto",
     fontFamily: "Space Mono",
     fontColorBody: "",
     fontColorHeader: "",

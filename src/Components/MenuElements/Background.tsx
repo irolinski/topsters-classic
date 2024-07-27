@@ -39,14 +39,20 @@ const Background = ({
   inputRef,
 }: BackgroundTypes) => {
   const saveBackgroundImage = (image: File) => {
-    if (image.size > 3.5 * 1048576) {
-      alert("File too big. Max file size allowed is 3.5mb.");
+    console.log(image);
+    if (image.size > 1.5 * 1048576) {
+      alert("File too big. Max file size allowed is 1.5mb.");
       return;
     }
     const fr = new FileReader();
     fr.readAsDataURL(image);
     fr.addEventListener("load", () => {
       const url: string = fr.result as string;
+      if (url.length > 5200000) {
+        alert("Sorry, it seems we have ran into some problems with processing this particular image.");
+        return;
+      }
+
       handleSetBackgroundImg(url);
     });
   };
@@ -71,30 +77,35 @@ const Background = ({
         <div
           className={`menu-accordion ${openAccordion === "background" && "open"}`}
         >
-          <div className="inline-flex p-4">
-            <h3 className="px-4">Color:</h3>
-            <div
-              className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-[20%] flex scale-50 justify-center sm:right-auto sm:top-auto`}
-            >
-              <button
-                className="close-pop-up-btn absolute right-0"
-                onClick={() => handleOpenPopUp("")}
-                aria-label="close pop-up"
-              >
-                &#10005;
-              </button>
-              <HexColorPicker
-                className="z-10 m-16"
-                color={backgroundColor}
-                onChange={handleSetBackgroundColor}
-              />
-            </div>
-            <div
-              className="color-box hover:cursor-pointer"
-              style={{ backgroundColor: `${backgroundColor}` }}
-              onClick={() => handleOpenPopUp("background")}
-            ></div>
-          </div>
+          {backgroundImg === "" && (
+            <>
+              <div className="inline-flex p-4">
+                <h3 className="px-4">Color:</h3>
+                <div
+                  className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-[20%] flex scale-50 justify-center sm:right-auto sm:top-auto`}
+                >
+                  <button
+                    className="close-pop-up-btn absolute right-0"
+                    onClick={() => handleOpenPopUp("")}
+                    aria-label="close pop-up"
+                  >
+                    &#10005;
+                  </button>
+                  <HexColorPicker
+                    className="z-10 m-16"
+                    color={backgroundColor}
+                    onChange={handleSetBackgroundColor}
+                  />
+                </div>
+
+                <div
+                  className="color-box hover:cursor-pointer"
+                  style={{ backgroundColor: `${backgroundColor}` }}
+                  onClick={() => handleOpenPopUp("background")}
+                ></div>
+              </div>
+            </>
+          )}
           <div className="flex p-4">
             <h3 className="px-4">Image:</h3>
             {backgroundImg === "" ? (
@@ -106,7 +117,7 @@ const Background = ({
                 <input
                   className="absolute my-[-20px] h-0 w-0 opacity-0"
                   type="file"
-                  accept=".jpg,.jpeg,.png" 
+                  accept=".jpg,.jpeg,.png"
                   ref={inputRef}
                   id="file-input-desktop"
                   onChange={(evt) => {
