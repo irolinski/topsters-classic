@@ -44,7 +44,6 @@ const MenuDesktop = ({
   handleSetEnableShadows,
   exportOptions,
   handleSetExportOptions,
-  inputRef,
   selectedIndex,
   drawAlbumToCanvas,
   openModal,
@@ -93,6 +92,7 @@ const MenuDesktop = ({
           <Background
             openAccordion={openAccordion}
             handleOpenAccordion={handleOpenAccordion}
+            openModal={openModal}
             openMenuPopUp={openMenuPopUp}
             handleOpenPopUp={handleOpenPopUp}
             backgroundColor={backgroundColor}
@@ -103,7 +103,6 @@ const MenuDesktop = ({
             handleBackgroundPositionChange={handleBackgroundPositionChange}
             backgroundImgMode={backgroundImgMode}
             handleSetBackgroundImgMode={handleSetBackgroundImgMode}
-            inputRef={inputRef}
           />
           <Font
             openAccordion={openAccordion}
