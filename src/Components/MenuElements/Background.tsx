@@ -95,13 +95,18 @@ const Background = ({
                   type="file"
                   ref={inputRef}
                   id="file-input-desktop"
-                  onChange={(evt) =>
-                    handleSetBackgroundImg(
-                      URL.createObjectURL(evt.target.files![0]),
-                    )
-                  }
+                  onChange={(evt) => {
+                    const fr = new FileReader();
+                    fr.readAsDataURL(evt.target.files![0]);
+                    fr.addEventListener("load", () => {
+                      const url: string = fr.result as string;
+                      handleSetBackgroundImg(url);
+                    });
+                    // handleSetBackgroundImg(
+                    //   URL.createObjectURL(evt.target.files![0]),
+                    // );
+                  }}
                   tabIndex={openAccordion === "background" ? 0 : 1}
-
                 />
                 <button
                   className="h-[35px] w-[60px]"
@@ -121,8 +126,7 @@ const Background = ({
                 <button
                   className="mr-2 h-[35px] w-[60px]"
                   name="Remove image"
-                    onClick={() => handleSetBackgroundImg("")}
-                    
+                  onClick={() => handleSetBackgroundImg("")}
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
