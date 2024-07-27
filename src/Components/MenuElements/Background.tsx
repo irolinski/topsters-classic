@@ -1,11 +1,7 @@
-import { MutableRefObject, useState } from "react";
+import { MutableRefObject } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
-import {
-  openAccordionOptions,
-  openModalOptions,
-  openPopUpOptions,
-} from "../../models/models";
+import { openAccordionOptions, openPopUpOptions } from "../../models/models";
 
 type BackgroundTypes = {
   openAccordion: openAccordionOptions;
@@ -24,7 +20,7 @@ type BackgroundTypes = {
   handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  openModal: openModalOptions;
+  inputRef: MutableRefObject<HTMLInputElement | null>;
 };
 
 const Background = ({
@@ -40,11 +36,8 @@ const Background = ({
   handleBackgroundPositionChange,
   backgroundImgMode,
   handleSetBackgroundImgMode,
-  openModal,
+  inputRef,
 }: BackgroundTypes) => {
-  const [backgroundImgInputValue, setBackgroundImgInputValue] =
-    useState(backgroundImg);
-
   return (
     <>
       <div className="menu-block">
@@ -89,78 +82,47 @@ const Background = ({
               onClick={() => handleOpenPopUp("background")}
             ></div>
           </div>
-          <div className="inline-block p-4">
-            <h3 className="px-4 pb-4">Image URL:</h3>
-
+          <div className="flex p-4">
+            <h3 className="px-4">Image:</h3>
             {backgroundImg === "" ? (
-              <>
-                {/* <label
-                  className="mr-8 h-4 w-8"
-                  htmlFor="file-input-desktop"
-                  tabIndex={1}
+              <label
+                className="mr-8 h-4 w-8"
+                htmlFor="file-input-desktop"
+                tabIndex={1}
+              >
+                <input
+                  className="absolute my-[-20px] h-0 w-0 opacity-0"
+                  type="file"
+                  ref={inputRef}
+                  id="file-input-desktop"
+                  onChange={(evt) => {
+                    const fr = new FileReader();
+                    fr.readAsDataURL(evt.target.files![0]);
+                    fr.addEventListener("load", () => {
+                      const url: string = fr.result as string;
+                      handleSetBackgroundImg(url);
+                    });
+                    // handleSetBackgroundImg(
+                    //   URL.createObjectURL(evt.target.files![0]),
+                    // );
+                  }}
+                  tabIndex={openAccordion === "background" ? 0 : 1}
+                />
+                <button
+                  className="h-[35px] w-[60px]"
+                  onClick={() => inputRef.current?.click()}
+                  tabIndex={openAccordion === "background" ? 0 : 1}
+                  aria-label="Upload background image button"
                 >
-                  <input
-                    className="absolute my-[-20px] h-0 w-0 opacity-0"
-                    type="text"
-                    id="file-input-desktop"
-                    onChange={(evt) =>
-                      handleSetBackgroundImg(evt.currentTarget.value)
-                    }
-                    tabIndex={openAccordion === "background" ? 0 : 1}
+                  <img
+                    className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                    src="/upload_icon.svg"
+                    tabIndex={1}
                   />
-                  <button
-                    className="h-[35px] w-[60px]"
-                    tabIndex={openAccordion === "background" ? 0 : 1}
-                    aria-label="Upload background image button"
-                  >
-                    <img
-                      className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                      src="/upload_icon.svg"
-                      tabIndex={1}
-                    />
-                  </button>
-                </label> */}
-                {/* 
-                <div
-                  className={`search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full ${openModal !== "" && "hidden"}`}
-                  aria-labelledby="add-albums-label"
-                  role="search"
-                  aria-hidden={`${openModal !== "" && "true"}`}
-                  tabIndex={openModal !== "" ? 1 : 0}
-                > */}
-                <div
-                  className={`mb-4 ml-8 mt-1 inline-flex h-8 items-stretch border`}
-                >
-                  <input
-                    className="w-3/4"
-                    type="text"
-                    maxLength={512}
-                    onChange={(evt) =>
-                      setBackgroundImgInputValue(evt.currentTarget.value)
-                    }
-                    placeholder="Paste URL here"
-                    aria-label="Background image URL"
-                    aria-hidden={`${openModal !== "" && "true"}`}
-                    tabIndex={openModal !== "" ? 1 : 0}
-                  />
-                  <button
-                    className="w-1/4"
-                    onClick={() => {
-                      handleSetBackgroundImg(backgroundImgInputValue);
-                    }}
-                    aria-hidden={`${openModal !== "" && "true"}`}
-                    tabIndex={openModal !== "" ? 1 : 0}
-                  >
-                    <img
-                      className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                      src="/upload_icon.svg"
-                      tabIndex={1}
-                    />
-                  </button>
-                </div>
-              </>
+                </button>
+              </label>
             ) : (
-              <div className="inline-flex w-full px-8">
+              <div className="inline-flex w-full">
                 <button
                   className="mr-2 h-[35px] w-[60px]"
                   name="Remove image"

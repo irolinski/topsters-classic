@@ -270,9 +270,6 @@ function App() {
         openModal={menu.openModal}
         handleSetOpenModal={menu.handleSetOpenModal}
       />
-      {/* <div>
-        <img src={menu.backgroundImg} crossOrigin="anonymous" />
-      </div> */}
     </div>
   );
 }
