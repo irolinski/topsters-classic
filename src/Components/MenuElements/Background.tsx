@@ -65,74 +65,42 @@ const Background = ({
         <div
           className={`menu-accordion ${openAccordion === "background" && "open"}`}
         >
-          <div className="inline-flex p-4">
-            <h3 className="px-4">Color:</h3>
-            <div
-              className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-[20%] flex scale-50 justify-center sm:right-auto sm:top-auto`}
-            >
-              <button
-                className="close-pop-up-btn absolute right-0"
-                onClick={() => handleOpenPopUp("")}
-                aria-label="close pop-up"
+          {backgroundImg === "" && (
+            <div className="inline-flex p-4">
+              <h3 className="px-4">Color:</h3>
+              <div
+                className={`${openMenuPopUp !== "background" && "hidden"} color-picker-div bg-menu-pop-up fixed right-0 top-[20%] flex scale-50 justify-center sm:right-auto sm:top-auto`}
               >
-                &#10005;
-              </button>
-              <HexColorPicker
-                className="z-10 m-16"
-                color={backgroundColor}
-                onChange={handleSetBackgroundColor}
-              />
+                <button
+                  className="close-pop-up-btn absolute right-0"
+                  onClick={() => handleOpenPopUp("")}
+                  aria-label="close pop-up"
+                >
+                  &#10005;
+                </button>
+                <HexColorPicker
+                  className="z-10 m-16"
+                  color={backgroundColor}
+                  onChange={handleSetBackgroundColor}
+                />
+              </div>
+              <div
+                className="color-box hover:cursor-pointer"
+                style={{ backgroundColor: `${backgroundColor}` }}
+                onClick={() => handleOpenPopUp("background")}
+              ></div>
             </div>
-            <div
-              className="color-box hover:cursor-pointer"
-              style={{ backgroundColor: `${backgroundColor}` }}
-              onClick={() => handleOpenPopUp("background")}
-            ></div>
-          </div>
+          )}
           <div className="inline-block p-4">
-            <h3 className="px-4 pb-4">Image URL:</h3>
+            <h3 className="px-4 pb-4">Background image:</h3>
 
             {backgroundImg === "" ? (
               <>
-                {/* <label
-                  className="mr-8 h-4 w-8"
-                  htmlFor="file-input-desktop"
-                  tabIndex={1}
-                >
-                  <input
-                    className="absolute my-[-20px] h-0 w-0 opacity-0"
-                    type="text"
-                    id="file-input-desktop"
-                    onChange={(evt) =>
-                      handleSetBackgroundImg(evt.currentTarget.value)
-                    }
-                    tabIndex={openAccordion === "background" ? 0 : 1}
-                  />
-                  <button
-                    className="h-[35px] w-[60px]"
-                    tabIndex={openAccordion === "background" ? 0 : 1}
-                    aria-label="Upload background image button"
-                  >
-                    <img
-                      className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                      src="/upload_icon.svg"
-                      tabIndex={1}
-                    />
-                  </button>
-                </label> */}
-                {/* 
-                <div
-                  className={`search-input mx-auto mb-8 mt-4 inline-flex h-8 w-3/4 items-stretch border lg:my-2 lg:w-full ${openModal !== "" && "hidden"}`}
-                  aria-labelledby="add-albums-label"
-                  role="search"
-                  aria-hidden={`${openModal !== "" && "true"}`}
-                  tabIndex={openModal !== "" ? 1 : 0}
-                > */}
                 <div
                   className={`mb-4 ml-8 mt-1 inline-flex h-8 items-stretch border`}
                 >
                   <input
-                    className="w-3/4"
+                    className="w-3/4 p-1 text-sm"
                     type="text"
                     maxLength={512}
                     onChange={(evt) =>
@@ -146,7 +114,9 @@ const Background = ({
                   <button
                     className="w-1/4"
                     onClick={() => {
-                      handleSetBackgroundImg(backgroundImgInputValue);
+                      handleSetBackgroundImg(
+                        `https://corsproxy.io/?${backgroundImgInputValue}`,
+                      );
                     }}
                     aria-hidden={`${openModal !== "" && "true"}`}
                     tabIndex={openModal !== "" ? 1 : 0}
