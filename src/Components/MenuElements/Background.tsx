@@ -1,4 +1,4 @@
-import { MutableRefObject, useState } from "react";
+import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
 import {

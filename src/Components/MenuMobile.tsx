@@ -43,7 +43,6 @@ const MenuMobile = ({
   openModal,
   handleSetOpenModal,
   changeDisplayedChart,
-  inputRef,
 }: MobileMenuPropTypes) => {
   return (
     <div
