@@ -1,11 +1,12 @@
 import { defaultChart } from "../assets/emptyCharts";
 
-export const saveCurrentChart = (newChartName: string) => {
+export const saveCurrentChart = async (newChartName: string) => {
   const selectedChartName = sessionStorage.getItem("selectedChart");
 
   let savedChart = JSON.parse(
     localStorage.getItem(`${selectedChartName}`) ?? "{}",
   );
+  let emptyChart;
 
   if (!savedChart.name) {
     savedChart.name = selectedChartName;
@@ -27,9 +28,14 @@ export const saveCurrentChart = (newChartName: string) => {
   }
 
   savedChart = JSON.stringify(savedChart);
+  emptyChart = JSON.stringify(defaultChart);
+
+  // for some reason double JSON.stringify'ing emptychart fixes the bug
+  // that leaves selected items in newChart instead of erasing them on first save
+
   localStorage.setItem(`${newChartName}`, savedChart);
+  localStorage.setItem("newChart", JSON.stringify(emptyChart));
   sessionStorage.setItem("selectedChart", `${newChartName}`);
-  localStorage.setItem("newChart", JSON.stringify(defaultChart));
   window.location.reload();
 };
 

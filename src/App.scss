@@ -115,7 +115,7 @@
     // transform: translate(55%, -35%) scale(0.6);
   }
 
-  // arrow for the box -- unused
+  // arrow for the box -- unused because of overflow: scroll
   // .color-picker-div::after {
   //   content: "";
   //   position: absolute;
@@ -502,7 +502,7 @@ button.no-style {
 }
 
 .top40-container.hide-album-titles {
-  width: 730px; //FOR THE CLASSIC BOXY LOOK ^^
+  width: 730px; //FOR THE CLASSIC BOXY LOOK 
 
   // .second-tier-classics > flex {
   //   width: 580px;   // FOR THE WIDE MODERN LOOK ^^
