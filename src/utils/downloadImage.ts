@@ -25,8 +25,7 @@ export const downloadImage = (blob: any, fileName: string) => {
         width: el.width,
         height: el.height,
         windowWidth: 1024,
-      }).then(function (canvas: any) {
-        console.log(exportOptions)
+      }).then(function (canvas: HTMLCanvasElement) {
         const img = canvas.toDataURL(exportOptions.format, exportOptions.quality);
         downloadImage(img, imageFileName);
       });

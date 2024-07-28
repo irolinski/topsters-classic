@@ -13,10 +13,15 @@ import {
   top100Empty,
   top40Empty,
 } from "../assets/emptyCharts";
+import { allContextPropTypes } from "../models/menuProps";
 
-export const MenuContext = createContext<any>([[], () => null]);
+type ContextProviderProps = {
+  children: React.ReactNode;
+};
 
-const MenuContextProvider = (props: any) => {
+export const MenuContext = createContext<allContextPropTypes>(null as unknown as allContextPropTypes);
+
+const MenuContextProvider = (props: ContextProviderProps) => {
   // choose chart to display
   const selectedChartName: string =
     sessionStorage.getItem("selectedChart") ?? "newChart";

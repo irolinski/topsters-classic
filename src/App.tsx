@@ -19,7 +19,7 @@ import SaveModal from "./Components/MenuElements/Modals/SaveModal";
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
 function App() {
-  const menu: any = useContext(MenuContext);
+  const menu = useContext(MenuContext);
 
   // on every chart-related state change, create and save a new object in localStorage
   useEffect(() => {
@@ -197,7 +197,7 @@ function App() {
             {menu.tableMode === "collage" && (
               <Collage
                 exportRef={menu.exportRef}
-                collageData={menu.collageData}
+                collageData={menu.collageData!}
                 collageRowNum={menu.collageRowNum}
                 collageColNum={menu.collageColNum}
                 selectedIndex={menu.selectedIndex}
@@ -219,7 +219,7 @@ function App() {
             {menu.tableMode === "top40" && (
               <ClassicTop40
                 exportRef={menu.exportRef}
-                top40Data={menu.top40Data}
+                top40Data={menu.top40Data!}
                 selectedIndex={menu.selectedIndex}
                 changeIndex={menu.changeIndex}
                 chartDirty={menu.chartDirty}
@@ -240,7 +240,7 @@ function App() {
             {menu.tableMode === "top100" && (
               <Top100
                 exportRef={menu.exportRef}
-                top100Data={menu.top100Data}
+                top100Data={menu.top100Data!}
                 selectedIndex={menu.selectedIndex}
                 changeIndex={menu.changeIndex}
                 chartDirty={menu.chartDirty}
