@@ -31,7 +31,7 @@ const MenuLinks = ({
       <button
         className="m-2"
         onClick={() => {
-          exportAsImage(exportRef.current, "title", exportOptions);
+          exportAsImage(exportRef.current!, "title", exportOptions);
         }}
         aria-label="Download chart"
         tabIndex={openModal !== "" ? 1 : 0}

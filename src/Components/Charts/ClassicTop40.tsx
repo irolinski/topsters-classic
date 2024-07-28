@@ -22,8 +22,8 @@ type Top40Props = {
 };
 
 type windowValueTypes = {
-  width: number | undefined;
-  height: number | undefined;
+  width: number;
+  height: number;
 };
 
 const ClassicTop40 = ({
