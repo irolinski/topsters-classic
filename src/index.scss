@@ -52,6 +52,12 @@ body {
   div {
     border-color: rgba(245, 245, 245, 0.371) !important;
   }
+
+ 
+}
+
+body.loading{
+    cursor: wait !important;
 }
 
 button.disabled{
