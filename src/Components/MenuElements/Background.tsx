@@ -21,7 +21,7 @@ type BackgroundTypes = {
     dotSizeXY: number;
     centerDot: number;
   };
-  handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
+  handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   openModal: openModalOptions;

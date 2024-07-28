@@ -13,7 +13,10 @@ export type chartSavedData = {
   chartTitle: string;
   hideAlbumTitles: boolean;
   backgroundImg: string;
-  backgroundImgPosition: any;
+  backgroundImgPosition: {
+    x: number;
+    y: number;
+  };
   backgroundImgMode: string;
   fontFamily: string;
   fontColorBody: string;

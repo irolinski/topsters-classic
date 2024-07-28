@@ -30,7 +30,7 @@ export type allContextPropTypes = {
     dotSizeXY: number;
     centerDot: number;
   };
-  handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
+  handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   inputRef: MutableRefObject<HTMLInputElement | null>;
@@ -65,14 +65,14 @@ export type allContextPropTypes = {
   top100Data?: lastFmAlbum[] | Record<string, never>[] | undefined;
   collageData?: lastFmAlbum[] | Record<string, never>[] | undefined;
   backgroundImgPosition: {
-    x: 0;
-    y: 0;
+    x: number;
+    y: number;
   };
   chartDirty: boolean;
   changeIndex: (i: number) => void;
   loadingImage: number;
   handleImageLoaded: () => void;
-  closeAllWindows: any;
+  closeAllWindows: () => void;
   refresh: boolean;
 };
 
@@ -98,7 +98,7 @@ export type MobileMenuPropTypes = {
     dotSizeXY: number;
     centerDot: number;
   };
-  handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
+  handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   inputRef: MutableRefObject<HTMLInputElement | null>;
@@ -147,7 +147,7 @@ export type DesktopMenuPropTypes = {
     dotSizeXY: number;
     centerDot: number;
   };
-  handleBackgroundPositionChange: (dragX: any, dragY: any) => void;
+  handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   inputRef: MutableRefObject<HTMLInputElement | null>;

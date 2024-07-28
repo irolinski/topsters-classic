@@ -1,11 +1,12 @@
 import html2canvas from "html2canvas";
 
-export const downloadImage = (blob: any, fileName: string) => {
-  const fakeLink: any = window.document.createElement("a");
-  fakeLink.style = "display:none;";
+export const downloadImage = (blob: Blob | string, fileName: string) => {
+  const fakeLink = window.document.createElement("a");
+  // fakeLink.style = "display:none;";
+  fakeLink.style.setProperty("display", "none");
   fakeLink.download = fileName;
 
-  fakeLink.href = blob;
+  fakeLink.href = blob as string;
 
   document.body.appendChild(fakeLink);
   fakeLink.click();
@@ -15,7 +16,7 @@ export const downloadImage = (blob: any, fileName: string) => {
 };
 
 export const exportAsImage = async (
-  el: any,
+  el: HTMLCanvasElement,
   imageFileName: string,
   exportOptions: { format: string; quality: number },
 ) => {

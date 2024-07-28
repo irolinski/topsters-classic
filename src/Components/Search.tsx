@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { lastFmAlbum, openAccordionOptions, openModalOptions } from "../models/models";
+import {
+  lastFmAlbum,
+  openAccordionOptions,
+  openModalOptions,
+} from "../models/models";
 import { preventSpecialChar } from "../utils/preventSpecialChars";
 
 type MenuContentProps = {
@@ -37,25 +41,28 @@ const Search = ({
     setShowLoading("search-results-div");
     try {
       setSearchResults(null);
-      let albumData: any = await fetch(
+      const fetchAlbumData = await fetch(
         `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
       ).then((response) => response.json());
-      albumData = albumData.results.albummatches.album;
+      const albumData: lastFmAlbum[] =
+        fetchAlbumData.results.albummatches.album;
       if (albumData.length === 0) {
         throw new Error("No results found. Try again!");
       }
       setSearchResults(albumData);
       setShowLoading("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       setShowLoading("");
-      let errMessage = err.toString();
-      if (errMessage.includes("Error: "))
-        errMessage = errMessage.slice(errMessage.lastIndexOf("Error: ") + 7);
-      console.log(errMessage);
-      setShowErrMsg({
-        location: "search-results-div",
-        message: `${errMessage}`,
-      });
+      if (err instanceof Error) {
+        let errMessage = err.toString();
+        if (errMessage.includes("Error: "))
+          errMessage = errMessage.slice(errMessage.lastIndexOf("Error: ") + 7);
+        console.log(errMessage);
+        setShowErrMsg({
+          location: "search-results-div",
+          message: `${errMessage}`,
+        });
+      }
     }
   };
 

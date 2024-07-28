@@ -1,9 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, MutableRefObject, useEffect, useState } from "react";
 import invert from "invert-color";
 import { lastFmAlbum } from "../../models/models";
 
 type CollageProps = {
-  exportRef: any;
+  exportRef:  MutableRefObject<HTMLInputElement | null>;
   collageData: lastFmAlbum[] | Record<string, never>[];
   collageRowNum: number;
   collageColNum: number;

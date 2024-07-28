@@ -134,7 +134,7 @@ const MenuContextProvider = (props: ContextProviderProps) => {
     centerDot: 80, // center of the scale
   };
 
-  const handleBackgroundPositionChange = (dragX: any, dragY: any) => {
+  const handleBackgroundPositionChange = (dragX: number, dragY: number) => {
     const scaleEnd =
       backgroundPositionMenu.boxSizeXY - backgroundPositionMenu.dotSizeXY;
 

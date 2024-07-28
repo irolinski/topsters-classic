@@ -1,9 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, MutableRefObject, useEffect, useState } from "react";
 import invert from "invert-color";
 import { lastFmAlbum } from "../../models/models";
 
 type Top100Props = {
-  exportRef: any;
+  exportRef:  MutableRefObject<HTMLInputElement | null>;
   top100Data: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: (newIndex: number) => void;
