@@ -19,7 +19,7 @@ const AboutModal = ({ openModal, handleSetOpenModal }: aboutModalPropTypes) => {
             &#10005;
           </button>
           <h2 className="p-4 text-2xl font-bold">About</h2>
-          <p className="modal-text px-8 py-6 text-justify text-xs md:text-sm">
+          <p className="modal-text text-justify xxs:px-8 xxs:py-6 xxs:text-xs md:text-sm">
             Topsters Classic is a <b>hobby project</b> that I have made,
             channeling my <b>nostalgia for the original Topsters page</b> that
             I've used as a teen lurking music forums circa 2013. <br /> <br />
