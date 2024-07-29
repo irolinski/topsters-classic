@@ -20,26 +20,32 @@ const AboutModal = ({ openModal, handleSetOpenModal }: aboutModalPropTypes) => {
           </button>
           <h2 className="p-4 text-2xl font-bold">About</h2>
           <p className="modal-text px-8 py-6 text-justify text-xs md:text-sm">
-            Topsters Classic is a hobby project that I have made, channeling my
-            nostalgia for the first Topsters page that I've used as a teen
-            lurking music forums circa 2014. <br /> <br />
-            The design of the charts is recreated from the charts made back then
-            and the credit for it is due to the developer of the original
-            version. The UI I have designed from scratch for it to be up to
-            today's standards; especially in regards to mobile use. <br />{" "}
-            <br />
+            Topsters Classic is a <b>hobby project</b> that I have made,
+            channeling my <b>nostalgia for the original Topsters page</b> that
+            I've used as a teen lurking music forums circa 2013. <br /> <br />
+            The design of the charts is{" "}
+            <b>recreated from the original charts designs</b>
+            and the credit for them is due to the developer of the original app.
+            The <b>UI is designed from scratch</b> for it to be up to today's
+            standards; especially in regards to mobile use. <br /> <br />
             The code is{" "}
-            <a className="underline" href="https://github.com/irolinski/top-40">
-              available on github
+            <a
+              className="underline"
+              href="https://github.com/irolinski/topsters-classic"
+            >
+              <b>available on github</b>
             </a>{" "}
             if you wish to take a peek. <br /> <br /> If you have any bugs to
-            report or wish to collaborate, you can reach me at {" "}
-            <a className="underline" href="mailto:neverendingchartequations@gmail.com">
+            report or wish to collaborate, you can reach me at{" "}
+            <a
+              className="underline"
+              href="mailto:neverendingchartequations@gmail.com"
+            >
               neverendingchartequations@gmail.com
             </a>
             .
-            <br /> <br /> Hope you get some use out of my work. <br /> <br />{" "}
-            Cheers.
+            <br /> <br /> I hope you'll get some use out of my work. <br />{" "}
+            <br /> Cheers.
           </p>
         </div>
       </div>
