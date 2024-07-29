@@ -8,7 +8,8 @@
 <h4 align="center">Music chart image generator</h4>
 <br>
 <p align="center">
-
+    <img height="350px" src="https://github.com/user-attachments/assets/01e6f8f8-18d8-4b4d-bbc5-89d9687902cd" />
+    <img height="350px" src="https://github.com/user-attachments/assets/70353183-258d-4cb0-9110-3b64b0dc9e3c" />
 </p>
 
 <br> 
