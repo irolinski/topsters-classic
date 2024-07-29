@@ -21,13 +21,14 @@ Topsters Classic is a React-based web-app that lets users create personalized mu
 * Either export your charts or save them for later thanks to easy-to-use storage system
 
 
-## New featues (among other Topsters clone web-apps): 
+## New featues (amongst other Topsters clone web-apps): 
 * Now also easily available on mobile devices thanks to responsive UI design
-* Original Top 100 and Top 40 designs available again
+* New chart editing system that lets the user add new positions quickly by clicking instead of draggin, with image position auto-advancing
+* * Original Top 100 and Top 40 designs available again
 * Modify background, body and header colors easily using color pickers...
 * ...or trust the app to auto-pick a suitable font color according to your background color
 * Set background image positioning according to your needs using custom-made positioning system
-* Choose preferred export quality
+* Adjust preferred image quality
 
 
 ## Credits
