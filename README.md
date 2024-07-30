@@ -25,7 +25,7 @@ Topsters Classic is a React-based web-app that lets users create personalized mu
 ## New featues (amongst other Topsters clone web-apps): 
 * Now also easily available on mobile devices thanks to responsive UI design
 * New chart editing system that lets the user add new positions quickly by clicking instead of draggin, with image position auto-advancing
-* * Original Top 100 and Top 40 designs available again
+* The original Top 100 and Top 40 designs available again
 * Modify background, body and header colors easily using color pickers...
 * ...or trust the app to auto-pick a suitable font color according to your background color
 * Set background image positioning according to your needs using custom-made positioning system
@@ -34,7 +34,7 @@ Topsters Classic is a React-based web-app that lets users create personalized mu
 
 ## Credits
 
-All data the app uses is fetched using Last.fm api.
+All of the data that the app uses is fetched from Last.fm database using Last.fm api.
 
 It also uses the following open source packages:
 
