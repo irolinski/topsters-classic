@@ -44,13 +44,12 @@ const Search = ({
       const fetchAlbumData = await fetch(
         `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
       ).then((response) => response.json());
-      const albumData: lastFmAlbum[] =
-        fetchAlbumData.results.albummatches.album;
-      if (albumData.length === 0) {
-        throw new Error("No results found. Try again!");
-      }
-      setSearchResults(albumData);
-      setShowLoading("");
+      console.log(fetchAlbumData.results);
+      if (fetchAlbumData.results) {
+        // const albumData: lastFmAlbum[] =
+        setSearchResults(fetchAlbumData.results.albummatches.album);
+        setShowLoading("");
+      } else throw new Error("No results. Try again!");
     } catch (err: unknown) {
       setShowLoading("");
       if (err instanceof Error) {
