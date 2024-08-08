@@ -45,6 +45,8 @@ const Background = ({
   const [backgroundImgInputValue, setBackgroundImgInputValue] =
     useState(backgroundImg);
 
+  const [somethingWasPasted, setSomethingWasPasted] = useState<boolean>(false);
+
   return (
     <>
       <div className="menu-block">
@@ -103,20 +105,36 @@ const Background = ({
                     className="w-3/4 p-1 text-sm"
                     type="text"
                     maxLength={512}
-                    onChange={(evt) =>
-                      setBackgroundImgInputValue(evt.currentTarget.value)
-                    }
-                    onPaste={() => {
-                      if (
-                        backgroundImgInputValue.length < 8 ||
-                        !backgroundImgInputValue.includes(".") ||
-                        !backgroundImgInputValue.includes("/")
-                      ) {
-                        alert(
-                          "You'll have to enter a valid url if you want it to work.",
-                        );
+                    onChange={(evt) => {
+                      setBackgroundImgInputValue(evt.currentTarget.value);
+
+                      if (somethingWasPasted) {
+                        setSomethingWasPasted(false);
+
+                        if (
+                          evt.currentTarget.value.length < 8 ||
+                          !evt.currentTarget.value.includes(".")
+                        ) {
+                          alert(
+                            "You'll have to enter a valid url if you want it to work.",
+                          );
+                        }
+                        if (
+                          !evt.currentTarget.value.includes(".jpg") &&
+                          !evt.currentTarget.value.includes("png") &&
+                          !evt.currentTarget.value.includes(".jpeg")
+                        ) {
+                          alert(
+                            "Make sure your url contains a picture! (preferably .jpg or .png)",
+                          );
+                        } else {
+                          handleSetBackgroundImg(
+                            `https://corsproxy.io/?${evt.currentTarget.value}`,
+                          );
+                        }
                       }
                     }}
+                    onPaste={() => setSomethingWasPasted(true)}
                     placeholder="Paste URL here"
                     aria-label="Background image URL"
                     aria-hidden={`${openModal !== "" && "true"}`}
@@ -125,7 +143,6 @@ const Background = ({
                   <button
                     className="w-1/4"
                     onClick={() => {
-                      console.log(backgroundImgInputValue);
                       if (
                         backgroundImgInputValue.length < 8 ||
                         !backgroundImgInputValue.includes(".") ||
@@ -193,7 +210,7 @@ const Background = ({
                         x: backgroundPositionMenu.centerDot,
                         y: backgroundPositionMenu.centerDot,
                       }}
-                      // it should be 85 (50% off of both axis) but for some reason 80 actually centers it
+                      // in theory, it should be 85 (50% off of both axis) but for some reason 80 actually centers it
                       handle=".handle"
                       bounds="parent"
                       onDrag={(_evt, dragElement) => {
