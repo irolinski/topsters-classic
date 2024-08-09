@@ -2,10 +2,12 @@ import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
 import {
+  darkenBackgroundOptions,
   openAccordionOptions,
   openModalOptions,
   openPopUpOptions,
 } from "../../models/models";
+import { Tooltip } from "react-tooltip";
 
 type BackgroundTypes = {
   openAccordion: openAccordionOptions;
@@ -25,6 +27,10 @@ type BackgroundTypes = {
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   openModal: openModalOptions;
+  darkenBackground: darkenBackgroundOptions;
+  toggleDarkenBackground: (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => void;
 };
 
 const Background = ({
@@ -41,12 +47,17 @@ const Background = ({
   backgroundImgMode,
   handleSetBackgroundImgMode,
   openModal,
+  darkenBackground,
+  toggleDarkenBackground,
 }: BackgroundTypes) => {
   const [backgroundImgInputValue, setBackgroundImgInputValue] =
     useState(backgroundImg);
 
+  const [somethingWasPasted, setSomethingWasPasted] = useState<boolean>(false);
+
   return (
     <>
+      <Tooltip id="bg-tooltip" />
       <div className="menu-block">
         <button
           className="no-style open-accordion-btn inline-flex"
@@ -103,20 +114,36 @@ const Background = ({
                     className="w-3/4 p-1 text-sm"
                     type="text"
                     maxLength={512}
-                    onChange={(evt) =>
-                      setBackgroundImgInputValue(evt.currentTarget.value)
-                    }
-                    onPaste={() => {
-                      if (
-                        backgroundImgInputValue.length < 8 ||
-                        !backgroundImgInputValue.includes(".") ||
-                        !backgroundImgInputValue.includes("/")
-                      ) {
-                        alert(
-                          "You'll have to enter a valid url if you want it to work.",
-                        );
+                    onChange={(evt) => {
+                      setBackgroundImgInputValue(evt.currentTarget.value);
+
+                      if (somethingWasPasted) {
+                        setSomethingWasPasted(false);
+
+                        if (
+                          evt.currentTarget.value.length < 8 ||
+                          !evt.currentTarget.value.includes(".")
+                        ) {
+                          alert(
+                            "You'll have to enter a valid url if you want it to work.",
+                          );
+                        }
+                        if (
+                          !evt.currentTarget.value.includes(".jpg") &&
+                          !evt.currentTarget.value.includes("png") &&
+                          !evt.currentTarget.value.includes(".jpeg")
+                        ) {
+                          alert(
+                            "Make sure your url contains a picture! (preferably .jpg or .png)",
+                          );
+                        } else {
+                          handleSetBackgroundImg(
+                            `https://corsproxy.io/?${evt.currentTarget.value}`,
+                          );
+                        }
                       }
                     }}
+                    onPaste={() => setSomethingWasPasted(true)}
                     placeholder="Paste URL here"
                     aria-label="Background image URL"
                     aria-hidden={`${openModal !== "" && "true"}`}
@@ -125,7 +152,6 @@ const Background = ({
                   <button
                     className="w-1/4"
                     onClick={() => {
-                      console.log(backgroundImgInputValue);
                       if (
                         backgroundImgInputValue.length < 8 ||
                         !backgroundImgInputValue.includes(".") ||
@@ -142,6 +168,9 @@ const Background = ({
                     }}
                     aria-hidden={`${openModal !== "" && "true"}`}
                     tabIndex={openModal !== "" ? 1 : 0}
+                    data-tooltip-id="bg-tooltip"
+                    data-tooltip-content="Upload"
+                    data-tooltip-place="bottom"
                   >
                     <img
                       className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -155,24 +184,48 @@ const Background = ({
               <div className="inline-flex w-full px-8">
                 <button
                   className="mr-2 h-[35px] w-[60px]"
-                  name="Remove image"
+                  name="Toggle darken image"
                   onClick={() => {
-                    handleSetBackgroundImg("");
-                    setBackgroundImgInputValue("");
+                    darkenBackground === 0 && toggleDarkenBackground(0.4);
+                    darkenBackground === 0.4 && toggleDarkenBackground(0.8);
+                    darkenBackground === 0.8 && toggleDarkenBackground(0);
                   }}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Darken"
+                  data-tooltip-place="bottom"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                    src="/trash_icon.svg"
+                    src="/contrast_icon.svg"
                   />
                 </button>
                 <button
                   className="h-[35px] w-[60px]"
                   onClick={() => handleOpenPopUp("background-position")}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Move"
+                  data-tooltip-place="bottom"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
                     src="/move_icon.svg"
+                  />
+                </button>
+                <button
+                  className="ml-2 h-[35px] w-[60px]"
+                  name="Remove image"
+                  onClick={() => {
+                    handleSetBackgroundImg("");
+                    setBackgroundImgInputValue("");
+                    toggleDarkenBackground(0);
+                  }}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Remove"
+                  data-tooltip-place="bottom"
+                >
+                  <img
+                    className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                    src="/trash_icon.svg"
                   />
                 </button>
                 <div
@@ -193,7 +246,7 @@ const Background = ({
                         x: backgroundPositionMenu.centerDot,
                         y: backgroundPositionMenu.centerDot,
                       }}
-                      // it should be 85 (50% off of both axis) but for some reason 80 actually centers it
+                      // in theory, it should be 85 (50% off of both axis) but for some reason 80 actually centers it
                       handle=".handle"
                       bounds="parent"
                       onDrag={(_evt, dragElement) => {
@@ -213,7 +266,6 @@ const Background = ({
                     </Draggable>
                   </div>
                   <h4 className="px-4 pb-4 text-xl">Image position:</h4>
-
                   <div className="image-position-pop-up-btn mb-8 inline-flex justify-center">
                     <button
                       className={`${backgroundImgMode === "auto" && "active"}`}

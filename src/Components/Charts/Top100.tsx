@@ -3,7 +3,7 @@ import invert from "invert-color";
 import { lastFmAlbum } from "../../models/models";
 
 type Top100Props = {
-  exportRef:  MutableRefObject<HTMLInputElement | null>;
+  exportRef: MutableRefObject<HTMLInputElement | null>;
   top100Data: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: (newIndex: number) => void;
@@ -14,6 +14,7 @@ type Top100Props = {
   backgroundImg: string;
   backgroundImgPosition: { x: number; y: number };
   backgroundImgMode: string;
+  darkenBackground: 0 | 0.4 | 0.8;
   fontColorHeader: string;
   fontColorBody: string;
   enableShadows: boolean;
@@ -38,6 +39,7 @@ const Top100 = ({
   backgroundImg,
   backgroundImgPosition,
   backgroundImgMode,
+  darkenBackground,
   fontColorHeader,
   fontColorBody,
   enableShadows,
@@ -90,7 +92,7 @@ const Top100 = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
@@ -322,7 +324,7 @@ const Top100 = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
         }}

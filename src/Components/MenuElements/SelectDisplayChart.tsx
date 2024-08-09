@@ -1,3 +1,5 @@
+import { Tooltip } from "react-tooltip";
+
 type MenuContentProps = {
   tableMode: string;
   changeDisplayedChart: (chartName: string) => void;
@@ -10,13 +12,21 @@ const SelectDisplayChart = ({ changeDisplayedChart }: MenuContentProps) => {
     sessionStorage.getItem("selectedChart") ?? "{}";
   return (
     <>
+      <Tooltip className="z-10" id="display-tooltip" />
+
       <div
         className="inline-flex w-[250px] min-w-[66%] border-b pb-8 lg:border-none lg:pb-4"
         tabIndex={-1}
       >
-        <h2 className="pr-4" id="display-chart-label">
-          Display:
-        </h2>
+        <div
+          data-tooltip-id="display-tooltip"
+          data-tooltip-content="Create/Load chart"
+          data-tooltip-place="bottom"
+        >
+          <h2 className="pr-4" id="display-chart-label">
+            Display:
+          </h2>
+        </div>
         <select
           className="select-chart-display-input max-w-[150px]"
           value={currentChartName}

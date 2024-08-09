@@ -1,6 +1,7 @@
 import { MutableRefObject } from "react";
 import {
   chartSavedData,
+  darkenBackgroundOptions,
   lastFmAlbum,
   openAccordionOptions,
   openModalOptions,
@@ -74,6 +75,10 @@ export type allContextPropTypes = {
   handleImageLoaded: () => void;
   closeAllWindows: () => void;
   refresh: boolean;
+  darkenBackground: darkenBackgroundOptions;
+  toggleDarkenBackground: (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => void;
 };
 
 export type MobileMenuPropTypes = {
@@ -123,6 +128,10 @@ export type MobileMenuPropTypes = {
   }) => void;
   openModal: openModalOptions;
   handleSetOpenModal: (modalToOpen: openModalOptions) => void;
+  darkenBackground: darkenBackgroundOptions;
+  toggleDarkenBackground: (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => void;
 };
 
 export type DesktopMenuPropTypes = {
@@ -177,4 +186,8 @@ export type DesktopMenuPropTypes = {
   changeDisplayedChart: (chartName: string) => void;
   openModal: openModalOptions;
   handleSetOpenModal: (modalToOpen: openModalOptions) => void;
+  darkenBackground: darkenBackgroundOptions;
+  toggleDarkenBackground: (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => void;
 };

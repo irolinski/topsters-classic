@@ -1,6 +1,7 @@
 import { createContext, MutableRefObject, useRef, useState } from "react";
 import {
   chartSavedData,
+  darkenBackgroundOptions,
   lastFmAlbum,
   openAccordionOptions,
   openModalOptions,
@@ -19,7 +20,9 @@ type ContextProviderProps = {
   children: React.ReactNode;
 };
 
-export const MenuContext = createContext<allContextPropTypes>(null as unknown as allContextPropTypes);
+export const MenuContext = createContext<allContextPropTypes>(
+  null as unknown as allContextPropTypes,
+);
 
 const MenuContextProvider = (props: ContextProviderProps) => {
   // choose chart to display
@@ -142,6 +145,16 @@ const MenuContextProvider = (props: ContextProviderProps) => {
     const offsetY = Math.floor((dragY / scaleEnd) * 100);
 
     setBackgroundImgPosition({ x: offsetX, y: offsetY });
+  };
+
+  const [darkenBackground, setDarkenBackground] =
+    useState<darkenBackgroundOptions>(
+      currentChart.darkenBackground ?? defaultChart.darkenBackground,
+    );
+  const toggleDarkenBackground = (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => {
+    setDarkenBackground(darkenBackgroundState);
   };
 
   // choose font
@@ -307,6 +320,8 @@ const MenuContextProvider = (props: ContextProviderProps) => {
         handleSetOpenModal,
         currentChart,
         changeDisplayedChart,
+        darkenBackground,
+        toggleDarkenBackground,
       }}
     >
       {props.children}

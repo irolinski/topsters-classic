@@ -18,6 +18,7 @@ export type chartSavedData = {
     y: number;
   };
   backgroundImgMode: string;
+  darkenBackground: darkenBackgroundOptions;
   fontFamily: string;
   fontColorBody: string;
   fontColorHeader: string;
@@ -47,3 +48,5 @@ export type openPopUpOptions =
   | "font-header"
   | "font-body"
   | "";
+
+export type darkenBackgroundOptions = 0 | 0.4 | 0.8;
