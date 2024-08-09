@@ -7,6 +7,7 @@ import {
   openModalOptions,
   openPopUpOptions,
 } from "../../models/models";
+import { Tooltip } from "react-tooltip";
 
 type BackgroundTypes = {
   openAccordion: openAccordionOptions;
@@ -27,7 +28,9 @@ type BackgroundTypes = {
   handleSetBackgroundImgMode: (newMode: string) => void;
   openModal: openModalOptions;
   darkenBackground: darkenBackgroundOptions;
-  toggleDarkenBackground: (darkenBackgroundState: darkenBackgroundOptions) => void;
+  toggleDarkenBackground: (
+    darkenBackgroundState: darkenBackgroundOptions,
+  ) => void;
 };
 
 const Background = ({
@@ -54,6 +57,7 @@ const Background = ({
 
   return (
     <>
+      <Tooltip id="bg-tooltip" />
       <div className="menu-block">
         <button
           className="no-style open-accordion-btn inline-flex"
@@ -164,6 +168,9 @@ const Background = ({
                     }}
                     aria-hidden={`${openModal !== "" && "true"}`}
                     tabIndex={openModal !== "" ? 1 : 0}
+                    data-tooltip-id="bg-tooltip"
+                    data-tooltip-content="Upload"
+                    data-tooltip-place="bottom"
                   >
                     <img
                       className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -183,6 +190,9 @@ const Background = ({
                     darkenBackground === 0.4 && toggleDarkenBackground(0.8);
                     darkenBackground === 0.8 && toggleDarkenBackground(0);
                   }}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Darken"
+                  data-tooltip-place="bottom"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -192,6 +202,9 @@ const Background = ({
                 <button
                   className="h-[35px] w-[60px]"
                   onClick={() => handleOpenPopUp("background-position")}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Move"
+                  data-tooltip-place="bottom"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -206,6 +219,9 @@ const Background = ({
                     setBackgroundImgInputValue("");
                     toggleDarkenBackground(0);
                   }}
+                  data-tooltip-id="bg-tooltip"
+                  data-tooltip-content="Remove"
+                  data-tooltip-place="bottom"
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
@@ -250,7 +266,6 @@ const Background = ({
                     </Draggable>
                   </div>
                   <h4 className="px-4 pb-4 text-xl">Image position:</h4>
-
                   <div className="image-position-pop-up-btn mb-8 inline-flex justify-center">
                     <button
                       className={`${backgroundImgMode === "auto" && "active"}`}

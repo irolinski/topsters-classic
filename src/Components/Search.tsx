@@ -5,6 +5,7 @@ import {
   openModalOptions,
 } from "../models/models";
 import { preventSpecialChar } from "../utils/preventSpecialChars";
+import { Tooltip } from "react-tooltip";
 
 type MenuContentProps = {
   selectedIndex: number;
@@ -68,6 +69,7 @@ const Search = ({
 
   return (
     <>
+      <Tooltip id="search-tooltip" />
       <div
         className={`my-8 flex flex-col border-b pt-4 text-center lg:mt-0 lg:text-left`}
       >
@@ -103,6 +105,9 @@ const Search = ({
             aria-label="Search input"
             aria-hidden={`${openModal !== "" && "true"}`}
             tabIndex={openModal !== "" ? 1 : 0}
+            data-tooltip-id="search-tooltip"
+            data-tooltip-content="Search"
+            data-tooltip-place="top"
           >
             <img
               className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"

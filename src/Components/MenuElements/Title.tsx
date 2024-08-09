@@ -1,3 +1,4 @@
+import { Tooltip } from "react-tooltip";
 import { openAccordionOptions } from "../../models/models";
 import { preventSpecialChar } from "../../utils/preventSpecialChars";
 
@@ -16,6 +17,7 @@ const Title = ({
 }: TitleProps) => {
   return (
     <>
+      <Tooltip id="title-tooltip" />
       <div className="menu-block">
         <button
           className="no-style open-accordion-btn inline-flex"
@@ -36,7 +38,7 @@ const Title = ({
         >
           <div className="p-4">
             <h3 className="">Chart title:</h3>
-            <div className=" mx-4 chart-title-input my-2 inline-flex h-8 items-stretch border">
+            <div className="chart-title-input mx-4 my-2 inline-flex h-8 items-stretch border">
               <input
                 className="w-3/4"
                 type="text"
@@ -56,6 +58,9 @@ const Title = ({
                 aria-label="Erase chart name"
                 tabIndex={openAccordion === "titles" ? 0 : 1}
                 aria-hidden={`${openAccordion !== "titles" ? "true" : "false"}`}
+                data-tooltip-id="title-tooltip"
+                data-tooltip-content="Erase"
+                data-tooltip-place="top"
               >
                 <img
                   className="mx-auto max-h-[15px] min-w-[15px] max-w-[15px] -translate-y-[2.5px]"
