@@ -50,6 +50,8 @@ const MenuDesktop = ({
   handleSetOpenModal,
   exportRef,
   changeDisplayedChart,
+  darkenBackground,
+  toggleDarkenBackground,
 }: DesktopMenuPropTypes) => {
   return (
     <div className="relative left-0 lg:min-w-[390px] lg:max-w-[390px]">
@@ -103,6 +105,8 @@ const MenuDesktop = ({
             handleBackgroundPositionChange={handleBackgroundPositionChange}
             backgroundImgMode={backgroundImgMode}
             handleSetBackgroundImgMode={handleSetBackgroundImgMode}
+            darkenBackground={darkenBackground}
+            toggleDarkenBackground={toggleDarkenBackground}
           />
           <Font
             openAccordion={openAccordion}

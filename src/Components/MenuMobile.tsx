@@ -43,6 +43,8 @@ const MenuMobile = ({
   openModal,
   handleSetOpenModal,
   changeDisplayedChart,
+  darkenBackground,
+  toggleDarkenBackground,
 }: MobileMenuPropTypes) => {
   return (
     <div
@@ -106,6 +108,8 @@ const MenuMobile = ({
             backgroundImgMode={backgroundImgMode}
             handleSetBackgroundImgMode={handleSetBackgroundImgMode}
             openModal={openModal}
+            darkenBackground={darkenBackground}
+            toggleDarkenBackground={toggleDarkenBackground}
           />
 
           <Font

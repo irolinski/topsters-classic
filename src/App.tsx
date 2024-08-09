@@ -30,7 +30,7 @@ function App() {
       sessionStorage.setItem("selectedChart", "newChart");
     }
 
-    let currentChart: chartSavedData = {
+    const currentChart: chartSavedData = {
       name: selectedChartName,
       tableMode: menu.tableMode,
       collageRowNum: menu.collageRowNum,
@@ -40,6 +40,7 @@ function App() {
       backgroundImg: menu.backgroundImg,
       backgroundImgPosition: menu.backgroundImgPosition,
       backgroundImgMode: menu.backgroundImgMode,
+      darkenBackground: menu.darkenBackground,
       fontFamily: menu.fontFamily,
       fontColorBody: menu.fontColorBody,
       fontColorHeader: menu.fontColorHeader,
@@ -70,6 +71,7 @@ function App() {
     menu.backgroundImg,
     menu.backgroundImgPosition,
     menu.backgroundImgMode,
+    menu.darkenBackground,
     menu.fontFamily,
     menu.fontColorBody,
     menu.fontColorHeader,
@@ -132,6 +134,8 @@ function App() {
           openModal={menu.openModal}
           handleSetOpenModal={menu.handleSetOpenModal}
           inputRef={menu.inputRef}
+          darkenBackground={menu.darkenBackground}
+          toggleDarkenBackground={menu.toggleDarkenBackground}
         />
         <MobileHeader />
         {/* MOBILE SEARCH SECTION */}
@@ -188,6 +192,8 @@ function App() {
             currentChart={menu.currentChart}
             currentChartName={menu.currentChart.name}
             changeDisplayedChart={menu.changeDisplayedChart}
+            darkenBackground={menu.darkenBackground}
+            toggleDarkenBackground={menu.toggleDarkenBackground}
           />
           {/* CANVAS SECTION */}
           <div
@@ -209,6 +215,7 @@ function App() {
                 backgroundImg={menu.backgroundImg}
                 backgroundImgPosition={menu.backgroundImgPosition}
                 backgroundImgMode={menu.backgroundImgMode}
+                darkenBackground={menu.darkenBackground}
                 fontColorHeader={menu.fontColorHeader}
                 fontColorBody={menu.fontColorBody}
                 enableShadows={menu.enableShadows}
@@ -229,6 +236,7 @@ function App() {
                 backgroundImg={menu.backgroundImg}
                 backgroundImgPosition={menu.backgroundImgPosition}
                 backgroundImgMode={menu.backgroundImgMode}
+                darkenBackground={menu.darkenBackground}
                 fontColorHeader={menu.fontColorHeader}
                 fontColorBody={menu.fontColorBody}
                 enableShadows={menu.enableShadows}
@@ -250,6 +258,7 @@ function App() {
                 backgroundImg={menu.backgroundImg}
                 backgroundImgPosition={menu.backgroundImgPosition}
                 backgroundImgMode={menu.backgroundImgMode}
+                darkenBackground={menu.darkenBackground}
                 fontColorHeader={menu.fontColorHeader}
                 fontColorBody={menu.fontColorBody}
                 enableShadows={menu.enableShadows}

@@ -3,7 +3,7 @@ import { lastFmAlbum } from "../../models/models";
 import invert from "invert-color";
 
 type Top40Props = {
-  exportRef:  MutableRefObject<HTMLInputElement | null>;
+  exportRef: MutableRefObject<HTMLInputElement | null>;
   top40Data: lastFmAlbum[] | Record<string, never>[];
   selectedIndex: number;
   changeIndex: (newIndex: number) => void;
@@ -14,6 +14,7 @@ type Top40Props = {
   backgroundImg: string;
   backgroundImgPosition: { x: number; y: number };
   backgroundImgMode: string;
+  darkenBackground: number;
   fontColorHeader: string;
   fontColorBody: string;
   enableShadows: boolean;
@@ -38,6 +39,7 @@ const ClassicTop40 = ({
   backgroundImg,
   backgroundImgPosition,
   backgroundImgMode,
+  darkenBackground,
   fontColorHeader,
   fontColorBody,
   enableShadows,
@@ -89,7 +91,7 @@ const ClassicTop40 = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
@@ -318,7 +320,7 @@ const ClassicTop40 = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
           marginBottom: `${marginValue}`,

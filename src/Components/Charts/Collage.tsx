@@ -1,9 +1,9 @@
 import { Fragment, MutableRefObject, useEffect, useState } from "react";
 import invert from "invert-color";
-import { lastFmAlbum } from "../../models/models";
+import { darkenBackgroundOptions, lastFmAlbum } from "../../models/models";
 
 type CollageProps = {
-  exportRef:  MutableRefObject<HTMLInputElement | null>;
+  exportRef: MutableRefObject<HTMLInputElement | null>;
   collageData: lastFmAlbum[] | Record<string, never>[];
   collageRowNum: number;
   collageColNum: number;
@@ -20,6 +20,7 @@ type CollageProps = {
   fontColorBody: string;
   enableShadows: boolean;
   loadingImage: number;
+  darkenBackground: darkenBackgroundOptions;
   handleImageLoaded: () => void;
 };
 
@@ -42,6 +43,7 @@ const Collage = ({
   backgroundImg,
   backgroundImgPosition,
   backgroundImgMode,
+  darkenBackground,
   fontColorHeader,
   fontColorBody,
   enableShadows,
@@ -89,7 +91,7 @@ const Collage = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
           transform: `scale(${canvasScaleValue})`,
@@ -209,7 +211,7 @@ const Collage = ({
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
-          backgroundImage: `url('${backgroundImg}')`,
+          backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, ${darkenBackground}) 0 100%), url('${backgroundImg}')`,
           backgroundPosition: `${backgroundImgPosition.x}% ${backgroundImgPosition.y}%`,
           backgroundSize: `${backgroundImgMode}`,
         }}

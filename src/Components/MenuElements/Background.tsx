@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
 import {
+  darkenBackgroundOptions,
   openAccordionOptions,
   openModalOptions,
   openPopUpOptions,
@@ -25,6 +26,8 @@ type BackgroundTypes = {
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
   openModal: openModalOptions;
+  darkenBackground: darkenBackgroundOptions;
+  toggleDarkenBackground: (darkenBackgroundState: darkenBackgroundOptions) => void;
 };
 
 const Background = ({
@@ -41,6 +44,8 @@ const Background = ({
   backgroundImgMode,
   handleSetBackgroundImgMode,
   openModal,
+  darkenBackground,
+  toggleDarkenBackground,
 }: BackgroundTypes) => {
   const [backgroundImgInputValue, setBackgroundImgInputValue] =
     useState(backgroundImg);
@@ -172,15 +177,16 @@ const Background = ({
               <div className="inline-flex w-full px-8">
                 <button
                   className="mr-2 h-[35px] w-[60px]"
-                  name="Remove image"
+                  name="Toggle darken image"
                   onClick={() => {
-                    handleSetBackgroundImg("");
-                    setBackgroundImgInputValue("");
+                    darkenBackground === 0 && toggleDarkenBackground(0.4);
+                    darkenBackground === 0.4 && toggleDarkenBackground(0.8);
+                    darkenBackground === 0.8 && toggleDarkenBackground(0);
                   }}
                 >
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
-                    src="/trash_icon.svg"
+                    src="/contrast_icon.svg"
                   />
                 </button>
                 <button
@@ -190,6 +196,20 @@ const Background = ({
                   <img
                     className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
                     src="/move_icon.svg"
+                  />
+                </button>
+                <button
+                  className="ml-2 h-[35px] w-[60px]"
+                  name="Remove image"
+                  onClick={() => {
+                    handleSetBackgroundImg("");
+                    setBackgroundImgInputValue("");
+                    toggleDarkenBackground(0);
+                  }}
+                >
+                  <img
+                    className="mx-auto max-h-[15px] max-w-[15px] -translate-y-[2.5px]"
+                    src="/trash_icon.svg"
                   />
                 </button>
                 <div
