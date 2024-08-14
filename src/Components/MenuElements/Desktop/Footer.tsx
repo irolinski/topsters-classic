@@ -16,7 +16,7 @@ const Footer = ({ handleSetOpenModal }: footerPropTypes) => {
           onClick={() => handleSetOpenModal("info")}
           aria-label="Open 'info' modal"
         >
-          About
+          Info
         </button>
       </div>
     </footer>
