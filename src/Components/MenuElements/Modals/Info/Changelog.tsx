@@ -1,17 +1,6 @@
-import { useEffect, useState } from "react";
-
-type changelogDatum = { date: string; message: string };
+import changelogData, { changelogDatum } from "../../../../assets/changelog";
 
 const Changelog = () => {
-  const [changelogData, setChangelogData] = useState<changelogDatum[] | []>([]);
-  useEffect(() => {
-    fetch("/public/text/changelog.json")
-      .then((r) => r.json())
-      .then((data) => {
-        setChangelogData(data);
-      });
-  }, []);
-
   return (
     <div className="my-4">
       <div className="info-content sm:mx-4">

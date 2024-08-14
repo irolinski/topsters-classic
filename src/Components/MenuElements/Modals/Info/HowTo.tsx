@@ -2,6 +2,7 @@ const HowTo = () => {
   return (
     <div className="my-4">
       <div className="info-content p-8 sm:mx-4">
+        <h2 className="mb-6">How to compose your first chart:</h2>
         <ol className="list-decimal px-2 text-xs sm:px-8">
           <li className="pb-8 text-left">
             Choose the type of chart you wish to make.
