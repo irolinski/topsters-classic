@@ -30,7 +30,7 @@ const SaveModal = ({
   return (
     <>
       <div
-        className={`about-modal fixed z-30 block h-full w-full ${openModal === "save" ? "block" : "hidden"}`}
+        className={`info-modal fixed z-30 block h-full w-full ${openModal === "save" ? "block" : "hidden"}`}
       >
         <div className="modal-body relative top-1/2 mx-auto min-h-[250px] w-[85vw] -translate-y-1/2 bg-gray p-12 text-center sm:w-[75vw] lg:w-[55vw] xl:w-[50vw]">
           <button

@@ -7,7 +7,7 @@ import Top100 from "./Components/Charts/Top100";
 
 import MobileHeader from "./Components/MenuElements/Mobile/Header";
 import Search from "./Components/Search";
-import AboutModal from "./Components/MenuElements/Modals/AboutModal";
+import InfoModal from "./Components/MenuElements/Modals/InfoModal";
 import FooterMobile from "./Components/MenuElements/Mobile/Footer";
 import MenuMobile from "./Components/MenuMobile";
 import MenuDesktop from "./Components/MenuDesktop";
@@ -92,7 +92,7 @@ function App() {
           handleSetOpenModal={menu.handleSetOpenModal}
         />
         {/* MODAL - ABOUT */}
-        <AboutModal
+        <InfoModal
           openModal={menu.openModal}
           handleSetOpenModal={menu.handleSetOpenModal}
         />

@@ -13,8 +13,8 @@ const Footer = ({ handleSetOpenModal }: footerPropTypes) => {
         </span>
         <button
           className="no-style ml-4 font-bold"
-          onClick={() => handleSetOpenModal("about")}
-          aria-label="Open 'about' modal"
+          onClick={() => handleSetOpenModal("info")}
+          aria-label="Open 'info' modal"
         >
           About
         </button>

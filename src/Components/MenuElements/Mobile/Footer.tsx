@@ -32,8 +32,8 @@ const FooterMobile = ({ openModal, handleSetOpenModal }: footerPropTypes) => {
         </span>
         <button
           className="no-style opacity-50:focus ml-4 -translate-y-[2px] font-bold"
-          onClick={() => handleSetOpenModal("about")}
-          aria-label="Open 'about' modal"
+          onClick={() => handleSetOpenModal("info")}
+          aria-label="Open 'info' modal"
         >
           <img
             className="min-w-[25px]"

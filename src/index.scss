@@ -52,22 +52,20 @@ body {
   div {
     border-color: rgba(245, 245, 245, 0.371) !important;
   }
-
- 
 }
 
-body.loading{
-    cursor: wait !important;
+body.loading {
+  cursor: wait !important;
 }
 
-button.disabled{
-    color: rgba(218, 215, 215, 0.249);
+button.disabled {
+  color: rgba(218, 215, 215, 0.249);
 }
 
-button.delete{
+button.delete {
   background-color: #ff382e;
 }
 
-.text-error{
-  color: #ff382e
+.text-error {
+  color: #ff382e;
 }
