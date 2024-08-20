@@ -4,14 +4,11 @@ import { preventSpecialChar } from "../../../utils/preventSpecialChars";
 import { openModalOptions } from "../../../models/models";
 
 type saveModalPropTypes = {
-  openModal: openModalOptions
+  openModal: openModalOptions;
   handleSetOpenModal: (modalToOpen: openModalOptions) => void;
 };
 
-const SaveModal = ({
-  openModal,
-  handleSetOpenModal,
-}: saveModalPropTypes) => {
+const SaveModal = ({ openModal, handleSetOpenModal }: saveModalPropTypes) => {
   const allChartNames = Object.keys(localStorage);
 
   const [savedChartTitle, setSavedChartTitle] = useState(
@@ -63,7 +60,7 @@ const SaveModal = ({
             </div>
             <div className="py-2">
               {!chartNameIsAvailable && (
-                <p className="text-error text-xs">
+                <p className="text-danger text-xs">
                   You have to pick a name that you haven't used before!
                 </p>
               )}

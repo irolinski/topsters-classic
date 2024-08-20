@@ -15,6 +15,7 @@ import { MenuContext } from "./context/MenuContext";
 import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
 import { chartSavedData } from "./models/models";
 import SaveModal from "./Components/MenuElements/Modals/SaveModal";
+import WelcomeModal from "./Components/MenuElements/Modals/Welcome";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -86,6 +87,11 @@ function App() {
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
       <main className="flex flex-wrap justify-center lg:block">
+        {/* MODAL - WELCOME - appears if localStorage.length === 0 */}
+        <WelcomeModal
+          openModal={menu.openModal}
+          handleSetOpenModal={menu.handleSetOpenModal}
+        />
         {/* MODAL - SAVE CHART */}
         <SaveModal
           openModal={menu.openModal}
@@ -279,9 +285,6 @@ function App() {
         openModal={menu.openModal}
         handleSetOpenModal={menu.handleSetOpenModal}
       />
-      {/* <div>
-        <img src={menu.backgroundImg} crossOrigin="anonymous" />
-      </div> */}
     </div>
   );
 }

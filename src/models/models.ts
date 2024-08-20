@@ -29,7 +29,7 @@ export type chartSavedData = {
   collageData?: lastFmAlbum[] | Record<string, never>[];
 };
 
-export type openModalOptions = "mobileMenu" | "save" | "info" | "";
+export type openModalOptions = "mobileMenu" | "save" | "info" | "welcome" | "";
 
 export type openAccordionOptions =
   | "search"

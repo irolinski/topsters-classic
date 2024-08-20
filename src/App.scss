@@ -622,10 +622,16 @@ button.no-style {
 
 // modal
 
-.info-modal {
+.info-modal,
+.welcome-modal {
   background-color: #000000da;
   .modal-body {
     background-color: #242424;
+  }
+  .welcome-list {
+    li {
+      margin-top: 0.5rem;
+    }
   }
 
   // prevent overflow on extra small devices
