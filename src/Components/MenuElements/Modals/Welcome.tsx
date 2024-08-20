@@ -31,26 +31,23 @@ const WelcomeModal = ({
           <h2 className="p-4 text-2xl font-bold">
             Welcome to <span className="text-danger">Topsters</span>!{" "}
           </h2>
-          <div className="my-4 xs:mx-8">
+          <div className="my-4 xs:mx-8 xs:my-12 lg:px-8">
             <h5 className="text-sm underline underline-offset-4">
               {" "}
               If it's your first time here, here's a{" "}
               <span className="font-bold">couple of things</span> you may want
               to know:{" "}
             </h5>
-            <span className="px-8 py-6 text-justify text-xs md:text-sm">
+            <span className="px-8 pt-6 text-justify text-xs md:text-sm">
               <ul className="welcome-list list-disc">
                 <li>
-                  This website offers a way to generate images with personal{" "}
+                  This website offers a way to{" "}
                   <span className="text-danger font-bold">
-                    favorite albums charts
+                    generate images with personal albums charts
                   </span>{" "}
-                  that you can later post on forums, groups or share with other
-                  people in any way you like.
-                </li>
-                <li>
-                  If you need a <span className="font-bold"> manual</span>, it's
-                  available under the info section (button found in the footer)
+                  that you can later post on forums, groups or{" "}
+                  <span className="font-bold">share</span> with other people in
+                  any way you like.
                 </li>
                 <li>
                   Everything here is{" "}
@@ -59,24 +56,34 @@ const WelcomeModal = ({
                   data.
                 </li>
                 <li>
-                  The code is <span className="font-bold"> open source</span>,
-                  you can add issue on GH and/or contact me if you're interested
-                  in cotributing.
+                  "Save" button saves current chart for later and lets you start
+                  a new one.
+                </li>
+                <li>
+                  If you want to see a more detailed{" "}
+                  <span className="font-bold"> manual</span>, report any bugs or
+                  get to know more about this project, all is available under
+                  the{" "}
+                  <span className="text-danger font-bold">info section</span>{" "}
+                  (button found in the footer)
                 </li>
               </ul>
             </span>
           </div>
-          <span>
-            I hope you'll have a <span className="font-bold">good time </span>{" "}
+          <span className="mt-2 border-t pt-4 text-sm">
+            I hope you'll have a{" "}
+            <span className="font-bold underline underline-offset-4">
+              good time
+            </span>{" "}
             here!
           </span>
         </div>
         <button
-          className="export-button my-8 min-w-[66%]"
+          className="export-button mb-2 mt-12 min-w-[33%] max-w-[350px]"
           onClick={() => handleSetOpenModal("")}
           aria-label="Close mobile menu"
         >
-          Got it!
+          Let me in!
         </button>
       </div>
     </div>
