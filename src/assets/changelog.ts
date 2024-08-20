@@ -2,6 +2,10 @@ export type changelogDatum = { date: string; message: string };
 
 const changelogData: changelogDatum[] = [
   {
+    date: "2024-08-20",
+    message: "Added a 'Welcome' modal for the first-time visitors.",
+  },
+  {
     date: "2024-08-14",
     message: "Added changelog and how-to to info modal.",
   },
