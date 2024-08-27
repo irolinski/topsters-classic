@@ -32,7 +32,9 @@ describe("Search Component", () => {
     });
     const buttonElement = screen.getByRole("button", { name: /search input/i });
 
+    //@ts-ignore
     expect(inputElement).toBeInTheDocument();
+    //@ts-ignore
     expect(buttonElement).toBeInTheDocument();
   });
 
@@ -52,7 +54,7 @@ describe("Search Component", () => {
     });
 
     fireEvent.change(inputElement, { target: { value: "Pink Floyd" } });
-
+    //@ts-ignore
     expect(inputElement).toHaveValue("Pink Floyd");
   });
 
@@ -100,6 +102,7 @@ describe("Search Component", () => {
 
     // Wait for the search results to appear in the document
     await waitFor(() => {
+      //@ts-ignore
       expect(screen.getByText(/test album/i)).toBeInTheDocument();
     });
   });
@@ -130,6 +133,7 @@ describe("Search Component", () => {
 
     // Wait for the error message to appear in the document
     await waitFor(() => {
+      //@ts-ignore
       expect(screen.getByText(/Failed to fetch/)).toBeInTheDocument();
     });
 
@@ -173,6 +177,7 @@ describe("Search Component", () => {
 
     // Wait for the "No results. Try again!" message to appear
     await waitFor(() => {
+      //@ts-ignore
       expect(screen.getByText(/no results\. try again!/i)).toBeInTheDocument();
     });
 
