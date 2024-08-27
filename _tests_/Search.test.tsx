@@ -2,8 +2,8 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import Search from "../src/Components/Search";
 import React from "react";
-import "@testing-library/jest-dom";
-// import { lastFmAlbum } from "../models/models";
+// import "@testing-library/jest-dom";
+// ^^ it resolves type errors but make the suite bug out ^^
 
 describe("Search Component", () => {
   const mockDrawAlbumToCanvas = vi.fn();
