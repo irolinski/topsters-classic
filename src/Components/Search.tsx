@@ -46,8 +46,10 @@ const Search = ({
         `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
       ).then((response) => response.json());
       console.log(fetchAlbumData.results);
-      if (fetchAlbumData.results) {
-        // const albumData: lastFmAlbum[] =
+      if (
+        fetchAlbumData.results &&
+        fetchAlbumData.results.albummatches.album.length > 0
+      ) {
         setSearchResults(fetchAlbumData.results.albummatches.album);
         setShowLoading("");
       } else throw new Error("No results. Try again!");
