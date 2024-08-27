@@ -45,7 +45,7 @@ const Search = ({
       const fetchAlbumData = await fetch(
         `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${albumTitle}&api_key=${apiKey}&format=json`,
       ).then((response) => response.json());
-      console.log(fetchAlbumData.results);
+      // console.log(fetchAlbumData.results);
       if (
         fetchAlbumData.results &&
         fetchAlbumData.results.albummatches.album.length > 0
@@ -59,7 +59,7 @@ const Search = ({
         let errMessage = err.toString();
         if (errMessage.includes("Error: "))
           errMessage = errMessage.slice(errMessage.lastIndexOf("Error: ") + 7);
-        console.log(errMessage);
+        // console.log(errMessage);
         setShowErrMsg({
           location: "search-results-div",
           message: `${errMessage}`,

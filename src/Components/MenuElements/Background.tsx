@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import Draggable from "react-draggable";
 import {
+  backgroundPositionMenuTypes,
   darkenBackgroundOptions,
   openAccordionOptions,
   openModalOptions,
@@ -18,11 +19,7 @@ type BackgroundTypes = {
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;
   handleSetBackgroundImg: (url: string) => void;
-  backgroundPositionMenu: {
-    boxSizeXY: number;
-    dotSizeXY: number;
-    centerDot: number;
-  };
+  backgroundPositionMenu: backgroundPositionMenuTypes;
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;

@@ -139,7 +139,6 @@ function App() {
           changeDisplayedChart={menu.changeDisplayedChart}
           openModal={menu.openModal}
           handleSetOpenModal={menu.handleSetOpenModal}
-          inputRef={menu.inputRef}
           darkenBackground={menu.darkenBackground}
           toggleDarkenBackground={menu.toggleDarkenBackground}
         />
@@ -191,7 +190,6 @@ function App() {
             handleSetEnableShadows={menu.handleSetEnableShadows}
             exportOptions={menu.exportOptions}
             handleSetExportOptions={menu.handleSetExportOptions}
-            inputRef={menu.inputRef}
             selectedIndex={menu.selectedIndex}
             drawAlbumToCanvas={menu.drawAlbumToCanvas}
             exportRef={menu.exportRef}

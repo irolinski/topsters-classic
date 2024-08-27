@@ -30,7 +30,6 @@ const MenuContextProvider = (props: ContextProviderProps) => {
     sessionStorage.getItem("selectedChart") ?? "newChart";
 
   // check for saved currentChart in localStorage
-
   const currentChart: chartSavedData = JSON.parse(
     localStorage.getItem(`${selectedChartName}`) ?? "{}",
   );
@@ -244,7 +243,7 @@ const MenuContextProvider = (props: ContextProviderProps) => {
   };
 
   //file input ref
-  const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
+  // const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   //export image
   const exportRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
@@ -312,7 +311,7 @@ const MenuContextProvider = (props: ContextProviderProps) => {
         chartDirty,
         refresh,
         drawAlbumToCanvas,
-        inputRef,
+        // inputRef,
         exportRef,
         exportOptions,
         handleSetExportOptions,

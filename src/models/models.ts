@@ -50,3 +50,9 @@ export type openPopUpOptions =
   | "";
 
 export type darkenBackgroundOptions = 0 | 0.4 | 0.8;
+
+export type backgroundPositionMenuTypes = {
+  boxSizeXY: number;
+  dotSizeXY: number;
+  centerDot: number;
+};

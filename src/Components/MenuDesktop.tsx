@@ -133,12 +133,12 @@ const MenuDesktop = ({
           />
           <div className="inline-flex w-full">
             <button
+              name="export_chart"
               className="export-button my-8 w-full min-w-[66%]"
               onClick={() => {
                 exportAsImage(
                   exportRef.current!,
-                  `topster_${sessionStorage.getItem("selectedChart")!.split(" ").join("_")}` ??
-                    "title",
+                  `${sessionStorage.getItem("selectedChart") ? `topster_${sessionStorage.getItem("selectedChart")!.split(" ").join("_")}` : "title"}`,
                   exportOptions,
                 );
               }}

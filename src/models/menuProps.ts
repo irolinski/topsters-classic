@@ -1,5 +1,6 @@
 import { MutableRefObject } from "react";
 import {
+  backgroundPositionMenuTypes,
   chartSavedData,
   darkenBackgroundOptions,
   lastFmAlbum,
@@ -34,7 +35,7 @@ export type allContextPropTypes = {
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  inputRef: MutableRefObject<HTMLInputElement | null>;
+  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;
@@ -98,15 +99,11 @@ export type MobileMenuPropTypes = {
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;
   handleSetBackgroundImg: (url: string) => void;
-  backgroundPositionMenu: {
-    boxSizeXY: number;
-    dotSizeXY: number;
-    centerDot: number;
-  };
+  backgroundPositionMenu: backgroundPositionMenuTypes;
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  inputRef: MutableRefObject<HTMLInputElement | null>;
+  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;
@@ -151,15 +148,11 @@ export type DesktopMenuPropTypes = {
   handleSetBackgroundColor: (newColor: string) => void;
   backgroundImg: string;
   handleSetBackgroundImg: (url: string) => void;
-  backgroundPositionMenu: {
-    boxSizeXY: number;
-    dotSizeXY: number;
-    centerDot: number;
-  };
+  backgroundPositionMenu: backgroundPositionMenuTypes;
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  inputRef: MutableRefObject<HTMLInputElement | null>;
+  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;

@@ -137,6 +137,7 @@ const MenuMobile = ({
           />
           <div className="inline-flex w-full justify-center">
             <button
+              name="export_chart"
               className="export-button my-8 min-w-[66%]"
               onClick={() => handleSetOpenModal("")}
               aria-label="Close mobile menu"
