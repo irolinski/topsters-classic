@@ -320,7 +320,7 @@ const Top100 = ({
 
       {/* SOURCE canvas */}
       <div
-        className={`top100-container html2canvas-container flex w-full flex-col content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"}}`}
+        className={`top100-container html2canvas-container flex w-full flex-col content-center px-[40px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${chartTitle && "show-chart-title"}`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
@@ -365,7 +365,7 @@ const Top100 = ({
                   {top100Data.slice(0, 10).map((a, i) => {
                     return (
                       <div
-                        className={`table-box table-box-lg m-[2px] h-[120px] w-[120px]`}
+                        className={`table-box table-box-lg m-[2px] h-[120px] w-[120px] flex flex-col justify-center`}
                         key={i}
                       >
                         {a.hasOwnProperty("image") ? (
