@@ -242,9 +242,6 @@ const MenuContextProvider = (props: ContextProviderProps) => {
     setChartDirty(true);
   };
 
-  //file input ref
-  // const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
-
   //export image
   const exportRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
   const [exportOptions, setExportOptions] = useState<{
@@ -311,7 +308,6 @@ const MenuContextProvider = (props: ContextProviderProps) => {
         chartDirty,
         refresh,
         drawAlbumToCanvas,
-        // inputRef,
         exportRef,
         exportOptions,
         handleSetExportOptions,

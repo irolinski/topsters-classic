@@ -109,10 +109,7 @@
   .color-picker-div {
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.43);
-    // position: absolute;
     z-index: 20;
-    // transform: translate(170px, -130px) scale(0.6);
-    // transform: translate(55%, -35%) scale(0.6);
   }
 
   // arrow for the box -- unused because of overflow: scroll
@@ -337,7 +334,6 @@ button.no-style {
 
   @media (min-width: 1025px) {
     transform: scale(0.6) !important;
-    // transform: none !important;
     top: 15vh;
   }
 
@@ -404,7 +400,6 @@ button.no-style {
     display: block;
     font-size: 11px;
     font-weight: 500;
-    // line-height: 0.8;
     line-height: 12px;
     color: white;
   }
@@ -478,7 +473,6 @@ button.no-style {
 
   @media (min-width: 1025px) {
     transform: scale(0.6) !important;
-    // transform: none !important;
     top: 12.5%;
   }
 
@@ -504,10 +498,6 @@ button.no-style {
 .top40-container.hide-album-titles {
   width: 730px; //FOR THE CLASSIC BOXY LOOK
 
-  // .second-tier-classics > flex {
-  //   width: 580px;   // FOR THE WIDE MODERN LOOK ^^
-  // }
-
   display: flex;
   background-color: black;
   background-size: cover;
@@ -518,7 +508,6 @@ button.no-style {
     font-weight: 500;
     text-wrap: nowrap;
     overflow: visible;
-    // line-height: 0.8;
     line-height: 12px;
     color: white;
   }
@@ -545,8 +534,7 @@ button.no-style {
 
   span {
     display: block;
-    // font-size: 10px;
-    // font-weight: 500;
+
     line-height: 7.8px;
     color: white;
   }
@@ -594,7 +582,6 @@ button.no-style {
     font-weight: 500;
     text-wrap: nowrap;
     overflow: visible;
-    // line-height: 0.8;
     line-height: 12px;
     color: white;
   }

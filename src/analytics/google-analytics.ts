@@ -1,7 +1,7 @@
 let initialized = false;
 
 export const loadGoogleAnalytics = () => {
-  const GA_ID = import.meta.env.GOOGLE_ANALYTICS_ID;
+  const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
   if (initialized || !GA_ID) return;
 
   initialized = true;
