@@ -9,6 +9,7 @@ import {
   openPopUpOptions,
 } from "../../models/models";
 import { Tooltip } from "react-tooltip";
+import { CORS_PROXY_URL } from "../../constants";
 
 type BackgroundTypes = {
   openAccordion: openAccordionOptions;
@@ -135,7 +136,7 @@ const Background = ({
                           );
                         } else {
                           handleSetBackgroundImg(
-                            `https://corsproxy.io/?${evt.currentTarget.value}`,
+                            `${CORS_PROXY_URL}${evt.currentTarget.value}`,
                           );
                         }
                       }
@@ -160,7 +161,7 @@ const Background = ({
                         return;
                       }
                       handleSetBackgroundImg(
-                        `https://corsproxy.io/?${backgroundImgInputValue}`,
+                        `${CORS_PROXY_URL}${backgroundImgInputValue}`,
                       );
                     }}
                     aria-hidden={`${openModal !== "" && "true"}`}

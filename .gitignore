@@ -1,0 +1,5 @@
+node_modules
+dist
+.env
+bugs.txt
+.DS_Store
