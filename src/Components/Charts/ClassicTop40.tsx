@@ -87,7 +87,7 @@ const ClassicTop40 = ({
     <div className={`max-h-0 ${chartTitle && "-translate-y-[20px]"}`}>
       {/* UI canvas */}
       <div
-        className={`top40-container top40-ui top-[-16vh] flex w-full flex-col content-center object-scale-down px-[40px] xxs:top-[-12vh] xs:top-[-10vh] sm:top-[-8vh] md:top-[0px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${enableShadows && "enable-shadows"} ${chartTitle && "show-chart-title"} }`}
+        className={`top40-container top40-ui top-[-16vh] flex w-full flex-col content-center object-scale-down px-[40px] xxs:top-[-12vh] xs:top-[-10vh] sm:top-[-8vh] md:top-[0px] ${hideAlbumTitles ? "hide-album-titles" : "show-album-titles"} ${enableShadows ? "enable-shadows" : ""} ${chartTitle ? "show-chart-title" : ""} }`}
         ref={exportRef}
         style={{
           backgroundColor: `${backgroundColor}`,
