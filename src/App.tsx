@@ -18,8 +18,6 @@ import SaveModal from "./Components/MenuElements/Modals/SaveModal";
 import WelcomeModal from "./Components/MenuElements/Modals/Welcome";
 import CookieConsentBanner from "./Components/CookieConsentBanner";
 
-// const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
-
 function App() {
   const menu = useContext(MenuContext);
 

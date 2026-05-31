@@ -35,7 +35,6 @@ export type allContextPropTypes = {
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;
@@ -61,8 +60,6 @@ export type allContextPropTypes = {
   exportRef: MutableRefObject<HTMLInputElement | null>;
   selectedIndex: number;
   currentChart: chartSavedData;
-  // currentChartName: string;
-  // name: string;
   top40Data?: lastFmAlbum[] | Record<string, never>[] | undefined;
   top100Data?: lastFmAlbum[] | Record<string, never>[] | undefined;
   collageData?: lastFmAlbum[] | Record<string, never>[] | undefined;
@@ -103,7 +100,6 @@ export type MobileMenuPropTypes = {
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;
@@ -152,7 +148,6 @@ export type DesktopMenuPropTypes = {
   handleBackgroundPositionChange: (dragX: number, dragY: number) => void;
   backgroundImgMode: string;
   handleSetBackgroundImgMode: (newMode: string) => void;
-  // inputRef: MutableRefObject<HTMLInputElement | null>;
   fontFamily: string;
   handleSetFontFamily: (newFontName: string) => void;
   fontColorHeader: string;

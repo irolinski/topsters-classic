@@ -3,7 +3,6 @@ import html2canvas from "html2canvas";
 export const downloadImage = (blob: Blob | string, fileName: string) => {
   try {
     const fakeLink = window.document.createElement("a");
-    // fakeLink.style = "display:none;";
     fakeLink.style.setProperty("display", "none");
     fakeLink.download = fileName;
 
