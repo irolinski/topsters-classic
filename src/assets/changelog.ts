@@ -2,6 +2,11 @@ export type changelogDatum = { date: string; message: string };
 
 const changelogData: changelogDatum[] = [
   {
+    date: "2026-05-31",
+    message:
+      "Updated dependencies, switched cors proxy provider, removed numerous bugs",
+  },
+  {
     date: "2024-08-20",
     message: "Added a 'Welcome' modal for the first-time visitors.",
   },
