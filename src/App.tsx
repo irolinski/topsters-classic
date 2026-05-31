@@ -16,6 +16,7 @@ import MenuLinks from "./Components/MenuElements/Mobile/MenuLinks";
 import { chartSavedData } from "./models/models";
 import SaveModal from "./Components/MenuElements/Modals/SaveModal";
 import WelcomeModal from "./Components/MenuElements/Modals/Welcome";
+import CookieConsentBanner from "./Components/CookieConsentBanner";
 
 // const apiKey = import.meta.env.VITE_LAST_FM_API_KEY;
 
@@ -86,6 +87,7 @@ function App() {
 
   return (
     <div className="flex h-full max-h-[120vh] w-full flex-col justify-center">
+      <CookieConsentBanner appModalState={Boolean(menu.openModal) === false} />
       <main className="flex flex-wrap justify-center lg:block">
         {/* MODAL - WELCOME - appears if localStorage.length === 0 */}
         <WelcomeModal
