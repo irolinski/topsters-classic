@@ -1,187 +1,291 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Search from "../src/Components/Search";
-import React from "react";
-// import "@testing-library/jest-dom";
-// ^^ it resolves type errors but make the suite bug out ^^
+import { lastFmAlbum } from "../src/models/models";
 
-describe("Search Component", () => {
-  const mockDrawAlbumToCanvas = vi.fn();
-  const mockHandleOpenAccordion = vi.fn();
+const jsonResponse = (body: unknown) =>
+  ({
+    ok: true,
+    status: 200,
+    json: () => Promise.resolve(body),
+  }) as Response;
+
+const makeAlbum = (overrides: Partial<lastFmAlbum> = {}): lastFmAlbum => ({
+  name: "Test Album",
+  artist: "Test Artist",
+  url: "https://www.last.fm/music/Test+Artist/Test+Album",
+  image: [
+    { "#text": "", size: "small" },
+    { "#text": "https://example.com/album-64.png", size: "medium" },
+    { "#text": "https://example.com/album-174.png", size: "large" },
+    { "#text": "https://example.com/album-300.png", size: "extralarge" },
+  ],
+  ...overrides,
+});
+
+const searchResponse = (albums: lastFmAlbum[]) => ({
+  results: {
+    albummatches: {
+      album: albums,
+    },
+  },
+});
+
+const renderSearch = (
+  {
+    selectedIndex = 0,
+    openAccordion = "",
+    openModal = "",
+  }: {
+    selectedIndex?: number;
+    openAccordion?: "" | "search";
+    openModal?: "" | "save";
+  } = {},
+) => {
+  const drawAlbumToCanvas = vi.fn();
+  const handleOpenAccordion = vi.fn();
+
+  const view = render(
+    <Search
+      selectedIndex={selectedIndex}
+      drawAlbumToCanvas={drawAlbumToCanvas}
+      openAccordion={openAccordion}
+      handleOpenAccordion={handleOpenAccordion}
+      openModal={openModal}
+    />,
+  );
+
+  return { ...view, drawAlbumToCanvas, handleOpenAccordion };
+};
+
+const getSearchControls = () => ({
+  input: screen.getByRole("textbox", { name: /search for albums/i }),
+  button: screen.getByRole("button", { name: /search input/i }),
+});
+
+describe("Search", () => {
+  let fetchMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    // Clear mocks before each test to ensure independence between tests
-    mockDrawAlbumToCanvas.mockClear();
-    mockHandleOpenAccordion.mockClear();
+    fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
   });
 
-  test("renders Search component correctly", () => {
-    render(
-      <Search
-        selectedIndex={0}
-        drawAlbumToCanvas={mockDrawAlbumToCanvas}
-        openAccordion={""}
-        handleOpenAccordion={mockHandleOpenAccordion}
-        openModal={""}
-      />,
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
+  it("renders an accessible search box with the Last.fm attribution", () => {
+    renderSearch();
+
+    expect(screen.getByRole("search")).toBeInTheDocument();
+    expect(getSearchControls().input).toHaveValue("");
+    expect(getSearchControls().button).toBeEnabled();
+    expect(screen.getByText(/data provided thanks to/i)).toBeInTheDocument();
+    expect(screen.getByText(/database api/i)).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("keeps the typed query in the input", async () => {
+    const user = userEvent.setup();
+    renderSearch();
+
+    const { input } = getSearchControls();
+    await user.type(input, "Pink Floyd");
+
+    expect(input).toHaveValue("Pink Floyd");
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("queries the Last.fm album search endpoint with the typed query", async () => {
+    const user = userEvent.setup();
+    const album = makeAlbum();
+    fetchMock.mockResolvedValue(jsonResponse(searchResponse([album])));
+
+    const { handleOpenAccordion } = renderSearch({ selectedIndex: 2 });
+    const { input, button } = getSearchControls();
+
+    await user.type(input, "Pink Floyd");
+    await user.click(button);
+
+    await screen.findByText("Test Album");
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const requestedUrl = new URL(fetchMock.mock.calls[0][0] as string);
+    expect(`${requestedUrl.origin}${requestedUrl.pathname}`).toBe(
+      "https://ws.audioscrobbler.com/2.0/",
+    );
+    expect(requestedUrl.searchParams.get("method")).toBe("album.search");
+    expect(requestedUrl.searchParams.get("album")).toBe("Pink Floyd");
+    expect(requestedUrl.searchParams.get("format")).toBe("json");
+    expect(requestedUrl.searchParams.get("api_key")).toBeTruthy();
+    expect(handleOpenAccordion).toHaveBeenCalledWith("search");
+  });
+
+  it("renders returned albums and adds the clicked album to the selected index", async () => {
+    const user = userEvent.setup();
+    const album = makeAlbum();
+    fetchMock.mockResolvedValue(jsonResponse(searchResponse([album])));
+
+    const { drawAlbumToCanvas } = renderSearch({ selectedIndex: 2 });
+    const { input, button } = getSearchControls();
+
+    await user.type(input, "Test Album");
+    await user.click(button);
+
+    const albumCard = await screen.findByLabelText(
+      /Add album Test Album by Test Artist/,
+    );
+    expect(albumCard).toHaveAttribute(
+      "aria-label",
+      expect.stringContaining("index:3"),
+    );
+    expect(albumCard.querySelector("img")).toHaveAttribute(
+      "src",
+      album.image[1]["#text"],
     );
 
-    // Check for the presence of input and button elements
-    const inputElement = screen.getByRole("textbox", {
-      name: /search for albums/i,
-    });
-    const buttonElement = screen.getByRole("button", { name: /search input/i });
+    await user.click(albumCard);
 
-    //@ts-ignore
-    expect(inputElement).toBeInTheDocument();
-    //@ts-ignore
-    expect(buttonElement).toBeInTheDocument();
+    expect(drawAlbumToCanvas).toHaveBeenCalledTimes(1);
+    expect(drawAlbumToCanvas).toHaveBeenCalledWith(2, album);
   });
 
-  test("updates input value correctly", () => {
-    render(
-      <Search
-        selectedIndex={0}
-        drawAlbumToCanvas={mockDrawAlbumToCanvas}
-        openAccordion={""}
-        handleOpenAccordion={mockHandleOpenAccordion}
-        openModal={""}
-      />,
+  it("runs the search when Enter is pressed", async () => {
+    const user = userEvent.setup();
+    fetchMock.mockResolvedValue(
+      jsonResponse(searchResponse([makeAlbum({ name: "Entered Album" })])),
     );
 
-    const inputElement = screen.getByRole("textbox", {
-      name: /search for albums/i,
-    });
+    const { handleOpenAccordion } = renderSearch();
+    const { input } = getSearchControls();
 
-    fireEvent.change(inputElement, { target: { value: "Pink Floyd" } });
-    //@ts-ignore
-    expect(inputElement).toHaveValue("Pink Floyd");
+    await user.type(input, "Entered Album{enter}");
+
+    await screen.findByText("Entered Album");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(handleOpenAccordion).toHaveBeenCalledWith("search");
   });
 
-  test("triggers search on button click", async () => {
-    const mockFetchResponse = {
-      results: {
-        albummatches: {
-          album: [
-            {
-              name: "Test Album",
-              artist: "Test Artist",
-              image: [{}, { "#text": "test-image-url" }],
-            },
-          ],
-        },
-      },
-    };
-
-    // Mock the global fetch function
-    //@ts-ignore
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(mockFetchResponse),
+  it("shows a loading indicator until the API responds", async () => {
+    const user = userEvent.setup();
+    let resolveFetch!: (value: Response) => void;
+    fetchMock.mockReturnValue(
+      new Promise<Response>((resolve) => {
+        resolveFetch = resolve;
       }),
     );
 
-    render(
-      <Search
-        selectedIndex={0}
-        drawAlbumToCanvas={mockDrawAlbumToCanvas}
-        openAccordion={""}
-        handleOpenAccordion={mockHandleOpenAccordion}
-        openModal={""}
-      />,
+    const { container } = renderSearch();
+    const { input, button } = getSearchControls();
+
+    await user.type(input, "Test Album");
+    await user.click(button);
+
+    expect(container.querySelector(".dot-loader")).toBeInTheDocument();
+
+    resolveFetch(
+      jsonResponse(searchResponse([makeAlbum({ name: "Loaded Album" })])),
     );
 
-    const inputElement = screen.getByRole("textbox", {
-      name: /search for albums/i,
-    });
-    const buttonElement = screen.getByRole("button", { name: /search input/i });
-
-    // Change input value and click button
-    fireEvent.change(inputElement, { target: { value: "Test Album" } });
-    fireEvent.click(buttonElement);
-
-    // Wait for the search results to appear in the document
-    await waitFor(() => {
-      //@ts-ignore
-      expect(screen.getByText(/test album/i)).toBeInTheDocument();
-    });
+    await screen.findByText("Loaded Album");
+    expect(container.querySelector(".dot-loader")).not.toBeInTheDocument();
   });
 
-  test("displays API-generated error message on API failure", async () => {
-    // Mock fetch to simulate an error response
-    global.fetch = vi.fn(() => Promise.reject(new Error("Failed to fetch")));
+  it("shows the no-results message when Last.fm returns an empty album list", async () => {
+    const user = userEvent.setup();
+    fetchMock.mockResolvedValue(jsonResponse(searchResponse([])));
 
-    render(
-      <Search
-        selectedIndex={0}
-        drawAlbumToCanvas={mockDrawAlbumToCanvas}
-        openAccordion={""}
-        handleOpenAccordion={mockHandleOpenAccordion}
-        openModal={""}
-      />,
-    );
+    renderSearch();
+    const { input, button } = getSearchControls();
 
-    const inputElement = screen.getByRole("textbox", {
-      name: /search for albums/i,
-    });
-    const buttonElement = screen.getByRole("button", { name: /search input/i });
+    await user.type(input, "Unknown Album");
+    await user.click(button);
 
-    fireEvent.change(inputElement, {
-      target: { value: "Nonexistent Album 15000" },
-    });
-    fireEvent.click(buttonElement);
-
-    // Wait for the error message to appear in the document
-    await waitFor(() => {
-      //@ts-ignore
-      expect(screen.getByText(/Failed to fetch/)).toBeInTheDocument();
-    });
-
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    await screen.findByText("No results. Try again!");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  test('displays "No results. Try again!" when no search results are found', async () => {
-    // Mock fetch to simulate a response with no search results
-    //@ts-ignore
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        json: () =>
-          Promise.resolve({
-            results: {
-              albummatches: {
-                album: [], // No albums found
-              },
-            },
-          }),
+  it("shows a network error and stops loading when the request fails", async () => {
+    const user = userEvent.setup();
+    fetchMock.mockRejectedValue(new Error("Failed to fetch"));
+
+    const { container } = renderSearch();
+    const { input, button } = getSearchControls();
+
+    await user.type(input, "Test Album");
+    await user.click(button);
+
+    await screen.findByText("Failed to fetch");
+    expect(container.querySelector(".dot-loader")).not.toBeInTheDocument();
+  });
+
+  it("shows the no-results message when Last.fm returns an error payload", async () => {
+    const user = userEvent.setup();
+    fetchMock.mockResolvedValue(
+      jsonResponse({
+        error: 10,
+        message: "Invalid API key - You must be granted a valid key by last.fm",
       }),
     );
 
-    render(
-      <Search
-        selectedIndex={0}
-        drawAlbumToCanvas={mockDrawAlbumToCanvas}
-        openAccordion={""}
-        handleOpenAccordion={mockHandleOpenAccordion}
-        openModal={""}
-      />,
+    renderSearch();
+    const { input, button } = getSearchControls();
+
+    await user.type(input, "Test Album");
+    await user.click(button);
+
+    await screen.findByText("No results. Try again!");
+  });
+
+  it("does not render albums that have no artwork", async () => {
+    const user = userEvent.setup();
+    const albumWithoutArt = makeAlbum({
+      name: "Hidden Album",
+      artist: "Hidden Artist",
+      image: [
+        { "#text": "", size: "small" },
+        { "#text": "", size: "medium" },
+      ],
+    });
+    const albumWithArt = makeAlbum({
+      name: "Visible Album",
+      artist: "Visible Artist",
+    });
+    fetchMock.mockResolvedValue(
+      jsonResponse(searchResponse([albumWithoutArt, albumWithArt])),
     );
 
-    const inputElement = screen.getByRole("textbox", {
-      name: /search for albums/i,
-    });
-    const buttonElement = screen.getByRole("button", { name: /search input/i });
+    renderSearch();
+    const { input, button } = getSearchControls();
 
-    // Simulate user typing in search input and clicking search button
-    fireEvent.change(inputElement, { target: { value: "Unknown Album" } });
-    fireEvent.click(buttonElement);
+    await user.type(input, "Album");
+    await user.click(button);
 
-    // Wait for the "No results. Try again!" message to appear
-    await waitFor(() => {
-      //@ts-ignore
-      expect(screen.getByText(/no results\. try again!/i)).toBeInTheDocument();
-    });
+    await screen.findByText("Visible Album");
+    expect(screen.queryByText("Hidden Album")).not.toBeInTheDocument();
+  });
 
-    // Check that the fetch call was made
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+  it("reflects the open accordion state on the results panel", () => {
+    renderSearch({ openAccordion: "search" });
+
+    expect(document.getElementById("search-results-div")).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+  });
+
+  it("hides the search controls from assistive technology while a modal is open", () => {
+    renderSearch({ openModal: "save" });
+
+    expect(screen.getByRole("search", { hidden: true })).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
+    expect(
+      screen.getByLabelText(/search for albums/i),
+    ).toHaveAttribute("aria-hidden", "true");
   });
 });
