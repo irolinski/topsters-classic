@@ -9,7 +9,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest",
-    "test:unit": "vitest --root src/"
+    "test:run": "vitest run",
+    "test:unit": "vitest run _tests_/Search.test.tsx _tests_/ExportImage.test.tsx _tests_/DownloadImage.test.ts _tests_/MenuElements.test.tsx",
+    "test:api": "vitest run _tests_/Last_FM_API.test.ts"
   },
   "dependencies": {
     "cookie-consent-react": "^1.2.8",
